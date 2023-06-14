@@ -21,10 +21,9 @@ return new class extends Migration
             $table->string('nkname',10)->unique();
             $table->string('password', 100);
             $table->string('user_phone_num',11);
-            $table->integer('gole_kcal');
             $table->timestamps();
             $table->softDeletes();
-            $table->char('user_auth', 1)->default('1');
+            $table->char('user_status', 1)->default('1'); // erd 랑 기본값 셋팅 다름
         });
     }
 

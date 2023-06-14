@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('quest_cate_id');
             $table->timestamps();
-            $table->char('complete_flg', 1)->default(0);
+            $table->char('complete_flg', 1)->default('0');
         });
     }
 
