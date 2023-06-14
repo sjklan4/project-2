@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('gole_kcal');
             $table->timestamps();
             $table->softDeletes();
+            $table->char('user_auth', 1)->default('1');
         });
     }
 
