@@ -14,8 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('diet_food', function (Blueprint $table) {
-            $table->id();
+            $table->integer('df_id')->autoIncrement();
+            $table->integer('food_id');
+            $table->integer('d_id');
+            $table->string('df_name', 20);
+            $table->integer('df_kcal');
+            $table->integer('df_carbs');
+            $table->integer('df_protein');
+            $table->integer('df_fat');
+            $table->integer('df_sugar')->nullable();
+            $table->integer('df_sodium')->nullable();
+            $table->decimal('df_intake', 4, 1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
