@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('board_replies', function (Blueprint $table) {
-            $table->id();
+            $table->integer('reply_id')->autoIncrement();
+            $table->integer('user_id');
+            $table->integer('board_id');
+            $table->string('rcontent', 200);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

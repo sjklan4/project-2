@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('food_infos', function (Blueprint $table) {
-            $table->interger('food_id')->autoIncrement();
-            $table->interger('user_id');
+            $table->integer('food_id')->autoIncrement();
+            $table->integer('user_id');
             $table->string('food_name', 20);
             $table->integer('kcal');
             $table->integer('carbs');

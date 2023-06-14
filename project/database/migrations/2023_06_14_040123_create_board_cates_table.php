@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('board_cates', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('bcate_id')->autoIncrement();
+            $table->string('bcate_name', 20)->unique();
         });
     }
 

@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('board_likes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('like_id')->autoIncrement();
+            $table->integer('board_id');
+            $table->integer('user_id');
         });
     }
 
