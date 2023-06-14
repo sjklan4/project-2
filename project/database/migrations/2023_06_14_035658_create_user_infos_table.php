@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('user_id')->autoIncrement();
             $table->string('user_email',50)->unique();
             $table->string('user_name',30);
-            $table->string('remember_token');
+            $table->string('remember_token')->nullable();
             $table->string('nkname',10)->unique();
             $table->string('password', 100);
             $table->string('user_phone_num',11);
