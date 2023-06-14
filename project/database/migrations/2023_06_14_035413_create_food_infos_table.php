@@ -14,8 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('food_infos', function (Blueprint $table) {
-            $table->id();
+            $table->interger('food_id')->autoIncrement();
+            $table->interger('user_id');
+            $table->string('food_name', 20);
+            $table->integer('kcal');
+            $table->integer('carbs');
+            $table->integer('protein');
+            $table->integer('fat');
+            $table->integer('sugar')->nullable();
+            $table->integer('sodium')->nullable();
+            $table->integer('serving');
+            $table->char('ser_unit', 1)->default('0');
+            $table->char('userfood_flg', 1)->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
