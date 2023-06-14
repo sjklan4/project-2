@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_infos', function (Blueprint $table) {
-            $table->id();
+            $table->id('user_id')->autoIncrement();
+            $table->string('user_email',50)->unique();
+            $table->string('user_name',30);
+            $table->string('remember_token');
+            $table->string('nkname',10)->unique();
+            $table->password();
+            $table->string('user_phone_num',11);
+            $table->integer('gole_kcal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
