@@ -10,7 +10,7 @@ class UserInfo extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'user_info';
+    protected $table = 'user_infos';
 
     protected $primery = 'user_id';
 
