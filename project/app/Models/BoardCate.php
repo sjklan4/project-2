@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class BoardCate extends Model
 {
     use HasFactory;
+    protected $table = 'board_cates';
+
+    protected $primaryKey = 'bcate_id';
+
+    protected $guarded = ['bcate_id'];
 }
