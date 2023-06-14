@@ -14,9 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('diets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            //test test
+            $table->integer('d_id')->autoIncrement();
+            $table->integer('user_id');
+            $table->date('d_date');
+            $table->char('d_flg', 1);
+            $table->string('d_img_path')->nullable();
         });
     }
 

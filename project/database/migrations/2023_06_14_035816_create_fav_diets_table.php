@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('fav_diets', function (Blueprint $table) {
-            $table->id();
+            $table->integer('fav_id')->autoIncrement();
+            $table->integer('user_id');
+            $table->string('fav_name', 10);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
