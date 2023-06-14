@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\test>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\KcalInfo>
  */
-class TestFactory extends Factory
+class KcalInfoFactory extends Factory
 {
     /**
      * Define the model's default state.
