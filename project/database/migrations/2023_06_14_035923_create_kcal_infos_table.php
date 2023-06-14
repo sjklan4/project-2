@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kcal_infos', function (Blueprint $table) {
-            $table->id();
+            $table->integer('user_id')->primary();
+            $table->char('user_gen',1);
+            $table->integer('user_age');
+            $table->integer('user_tall');
+            $table->integer('user_weigth');
+            $table->char('user_activity',1);
             $table->timestamps();
         });
     }
