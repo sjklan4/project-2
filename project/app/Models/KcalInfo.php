@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class KcalInfo extends Model
 {
     use HasFactory;
+
+    protected $table = 'kcal_infos';
+
+    protected $primaryKey = 'user_id';
+
+    protected $guarded = ['user_id'];
 }

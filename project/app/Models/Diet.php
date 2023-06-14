@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Diet extends Model
 {
     use HasFactory;
+
+    protected $table = 'diets';
+
+    protected $primaryKey = 'd_id';
+
+    protected $guarded = ['d_id'];
 }
