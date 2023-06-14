@@ -13,7 +13,7 @@ class BoardReply extends Model
 
     protected $primaryKey = 'reply_id';
 
-    protected $guarded = ['reply_id', 'created_at'];
+    protected $guarded = ['reply_id'];
 
     protected $dates = ['deleted_at'];
 }

@@ -13,7 +13,7 @@ class Board extends Model
 
     protected $primaryKey = 'board_id';
 
-    protected $guarded = ['board_id', 'created_at'];
+    protected $guarded = ['board_id'];
 
     protected $dates = ['deleted_at'];
 }
