@@ -8,6 +8,7 @@
  **********************************************/
 namespace App\Http\Controllers;
 
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,6 +17,11 @@ class HomeController extends Controller
 
     public function home($id)
     {
-        return view('home')->with("id",$id);
+        $data = UserInfo::find($id);
+        // return view('home')->with("id",$id);
+        // var_dump($data);
+        // exit;
+
+        return view('home')->with("data",$data);
     }
 }

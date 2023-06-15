@@ -30,35 +30,42 @@
 /* 마이 칼로리 */
 #myDiet{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     grid-gap: 5px;
-    background: yellow;
 }
 #myDiet > div.box1{
+    display: flex;
     height: 200px;
-    background: blue;
 }
 
 #myDiet > div.box2{
     height: 200px;
     background: red;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-/* div.box3{
-    height: 100%;
+div.sub1{
+    width: 50%;
+    height: 200px;
+    background: yellow;
+}
+div.sub2{
+    width: 50%;
+    height: 200px;
     background: pink;
 }
-div.box4{
-    height: 100%;
-    background: green;
-} */
-/* div.kcal{
-    width: 50%;
-    height: 100%;
-    color: gray;
+div.sub3{
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    background: blue;
 }
-div.tdg1{
-    width: 50%;
-    height: 100%;
-    color: white;
-} */
+div.sub4{
+    background: red;
+}
+
+/* 식단 아침~간식 */
+div.foodBox{
+    width: 100%;
+    min-height: 200px;
+    background-color: #FFFFF0;
+};
