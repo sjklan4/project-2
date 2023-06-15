@@ -24,7 +24,7 @@ Route::get('/', function () {
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\BoardController;
-Route::resource('/tasks', BoardController::class);
+Route::resource('/board', BoardController::class);
 
 
 // ---------------------------------------------
