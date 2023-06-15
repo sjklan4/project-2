@@ -5,7 +5,7 @@
 @section('contents')
 
 
-<form action="{{route()}}"></form>
+@csrf
 <label for="email">email : </label>
 <input type="text" name="email" id="email">
 <br>
@@ -13,5 +13,7 @@
 <input type="password" name="password" id="password">
 <br>
 <button type="submti">로그인</button>
+<br>
+<button type="button"onclick="location.href = '{{route('user.regist')}}'">회원가입</button>
 
 @endsection

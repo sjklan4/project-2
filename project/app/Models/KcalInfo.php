@@ -13,5 +13,5 @@ class KcalInfo extends Model
 
     protected $primaryKey = 'user_id';
 
-    protected $guarded = ['user_id'];
+    protected $fillable = ['user_id','user_gen','user_birth'];
 }
