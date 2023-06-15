@@ -1,4 +1,10 @@
 <?php
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : BoardController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
 
 namespace App\Http\Controllers;
 
@@ -9,6 +15,7 @@ use App\Models\Board;
 use App\Models\BoardHit;
 use App\Models\BoardCate;
 use App\Models\BoardLike;
+use App\Models\UserInfo;
 
 class BoardController extends Controller
 {
@@ -19,13 +26,17 @@ class BoardController extends Controller
      */
     public function index()
     {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         $result = DB::table('boards')
             ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
             ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->orderBy('boards.board_id')
-            ->limit(20)
-            ->get();
+            ->paginate(10)
+            ;
 
         return view('boardList')->with('data', $result);
     }
@@ -43,12 +54,23 @@ class BoardController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $id = session('user_id');
+        $board_id = DB::table('boards')->insertGetId([
+                'user_id'    => $id
+                ,'nkname'    => UserInfo::find($id)->nkname
+                ,'bcate_id'  => $req->cate
+                ,'btitle'    => $req->title
+                ,'bcontent'  => $req->content
+            ]
+            ,'board_id'
+        );
+
+        return redirect()->route('board.show', ['board' => $board_id]);
     }
 
     /**
@@ -88,15 +110,11 @@ class BoardController extends Controller
      */
     public function edit($id)
     {
-        $boardHit = BoardHit::find($id);
         $board = Board::find($id);
-        $bcate = BoardCate::find($board->bcate_id);
 
         $arr = [
-            'cate'      => $bcate->bcate_name
-            ,'title'    => $board->btitle
+            'title'    => $board->btitle
             ,'content'  => $board->bcontent
-            ,'hits'     => $boardHit->board_hits
             ,'id'       => $board->board_id
             ,'like'     => $board->likes
         ];

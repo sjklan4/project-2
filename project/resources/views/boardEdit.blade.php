@@ -18,11 +18,11 @@
                     @method('put')
                     <label for="cate">카테고리</label>
                     <select name="cate" id="cate">
-                        <option value="0">건강 관리</option>
-                        <option value="1">다이어트</option>
-                        <option value="2">10대</option>
-                        <option value="3">20대</option>
-                        <option value="4">30대</option>
+                        <option value="1">건강 관리</option>
+                        <option value="2">다이어트</option>
+                        <option value="3">10대</option>
+                        <option value="4">20대</option>
+                        <option value="5">30대</option>
                     </select>
                     <br>
                     <label for="title">제목</label>
@@ -34,7 +34,7 @@
                     <label for="pic">사진</label>
                     <input type="file" name="pic" id="pic">
                     <button type="button" onclick="location.href='{{ url()->previous() }}'">취소</button>
-                    <button type="submit">작성</button>
+                    <button type="submit">수정</button>
                 </form>
             </div>
         </div>

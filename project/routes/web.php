@@ -59,7 +59,7 @@ Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
 Route::post('/user/registdup',[UserController::class, 'registdup'])->name('user.registdup');
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
-
+Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
 
 // ---------------------------------------------
