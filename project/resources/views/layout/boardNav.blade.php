@@ -1,4 +1,4 @@
-<h3>게시판</h3>
+<div>게시판</div>
 <ul class="nav flex-column">
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="#">전체</a>
