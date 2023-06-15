@@ -52,6 +52,11 @@ use App\Http\Controllers\FoodController;
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
+Route::get('/user/login', UserController::class,'login')->name('user.login');
+Route::post('/user/loginpost', UserController::class,'loginpost')->name('user.loginpost');
+
+
+
 
 
 // ---------------------------------------------
