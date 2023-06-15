@@ -70,7 +70,7 @@ use App\Http\Controllers\FavController;
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
-
+Route::get('/search', [SearchController::class, 'search']);
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
