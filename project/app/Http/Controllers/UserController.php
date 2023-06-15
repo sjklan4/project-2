@@ -20,6 +20,7 @@ class UserController extends Controller
     }
 
     public function registpost(){
-        $user = DB::table('user_infos')->where('user_email')
+ 
+        return view('login');
     }
 }

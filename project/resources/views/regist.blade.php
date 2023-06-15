@@ -7,6 +7,7 @@
 <form action=""></form>
 <label for="email">이메일</label>
 <input type="text" name="email" id="email">
+<button type="button" onclick="location.href = '{{route('user.registdup')}}'">중복확인</button>
 <br>
 <label for="name">이름</label>
 <input type="text" name="name" id="name">

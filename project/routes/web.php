@@ -56,6 +56,7 @@ Route::get('/user/login', [UserController::class,'login'])->name('user.login');
 Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');
 
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
+Route::post('/user/registdup',[UserController::class, 'registdup'])->name('user.registdup');
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
 
 
