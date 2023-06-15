@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('kcal_infos', function (Blueprint $table) {
             $table->integer('user_id')->primary();
-            $table->integer('goal_kcal'); // edit
-            $table->integer('nutrition_ratio')->nullable(); // user 테이블쪽확인필요.. (성별,생년월일도)
+            $table->integer('goal_kcal')->default(0);
+            $table->integer('nutrition_ratio')->default(0);
             $table->char('user_gen',1);
             $table->date('user_birth');
-            $table->integer('user_tall');
-            $table->integer('user_weight');
-            $table->char('user_activity',1);
+            $table->integer('user_tall')->default(0);
+            $table->integer('user_weight')->default(0);
+            $table->char('user_activity',1)->default('0');
             $table->timestamps();
         });
     }
