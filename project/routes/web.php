@@ -25,7 +25,7 @@ Route::get('/', function () {
 // ---------------------------------------------
 use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
-Route::get('/board/{id}/like', [BoardController::class, 'like'])->name('board.like');
+Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 
 
 // ---------------------------------------------
