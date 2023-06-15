@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -12,5 +13,13 @@ class UserController extends Controller
 
     public function loginpost(Request $req){
         
+    }
+
+    public function regist(){
+        return view('regist');
+    }
+
+    public function registpost(){
+        $user = DB::table('user_infos')->where('user_email')
     }
 }
