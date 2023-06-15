@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserInfo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,10 +19,11 @@ class HomeController extends Controller
     public function home($id)
     {
         $data = UserInfo::find($id);
+        $date = Carbon::now()->format('Y-m-d');
         // return view('home')->with("id",$id);
         // var_dump($data);
         // exit;
 
-        return view('home')->with("data",$data);
+        return view('home')->with("data",$data)->with("date",$date);
     }
 }

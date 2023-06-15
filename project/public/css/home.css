@@ -18,7 +18,7 @@
     height: 35px;
     background-color: #FFFFF0;
 }
-#dateArea > div{
+#dateArea > div:nth-child(2n+1){
     margin-top: 5px;
 }
 #dateArea > .dateBox{
@@ -26,6 +26,39 @@
     font-weight: 700;
     text-align: center;
 }
+input[type="date"]{
+    position: relative;
+    width: 120px;
+    height: 35px;
+    padding-right: 20px;
+    outline: none;
+    border: none;
+    background: url(https://cdn-icons-png.flaticon.com/512/1250/1250599.png?w=740&t=st=1686849013~exp=1686849613~hmac=d3b8bc2ffdd6cd48ec807b3668640b6dc522bb2a4aa6b55c0df21122441f5bbb) no-repeat right 8px center / 10px auto;
+    background-size: 20px;
+}
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button {display: none;}
+input[type="date"]::-webkit-calendar-picker-indicator{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+}
+input[type="date"]::before{
+    content: attr(data-placeholder);
+    width: 100%;
+}
+input[type="date"]:valid::before {
+    display: none;
+}
+input[data-placehoder]::before{
+    color: red;
+}
+
 
 /* 마이 칼로리 */
 #myDiet{
@@ -60,7 +93,7 @@ div.sub3{
     background: blue;
 }
 div.sub4{
-    background: red;
+    background: gold;
 }
 
 /* 식단 아침~간식 */

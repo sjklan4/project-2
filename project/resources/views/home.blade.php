@@ -18,7 +18,7 @@
                 </svg>
             </div>
             <div class="dateBox">
-                <input type="date">
+                <input type="date" data-placeholder="{{$date}}" required>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="#538E04" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
