@@ -79,3 +79,4 @@ Route::get('/search', [SearchController::class, 'search']);
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
+Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
