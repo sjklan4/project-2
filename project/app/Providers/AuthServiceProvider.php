@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\Board;
+use App\Models\UserInfo;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Gate::define('updateBtn', function(UserInfo $user, Board $board){
+        //     return $board->user->is($user);
+        // });
     }
 }

@@ -59,7 +59,11 @@ class BoardController extends Controller
      */
     public function store(Request $req)
     {
+        // todo 로그인 확인
         $id = session('user_id');
+
+        // todo 트랜잭션
+        // 게시글 테이블에 인서트 후 pk 값 획득
         $board_id = DB::table('boards')->insertGetId([
                 'user_id'    => $id
                 ,'nkname'    => UserInfo::find($id)->nkname
@@ -69,6 +73,12 @@ class BoardController extends Controller
             ]
             ,'board_id'
         );
+        
+        // 조회수 테이블에 인서트
+        DB::table('board_hits')->insert([
+            'board_id'     => $board_id
+            ,'board_hits'  => 0
+        ]);
 
         return redirect()->route('board.show', ['board' => $board_id]);
     }
@@ -81,7 +91,9 @@ class BoardController extends Controller
      */
     public function show($id)
     {
+        
         $boardHit = BoardHit::find($id);
+        
         DB::table('board_hits')
             ->where('board_id', '=', $id)
             ->update(['board_hits' => $boardHit->board_hits + 1]);
@@ -97,6 +109,7 @@ class BoardController extends Controller
             ,'hits'     => $boardHit->board_hits
             ,'id'       => $board->board_id
             ,'like'     => $board->likes
+            ,'user_id'  => $board->user_id
         ];
 
         return view('boardDetail')->with('data', $arr);

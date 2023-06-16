@@ -16,4 +16,9 @@ class Board extends Model
     protected $guarded = ['board_id'];
 
     protected $dates = ['deleted_at'];
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(UserInfo::class, 'user_id');
+    // }
 }
