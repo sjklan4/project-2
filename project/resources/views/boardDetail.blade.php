@@ -7,7 +7,7 @@
         <div class="boardDetailTitle">
             <div>{{$data['cate']}}</div>
             <div>{{$data['title']}}</div>
-            <div>생성일</div>
+            <div>{{$data['created_at']}}</div>
             <div>{{$data['hits']}}</div>
         </div>
         <div class="boardDetailContet">

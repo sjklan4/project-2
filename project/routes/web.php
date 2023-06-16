@@ -24,19 +24,19 @@ Route::get('/', function () {
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\BoardController;
-// Route::resource('/board', BoardController::class);
+Route::resource('/board', BoardController::class);
 
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
+Route::get('/board/{board}/list', [BoardController::class, 'index'])->name('board.index');
 
 
-Route::get('/board/list/{board}', [BoardController::class, 'index'])->name('board.index');
-Route::post('/board', [BoardController::class, 'store'])->name('board.store');
-Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
-Route::get('/board/{board}', [BoardController::class, 'show'])->name('board.show');
-Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
-Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('board.destroy');
-Route::get('/board/{board}/edit', [BoardController::class, 'edit'])->name('board.edit');
+// Route::post('/board', [BoardController::class, 'store'])->name('board.store');
+// Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
+// Route::get('/board/{board}', [BoardController::class, 'show'])->name('board.show');
+// Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
+// Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('board.destroy');
+// Route::get('/board/{board}/edit', [BoardController::class, 'edit'])->name('board.edit');
 
 // // GET|HEAD        board ................................ board.index › BoardController@index  
 // // POST            board ................................ board.store › BoardController@store  
