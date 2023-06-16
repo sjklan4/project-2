@@ -90,3 +90,5 @@ Route::post('/foods/search', [SearchController::class, 'foodssearch'])->name('fo
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
 Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
+Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
+

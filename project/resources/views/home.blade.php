@@ -18,7 +18,13 @@
                 </svg>
             </div>
             <div class="dateBox">
-                <input type="date" data-placeholder="{{$date}}" required>
+                <form action="{{route('home.post')}}" method="post">
+                        @csrf
+                        <input name="getDate" id="calendar" type="date" data-placeholder="오늘" required value="{{$today}}">
+                        {{-- <input id="calendar" type="date" required> --}}
+                        {{-- <button type="button" onclick="chkDate();">이동</button> --}}
+                        <button type="submit">이동</button>
+                </form>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="#538E04" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
@@ -72,15 +78,17 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
                         Accordion Item #4
                         </button>
                     </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse">
+                    <div id="flush-collapseFour" class="accordion-collapse collapse">
                         <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="{{asset('js/home.js')}}"></script>
 @endsection

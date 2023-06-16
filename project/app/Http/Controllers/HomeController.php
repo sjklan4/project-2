@@ -16,14 +16,30 @@ class HomeController extends Controller
 {
     // Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
 
-    public function home($id)
+    public function home(Request $req, $id)
     {
+        // if(auth()->guest()) {
+        //     return redirect()->route('user.login');
+        // }
+
         $data = UserInfo::find($id);
-        $date = Carbon::now()->format('Y-m-d');
+        $today = Carbon::now()->format('Y-m-d');
+        if(empty($req)){
+            
+        }
+
+        $arrrData = [];
+
         // return view('home')->with("id",$id);
         // var_dump($data);
-        // exit;
+        // exit; //test
 
-        return view('home')->with("data",$data)->with("date",$date);
+        // return response()->json($data, 200); //test
+        return view('home')->with("data",$data)->with("today",$today);
     }
+
+    // public function homePost(Request $req)
+    // {
+    //     return var_dump($req);
+    // }
 }
