@@ -81,7 +81,6 @@ input[data-placehoder]::before{
 div.sub1{
     width: 50%;
     height: 200px;
-    background: yellow;
 }
 div.sub2{
     width: 50%;

@@ -10,6 +10,7 @@
 @endsection
 
 @section('contents')
+{{-- {{var_dump(session());}} --}}
     <div id="wrap">
         {{-- <h1>{{$data->user_name}}'s HOME</h1> --}}
         <h1>{{Auth::user()->user_name}}'s HOME</h1>
@@ -22,9 +23,8 @@
             <div class="dateBox">
                 <form action="{{route('home.post')}}" method="post">
                         @csrf
-                        <input name="getDate" id="calendar" type="date" data-placeholder="오늘" required value="{{$today}}">
-                        {{-- <input id="calendar" type="date" required> --}}
-                        {{-- <button type="button" onclick="chkDate();">이동</button> --}}
+                        <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$date}}">
+                        {{-- <input name="getDate" id="calendar" type="date" required> --}}
                         <button type="submit">이동</button>
                 </form>
             </div>
@@ -37,7 +37,7 @@
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
-                <div class="sub1"></div>
+                <div class="sub1">{{var_dump($result)}}</div>
                 <div class="sub2"></div>
             </div>
             <div class="box2">

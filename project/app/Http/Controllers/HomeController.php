@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserInfo;
+use App\Models\Diet;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,20 +21,22 @@ class HomeController extends Controller
 
     public function home()
     {
-        if(auth()->guest()) {
+        if(!Auth::user()) {
             return redirect()->route('user.login');
         }
 
         // $data = UserInfo::find($id);
-        $today = Carbon::now()->format('Y-m-d');
+        $date = Carbon::now()->format('Y-m-d');
 
-        $id = Auth::user()->user_name;
+        $id = Auth::user()->user_id;
+        $result = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
+
         // var_dump($id);
         // exit; //test
 
         // return response()->json($data, 200); //test
 
-        return view('home')->with("today",$today);
+        return view('home')->with("date",$date)->with("result",$result);
         // return view('home')->with("data",$data)->with("today",$today); // 찐
     }
 
@@ -40,11 +44,15 @@ class HomeController extends Controller
     {
         // $data = UserInfo::find($id);
         $id = Auth::user()->user_id;
-
         $date = $req->getDate;
-        var_dump($id);
+
+        $result = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
+
+
+        // var_dump($result);exit;
         // return var_dump($req->getDate);
 
-        // return view('home');
+        return view('home')->with("result",$result)->with("date",$date);
+        // return redirect()->back()->withInput(['date', $date ]);
     }
 }
