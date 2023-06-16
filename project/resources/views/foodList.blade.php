@@ -1,11 +1,17 @@
 @extends('layout.layout')
 
-@section('title', '음식 입력')
+@section('title', 'FoodSearch')
 
 @section('contents')
     @csrf
-    {{-- <form action="{{route('foods.search')}}" method="get"> --}}
-    <input type="text" name="search_input">
-    <button type="button" onclick="location.href='{{route('foods.search')}}'">검색</button>
-</form>
+    <form action="{{route('search')}}" method="post">
+        <input type="text" name="search_input">
+        <button type="submit">검색</button>
+    </form>
+
+    @forelse ($foddd as $item)
+        <input type="checkbox" name="searchname" id="searchname" value="{{ $item->food_name }}">
+    @empty
+        asdsa
+    @endforelse
 @endsection

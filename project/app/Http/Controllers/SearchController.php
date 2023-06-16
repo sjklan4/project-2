@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
 use Illuminate\Support\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -125,17 +126,30 @@ class SearchController extends Controller
         exit();
     }
     // v002 add : 음식 리스트 및 검색 기능 추가
-    public function foodsselect() {
-        return view('foodList');
+    public function searchselect() {
+        return redirect()->route('search.select');
     }
 
-    public function foodssearch(Request $req) {
-        // $foods = FoodInfo::all();
-        echo "한글";
+    public function search(Request $req, $id) {
+
         $usersearch = $req->search_input;
-        $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+        $foods = FoodInfo::select('food_id', 'food_name')
         ->where('food_name', 'like', '%'.$usersearch.'%')
+        ->where('userfood_flg', '0')
+        ->whereNotNull('deleted_at')
         ->get();
-        return $foods;
+
+        $user_id = FoodInfo::find($id);
+        $userfoods = FoodInfo::select('food_id', 'user_id', 'food_name')
+        ->where('food_name', 'like', '%'.$usersearch.'%')
+        ->where('userfood_flg', '1')
+        ->where('user_id', $user_id)
+        ->whereNotNull('deleted_at')
+        ->get();
+
+        // $result = array($foods, $userfoods);
+
+        return view('foodList')->with('foddd', $foods);
+        // return view('foodList')->with('foddd', $result);
     }
 }
