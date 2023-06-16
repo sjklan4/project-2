@@ -1,7 +1,8 @@
 @extends('layout.layout')
 
 @section('title')
-    {{$data->user_id}}'s HOME
+    {{-- {{$data->user_id}}'s HOME --}}
+    {{Auth::user()->user_id}}
 @endsection
 
 @section('css')
@@ -10,7 +11,8 @@
 
 @section('contents')
     <div id="wrap">
-        <h1>{{$data->user_name}}'s HOME</h1>
+        {{-- <h1>{{$data->user_name}}'s HOME</h1> --}}
+        <h1>{{Auth::user()->user_name}}'s HOME</h1>
         <div id="dateArea">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#538E04" class="bi bi-caret-left-fill" viewBox="0 0 16 16">

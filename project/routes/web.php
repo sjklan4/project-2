@@ -110,4 +110,5 @@ Route::post('/foods/search', [SearchController::class, 'foodssearch'])->name('fo
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
-Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
