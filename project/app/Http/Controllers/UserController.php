@@ -21,8 +21,8 @@ class UserController extends Controller
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){  
         $req->validate([
-            'email'    =>  'required|regex:/^[a-zA-Z]*$|email|^[가-힣]*$|max:30/'
-            ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/'
+            'email'    =>  'required|email|max:20'
+            ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         ]);
         
         // var_dump($req);
@@ -52,15 +52,16 @@ class UserController extends Controller
     }
 
     public function registpost(Request $req){
+        
 
-        // |regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/
+
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
-            ,'password' => 'regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+            ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
             ,'user_email'    => 'required|email|max:20'
             ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,20}$/'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num'),$rules,[
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
                 'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
                 'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 20자 이내로 해주세요',
                 'user_email' => 'email형식에 맞춰주세요',
