@@ -93,8 +93,8 @@ use App\Http\Controllers\FavController;
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
-Route::get('/foods/select', [SearchController::class, 'foodsselect'])->name('foods.select');
-Route::get('/foods/search', [SearchController::class, 'foodssearch'])->name('foods.search');
+Route::get('/search/select', [SearchController::class, 'searchselect'])->name('search.select');
+Route::get('/search/search', [SearchController::class, 'search'])->name('search');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
