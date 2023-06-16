@@ -34,9 +34,6 @@ class BoardController extends Controller
             ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
             ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
-<<<<<<< HEAD
-            ->orderBy('boards.board_id')
-=======
             ->orderBy('boards.created_at', 'desc')
             ->where('boards.deleted_at', null)
             ->paginate(10)
@@ -58,7 +55,6 @@ class BoardController extends Controller
             ->where('boards.bcate_id', $id)
             ->where('boards.deleted_at', null)
             ->orderBy('boards.created_at', 'desc')
->>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6
             ->paginate(10)
             ;
 
