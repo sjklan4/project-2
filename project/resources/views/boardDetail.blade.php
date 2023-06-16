@@ -12,12 +12,12 @@
         </div>
         <div class="boardDetailContet">
             <p>{{$data['content']}}</p>
-            {{-- <button
+            <button
                 type="button"
                 onclick="location.href='{{route('board.like', ['board' => $data['id']])}}'"
                 >좋아요 {{$data['like']}}
-            </button> --}}
-            <button type="button" id="likeBtn">좋아요 {{$data['like']}}</button>
+            </button>
+            {{-- <button type="button" id="likeBtn">좋아요 {{$data['like']}}</button> --}}
 
             {{-- todo @can 방법 : https://laracasts.com/series/laravel-6-from-scratch/episodes/50 --}}
             @if (Auth::user()->user_id === $data['user_id'])

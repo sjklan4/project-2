@@ -96,11 +96,9 @@ class BoardController extends Controller
 
         // 조회수 증가
         $boardHit = BoardHit::find($id);
-        
         DB::table('board_hits')
-            ->where('board_id', '=', $id)
-            ->update(['board_hits' => $boardHit->board_hits + 1]);
-        
+        ->where('board_id', '=', $id)
+        ->update(['board_hits' => $boardHit->board_hits + 1]);
 
         // 게시글 상세 정보 획득
         $boardHit = BoardHit::find($id);
@@ -169,6 +167,26 @@ class BoardController extends Controller
         //
     }
 
+    public function showDetail($id) 
+    {
+        // 게시글 상세 정보 획득
+        $boardHit = BoardHit::find($id);
+        $board = Board::find($id);
+        $bcate = BoardCate::find($board->bcate_id);
+
+        $arr = [
+            'cate'      => $bcate->bcate_name
+            ,'title'    => $board->btitle
+            ,'content'  => $board->bcontent
+            ,'hits'     => $boardHit->board_hits
+            ,'id'       => $board->board_id
+            ,'like'     => $board->likes
+            ,'user_id'  => $board->user_id
+        ];
+
+        return view('boardDetail')->with('data', $arr);
+    }
+
     public function like($id)
     {
         // todo 로그인 확인
@@ -213,6 +231,7 @@ class BoardController extends Controller
             });
         }
 
-        return redirect()->back();
+        return redirect()->route('board.showDetail', ['board' => $id]);
+        // $this->showDetail($id, false);
     }
 }

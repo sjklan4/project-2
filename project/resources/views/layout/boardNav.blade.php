@@ -35,3 +35,6 @@
     </div>
 @endsection
 
+@section('js')
+    <script src="{{ asset('js/board.js') }}"></script>
+@endsection
