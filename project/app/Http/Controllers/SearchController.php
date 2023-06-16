@@ -130,25 +130,12 @@ class SearchController extends Controller
     }
 
     public function foodssearch(Request $req) {
-// scout 설치 : composer require laravel/scout
-// scout 제거 : composer remove algolia/scout-extended
-// php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
-// Models > FoodInfo > use Searchable; 추가 및 임포트(임포트가 안 될 시 composer dumpautoload 명령어 실행)
-// Meilisearch 설치 : composer require meilisearch/meilisearch-php http-interop/http-factory-guzzle
-// .env
-
         // $foods = FoodInfo::all();
-        $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sodium', 'serving', 'ser_unit')
-        ->where('food_name', $req->search_input)
+        echo "한글";
+        $usersearch = $req->search_input;
+        $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+        ->where('food_name', 'like', '%'.$usersearch.'%')
         ->get();
         return $foods;
-
-        // $search = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sodium', 'serving', 'ser_unit')
-        // ->where("food_name", "LIKE", "%".$req->food_name."%")
-        // ->whereNull('deleted_at')
-        // ->limit(10)
-        // ->get();
-
-        // return view('foodList')->with('itmes', $search);
     }
 }

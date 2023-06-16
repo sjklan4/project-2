@@ -39,17 +39,6 @@ Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('b
 // Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('board.destroy');
 // Route::get('/board/{board}/edit', [BoardController::class, 'edit'])->name('board.edit');
 
-// // GET|HEAD        board ................................ board.index › BoardController@index  
-// // POST            board ................................ board.store › BoardController@store  
-// // GET|HEAD        board/create ....................... board.create › BoardController@create  
-// // GET|HEAD        board/{board} .......................... board.show › BoardController@show  
-// // PUT|PATCH       board/{board} ...................... board.update › BoardController@update  
-// // DELETE          board/{board} .................... board.destroy › BoardController@destroy  
-// // GET|HEAD        board/{board}/detail ....... board.showDetail › BoardController@showDetail  
-// // GET|HEAD        board/{board}/edit ..................... board.edit › BoardController@edit  
-// // GET|HEAD        board/{board}/like ..................... board.like › BoardController@like  
-
-
 // ---------------------------------------------
 // 섹션명       : 퀘스트(Quest)
 // 기능         : 퀘스트 관련 라우트 설정
@@ -66,6 +55,9 @@ use App\Http\Controllers\QuestController;
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
+Route::get('/food/insert/manager', [FoodController::class,'index'])->name('food.index');
+Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
+Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
 
 
 // ---------------------------------------------
@@ -101,8 +93,8 @@ use App\Http\Controllers\FavController;
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
-Route::get('/foods/select', [SearchController::class, 'foodsselect'])->name('foods.select');
-Route::get('/foods/search', [SearchController::class, 'foodssearch'])->name('foods.search');
+Route::get('/search/select', [SearchController::class, 'searchselect'])->name('search.select');
+Route::get('/search/search', [SearchController::class, 'search'])->name('search');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)

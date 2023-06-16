@@ -83,7 +83,6 @@ class BoardController extends Controller
      */
     public function store(Request $req)
     {
-        // todo 로그인 확인
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
@@ -103,7 +102,7 @@ class BoardController extends Controller
             ,'board_id'
         );
         
-        // 조회수 테이블에 인서트
+        // todo 게시글 테이블 조회수 업데이트
         DB::table('board_hits')->insert([
             'board_id'     => $board_id
             ,'board_hits'  => 0
