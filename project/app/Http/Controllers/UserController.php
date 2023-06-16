@@ -20,10 +20,20 @@ class UserController extends Controller
 
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){  
-        $req->validate([
+        $rules = [
             'email'    =>  'required|email|max:20'
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+        ];
+
+        $validate = Validator::make($req->only('email','password'),$rules,[
+            'email' => 'email형식에 맞춰주세요',
+            'password' => '비밀번호를 확인해주세요'
         ]);
+
+        if ($validate->fails()) {
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
         
         // var_dump($req);
         // exit;
@@ -52,7 +62,21 @@ class UserController extends Controller
     }
 
     public function registpost(Request $req){
-        
+
+        $rules = [  
+        'user_email'   => 'required|unique:user_infos'
+       ];
+
+       $validatedup = Validator::make($req->only('user_email'),$rules,[
+
+        'user_email' => '가입되어 있는 Email입니다.'
+    ]);
+
+    
+    if ($validatedup->fails()) {
+        $errors = $validatedup->errors();
+        return redirect()->back()->withErrors($errors)->withInput();
+    }
 
 
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
@@ -65,7 +89,7 @@ class UserController extends Controller
                 'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
                 'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 20자 이내로 해주세요',
                 'user_email' => 'email형식에 맞춰주세요',
-                'nkname' => '한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+                'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
                 'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
             ]);
     
@@ -161,3 +185,10 @@ class UserController extends Controller
         // $data['nkname'] = $req->nkname;
         // $data['user_phone_num'] = $req->user_phone_num;
         // $data['created_at'] = now();
+
+
+
+        // $req->validate([
+        //     'email'    =>  'required|email|max:20'
+        //     ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+        // ]);

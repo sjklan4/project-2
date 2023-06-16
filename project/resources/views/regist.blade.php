@@ -11,7 +11,7 @@
 @error('user_email')
 <div class="text-danger">{{ $message }}</div>
 @enderror
-<button type="button" onclick="location.href = '{{route('user.registdup')}}'">중복확인</button>
+{{-- <button type="button" onclick="location.href = '{{route('user.registdup')}}'">중복확인</button> --}}
 <br>
 
 <label for="user_name">이름</label>
