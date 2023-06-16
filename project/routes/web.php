@@ -26,8 +26,8 @@ Route::get('/', function () {
 use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
-<<<<<<< HEAD
-=======
+
+
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 
@@ -48,7 +48,6 @@ Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('b
 // // GET|HEAD        board/{board}/detail ....... board.showDetail › BoardController@showDetail  
 // // GET|HEAD        board/{board}/edit ..................... board.edit › BoardController@edit  
 // // GET|HEAD        board/{board}/like ..................... board.like › BoardController@like  
->>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6
 
 
 // ---------------------------------------------
@@ -112,11 +111,6 @@ Route::get('/foods/search', [SearchController::class, 'foodssearch'])->name('foo
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
-<<<<<<< HEAD
-Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
-Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
-
-=======
 Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
->>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6
+
