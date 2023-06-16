@@ -91,13 +91,18 @@ class BoardController extends Controller
      */
     public function show($id)
     {
-        
+        // todo 로그인 확인
+        // todo 유효성 검사
+
+        // 조회수 증가
         $boardHit = BoardHit::find($id);
         
         DB::table('board_hits')
             ->where('board_id', '=', $id)
             ->update(['board_hits' => $boardHit->board_hits + 1]);
         
+
+        // 게시글 상세 정보 획득
         $boardHit = BoardHit::find($id);
         $board = Board::find($id);
         $bcate = BoardCate::find($board->bcate_id);
@@ -126,7 +131,7 @@ class BoardController extends Controller
         $board = Board::find($id);
 
         $arr = [
-            'title'    => $board->btitle
+            'title'     => $board->btitle
             ,'content'  => $board->bcontent
             ,'id'       => $board->board_id
             ,'like'     => $board->likes
@@ -166,8 +171,47 @@ class BoardController extends Controller
 
     public function like($id)
     {
-        $boardLike = BoardLike::find($id);
-        
+        // todo 로그인 확인
+
+        // todo 유효성 검사
+
+        $user_id = session('user_id');
+
+        // 좋아요 테이블 정보 확인
+        $count = DB::table('board_likes')
+            ->where('user_id', $user_id)
+            ->where('board_id', $id)
+            ->count();
+
+        if ($count === 0) {
+            DB::transaction(function () use ($id, $user_id) {
+                // 좋아요 테이블 인서트
+                DB::table('board_likes')->insert([
+                    'board_id'    => $id
+                    ,'user_id'    => $user_id
+                ]);
+
+                // 게시판 테이블 좋아요 수 증가
+                $board = Board::find($id);
+                DB::table('boards')
+                ->where('board_id', '=', $id)
+                ->update(['likes' => $board->likes + 1]);
+            });
+        } else {
+            DB::transaction(function () use ($id, $user_id) {
+                // 좋아요 테이블 정보 삭제
+                DB::table('board_likes')
+                    ->where('user_id', $user_id)
+                    ->where('board_id', $id)
+                    ->delete();
+
+                // 게시판 테이블 좋아요 수 감소
+                $board = Board::find($id);
+                DB::table('boards')
+                ->where('board_id', '=', $id)
+                ->update(['likes' => $board->likes - 1]);
+            });
+        }
 
         return redirect()->back();
     }
