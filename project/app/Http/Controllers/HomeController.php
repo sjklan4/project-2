@@ -11,35 +11,40 @@ namespace App\Http\Controllers;
 use App\Models\UserInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     // Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
 
-    public function home(Request $req, $id)
+    public function home()
     {
-        // if(auth()->guest()) {
-        //     return redirect()->route('user.login');
-        // }
-
-        $data = UserInfo::find($id);
-        $today = Carbon::now()->format('Y-m-d');
-        if(empty($req)){
-            
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
         }
 
-        $arrrData = [];
+        // $data = UserInfo::find($id);
+        $today = Carbon::now()->format('Y-m-d');
 
-        // return view('home')->with("id",$id);
-        // var_dump($data);
+        $id = Auth::user()->user_name;
+        // var_dump($id);
         // exit; //test
 
         // return response()->json($data, 200); //test
-        return view('home')->with("data",$data)->with("today",$today);
+
+        return view('home')->with("today",$today);
+        // return view('home')->with("data",$data)->with("today",$today); // 찐
     }
 
-    // public function homePost(Request $req)
-    // {
-    //     return var_dump($req);
-    // }
+    public function homePost(Request $req)
+    {
+        // $data = UserInfo::find($id);
+        $id = Auth::user()->user_id;
+
+        $date = $req->getDate;
+        var_dump($id);
+        // return var_dump($req->getDate);
+
+        // return view('home');
+    }
 }

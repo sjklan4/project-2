@@ -26,6 +26,29 @@ Route::get('/', function () {
 use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
+<<<<<<< HEAD
+=======
+Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
+Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
+
+
+// Route::post('/board', [BoardController::class, 'store'])->name('board.store');
+// Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
+// Route::get('/board/{board}', [BoardController::class, 'show'])->name('board.show');
+// Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
+// Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('board.destroy');
+// Route::get('/board/{board}/edit', [BoardController::class, 'edit'])->name('board.edit');
+
+// // GET|HEAD        board ................................ board.index › BoardController@index  
+// // POST            board ................................ board.store › BoardController@store  
+// // GET|HEAD        board/create ....................... board.create › BoardController@create  
+// // GET|HEAD        board/{board} .......................... board.show › BoardController@show  
+// // PUT|PATCH       board/{board} ...................... board.update › BoardController@update  
+// // DELETE          board/{board} .................... board.destroy › BoardController@destroy  
+// // GET|HEAD        board/{board}/detail ....... board.showDetail › BoardController@showDetail  
+// // GET|HEAD        board/{board}/edit ..................... board.edit › BoardController@edit  
+// // GET|HEAD        board/{board}/like ..................... board.like › BoardController@like  
+>>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6
 
 
 // ---------------------------------------------
@@ -89,6 +112,11 @@ Route::get('/foods/search', [SearchController::class, 'foodssearch'])->name('foo
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
+<<<<<<< HEAD
 Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
 Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
 
+=======
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
+>>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6

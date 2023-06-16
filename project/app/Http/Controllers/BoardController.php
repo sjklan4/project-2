@@ -34,7 +34,31 @@ class BoardController extends Controller
             ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
             ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+<<<<<<< HEAD
             ->orderBy('boards.board_id')
+=======
+            ->orderBy('boards.created_at', 'desc')
+            ->where('boards.deleted_at', null)
+            ->paginate(10)
+            ;
+
+        return view('boardList')->with('data', $result);
+    }
+
+    public function indexNum($id)
+    {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
+        $result = DB::table('boards')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
+            ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
+            ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+            ->where('boards.bcate_id', $id)
+            ->where('boards.deleted_at', null)
+            ->orderBy('boards.created_at', 'desc')
+>>>>>>> e773fdb347f6d8a91c54635955c7fdcdbaa7dfe6
             ->paginate(10)
             ;
 
@@ -48,6 +72,10 @@ class BoardController extends Controller
      */
     public function create()
     {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         return view('boardCreate');
     }
 
@@ -60,16 +88,21 @@ class BoardController extends Controller
     public function store(Request $req)
     {
         // todo 로그인 확인
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         $id = session('user_id');
 
         // todo 트랜잭션
         // 게시글 테이블에 인서트 후 pk 값 획득
         $board_id = DB::table('boards')->insertGetId([
-                'user_id'    => $id
-                ,'nkname'    => UserInfo::find($id)->nkname
-                ,'bcate_id'  => $req->cate
-                ,'btitle'    => $req->title
-                ,'bcontent'  => $req->content
+                'user_id'     => $id
+                ,'nkname'     => UserInfo::find($id)->nkname
+                ,'bcate_id'   => $req->cate
+                ,'btitle'     => $req->title
+                ,'bcontent'   => $req->content
+                ,'created_at' => now()
             ]
             ,'board_id'
         );
@@ -91,7 +124,10 @@ class BoardController extends Controller
      */
     public function show($id)
     {
-        // todo 로그인 확인
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         // todo 유효성 검사
 
         // 조회수 증가
@@ -128,6 +164,10 @@ class BoardController extends Controller
      */
     public function edit($id)
     {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         $board = Board::find($id);
 
         $arr = [
@@ -149,6 +189,10 @@ class BoardController extends Controller
      */
     public function update(Request $req, $id)
     {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         $board = Board::find($id);
         $board->bcate_id = $req->cate;
         $board->btitle = $req->title;
@@ -166,12 +210,24 @@ class BoardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
+        // todo 유효성 검사
+
+        // 게시글 삭제 처리
+        Board::destroy($id);
+
+        // todo 에러처리, 트랜잭션 처리
+        return redirect()->route('board.index');
     }
 
     public function like($id)
     {
-        // todo 로그인 확인
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
 
         // todo 유효성 검사
 
