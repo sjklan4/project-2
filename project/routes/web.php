@@ -28,7 +28,7 @@ Route::resource('/board', BoardController::class);
 
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
-Route::get('/board/{board}/list', [BoardController::class, 'index'])->name('board.index');
+Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');

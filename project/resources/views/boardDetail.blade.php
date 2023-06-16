@@ -21,17 +21,15 @@
 
             {{-- todo @can 방법 : https://laracasts.com/series/laravel-6-from-scratch/episodes/50 --}}
             @if (Auth::user()->user_id === $data['user_id'])
-                <form action="">
-                    <button
-                        type="button"
-                        onclick="location.href='{{route('board.edit', ['board' => $data['id']])}}'"
-                        >글 수정
-                    </button>
-                    <button
-                        type="button"
-                        onclick="location.href='{{route('board.destroy', ['board' => $data['id']])}}'"
-                        >글 삭제
-                    </button>
+                <button
+                    type="button"
+                    onclick="location.href='{{route('board.edit', ['board' => $data['id']])}}'"
+                    >글 수정
+                </button>
+                <form action="{{route('board.destroy', ['board' => $data['id']])}}" method='post'>
+                    @csrf
+                    @method('delete')
+                    <button type="submit" >글 삭제</button>
                 </form>
             @endif
         </div>
