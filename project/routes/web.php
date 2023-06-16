@@ -78,7 +78,9 @@ use App\Http\Controllers\FavController;
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
-Route::get('/search', [SearchController::class, 'search']);
+Route::get('/apisearch', [SearchController::class, 'apisearch']);
+Route::get('/foods/select', [SearchController::class, 'foodsselect'])->name('foods.select');
+Route::post('/foods/search', [SearchController::class, 'foodssearch'])->name('foods.search');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
