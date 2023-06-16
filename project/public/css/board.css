@@ -23,3 +23,13 @@ table {
     border-spacing: 1rem;
     border-collapse: separate;
 }
+
+.foodInsertGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.foodInsertTitleGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
