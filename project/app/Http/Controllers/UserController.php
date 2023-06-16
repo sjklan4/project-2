@@ -17,7 +17,8 @@ class UserController extends Controller
         return view('login');
     }
 
-    public function loginpost(Request $req){
+    // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
+    public function loginpost(Request $req){  
         // $req->validate([
         //     'email'    =>  'required|email|max:30'
         //     ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{1,20}$/'

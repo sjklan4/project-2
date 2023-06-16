@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserInfo  extends Authenticatable
+class UserInfo extends Authenticatable
 {
     use HasFactory, SoftDeletes;
 
