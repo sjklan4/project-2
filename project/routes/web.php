@@ -25,28 +25,7 @@ Route::get('/', function () {
 // ---------------------------------------------
 use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
-
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
-Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
-Route::get('/board/{board}/list', [BoardController::class, 'index'])->name('board.index');
-
-
-// Route::post('/board', [BoardController::class, 'store'])->name('board.store');
-// Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
-// Route::get('/board/{board}', [BoardController::class, 'show'])->name('board.show');
-// Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
-// Route::delete('/board/{board}', [BoardController::class, 'destroy'])->name('board.destroy');
-// Route::get('/board/{board}/edit', [BoardController::class, 'edit'])->name('board.edit');
-
-// // GET|HEAD        board ................................ board.index › BoardController@index  
-// // POST            board ................................ board.store › BoardController@store  
-// // GET|HEAD        board/create ....................... board.create › BoardController@create  
-// // GET|HEAD        board/{board} .......................... board.show › BoardController@show  
-// // PUT|PATCH       board/{board} ...................... board.update › BoardController@update  
-// // DELETE          board/{board} .................... board.destroy › BoardController@destroy  
-// // GET|HEAD        board/{board}/detail ....... board.showDetail › BoardController@showDetail  
-// // GET|HEAD        board/{board}/edit ..................... board.edit › BoardController@edit  
-// // GET|HEAD        board/{board}/like ..................... board.like › BoardController@like  
 
 
 // ---------------------------------------------
@@ -101,7 +80,7 @@ use App\Http\Controllers\FavController;
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
 Route::get('/foods/select', [SearchController::class, 'foodsselect'])->name('foods.select');
-Route::post('/foods/search', [SearchController::class, 'foodssearch'])->name('foods.search');
+Route::get('/foods/search', [SearchController::class, 'foodssearch'])->name('foods.search');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
@@ -111,3 +90,5 @@ Route::post('/foods/search', [SearchController::class, 'foodssearch'])->name('fo
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
 Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
+Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
+

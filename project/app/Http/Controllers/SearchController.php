@@ -17,7 +17,7 @@ use Illuminate\Support\Eloquent\SoftDeletes;
 class SearchController extends Controller
 {
     // v001 new
-    public function search() {
+    public function apisearch() {
         $numofrows = 20;
         for ($pagenum=1; $pagenum<20; $pagenum++) {
             // xml 
@@ -71,25 +71,25 @@ class SearchController extends Controller
                 .$array['body']['items']['item'][$i]['NUTR_CONT3'].", "
                 .$array['body']['items']['item'][$i]['NUTR_CONT4'].", "
                 .$array['body']['items']['item'][$i]['NUTR_CONT5'].", "
-                .$array['body']['items']['item'][$i]['NUTR_CONT6'].", <br>";
+                .$array['body']['items']['item'][$i]['NUTR_CONT6']."<br>";
             }
 
-            for($i=0; $i<$numofrows; $i++) {
-                if(!empty($array['body']['items'][$i]['DESC_KOR'])){
-                    $foods = new FoodInfo([
-                        'food_name' => $array['body']['items'][$i]['DESC_KOR']
-                        , 'serving' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['SERVING_WT'])
-                        , 'kcal' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT1'])
-                        , 'carbs' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT2'])
-                        , 'protein'=> $array['body']['items'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT3'])
-                        , 'fat' => $array['body']['items'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT4'])
-                        , 'sugar' => $array['body']['items'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT5'])
-                        , 'sodium' => $array['body']['items'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT6'])
-                        , 'userfood_flg' => 0
-                    ]);
-                    $foods->save();
-                }
-            } 
+            // for($i=0; $i<$numofrows; $i++) {
+            //     if(!empty($array['body']['items'][$i]['DESC_KOR'])){
+            //         $foods = new FoodInfo([
+            //             'food_name' => $array['body']['items'][$i]['DESC_KOR']
+            //             , 'serving' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['SERVING_WT'])
+            //             , 'kcal' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT1'])
+            //             , 'carbs' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT2'])
+            //             , 'protein'=> $array['body']['items'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT3'])
+            //             , 'fat' => $array['body']['items'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT4'])
+            //             , 'sugar' => $array['body']['items'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT5'])
+            //             , 'sodium' => $array['body']['items'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT6'])
+            //             , 'userfood_flg' => 0
+            //         ]);
+            //         $foods->save();
+            //     }
+            // } 
                 /* print_r -> json
                 Array ( 
                     [header] => Array 
@@ -124,12 +124,31 @@ class SearchController extends Controller
             }
         exit();
     }
-    // v002 add : 
-    public function foodselect() {
-        $foods = FoodInfo::where('deleted_at', null)
-                            ->limit(10)
-                            ->dd();
+    // v002 add : 음식 리스트 및 검색 기능 추가
+    public function foodsselect() {
+        return view('foodList');
+    }
 
-        return redirect()->route('foods.select')->with('item', $foods);
+    public function foodssearch(Request $req) {
+// scout 설치 : composer require laravel/scout
+// scout 제거 : composer remove algolia/scout-extended
+// php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
+// Models > FoodInfo > use Searchable; 추가 및 임포트(임포트가 안 될 시 composer dumpautoload 명령어 실행)
+// Meilisearch 설치 : composer require meilisearch/meilisearch-php http-interop/http-factory-guzzle
+// .env
+
+        // $foods = FoodInfo::all();
+        $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sodium', 'serving', 'ser_unit')
+        ->where('food_name', $req->search_input)
+        ->get();
+        return $foods;
+
+        // $search = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sodium', 'serving', 'ser_unit')
+        // ->where("food_name", "LIKE", "%".$req->food_name."%")
+        // ->whereNull('deleted_at')
+        // ->limit(10)
+        // ->get();
+
+        // return view('foodList')->with('itmes', $search);
     }
 }

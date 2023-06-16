@@ -1,3 +1,0 @@
-xcopy D:\Students\workspace\project-2\project C:\Apache24\htdocs\project /F /H /Y /E /exclude:D:\Students\workspace\project-2\exclude.txt
-
-xcopy C:\workspace\project-2\project C:\Apache24\htdocs\project /F /H /Y /E /exclude:C:\workspace\project-2\exclude.txt

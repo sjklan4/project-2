@@ -10,7 +10,7 @@
             <div>게시판</div>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('board.index', ['board' => 0])}}">전체</a>
+                    <a class="nav-link" href="{{route('board.index')}}">전체</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">건강 관리</a>
@@ -35,6 +35,3 @@
     </div>
 @endsection
 
-@section('js')
-    <script src="{{ asset('js/board.js') }}"></script>
-@endsection

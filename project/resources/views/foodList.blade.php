@@ -3,12 +3,10 @@
 @section('title', '음식 입력')
 
 @section('contents')
-    <form action="{{route('foods.search')}}" method="post">
-        <input type="text" name="search_input">
-        <button type="button">검색</button>
-
-        <ul>
-            <li></li>
-        </ul>
-    </form>
+    @csrf
+    {{-- <form action="{{route('foods.search')}}" method="get"> --}}
+    <input type="text" name="search_input">
+    <button type="button" onclick="location.href='{{route('foods.search')}}'">검색</button>
+    {{-- <button type="submit">검색</button> --}}
+</form>
 @endsection

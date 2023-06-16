@@ -24,7 +24,7 @@ class BoardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
         if(auth()->guest()) {
             return redirect()->route('user.login');
@@ -34,7 +34,6 @@ class BoardController extends Controller
             ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
             ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
-            ->where('boards.')
             ->orderBy('boards.board_id')
             ->paginate(10)
             ;
@@ -97,9 +96,11 @@ class BoardController extends Controller
 
         // 조회수 증가
         $boardHit = BoardHit::find($id);
+        
         DB::table('board_hits')
-        ->where('board_id', '=', $id)
-        ->update(['board_hits' => $boardHit->board_hits + 1]);
+            ->where('board_id', '=', $id)
+            ->update(['board_hits' => $boardHit->board_hits + 1]);
+        
 
         // 게시글 상세 정보 획득
         $boardHit = BoardHit::find($id);
@@ -107,14 +108,13 @@ class BoardController extends Controller
         $bcate = BoardCate::find($board->bcate_id);
 
         $arr = [
-            'cate'        => $bcate->bcate_name
-            ,'title'      => $board->btitle
-            ,'content'    => $board->bcontent
-            ,'hits'       => $boardHit->board_hits
-            ,'id'         => $board->board_id
-            ,'like'       => $board->likes
-            ,'user_id'    => $board->user_id
-            ,'created_at' => $board->created_at
+            'cate'      => $bcate->bcate_name
+            ,'title'    => $board->btitle
+            ,'content'  => $board->bcontent
+            ,'hits'     => $boardHit->board_hits
+            ,'id'       => $board->board_id
+            ,'like'     => $board->likes
+            ,'user_id'  => $board->user_id
         ];
 
         return view('boardDetail')->with('data', $arr);
@@ -169,27 +169,6 @@ class BoardController extends Controller
         //
     }
 
-    public function showDetail($id) 
-    {
-        // 게시글 상세 정보 획득
-        $boardHit = BoardHit::find($id);
-        $board = Board::find($id);
-        $bcate = BoardCate::find($board->bcate_id);
-
-        $arr = [
-            'cate'        => $bcate->bcate_name
-            ,'title'      => $board->btitle
-            ,'content'    => $board->bcontent
-            ,'hits'       => $boardHit->board_hits
-            ,'id'         => $board->board_id
-            ,'like'       => $board->likes
-            ,'user_id'    => $board->user_id
-            ,'created_at' => $board->created_at
-        ];
-
-        return view('boardDetail')->with('data', $arr);
-    }
-
     public function like($id)
     {
         // todo 로그인 확인
@@ -234,6 +213,6 @@ class BoardController extends Controller
             });
         }
 
-        return redirect()->route('board.showDetail', ['board' => $id]);
+        return redirect()->back();
     }
 }
