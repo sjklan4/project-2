@@ -31,6 +31,7 @@ Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
+Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
 
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
