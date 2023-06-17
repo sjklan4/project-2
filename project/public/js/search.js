@@ -1,13 +1,9 @@
 // v003 add
-const searchform = document.getElementsByClassName('searchform')
-const usercheck = document.getElementsByName('usercheck')
+const searchResult = document.getElementsByClassName("searchResult")
+const favDiets = document.getElementsByClassName("favDiets")
+const seleted = document.getElementsByClassName("seleted")
 
-const favdiets = document.getElementsByClassName('favdiets')
-const userseleted = document.getElementsByClassName('userseleted')
-const userfoodinsert = document.getElementsByClassName('userfoodinsert')
-
-const searchResult = document.getElementsByClassName('searchResult')
-
-favdiets.addEventListner('click', () => {
-    
+favDiets.addEventListner('click', function() {
+    let favtitle = document.createElement('h3')
+    favtitle.innerHTML('저장된 식단')
 })

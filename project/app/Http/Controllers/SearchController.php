@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 // v001 add
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
+use App\Models\FavDiet;
 use Illuminate\Support\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -145,5 +146,13 @@ class SearchController extends Controller
     public function userchoice(Request $req) {
         $selectedUser = $req->selectedUser;
         return $selectedUser;
+    }
+
+    public function favdiets() {
+        $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
+        ->whereNull('deleted_at')
+        ->get();
+
+        return $favdiets;
     }
 }

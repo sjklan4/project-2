@@ -2,8 +2,9 @@
 
 @section('title', 'FoodSearch')
 
-@section('js')
+@section('js_css')
     <script src="{{asset('js/search.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('css/search.css')}}">
 @endsection
 
 @section('contents')
@@ -13,10 +14,10 @@
         <button type="submit">검색</button>
     </form>
 
-    <div class="btnDiv">
-        <button type="button" class="favdiets">저장된 식단</button>
-        <button type="button" class="userseleted">선택된 음식</button>
-        <button type="button" class="userfoodinsert" onclick="location.href='{{route('food.create')}}'">음식 등록</button>
+    <div class="tabbuttons">
+        <button type="button" class="favDiets">저장된 식단</button>
+        <button type="button" class="seleted">선택된 음식</button>
+        <button type="button" onclick="location.href='{{route('food.create')}}'">음식 등록</button>
     </div>
 
     <div class="searchResult">
