@@ -266,4 +266,9 @@ class BoardController extends Controller
 
         return redirect()->route('board.shows', ['board' => $id, 'flg' => '1']);
     }
+
+    public function replyPost(Request $req) {
+        // todo 유효성 검사
+        
+    }
 }
