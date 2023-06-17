@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('bcontent', 4000);
             $table->integer('bcate_id');
             $table->integer('likes')->default(0);
+            $table->integer('replies')->default(0);
+            $table->integer('hits')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
