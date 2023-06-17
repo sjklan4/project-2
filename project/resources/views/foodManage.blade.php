@@ -17,10 +17,15 @@
         <div class = "foodInsertGrid">
             <div>
                 <div class="shadow">
-                    <div>Food1</div>
-                    <div>Food2</div>
-                    <div>Food3</div>
-                    <div>Food4</div>
+                    <ul class="nav flex-column">
+                        @forelse ($data as $item)
+                            <li class="nav-item">
+                                <div class="nav-link" class="foodNavBtn">{{$item->food_name}}</div>
+                            </li>
+                        @empty
+                            <div>등록된 음식이 없습니다.</div>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
             <div>

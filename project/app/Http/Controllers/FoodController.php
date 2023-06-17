@@ -10,16 +10,34 @@ use App\Models\FoodInfo;
 class FoodController extends Controller
 {
     public function index() {
-        return view('/foodInsertManager');
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+        
+        $user_id = session('user_id');
+
+        $result = DB::table('food_infos')
+        ->select('*')
+        ->where('user_id', $user_id)
+        ->get();
+
+        return view('/foodManage')->with('data', $result);
     }
 
 
     public function create() {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         return view('/foodCreate');
     }
 
     public function store(Request $req) {
-        // todo 로그인 확인
+
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
 
         // todo 유효성 검사, 영양 정보 값이 없으면 0으로 처리
 
