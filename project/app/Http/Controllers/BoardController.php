@@ -117,22 +117,22 @@ class BoardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $flg = '0')
     {
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
 
         // todo 유효성 검사
-
-        // 조회수 증가
+        
         $boardHit = BoardHit::find($id);
+        // 조회수 증가
+        if($flg === '0') {
+            DB::table('board_hits')
+                ->where('board_id', '=', $id)
+                ->update(['board_hits' => $boardHit->board_hits + 1]);
+        }
         
-        DB::table('board_hits')
-            ->where('board_id', '=', $id)
-            ->update(['board_hits' => $boardHit->board_hits + 1]);
-        
-
         // 게시글 상세 정보 획득
         $boardHit = BoardHit::find($id);
         $board = Board::find($id);
@@ -264,6 +264,6 @@ class BoardController extends Controller
             });
         }
 
-        return redirect()->back();
+        return redirect()->route('board.shows', ['board' => $id, 'flg' => '1']);
     }
 }
