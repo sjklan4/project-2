@@ -31,6 +31,7 @@ Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
+Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
 
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
@@ -56,7 +57,7 @@ use App\Http\Controllers\QuestController;
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
-Route::get('/food/insert/manager', [FoodController::class,'index'])->name('food.index');
+Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
 
