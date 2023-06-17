@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserInfo;
 use App\Models\Diet;
+use App\Models\KcalInfo;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,11 +29,13 @@ class HomeController extends Controller
         $id = Auth::user()->user_id;
         $date = Carbon::now()->format('Y-m-d');
 
+        $kcal = KcalInfo::find($id);
+
         $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
 
         $dietFood = DB::select('SELECT * FROM diet_food df INNER JOIN diets d ON d.d_id = df.d_id WHERE d.user_id = :id AND d.d_date = :d_date',['id' => $id,'d_date' => $date]);
 
-        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood);
+        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood)->with("kcal",$kcal);
     }
 
     public function homePost(Request $req)
@@ -44,7 +47,8 @@ class HomeController extends Controller
 
         $dietFood = DB::select('SELECT * FROM diet_food df INNER JOIN diets d ON d.d_id = df.d_id WHERE d.user_id = :id AND d.d_date = :d_date',['id' => $id,'d_date' => $date]);
 
+        $kcal = KcalInfo::find($id);
 
-        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood);
+        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood)->with("kcal",$kcal);
     }
 }

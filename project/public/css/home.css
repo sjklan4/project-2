@@ -73,7 +73,7 @@ input[data-placehoder]::before{
 
 #myDiet > div.box2{
     height: 200px;
-    background: red;
+    border-right: 1px solid #ccc;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
@@ -85,14 +85,14 @@ div.sub1{
 div.sub2{
     width: 50%;
     height: 200px;
-    background: pink;
+    border-right: 1px solid #ccc;
 }
 div.sub3{
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    background: blue;
+    border-right: 1px solid #ccc;
 }
 div.sub4{
-    background: gold;
+    border-right: 1px solid #ccc;
 }
 
 /* 식단 아침~간식 */

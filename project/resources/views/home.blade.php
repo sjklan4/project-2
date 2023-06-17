@@ -37,11 +37,23 @@
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
-                <div class="sub1"></div>
-                <div class="sub2"></div>
+                <div class="sub1">
+                    {{$kcal->goal_kcal}}
+                </div>
+                <div class="sub2">
+                    @foreach($df as $val)
+                        {{$val->df_kcal}}
+                    @endforeach
+                </div>
             </div>
             <div class="box2">
-                <div class="sub3"></div>
+                <div class="sub3">
+                    @if(($kcal->nutrition_ratio)==1)
+                        탄수화물 : {{($kcal->goal_kcal)*0.4}}<br>
+                        단백질 : {{($kcal->goal_kcal)*0.4}}<br>
+                        지방 : {{($kcal->goal_kcal)*0.2}}
+                    @endif
+                </div>
                 <div class="sub4"></div>
             </div>
         </div>
