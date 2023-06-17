@@ -5,6 +5,7 @@
  * 파일명       : SearchController.php
  * 이력         : v001 0615 채수지 new
  *                v002 0616 채수지 add (검색 기능 추가)
+ *                v003 0617 채수지 add (검색 기능 추가)
 *****************************/
 namespace App\Http\Controllers;
 
@@ -125,31 +126,23 @@ class SearchController extends Controller
             }
         exit();
     }
-    // v002 add : 음식 리스트 및 검색 기능 추가
-    public function searchselect() {
-        return redirect()->route('search.select');
-    }
-
-    public function search(Request $req, $id) {
+    // v002, v003 add : 음식 검색 기능 추가
+    public function searchselect(Request $req) {
 
         $usersearch = $req->search_input;
-        $foods = FoodInfo::select('food_id', 'food_name')
-        ->where('food_name', 'like', '%'.$usersearch.'%')
-        ->where('userfood_flg', '0')
-        ->whereNotNull('deleted_at')
-        ->get();
+        if(!empty($usersearch)){
+            $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+            ->where('food_name', 'like', '%'.$usersearch.'%')
+            ->where('userfood_flg', '0')
+            ->whereNull('deleted_at')
+            ->get();
+    
+            return view('FoodList')->with('foddd', $foods);
+        }
+        return view('FoodList')->with('foddd', []);
+    }
 
-        $user_id = FoodInfo::find($id);
-        $userfoods = FoodInfo::select('food_id', 'user_id', 'food_name')
-        ->where('food_name', 'like', '%'.$usersearch.'%')
-        ->where('userfood_flg', '1')
-        ->where('user_id', $user_id)
-        ->whereNotNull('deleted_at')
-        ->get();
-
-        // $result = array($foods, $userfoods);
-
-        return view('foodList')->with('foddd', $foods);
-        // return view('foodList')->with('foddd', $result);
+    public function userchoice() {
+        
     }
 }
