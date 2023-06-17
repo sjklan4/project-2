@@ -11,8 +11,8 @@
     @forelse ($foddd as $item)
     <form action="{{route('search.list.post')}}" method="post">
         <div>
-            <input type="checkbox" name="searchname" id="searchname" value="{{$item->food_id, $item->user_id}}">
             <input type="hidden" name="selectedUser" value="{{$item->user_id}}">
+            <input type="checkbox" name="searchname" id="searchname" value="{{$item->food_id, $item->user_id}}">
             <span>{{$item->food_name}}</span>
         </div>
     </form>
