@@ -142,7 +142,8 @@ class SearchController extends Controller
         return view('FoodList')->with('foddd', []);
     }
 
-    public function userchoice() {
-        
+    public function userchoice(Request $req) {
+        $selectedUser = $req->selectedUser;
+        return $selectedUser;
     }
 }
