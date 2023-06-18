@@ -1,22 +1,31 @@
 let isEmailChecked = false;
 
+const chdeckEmail = document.getElementById('chdeckEmail');
 const signupButton = document.getElementById('signupButton');
 const userEmailField = document.getElementById('user_email');
 const emailRegx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-// 사용자가 가입 진행도중 이메일 부분을 변경시 다시 확인하도록 하는 구문
+chdeckEmail.disabled = true;
+// 사용자가 가입 진행도중 이메일 부분을 변경시 다시 확인하도록 하는 구문 - 수정사항 : 형식에 맞춰서 입력시 아래 경고 문구가 없어지지 않음 
 userEmailField.addEventListener('input', function(e) {
     
     if (userEmailField.value.trim()==="") {
         emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
         signupButton.disabled = true;
+        chdeckEmail.disabled = true;
+        
     }else if(!emailRegx.test(userEmailField.value)){
         emailRegexm.innerHTML = '영문(대소)및 숫자로 이메일 형식에 맞춰서 입력해주세요';
         signupButton.disabled = true;
+        chdeckEmail.disabled = false;
+    }else {
+        emailRegexm.innerHTML = ''; 
+        signupButton.disabled = false;
+        chdeckEmail.disabled = false;
     }
 
+
     isEmailChecked = false;
-    signupButton.disabled = true;
+    // signupButton.disabled = true;
 });
 
 document.getElementById('chdeckEmail').addEventListener('click', async function(e) {
@@ -42,7 +51,7 @@ document.getElementById('chdeckEmail').addEventListener('click', async function(
         
         const data = await response.json(); //서버에서 돌아 온 값들을 data에 담아 준다. - 돌아 온 값은 json으로 해서 변환
 
-        if(data.exists){
+    if(data.exists){
             alert('사용중인 이메일 입니다.');
             isEmailChecked = false;
         } else {

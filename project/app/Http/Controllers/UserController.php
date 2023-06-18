@@ -62,7 +62,7 @@ class UserController extends Controller
         return view('regist');
     }
 
-    //이메일 중복체크 
+    //이메일 중복체크 - js에서는 브라우져에서만 유효성 검사를 실시 함으로 서버측도 같은 형식의 검사를 진행하도록 유효성체크
     public function chdeckEmail(Request $request) {
         $rules = ['user_email' => 'required|unique:user_infos'];
     
@@ -75,16 +75,13 @@ class UserController extends Controller
     }
 
 
-
-
-
     // 순서 확인 : 
     public function registpost(Request $req){
 
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
             ,'user_email'    => 'required|email|max:20'
-            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,10}$/'
+            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,60}$/'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[

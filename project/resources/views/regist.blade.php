@@ -7,7 +7,7 @@
 <form action="{{route('user.registpost')}}" method="post">
     @csrf
 <label for="user_email">이메일</label>
-<input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}">
+<input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
 <button type="button" id="chdeckEmail">중복확인</button>
 
 <span id="emailRegexm"></span>
