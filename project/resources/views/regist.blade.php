@@ -1,20 +1,23 @@
 @extends('layout.layout')
 
-@section('title', 'List')
+@section('title', 'regist')
 
 @section('contents')
 
 <form action="{{route('user.registpost')}}" method="post">
     @csrf
 <label for="user_email">이메일</label>
-<input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}">
-@error('user_email')
+<input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
+<button type="button" id="chdeckEmail">중복확인</button>
+
+<span id="emailRegexm"></span>
+{{-- @error('user_email')
 <div class="text-danger">{{ $message }}</div>
 @enderror
 @if (session('message'))
     <div class="text-success">{{ session('message') }}</div>
-@endif
-{{-- <button type="button" onclick="location.href = '{{route('user.registdup')}}'">중복확인</button> --}}
+@endif --}}
+
 <br>
 
 <label for="user_name">이름</label>
@@ -61,9 +64,21 @@
 <input type="radio" name="gender" id="gender" value="1">여자
 <br>
 
-<button type ="submit">회원가입</button>
+<button type ="submit" id="signupButton" disabled>회원가입</button>
 </form>
+
+
 @endsection
+
+
+@section('js')
+    <script src="{{ asset('js/regist.js') }}"></script>
+@endsection
+
+
+{{-- @section('script')
+<script src="{{asset('js/regist.js')}}"></script>
+@endsection --}}
 
 
 
@@ -78,3 +93,7 @@ session('message')은 with('message', $message)를 사용하여 컨트롤러에�
 
 
 그리고 text-success 클래스는 성공 메시지를 녹색으로 만드는 데 사용됩니다(CSS 스타일에 따라 이를 조정해야 할 수도 있음). 부트스트랩 또는 text-success 클래스를 정의하는 유사한 CSS 프레임워크를 사용하지 않는 경우 CSS에서 직접 정의하거나 인라인 스타일을 사용하여 텍스트를 녹색으로 지정해야 할 수 있습니다. --}}
+
+{{-- 
+<button id="button1">Button 1</button>
+<button id="button2" disabled>Button 2</button> --}}

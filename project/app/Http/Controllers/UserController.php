@@ -57,39 +57,31 @@ class UserController extends Controller
         
     }
 
+    //회원가입 화면 이동
     public function regist(){
         return view('regist');
+    }
+
+    //이메일 중복체크 - js에서는 브라우져에서만 유효성 검사를 실시 함으로 서버측도 같은 형식의 검사를 진행하도록 유효성체크
+    public function chdeckEmail(Request $request) {
+        $rules = ['user_email' => 'required|unique:user_infos'];
+    
+        $validator = Validator::make($request->only('user_email'), $rules);
+    
+        if ($validator->fails()) {
+            return response()->json(['exists' => 1]);
+        }
+        return response()->json(['exists' => 0]);
     }
 
 
     // 순서 확인 : 
     public function registpost(Request $req){
 
-        $rules = [  
-        'user_email'   => 'required|unique:user_infos'
-       ];
-
-       $validatedup = Validator::make($req->only('user_email'),$rules,[
-
-        'user_email' => '가입되어 있는 Email입니다.'
-    ]);
-
-    
-
-    if ($validatedup->fails()) {
-        $errors = $validatedup->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
-    }
-    else{
-        $message = '사용 가능한 Email입니다.';
-        return redirect()->back()->with('message',$message)->withInput();
-    }
-
-
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
             ,'user_email'    => 'required|email|max:20'
-            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,10}$/'
+            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,60}$/'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
@@ -125,7 +117,24 @@ class UserController extends Controller
         KcalInfo::create($data1);
         
         return view('login');
+        
     }
+
+
+    public function userinfoedit(){
+        $id = session('user_id');
+        $userinfo = UserInfo::FindOrFail($id);
+
+        return view('Userinfoupdate')->with('data',$userinfo);
+    }
+
+
+
+
+
+
+
+
 
     public function logout() {
         Session::flush(); // 세션 파기
@@ -210,3 +219,21 @@ class UserController extends Controller
         //     'email'    =>  'required|email|max:20'
         //     ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         // ]);
+
+
+
+        // $rules = [  
+        //     'user_email'   => 'required|unique:user_infos'
+        //    ];
+    
+        //    $validatedup = Validator::make($req->only('user_email'),$rules,[
+    
+        //     'user_email' => '가입되어 있는 Email입니다.'
+        // ]);
+    
+        
+    
+        // if ($validatedup->fails()) {
+        //     return response()->json(['exists' => 1]);
+        // }
+        // return response()->json(['exists' => 0]);

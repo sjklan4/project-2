@@ -72,11 +72,20 @@ use App\Http\Controllers\UserController;
 Route::get('/user/login', [UserController::class,'login'])->name('user.login');
 Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');
 
+
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
-Route::post('/user/registdup',[UserController::class, 'registdup'])->name('user.registdup');
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
+//유저 정보변경 라우트 확인하기 클레스, 함수 구문 이름 상태등
+
+Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');
 Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
+
+//----------------테스트용--------------------------------------
+// use App\Http\Controllers\ButtonController;
+// Route::post('/button-click', [ButtonController::class, 'handleButtonClick']);
+// Route::post('/user/registdup', [UserController::class, 'chdeckEmail'])->name('user.registdup');
+//---------------------------------------------------------------------------------------
 
 // ---------------------------------------------
 // 섹션명       : 즐겨찾는 식단(Fav)
