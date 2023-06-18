@@ -17,4 +17,7 @@ class DietFood extends Model
     protected $guarded = ['df_id'];
 
     protected $dates = ['deleted_at'];
+
+    // 동적 쿼리 테스트 -kwon
+    
 }

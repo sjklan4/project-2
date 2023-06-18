@@ -34,27 +34,40 @@
                 </svg>
             </div>
         </div>
+        {{-- 테스트존 --}}
+        @foreach($df as $val)
+            {{$val->df_carbs}}, 
+        @endforeach<br>
+        총합
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
                 <div class="sub1">
-                    {{$kcal->goal_kcal}}
+                    현재 먹은 kcal
+                    @foreach($df as $val)
+                    {{$val->df_kcal}}, 
+                    @endforeach
                 </div>
                 <div class="sub2">
-                    @foreach($df as $val)
-                        {{$val->df_kcal}}
-                    @endforeach
+                    탄수화물 % <br>
+                    단백질 %   <br>
+                    지방 %
                 </div>
             </div>
             <div class="box2">
                 <div class="sub3">
                     @if(($kcal->nutrition_ratio)==1)
-                        탄수화물 : {{($kcal->goal_kcal)*0.4}}<br>
-                        단백질 : {{($kcal->goal_kcal)*0.4}}<br>
-                        지방 : {{($kcal->goal_kcal)*0.2}}
+                        탄수화물 : 0/{{($kcal->goal_kcal)*0.4}}<br>
+                        단백질 : 0/{{($kcal->goal_kcal)*0.4}}<br>
+                        지방 : 0/{{($kcal->goal_kcal)*0.2}}
                     @endif
+                    내용없음
                 </div>
-                <div class="sub4"></div>
+                <div class="sub4">
+                    @@ kcal 더먹을수 있어요<br>
+                    나의 목표 칼로리 : {{$kcal->goal_kcal}}<br>
+                    나의 식단 : 탄40 : 단40 : 지20
+                </div>
             </div>
         </div>
         <hr class="bc-green">
@@ -68,7 +81,6 @@
                     </h2>
                     <div id="flush-collapseOne" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            {{var_dump($df)}}
                         </div>
                     </div>
                 </div>
