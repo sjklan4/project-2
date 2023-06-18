@@ -120,6 +120,22 @@ class UserController extends Controller
         
     }
 
+
+    public function userinfoedit(){
+        $id = session('user_id');
+        $userinfo = UserInfo::FindOrFail($id);
+
+        return view('Userinfoupdate')->with('data',$userinfo);
+    }
+
+
+
+
+
+
+
+
+
     public function logout() {
         Session::flush(); // 세션 파기
         Auth::logout(); // 로그아웃
