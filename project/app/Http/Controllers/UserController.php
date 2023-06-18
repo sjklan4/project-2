@@ -57,34 +57,29 @@ class UserController extends Controller
         
     }
 
+    //회원가입 화면 이동
     public function regist(){
         return view('regist');
     }
 
+    //이메일 중복체크 
+    public function chdeckEmail(Request $request) {
+        $rules = ['user_email' => 'required|unique:user_infos'];
+    
+        $validator = Validator::make($request->only('user_email'), $rules);
+    
+        if ($validator->fails()) {
+            return response()->json(['exists' => 1]);
+        }
+        return response()->json(['exists' => 0]);
+    }
+
+
+
+
 
     // 순서 확인 : 
     public function registpost(Request $req){
-
-        $rules = [  
-        'user_email'   => 'required|unique:user_infos'
-       ];
-
-       $validatedup = Validator::make($req->only('user_email'),$rules,[
-
-        'user_email' => '가입되어 있는 Email입니다.'
-    ]);
-
-    
-
-    if ($validatedup->fails()) {
-        $errors = $validatedup->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
-    }
-    else{
-        $message = '사용 가능한 Email입니다.';
-        return redirect()->back()->with('message',$message)->withInput();
-    }
-
 
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
@@ -125,6 +120,7 @@ class UserController extends Controller
         KcalInfo::create($data1);
         
         return view('login');
+        
     }
 
     public function logout() {
@@ -210,3 +206,21 @@ class UserController extends Controller
         //     'email'    =>  'required|email|max:20'
         //     ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         // ]);
+
+
+
+        // $rules = [  
+        //     'user_email'   => 'required|unique:user_infos'
+        //    ];
+    
+        //    $validatedup = Validator::make($req->only('user_email'),$rules,[
+    
+        //     'user_email' => '가입되어 있는 Email입니다.'
+        // ]);
+    
+        
+    
+        // if ($validatedup->fails()) {
+        //     return response()->json(['exists' => 1]);
+        // }
+        // return response()->json(['exists' => 0]);

@@ -72,11 +72,17 @@ use App\Http\Controllers\UserController;
 Route::get('/user/login', [UserController::class,'login'])->name('user.login');
 Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');
 
+
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
-Route::post('/user/registdup',[UserController::class, 'registdup'])->name('user.registdup');
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
 Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
+
+//----------------테스트용--------------------------------------
+// use App\Http\Controllers\ButtonController;
+// Route::post('/button-click', [ButtonController::class, 'handleButtonClick']);
+// Route::post('/user/registdup', [UserController::class, 'chdeckEmail'])->name('user.registdup');
+//---------------------------------------------------------------------------------------
 
 // ---------------------------------------------
 // 섹션명       : 즐겨찾는 식단(Fav)

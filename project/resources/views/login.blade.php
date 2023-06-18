@@ -28,5 +28,5 @@
 <br>
 <button type="button"onclick="location.href = '{{route('user.regist')}}'">회원가입</button>
 
-    {{ $error ?? "없음"}}
+
 @endsection
