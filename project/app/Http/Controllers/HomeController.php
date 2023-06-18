@@ -17,42 +17,34 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    // Route::get('/home/{id}', [HomeController::class, 'home'])->name('home');
-
+    // Route::get('/home', [HomeController::class, 'home'])->name('home');
+    // https://www.lesstif.com/laravelprog/query-scope-27295884.html
     public function home()
     {
+        // 유저 인증 작업
         if(!Auth::user()) {
             return redirect()->route('user.login');
         }
-
-        // $data = UserInfo::find($id);
+        $id = Auth::user()->user_id;
         $date = Carbon::now()->format('Y-m-d');
 
-        $id = Auth::user()->user_id;
-        $result = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
+        $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
 
-        // var_dump($id);
-        // exit; //test
+        $dietFood = DB::select('SELECT * FROM diet_food df INNER JOIN diets d ON d.d_id = df.d_id WHERE d.user_id = :id AND d.d_date = :d_date',['id' => $id,'d_date' => $date]);
 
-        // return response()->json($data, 200); //test
-
-        return view('home')->with("date",$date)->with("result",$result);
-        // return view('home')->with("data",$data)->with("today",$today); // 찐
+        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood);
     }
 
     public function homePost(Request $req)
     {
-        // $data = UserInfo::find($id);
         $id = Auth::user()->user_id;
         $date = $req->getDate;
+        
+        $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
 
-        $result = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
+        $dietFood = DB::select('SELECT * FROM diet_food df INNER JOIN diets d ON d.d_id = df.d_id WHERE d.user_id = :id AND d.d_date = :d_date',['id' => $id,'d_date' => $date]);
 
 
-        // var_dump($result);exit;
-        // return var_dump($req->getDate);
-
-        return view('home')->with("result",$result)->with("date",$date);
-        // return redirect()->back()->withInput(['date', $date ]);
+        return view('home')->with("date",$date)->with("diet",$diet)->with("df",$dietFood);
     }
 }

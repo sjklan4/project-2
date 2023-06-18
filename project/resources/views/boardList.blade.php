@@ -11,9 +11,9 @@
                     <tr>
                         <td>{{$item->bcate_name}}</td>
                         <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
-                        <td>{{$item->board_hits}}</td>
+                        <td>{{$item->hits}}</td>
                         <td>{{$item->likes}}</td>
-                        {{-- <td>3</td> --}}
+                        <td>{{$item->replies}}</td>
                     </tr>
                 @empty
                 <tr>
@@ -21,7 +21,7 @@
                     <td>게시글 없음</td>
                     <td></td>
                     <td></td>
-                    {{-- <td></td> --}}
+                    <td></td>
                 </tr>
                 @endforelse
             </table>

@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Board;
-use App\Models\BoardHit;
 use App\Models\BoardCate;
 use App\Models\BoardLike;
 use App\Models\UserInfo;
@@ -31,8 +30,7 @@ class BoardController extends Controller
         }
 
         $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
-            ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->orderBy('boards.created_at', 'desc')
             ->where('boards.deleted_at', null)
@@ -49,8 +47,7 @@ class BoardController extends Controller
         }
 
         $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'board_hits.board_hits', 'board_cates.bcate_name')
-            ->join('board_hits','boards.board_id','=', 'board_hits.board_id')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->where('boards.bcate_id', $id)
             ->where('boards.deleted_at', null)
@@ -101,12 +98,6 @@ class BoardController extends Controller
             ]
             ,'board_id'
         );
-        
-        // todo 게시글 테이블 조회수 업데이트
-        DB::table('board_hits')->insert([
-            'board_id'     => $board_id
-            ,'board_hits'  => 0
-        ]);
 
         return redirect()->route('board.show', ['board' => $board_id]);
     }
@@ -125,30 +116,35 @@ class BoardController extends Controller
 
         // todo 유효성 검사
         
-        $boardHit = BoardHit::find($id);
+        $board = Board::find($id);
         // 조회수 증가
         if($flg === '0') {
-            DB::table('board_hits')
+            DB::table('boards')
                 ->where('board_id', '=', $id)
-                ->update(['board_hits' => $boardHit->board_hits + 1]);
+                ->update(['hits' => $board->hits + 1]);
         }
         
         // 게시글 상세 정보 획득
-        $boardHit = BoardHit::find($id);
         $board = Board::find($id);
         $bcate = BoardCate::find($board->bcate_id);
+        $reply = DB::table('board_replies')
+                ->select('rcontent', 'nkname', 'created_at')
+                ->where('board_id', $board->board_id)
+                ->get();
 
         $arr = [
-            'cate'      => $bcate->bcate_name
-            ,'title'    => $board->btitle
-            ,'content'  => $board->bcontent
-            ,'hits'     => $boardHit->board_hits
-            ,'id'       => $board->board_id
-            ,'like'     => $board->likes
-            ,'user_id'  => $board->user_id
+            'cate'        => $bcate->bcate_name
+            ,'nkname'     => $board->nkname
+            ,'title'      => $board->btitle
+            ,'content'    => $board->bcontent
+            ,'hits'       => $board->hits
+            ,'id'         => $board->board_id
+            ,'like'       => $board->likes
+            ,'user_id'    => $board->user_id
+            ,'created_at' => $board->createdat
         ];
 
-        return view('boardDetail')->with('data', $arr);
+        return view('boardDetail')->with('data', $arr)->with('reply', $reply);
     }
 
     /**
@@ -269,6 +265,26 @@ class BoardController extends Controller
 
     public function replyPost(Request $req) {
         // todo 유효성 검사
-        
+
+        $user_id = session('user_id');
+        // 댓글 테이블 인서트
+        DB::table('board_replies')->insert([
+            'user_id'       => $user_id
+            ,'nkname'       => UserInfo::find($user_id)->nkname
+            ,'board_id'     => $req->board_id
+            ,'rcontent'     => $req->reply
+            ,'created_at'   => now()
+        ]);
+
+        // 게시글 테이블 댓글 수 업데이트
+        $board = Board::find($req->board_id);
+        DB::table('boards')
+            ->where('board_id', '=', $req->board_id)
+            ->update(['replies' => $board->replies + 1]);
+
+        // todo 트랜잭션 처리
+
+        // 게시글 상세 페이지 이동
+        return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
     }
 }
