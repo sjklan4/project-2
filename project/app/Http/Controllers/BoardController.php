@@ -256,7 +256,8 @@ class BoardController extends Controller
                 $board = Board::find($id);
                 DB::table('boards')
                 ->where('board_id', '=', $id)
-                ->update(['likes' => $board->likes - 1]);
+                // ->update(['likes' => $board->likes - 1]);
+                ->decrement('likes');
             });
         }
 
