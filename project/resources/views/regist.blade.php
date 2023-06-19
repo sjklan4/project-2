@@ -8,7 +8,7 @@
     @csrf
 <label for="user_email">이메일</label>
 <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
-<button type="button" id="chdeckEmail">중복확인</button>
+<button type="button" id="chdeckEmail">중복체크</button>
 <br>
 <span id="emailRegexm"></span>
 {{-- @error('user_email')

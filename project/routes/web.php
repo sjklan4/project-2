@@ -79,6 +79,8 @@ Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('
 //유저 정보변경 라우트 확인하기 클레스, 함수 구문 이름 상태등
 
 Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');
+Route::post('/user/userinfoPost',[UserController::class,'userinfoeditPost'])->name('user.userinfoeditPost');
+
 Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
 

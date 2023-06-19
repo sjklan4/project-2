@@ -122,19 +122,39 @@ class UserController extends Controller
         
     }
 
-
+    //유저 기존데이터 출력
     public function userinfoedit(){
         $id = session('user_id');
         $userinfo = UserInfo::FindOrFail($id);
 
         return view('Userinfoupdate')->with('data',$userinfo);
     }
+    
+    // 유저 정보 변경post
+    public function userinfoeditPost(Request $req){
+        $arrKey = [];
+        $baseUser = UserInfo::find(Auth::User()->user_id);
 
+        if($req->user_name !== $baseUser->user_name){
+            $arrKey[] = 'user_name';
+        }
+        if($req->nkname !== $baseUser->nkname){
+            $arrKey[] = 'nkname';
+        }
+        if($req->user_phone_num !== $baseUser->user_phone_num){
+            $arrKey[] = 'user_phone_num';
+        }
 
+         // 수정할 데이터 셋팅
+        foreach($arrKey as $val) {
+        
+            $baseUser->$val = $req->$val;
+        }
+        $baseUser->save(); // update
 
-
-
-
+        return redirect()->route('user.userinfoedit');
+    }
+    
 
 
 

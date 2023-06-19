@@ -27,3 +27,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 use App\Http\Controllers\ApiFoodController;
 
 Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
+
+// ---------------------------------------------
+// 섹션명       : 회원(User)
+// 기능         : 회원 관리 api 라우트 설정
+// 관리자       : 박상준
+// 생성일       : 2023-06-19
+// ---------------------------------------------
+
+use App\Http\Controllers\ApiUserController;
+
+Route::get('/user/{user_email}',[ApiUserController::class, 'chdeckEmail']);
