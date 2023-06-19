@@ -44,7 +44,7 @@
                     <br>
                 </div>
             </div>
-            <button>취소</button>
+            <button type="button" onclick="location.href='{{ url()->previous() }}'">취소</button>
             <button type="submit" href="">입력</button>
         </form>
     </div>

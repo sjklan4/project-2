@@ -58,8 +58,11 @@ use App\Http\Controllers\QuestController;
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
 Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
+Route::get('/food/manage/{food}', [FoodController::class,'index'])->name('food.show');
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
+Route::put('/food/{food}', [FoodController::class,'update'])->name('food.update');
+Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.destroy');
 
 
 // ---------------------------------------------
@@ -109,6 +112,8 @@ use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
 Route::get('/search/list', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::post('/search/listpost', [SearchController::class, 'userchoice'])->name('search.list.post');
+Route::get('/search/menutab/{id}', [SearchController::class, 'favdiets'])->name('fav.diets');
+// Route::get('/search/list/{usearch}/uchoice', [SearchController::class, 'userchoice'])->name('user.choice');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
