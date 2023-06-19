@@ -129,18 +129,33 @@ class SearchController extends Controller
     }
     // v002, v003 add : 음식 검색 기능 추가
     public function searchselect(Request $req) {
-
         $usersearch = $req->search_input;
+        // $user_id = FoodInfo::find($id);
         if(!empty($usersearch)){
+            // if(!empty($user_id)){
+            //     $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+            //     ->where('food_name', 'like', '%'.$usersearch.'%')
+            //     ->orwhere('user_id', $id)
+            //     ->where('userfood_flg', '0')
+            //     ->whereNull('deleted_at')
+            //     ->get();
+            // }else{
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
             ->whereNull('deleted_at')
             ->get();
+        // }
     
-            return view('FoodList')->with('foddd', $foods);
+            return view('FoodList')->with('foods', $foods)->with('fav_diets', []);
         }
-        return view('FoodList')->with('foddd', []);
+
+        
+        // if(!$user_id){
+        //     return view('FoodList')->with('userid', $user_id);
+        // }
+        
+        return view('FoodList')->with('foods', [])->with('fav_diets', []);
     }
 
     // public function userchoice(Request $req) {
@@ -148,12 +163,16 @@ class SearchController extends Controller
     //     return $selectedUser;
     // }
 
-    public function favdiets($usearch) {
-        $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
-        ->where('user_id', $usearch)
-        ->whereNull('deleted_at')
-        ->get();
+    public function favdiets($id) {
 
-        return $favdiets;
+        
+            $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
+            ->where('user_id', $id)
+            ->whereNull('deleted_at')
+            ->get();
+        
+        
+        // return $favdiets;
+        return view('FoodList')->with('fav_diets', $favdiets)->with('foods', []);
     }
 }

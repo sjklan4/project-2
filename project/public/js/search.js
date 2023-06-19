@@ -5,20 +5,17 @@ const user_search = document.querySelector('.user_search')
 const fav_diets = document.querySelector('.fav_diets')
 const user_select = document.querySelector('.user_select')
 
-tab1.addEventListener('click', (e) => {
-    console.log('버튼클릭좀되게해주라고');
-    
-    
-    
+tab1.addEventListener('click', () => {
     if(fav_diets.style.display == 'none'){
         fav_diets.style.display = 'block';
         user_search.style.display = 'none';
         user_select.style.display = 'none';
+    }else{
+        fav_diets.style.display = 'none';
     }
 });
 
 tab2.addEventListener('click', () => {
-    console.log('버튼클릭좀되게해주라고');
     if(user_select.style.display == 'none'){
         user_select.style.display = 'block';
         user_search.style.display = 'none';
