@@ -147,15 +147,17 @@ class SearchController extends Controller
             ->get();
         // }
     
-            return view('FoodList')->with('foods', $foods)->with('fav_diets', []);
-        }
+        return view('FoodList')->with('foods', $foods);
+        // return view('FoodList')->with('foods', $foods)->with('fav_diets', []);
+    }
 
         
         // if(!$user_id){
         //     return view('FoodList')->with('userid', $user_id);
         // }
         
-        return view('FoodList')->with('foods', [])->with('fav_diets', []);
+        return view('FoodList')->with('foods', []);
+        // return view('FoodList')->with('foods', [])->with('fav_diets', []);
     }
 
     // public function userchoice(Request $req) {
@@ -164,15 +166,12 @@ class SearchController extends Controller
     // }
 
     public function favdiets($id) {
-
+        $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
+        ->where('user_id', $id)
+        ->whereNull('deleted_at')
+        ->get();
         
-            $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
-            ->where('user_id', $id)
-            ->whereNull('deleted_at')
-            ->get();
-        
-        
-        // return $favdiets;
-        return view('FoodList')->with('fav_diets', $favdiets)->with('foods', []);
+        return view('FoodList')->with('fav_diets', $favdiets);
+        // return view('FoodList')->with('fav_diets', $favdiets)->with('foods', []);
     }
 }
