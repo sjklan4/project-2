@@ -20,7 +20,7 @@
                     <ul class="nav flex-column">
                         @forelse ($data as $item)
                             <li class="nav-item">
-                                <a href="{{route('food.show', ['id' => $item->food_id])}}">{{$item->food_name}}</a>
+                                <a href="{{route('food.show', ['food' => $item->food_id])}}">{{$item->food_name}}</a>
                             </li>
                         @empty
                             <div>등록된 음식이 없습니다.</div>
@@ -30,7 +30,7 @@
             </div>
             @if (isset($food))
             <div>
-                <form action="{{}}" method="post">
+                <form action="{{route('food.update', ['food' => $food->food_id])}}" method="post">
                     @csrf
                     @method('put')
                     <h3>
@@ -60,18 +60,58 @@
                         <div class="inputRadioBtnDiv">
                             <input type="text" name="serving" value="{{$food->serving}}">
                             <div class="form_toggle row-vh d-flex flex-row" >
+                                @if ($food->ser_unit === '0')
+                                    <div class="form_radio_btn">
+                                        <input id="radio-1" type="radio" name="ser_unit" value="0" checked>
+                                        <label for="radio-1">g</label>
+                                    </div>
+                                    <div class="form_radio_btn">
+                                        <input id="radio-2" type="radio" name="ser_unit" value="1">
+                                        <label for="radio-2">ml</label>
+                                    </div>
+                                @else
                                 <div class="form_radio_btn">
-                                    <input id="radio-1" type="radio" name="ser_unit" value="0" checked>
+                                    <input id="radio-1" type="radio" name="ser_unit" value="0">
                                     <label for="radio-1">g</label>
                                 </div>
                                 <div class="form_radio_btn">
-                                    <input id="radio-2" type="radio" name="ser_unit" value="1">
+                                    <input id="radio-2" type="radio" name="ser_unit" value="1" checked>
                                     <label for="radio-2">ml</label>
                                 </div>
+                                @endif
+                                
                             </div>
                         </div>
                         <br>
-                        <button>삭제</button>
+                        
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            삭제
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">등록 음식 삭제</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                정말 삭제하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                <form action="{{route('food.destroy', ['food' => $food->food_id])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-primary">삭제
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                         <button type="submit">수정</button>
                     </div>
                 </form>

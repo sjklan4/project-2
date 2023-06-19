@@ -62,6 +62,7 @@ Route::get('/food/manage/{food}', [FoodController::class,'index'])->name('food.s
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
 Route::put('/food/{food}', [FoodController::class,'update'])->name('food.update');
+Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.destroy');
 
 
 // ---------------------------------------------

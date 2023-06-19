@@ -25,7 +25,7 @@ class FoodController extends Controller
         // 세부 등록 음식 정보 획득
         if ($id > 0) {
             $food = DB::table('food_infos')
-            ->select('food_name', 'user_id', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit')
+            ->select('food_name', 'food_id', 'user_id', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit')
             ->where('food_id', $id)
             ->get();
 
@@ -83,10 +83,11 @@ class FoodController extends Controller
         // todo 유효성 검사
 
         // 음식 테이블 정보 수정
-        DB::table('users')
-            ->where('user_id', $id)
+        DB::table('food_infos')
+            ->where('food_id', $id)
             ->update([
-                'kcal'         => $req->kcal
+                'food_name'     => $req->foodName
+                ,'kcal'         => $req->kcal
                 ,'carbs'        => $req->carbs
                 ,'protein'      => $req->protein
                 ,'fat'          => $req->fat
@@ -97,6 +98,16 @@ class FoodController extends Controller
                 ,'updated_at'   => now()
             ]);
 
-        return redirect()->route('food.show', ['id' => $id]);
+        return redirect()->route('food.show', ['food' => $id]);
+    }
+
+    public function destroy($id) {
+        // todo 유효성 검사
+
+        // 게시글 삭제 처리
+        FoodInfo::destroy($id);
+
+        // todo 에러처리, 트랜잭션 처리
+        return redirect()->route('food.index');
     }
 }
