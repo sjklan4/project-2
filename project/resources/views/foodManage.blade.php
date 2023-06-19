@@ -20,7 +20,8 @@
                     <ul class="nav flex-column">
                         @forelse ($data as $item)
                             <li class="nav-item">
-                                <div class="nav-link" class="foodNavBtn">{{$item->food_name}}</div>
+                                {{-- <div class="nav-link" class="foodNavBtn"></div> --}}
+                                <a href="{{route('food.index', ['id' => $item->food_id])}}">{{$item->food_name}}</a>
                             </li>
                         @empty
                             <div>등록된 음식이 없습니다.</div>
