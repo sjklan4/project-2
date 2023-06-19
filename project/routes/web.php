@@ -58,6 +58,7 @@ use App\Http\Controllers\QuestController;
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
 Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
+Route::get('/food/manage/{id}', [FoodController::class,'index'])->name('food.show');
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
 
@@ -75,6 +76,7 @@ Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.
 
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
+Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('user.chdeckEmail');
 //유저 정보변경 라우트 확인하기 클레스, 함수 구문 이름 상태등
 
 Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');

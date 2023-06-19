@@ -9,17 +9,25 @@ use App\Models\FoodInfo;
 
 class FoodController extends Controller
 {
-    public function index() {
+    public function index($id = '0') {
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
         
         $user_id = session('user_id');
 
+        // 사용자 등록 음식 목록
         $result = DB::table('food_infos')
-        ->select('*')
+        ->select('food_name', 'food_id', 'user_id')
         ->where('user_id', $user_id)
         ->get();
+
+        // todo 사용자 id가 다른 음식 수정 방지
+        // if ($result->user_id !== $user_id) {
+        //     return redirect()->route('food.index');
+        // }
+
+        
 
         return view('/foodManage')->with('data', $result);
     }
