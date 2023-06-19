@@ -16,7 +16,10 @@
 
 .boardDetailTitle {
     display: flex;
-    
+}
+
+.boardDetailTitle div {
+    margin-right: 2rem;
 }
 
 table {
