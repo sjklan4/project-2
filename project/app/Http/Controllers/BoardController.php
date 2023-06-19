@@ -141,7 +141,7 @@ class BoardController extends Controller
             ,'id'         => $board->board_id
             ,'like'       => $board->likes
             ,'user_id'    => $board->user_id
-            ,'created_at' => $board->createdat
+            ,'created_at' => $board->created_at
         ];
 
         return view('boardDetail')->with('data', $arr)->with('reply', $reply);
@@ -256,7 +256,8 @@ class BoardController extends Controller
                 $board = Board::find($id);
                 DB::table('boards')
                 ->where('board_id', '=', $id)
-                ->update(['likes' => $board->likes - 1]);
+                // ->update(['likes' => $board->likes - 1]);
+                ->decrement('likes');
             });
         }
 

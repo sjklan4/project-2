@@ -16,7 +16,10 @@
 
 .boardDetailTitle {
     display: flex;
-    
+}
+
+.boardDetailTitle div {
+    margin-right: 2rem;
 }
 
 table {
@@ -32,4 +35,43 @@ table {
 .foodInsertTitleGrid{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.inputRadioBtnDiv{
+    display: flex;
+}
+
+.inputRadioBtnDiv input {
+    margin-right: 1rem;
+}
+
+
+/* 라디오 버튼 */
+.form_radio_btn {
+    width: 45px;
+    height : 45px;
+    margin-right: 1rem;
+}
+.form_radio_btn input[type=radio] {
+    display: none;
+}
+.form_radio_btn label {
+    display: block;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
+    height: -webkit-fill-available;
+    line-height: 45px;
+}
+
+/* Checked */
+.form_radio_btn input[type=radio]:checked + label {
+    background: #538E04;
+    color: #fff;
+}
+
+/* Disabled */
+.form_radio_btn input[type=radio] + label {
+    background: #C4C4C4;
+    color: #fff;
 }

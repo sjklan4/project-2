@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\KcalInfo;
 use App\Models\UserInfo;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -120,19 +122,39 @@ class UserController extends Controller
         
     }
 
-
+    //유저 기존데이터 출력
     public function userinfoedit(){
         $id = session('user_id');
         $userinfo = UserInfo::FindOrFail($id);
 
         return view('Userinfoupdate')->with('data',$userinfo);
     }
+    
+    // 유저 정보 변경post
+    public function userinfoeditPost(Request $req){
+        $arrKey = [];
+        $baseUser = UserInfo::find(Auth::User()->user_id);
 
+        if($req->user_name !== $baseUser->user_name){
+            $arrKey[] = 'user_name';
+        }
+        if($req->nkname !== $baseUser->nkname){
+            $arrKey[] = 'nkname';
+        }
+        if($req->user_phone_num !== $baseUser->user_phone_num){
+            $arrKey[] = 'user_phone_num';
+        }
 
+         // 수정할 데이터 셋팅
+        foreach($arrKey as $val) {
+        
+            $baseUser->$val = $req->$val;
+        }
+        $baseUser->save(); // update
 
-
-
-
+        return redirect()->route('user.userinfoedit');
+    }
+    
 
 
 
