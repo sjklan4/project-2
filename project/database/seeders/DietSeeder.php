@@ -15,11 +15,13 @@ class DietSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('diets')->insert([
-            ['user_id' => '2', "d_date" => "2023-06-19", "d_flg" => "0"]
-            ,['user_id' => '2', "d_date" => "2023-06-19", "d_flg" => "1"]
-            ,['user_id' => '2', "d_date" => "2023-06-19", "d_flg" => "2"]
-            ,['user_id' => '2', "d_date" => "2023-06-19", "d_flg" => "3"]
-        ]);
+        $arr=[];
+        for($i = 1; $i <= 30; $i++){
+            for($a = 0; $a <= 3; $a++){
+                $arr[] =
+                ['user_id' => '30', "d_date" => "2023-06-$i", "d_flg" => $a ];
+            }
+        }
+        DB::table('diets')->insert($arr);
     }
 }

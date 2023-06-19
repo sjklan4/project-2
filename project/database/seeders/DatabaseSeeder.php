@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(DietSeeder::class);
 
         // 개인 식단음식 더미 데이터 삽입용 팩토리 호출
-        DietFood::factory(50)->create();
+        // DietFood::factory(500)->create();
 
         // BoardHit::factory(107)->create();
     }

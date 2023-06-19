@@ -23,8 +23,7 @@
             <div class="dateBox">
                 <form action="{{route('home.post')}}" method="post">
                         @csrf
-                        <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$date}}">
-                        {{-- <input name="getDate" id="calendar" type="date" required> --}}
+                        <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date']}}">
                         <button type="submit">이동</button>
                 </form>
             </div>
@@ -35,18 +34,13 @@
             </div>
         </div>
         {{-- 테스트존 --}}
-        @foreach($df as $val)
-            {{$val->df_carbs}}, 
-        @endforeach<br>
-        총합
+        테스트 : {{$data['brfSum']['brfKcalSum']}} 
+        테스트 : {{$data['dietFood']['dietLunch']}} 
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
                 <div class="sub1">
-                    현재 먹은 kcal
-                    @foreach($df as $val)
-                    {{$val->df_kcal}}, 
-                    @endforeach
+                    현재 먹은 kcal : 
                 </div>
                 <div class="sub2">
                     탄수화물 % <br>
@@ -56,7 +50,7 @@
             </div>
             <div class="box2">
                 <div class="sub3">
-                    @if(($kcal->nutrition_ratio)==1)
+                    @if(($data['userKcal']->nutrition_ratio)==1)
                         탄수화물 : 0/{{($kcal->goal_kcal)*0.4}}<br>
                         단백질 : 0/{{($kcal->goal_kcal)*0.4}}<br>
                         지방 : 0/{{($kcal->goal_kcal)*0.2}}
@@ -65,7 +59,8 @@
                 </div>
                 <div class="sub4">
                     @@ kcal 더먹을수 있어요<br>
-                    나의 목표 칼로리 : {{$kcal->goal_kcal}}<br>
+                    {{-- 나의 목표 칼로리 : {{$kcal->goal_kcal}}<br> --}}
+                    나의 목표 칼로리 : {{$data['userKcal']->goal_kcal}}<br>
                     나의 식단 : 탄40 : 단40 : 지20
                 </div>
             </div>
