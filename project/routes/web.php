@@ -58,9 +58,10 @@ use App\Http\Controllers\QuestController;
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
 Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
-Route::get('/food/manage/{id}', [FoodController::class,'index'])->name('food.show');
+Route::get('/food/manage/{food}', [FoodController::class,'index'])->name('food.show');
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
+Route::put('/food/{food}', [FoodController::class,'update'])->name('food.update');
 
 
 // ---------------------------------------------

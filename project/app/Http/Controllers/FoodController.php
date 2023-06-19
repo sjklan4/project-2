@@ -22,11 +22,20 @@ class FoodController extends Controller
         ->where('user_id', $user_id)
         ->get();
 
-        // todo 사용자 id가 다른 음식 수정 방지
-        // if ($result->user_id !== $user_id) {
-        //     return redirect()->route('food.index');
-        // }
+        // 세부 등록 음식 정보 획득
+        if ($id > 0) {
+            $food = DB::table('food_infos')
+            ->select('food_name', 'user_id', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit')
+            ->where('food_id', $id)
+            ->get();
 
+            // todo 사용자 id가 다른 음식 조회&수정 방지
+            if ($food[0]->user_id !== $user_id) {
+                return redirect()->route('food.index');
+            }
+
+            return view('/foodManage')->with('data', $result)->with('food', $food[0]);
+        }
         
 
         return view('/foodManage')->with('data', $result);
@@ -68,5 +77,26 @@ class FoodController extends Controller
             ]);
 
         return redirect()->route('food.index');
+    }
+
+    public function update(Request $req, $id) {
+        // todo 유효성 검사
+
+        // 음식 테이블 정보 수정
+        DB::table('users')
+            ->where('user_id', $id)
+            ->update([
+                'kcal'         => $req->kcal
+                ,'carbs'        => $req->carbs
+                ,'protein'      => $req->protein
+                ,'fat'          => $req->fat
+                ,'sugar'        => $req->sugar
+                ,'sodium'       => $req->sodium
+                ,'serving'      => $req->serving
+                ,'ser_unit'     => $req->ser_unit
+                ,'updated_at'   => now()
+            ]);
+
+        return redirect()->route('food.show', ['id' => $id]);
     }
 }
