@@ -122,6 +122,6 @@ Route::get('/search/menutab/{id}', [SearchController::class, 'favdiets'])->name(
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\HomeController;
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [HomeController::class, 'homepost'])->name('home');
 Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
 

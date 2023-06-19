@@ -23,7 +23,7 @@
             <div class="dateBox">
                 <form action="{{route('home.post')}}" method="post">
                         @csrf
-                        <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date']}}">
+                        <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date'] ?? $data['today']}}">
                         <button type="submit">이동</button>
                 </form>
             </div>
@@ -34,13 +34,11 @@
             </div>
         </div>
         {{-- 테스트존 --}}
-        테스트 : {{$data['brfSum']['brfKcalSum']}} 
-        테스트 : {{$data['dietFood']['dietLunch']}} 
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
                 <div class="sub1">
-                    현재 먹은 kcal : 
+                    오늘 먹은 kcal 총합 :  
                 </div>
                 <div class="sub2">
                     탄수화물 % <br>
@@ -51,15 +49,14 @@
             <div class="box2">
                 <div class="sub3">
                     @if(($data['userKcal']->nutrition_ratio)==1)
-                        탄수화물 : 0/{{($kcal->goal_kcal)*0.4}}<br>
-                        단백질 : 0/{{($kcal->goal_kcal)*0.4}}<br>
-                        지방 : 0/{{($kcal->goal_kcal)*0.2}}
+                        탄수화물 : 0/{{($data['userKcal']->goal_kcal)*0.4}}<br>
+                        단백질 : 0/{{($data['userKcal']->goal_kcal)*0.4}}<br>
+                        지방 : 0/{{($data['userKcal']->goal_kcal)*0.2}}
                     @endif
                     내용없음
                 </div>
                 <div class="sub4">
                     @@ kcal 더먹을수 있어요<br>
-                    {{-- 나의 목표 칼로리 : {{$kcal->goal_kcal}}<br> --}}
                     나의 목표 칼로리 : {{$data['userKcal']->goal_kcal}}<br>
                     나의 식단 : 탄40 : 단40 : 지20
                 </div>
@@ -76,6 +73,20 @@
                     </h2>
                     <div id="flush-collapseOne" class="accordion-collapse collapse">
                         <div class="accordion-body">
+                            @php
+                            $brfKcalsum = 0;
+                            $brfCarbsum = 0;
+                            $brfProteinsum = 0;
+                            $brfFatsum = 0;
+                            @endphp
+                            @foreach($data['dietFood']['dietBrf'] as $val)
+                                    음식명 : {{$val->df_name}} | 칼로리 : {{$val->df_kcal}} | 탄수화물 : {{$val->df_carbs}} | 단백질 : {{$val->df_protein}} | 지방 : {{$val->df_fat}} |당 : {{$val->df_sugar}} | 나트륨 : {{$val->df_sodium}} | 섭취량 : {{$val->df_intake}} <br>
+                                    <span style="display: none">{{$brfKcalsum += (($val->df_kcal)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfCarbsum += (($val->df_carbs)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfProteinsum += (($val->df_protein)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfFatsum += (($val->df_fat)*($val->df_intake))}}</span>
+                            @endforeach
+                                칼로리 총합 : {{$brfKcalsum}} | 탄수화물 총합 : {{$brfCarbsum}} | 단백질 총합 : {{$brfProteinsum}} | 지방 총합 : {{$brfFatsum}}
                         </div>
                     </div>
                 </div>
@@ -86,7 +97,22 @@
                         </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                        <div class="accordion-body">
+                            @php
+                            $brfKcalsum = 0;
+                            $brfCarbsum = 0;
+                            $brfProteinsum = 0;
+                            $brfFatsum = 0;
+                            @endphp
+                            @foreach($data['dietFood']['dietLunch'] as $val)
+                                    음식명 : {{$val->df_name}} | 칼로리 : {{$val->df_kcal}} | 탄수화물 : {{$val->df_carbs}} | 단백질 : {{$val->df_protein}} | 지방 : {{$val->df_fat}} |당 : {{$val->df_sugar}} | 나트륨 : {{$val->df_sodium}} | 섭취량 : {{$val->df_intake}}<br>
+                                    <span style="display: none">{{$brfKcalsum += (($val->df_kcal)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfCarbsum += (($val->df_carbs)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfProteinsum += (($val->df_protein)*($val->df_intake))}}</span>
+                                    <span style="display: none">{{$brfFatsum += (($val->df_fat)*($val->df_intake))}}</span>
+                            @endforeach
+                                칼로리 총합 : {{$brfKcalsum}} | 탄수화물 총합 : {{$brfCarbsum}} | 단백질 총합 : {{$brfProteinsum}} | 지방 총합 : {{$brfFatsum}}
+                        </div>
                     </div>
                 </div>
                 <div class="accordion-item">

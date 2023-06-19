@@ -15,7 +15,6 @@ class Diet extends Model
 
     protected $guarded = ['d_id'];
 
-    // 동적 쿼리 테스트 -kwon
     public function scopeTest($query, $date, $flg)
     {
         return $query->where('d_date', '=', $date)->where('d_flg', '=', $flg);
