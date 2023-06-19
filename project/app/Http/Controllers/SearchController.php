@@ -5,7 +5,7 @@
  * 파일명       : SearchController.php
  * 이력         : v001 0615 채수지 new
  *                v002 0616 채수지 add (검색 기능 추가)
- *                v003 0617 채수지 add (검색 기능 추가)
+ *                v003 0619 채수지 add (탭 기능 추가, 식단 정보 불러오기)
 *****************************/
 namespace App\Http\Controllers;
 
@@ -143,13 +143,14 @@ class SearchController extends Controller
         return view('FoodList')->with('foddd', []);
     }
 
-    public function userchoice(Request $req) {
-        $selectedUser = $req->selectedUser;
-        return $selectedUser;
-    }
+    // public function userchoice(Request $req) {
+    //     $selectedUser = $req->selectedUser;
+    //     return $selectedUser;
+    // }
 
-    public function favdiets() {
+    public function favdiets($usearch) {
         $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
+        ->where('user_id', $usearch)
         ->whereNull('deleted_at')
         ->get();
 

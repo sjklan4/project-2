@@ -2,8 +2,10 @@
 
 @section('title', 'FoodSearch')
 
-@section('js_css')
-    <script src="{{asset('js/search.js')}}"></script>
+@section('js')
+    <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
+@endsection
+@section('css')
     <link rel="stylesheet" href="{{asset('css/search.css')}}">
 @endsection
 
@@ -14,22 +16,28 @@
         <button type="submit">검색</button>
     </form>
 
-    <div class="tabbuttons">
-        <button type="button" class="favDiets">저장된 식단</button>
-        <button type="button" class="seleted">선택된 음식</button>
-        <button type="button" onclick="location.href='{{route('food.create')}}'">음식 등록</button>
-    </div>
+    <button type="button" class="tab1" onclick="location.href={{route('fav.diets')}}">저장된 식단</button>
+    <button type="button" class="tab2">선택된 음식</button>
+    <button type="button" class="tab3" onclick="location.href='{{route('food.create')}}'">음식등록</button>
 
-    <div class="searchResult">
+    <div class="user_search">
         @forelse ($foddd as $item)
         <form action="{{route('search.list.post')}}" method="post">
             @csrf
             <input type="hidden" name="selectedUser" value="{{$item->user_id}}">
-            <input type="checkbox" name="usercheck" id="searchname" value="{{$item->food_id, $item->user_id}}">
+            <input type="checkbox" name="usercheck" id="searchname" value="{{$item->food_id}}" onclick='getCheckboxValue()'>
             <span>{{$item->food_name}}</span>
         </form>
         @empty
-            <p>검색어를 입력해주세요.</p>
+        <p>검색어를 입력해주세요.</p>
         @endforelse
+    </div>
+    <div id='result'></div>
+    <div class="fav_diets">
+        <h2>fav-diets</h2>
+        
+    </div>
+    <div class="user_select">
+        <h2>user-select</h2>
     </div>
 @endsection
