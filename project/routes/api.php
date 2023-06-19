@@ -24,6 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 관리자       : 최아란
 // 생성일       : 2023-06-19
 // ---------------------------------------------
-use App\Http\Controllers\ApiFoodManageController;
+use App\Http\Controllers\ApiFoodController;
 
-Route::get('/food/manage/{id}', [ApiFoodsManageController::class, 'getFoodList']);
+Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
