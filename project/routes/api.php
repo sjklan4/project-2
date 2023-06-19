@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// ---------------------------------------------
+// 섹션명       : 음식(Food)
+// 기능         : 사용자 등록 음식 관련 api 라우트 설정
+// 관리자       : 최아란
+// 생성일       : 2023-06-19
+// ---------------------------------------------
+use App\Http\Controllers\ApiFoodController;
+
+Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
