@@ -16,10 +16,10 @@ class DietSeeder extends Seeder
     public function run()
     {
         $arr=[];
-        for($i = 1; $i <= 30; $i++){
+        for($i = 1; $i <= 31; $i++){
             for($a = 0; $a <= 3; $a++){
                 $arr[] =
-                ['user_id' => '30', "d_date" => "2023-06-$i", "d_flg" => $a ];
+                ['user_id' => '30', "d_date" => "2023-07-$i", "d_flg" => $a ];
             }
         }
         DB::table('diets')->insert($arr);

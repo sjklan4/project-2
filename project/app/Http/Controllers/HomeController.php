@@ -44,7 +44,7 @@ class HomeController extends Controller
         $kcal = KcalInfo::find($id);
 
         // 개인 식단 (사진)
-        $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
+        // $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
 
         // 식단 음식
         // $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
@@ -52,22 +52,58 @@ class HomeController extends Controller
         //     ->where('diets.d_date',$date)
         //     ->get();
 
-        $dietBrf = DietFood::DietFood( $id , $date, "0")->get(); // 아침
-        $dietLunch = DietFood::DietFood( $id , $date, "1")->get(); // 점심
-        $dietDinner = DietFood::DietFood( $id , $date, "2")->get(); // 저녁
-        $dietSnack = DietFood::DietFood( $id , $date, "3")->get(); // 간식
+        $dietBrf = Diet::Diet( $id , $date, "0")->get(); // 아침
+        $dietLunch = Diet::Diet( $id , $date, "1")->get(); // 점심
+        $dietDinner = Diet::Diet( $id , $date, "2")->get(); // 저녁
+        $dietSnack = Diet::Diet( $id , $date, "3")->get(); // 간식
 
-        // 식단 음식 계산
-        // $sum = DB::table('diet_food')->select(DB::raw('sum(df_kcal)'))->join('diets','diet_food.d_id','=','diets.d_id')->where('diets.user_id', $id)->where('diets.d_date',$date)->where('diets.d_flg','0')->where('diet_food.deleted_at', null)->get();
+        // 아침 칼로리, 탄수화물, 단백질, 지방 계산
+        $brfKcalSum = 0;
+        $brfCarbSum = 0;
+        $brfProteinSum = 0;
+        $brfFatSum = 0;
+        foreach ($dietBrf as $val) {
+            $brfKcalSum += (($val->kcal)*($val->df_intake));
+            $brfCarbSum += (($val->carbs)*($val->df_intake));
+            $brfProteinSum += (($val->protein)*($val->df_intake));
+            $brfFatSum += (($val->fat)*($val->df_intake));
+        }
 
-        // 아침 식단 - 칼로리 합계
-        // $brfKcalSum = $dietBrf->sum('df_kcal');
+        // 점심 칼로리, 탄수화물, 단백질, 지방 계산
+        $lunchKcalSum = 0;
+        $lunchCarbSum = 0;
+        $lunchProteinSum = 0;
+        $lunchFatSum = 0;
+        foreach ($dietLunch as $val) {
+            $lunchKcalSum += (($val->kcal)*($val->df_intake));
+            $lunchCarbSum += (($val->carbs)*($val->df_intake));
+            $lunchProteinSum += (($val->protein)*($val->df_intake));
+            $lunchFatSum += (($val->fat)*($val->df_intake));
+        }
 
-        // 아침 식단 - 단백질 합계
-        // $brfProteinSum = 0;
-        // foreach($dietBrf as $val){
-        //     $brfProteinSum += $val->df_protein;
-        // }
+        // 저녁 칼로리, 탄수화물, 단백질, 지방 계산
+        $dinnerKcalSum = 0;
+        $dinnerCarbSum = 0;
+        $dinnerProteinSum = 0;
+        $dinnerFatSum = 0;
+        foreach ($dietDinner as $val) {
+            $dinnerKcalSum += (($val->kcal)*($val->df_intake));
+            $dinnerCarbSum += (($val->carbs)*($val->df_intake));
+            $dinnerProteinSum += (($val->protein)*($val->df_intake));
+            $dinnerFatSum += (($val->fat)*($val->df_intake));
+        }
+
+        // 간식 칼로리, 탄수화물, 단백질, 지방 계산
+        $snackKcalSum = 0;
+        $snackCarbSum = 0;
+        $snackProteinSum = 0;
+        $snackFatSum = 0;
+        foreach ($dietSnack as $val) {
+            $snackKcalSum += (($val->kcal)*($val->df_intake));
+            $snackCarbSum += (($val->carbs)*($val->df_intake));
+            $snackProteinSum += (($val->protein)*($val->df_intake));
+            $snackFatSum += (($val->fat)*($val->df_intake));
+        }
 
         $arrData = [
             'date'          => $date
@@ -79,7 +115,30 @@ class HomeController extends Controller
                     ,'dietDinner'   => $dietDinner
                     ,'dietSnack'    => $dietSnack
             ]
-            ,'diet' => $diet
+            ,'brfSum'   => [
+                    'brfKcalSum'    => $brfKcalSum
+                    ,'brfCarbSum'   => $brfCarbSum
+                    ,'brfProteinSum'=> $brfProteinSum
+                    ,'brfFatSum'    => $brfFatSum
+            ]
+            ,'lunchSum'   => [
+                'lunchKcalSum'    => $lunchKcalSum
+                ,'lunchCarbSum'   => $lunchCarbSum
+                ,'lunchProteinSum'=> $lunchProteinSum
+                ,'lunchFatSum'    => $lunchFatSum
+            ]
+            ,'dinnerSum'   => [
+                'dinnerKcalSum'    => $dinnerKcalSum
+                ,'dinnerCarbSum'   => $dinnerCarbSum
+                ,'dinnerProteinSum'=> $dinnerProteinSum
+                ,'dinnerFatSum'    => $dinnerFatSum
+            ]
+            ,'snackSum'   => [
+                'snackKcalSum'    => $snackKcalSum
+                ,'snackCarbSum'   => $snackCarbSum
+                ,'snackProteinSum'=> $snackProteinSum
+                ,'snackFatSum'    => $snackFatSum
+            ]          
         ];
 
         return view('home')->with("data",$arrData);

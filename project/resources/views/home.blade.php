@@ -34,12 +34,11 @@
             </div>
         </div>
         {{-- 테스트존 --}}
-        {{$data['date'] ?? $data['today']}}
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
                 <div class="sub1">
-                    오늘 먹은 kcal 총합 :  
+                    오늘 먹은 kcal 총합 : {{($data['brfSum']['brfKcalSum'])+($data['lunchSum']['lunchKcalSum'])+(($data['dinnerSum']['dinnerKcalSum']))+(($data['snackSum']['snackKcalSum']))}}
                 </div>
                 <div class="sub2">
                     탄수화물 % <br>
@@ -49,12 +48,11 @@
             </div>
             <div class="box2">
                 <div class="sub3">
-                    @if(($data['userKcal']->nutrition_ratio)==1)
-                        탄수화물 : 0/{{($data['userKcal']->goal_kcal)*0.4}}<br>
+                    @if(($data['userKcal']->nutrition_ratio)==0)
+                        탄수화물 : {{($data['brfSum']['brfCarbSum'])+($data['lunchSum']['lunchCarbSum'])+($data['dinnerSum']['dinnerCarbSum'])+($data['snackSum']['snackCarbSum'])}} / {{($data['userKcal']->goal_kcal)*0.4}}<br>
                         단백질 : 0/{{($data['userKcal']->goal_kcal)*0.4}}<br>
                         지방 : 0/{{($data['userKcal']->goal_kcal)*0.2}}
                     @endif
-                    내용없음
                 </div>
                 <div class="sub4">
                     @@ kcal 더먹을수 있어요<br>
@@ -69,71 +67,73 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        아침
+                        아침<br>
+                        칼로리 총합 : {{$data['brfSum']['brfKcalSum']}} | 탄수화물 총합 : {{$data['brfSum']['brfCarbSum']}} | 단백질 총합 : {{$data['brfSum']['brfProteinSum']}} | 지방 총합 : {{$data['brfSum']['brfFatSum']}}
                         </button>
                     </h2>
                     <div id="flush-collapseOne" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            @php
-                            $brfKcalsum = 0;
-                            $brfCarbsum = 0;
-                            $brfProteinsum = 0;
-                            $brfFatsum = 0;
-                            @endphp
-                            @foreach($data['dietFood']['dietBrf'] as $val)
-                                    음식명 : {{$val->df_name}} | 칼로리 : {{$val->df_kcal}} | 탄수화물 : {{$val->df_carbs}} | 단백질 : {{$val->df_protein}} | 지방 : {{$val->df_fat}} |당 : {{$val->df_sugar}} | 나트륨 : {{$val->df_sodium}} | 섭취량 : {{$val->df_intake}} <br>
-                                    <span style="display: none">{{$brfKcalsum += (($val->df_kcal)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfCarbsum += (($val->df_carbs)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfProteinsum += (($val->df_protein)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfFatsum += (($val->df_fat)*($val->df_intake))}}</span>
-                            @endforeach
-                                칼로리 총합 : {{$brfKcalsum}} | 탄수화물 총합 : {{$brfCarbsum}} | 단백질 총합 : {{$brfProteinsum}} | 지방 총합 : {{$brfFatsum}}
+                            @forelse($data['dietFood']['dietBrf'] as $val)
+                                {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->
+                                음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 : {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : {{$val->df_intake}} <br>
+                            @empty
+                                정보가 없어요 ㅠㅠ
+                            @endforelse
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        점심
+                        점심<br>
+                        칼로리 총합 : {{$data['lunchSum']['lunchKcalSum']}} | 탄수화물 총합 : {{$data['lunchSum']['lunchCarbSum']}} | 단백질 총합 : {{$data['lunchSum']['lunchProteinSum']}} | 지방 총합 : {{$data['lunchSum']['lunchFatSum']}}
                         </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            @php
-                            $brfKcalsum = 0;
-                            $brfCarbsum = 0;
-                            $brfProteinsum = 0;
-                            $brfFatsum = 0;
-                            @endphp
-                            @foreach($data['dietFood']['dietLunch'] as $val)
-                                    음식명 : {{$val->df_name}} | 칼로리 : {{$val->df_kcal}} | 탄수화물 : {{$val->df_carbs}} | 단백질 : {{$val->df_protein}} | 지방 : {{$val->df_fat}} |당 : {{$val->df_sugar}} | 나트륨 : {{$val->df_sodium}} | 섭취량 : {{$val->df_intake}}<br>
-                                    <span style="display: none">{{$brfKcalsum += (($val->df_kcal)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfCarbsum += (($val->df_carbs)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfProteinsum += (($val->df_protein)*($val->df_intake))}}</span>
-                                    <span style="display: none">{{$brfFatsum += (($val->df_fat)*($val->df_intake))}}</span>
-                            @endforeach
-                                칼로리 총합 : {{$brfKcalsum}} | 탄수화물 총합 : {{$brfCarbsum}} | 단백질 총합 : {{$brfProteinsum}} | 지방 총합 : {{$brfFatsum}}
+                            @forelse($data['dietFood']['dietLunch'] as $val)
+                                {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->
+                                음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 : {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : {{$val->df_intake}} <br>
+                            @empty
+                                정보가 없어요 ㅠㅠ
+                            @endforelse
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        저녁
+                        저녁<br>
+                        칼로리 총합 : {{$data['dinnerSum']['dinnerKcalSum']}} | 탄수화물 총합 : {{$data['dinnerSum']['dinnerCarbSum']}} | 단백질 총합 : {{$data['dinnerSum']['dinnerProteinSum']}} | 지방 총합 : {{$data['dinnerSum']['dinnerFatSum']}}
                         </button>
                     </h2>
                     <div id="flush-collapseThree" class="accordion-collapse collapse">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                        <div class="accordion-body">
+                            @forelse($data['dietFood']['dietDinner'] as $val)
+                            {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->
+                            음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 : {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : {{$val->df_intake}} <br>
+                            @empty
+                                정보가 없어요 ㅠㅠ
+                            @endforelse
+                        </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
-                        간식
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        간식<br>
+                        칼로리 총합 : {{$data['snackSum']['snackKcalSum']}} | 탄수화물 총합 : {{$data['snackSum']['snackProteinSum']}} | 단백질 총합 : {{$data['snackSum']['snackProteinSum']}} | 지방 총합 : {{$data['snackSum']['snackFatSum']}}
                         </button>
                     </h2>
                     <div id="flush-collapseFour" class="accordion-collapse collapse">
-                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                        <div class="accordion-body">
+                            @forelse($data['dietFood']['dietSnack'] as $val)
+                            {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->
+                            음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 : {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : {{$val->df_intake}} <br>
+                            @empty
+                                정보가 없어요 ㅠㅠ
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>
