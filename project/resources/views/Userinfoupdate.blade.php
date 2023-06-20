@@ -19,6 +19,5 @@
     <br>
     <button type = "submit">정보수정</button>
 
-
     </form>
 @endsection

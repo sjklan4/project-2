@@ -37,4 +37,5 @@ Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
 
 use App\Http\Controllers\ApiUserController;
 
-Route::get('/user/{user_email}',[ApiUserController::class, 'chdeckEmail']);
+Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
+Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpassword']);
