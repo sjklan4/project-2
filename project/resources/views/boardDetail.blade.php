@@ -12,6 +12,9 @@
             <div>{{$data['hits']}}</div>
         </div>
         <div class="boardDetailContet">
+            @if (isset($data['img']))
+            <img src="{{asset('storage/images/board/'.$data['img'])}}" alt="1" style="width: 20rem;">
+            @endif
             <p>{{$data['content']}}</p>
             <button
                 type="button"
