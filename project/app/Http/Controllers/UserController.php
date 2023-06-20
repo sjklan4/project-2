@@ -64,26 +64,16 @@ class UserController extends Controller
         return view('regist');
     }
 
-    //이메일 중복체크 - js에서는 브라우져에서만 유효성 검사를 실시 함으로 서버측도 같은 형식의 검사를 진행하도록 유효성체크
-    public function chdeckEmail(Request $request) {
-        $rules = ['user_email' => 'required|unique:user_infos'];
-    
-        $validator = Validator::make($request->only('user_email'), $rules);
-    
-        if ($validator->fails()) {
-            return response()->json(['exists' => 1]);
-        }
-        return response()->json(['exists' => 0]);
-    }
 
 
-    // 순서 확인 : 
+
+    // 회원 가입 부분
     public function registpost(Request $req){
 
-        $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
-            ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
-            ,'user_email'    => 'required|email|max:20'
-            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]{1,60}$/'
+        $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
+            ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/' //영문대소, 특수문자, 숫자포함 8자리 이상 30자리까지 허용
+            ,'user_email'    => 'required|email|max:20' //email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
+            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:30' //영문대소문자, 한글, 숫자로 최소1자 최대20자
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
@@ -108,12 +98,12 @@ class UserController extends Controller
                 ,'created_at' => now()
             ];
         
-        $userid = DB::table('user_infos')->insertGetId($data);
+        $userid = DB::table('user_infos')->insertGetId($data); //user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
     
         $data1 = [
             'user_birth' => $req->user_birth
             ,'user_gen' => $req->gender
-            ,'user_id'  =>  $userid
+            ,'user_id'  =>  $userid   //insertGetId를 통해서 가져온 ID를 지정해서 일자와, 성별을 넣을 수 있다.
         ];
         
         KcalInfo::create($data1);
@@ -154,8 +144,66 @@ class UserController extends Controller
 
         return redirect()->route('user.userinfoedit');
     }
-    
 
+
+
+
+
+    //유저 비밀번호 변경출력
+    public function userpsedit(){ //비밀전호 변경 페이지로 이동
+        return view('UserPasswordedt');
+    }
+
+    public function userpseditpost(Request $req){ //변경 비밀번호를 업데이트 하기위한 구문
+        $arrdata=[]; //값을 넣기 위한 빈 배열을 준비
+        $basepassword = Auth::User()->password; //기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
+        if(hash::make($req->newpassword !== $basepassword->$req)){ //전달받은 값을 hash화 해서 비교하기 위함
+            $arrdata[] = 'newpassword'; //다르면 작성된 신규비밀번호가 배열에 들어감
+        }
+        else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
+            $error = '기존 비밀번호와 다른 비밀번호로 해주세요';
+            return redirect()->back()->with('error',$error);
+        }
+
+        $rules = [    //유효성 검사 규칙 준비.
+        'newpassword' => 'same:newpasswordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/'
+        ]; //유효성 검사 조건을 셋팅(신규비밀번호와 신규비밀번호 유효성 및 같은지 확인할 준비)
+
+        $validate = Validator::make($req->only('newpassword'),$rules,[
+            'newpassword' => '비밀번호를 확인해주세요'
+        ]);
+
+        if ($validate->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
+        
+        foreach($arrdata as $val){
+            if($val === 'password'){
+                $basepassword->$val = Hash::make($req->$val);
+                continue;
+            }
+            $basepassword->$val = $req->$val;
+        }
+        $basepassword->save(); //update
+        return redirect()->route('user.login');
+    }
+    
+    public function userKcalinfo(){
+        $id = session('user_id');
+        $userdinfo = KcalInfo::FindOrFail($id);
+        return view('prevateinfo')->with('data',$userdinfo);
+    }
+    
+    
+    public function userKcaledit(Request $req){
+
+        $KcalInfo = KcalInfo::find(Auth::user()->user_id);
+        $KcalInfo -> nutrition_ratio = $req->nutrition_ratio;
+        $KcalInfo -> goal_kcal =$req->goal_kcal;
+        $KcalInfo->save();
+        return redirect()->route('user.prevateinfo');
+    }
 
 
     public function logout() {
@@ -259,3 +307,17 @@ class UserController extends Controller
         //     return response()->json(['exists' => 1]);
         // }
         // return response()->json(['exists' => 0]);
+
+
+
+            //이메일 중복체크 - js에서는 브라우져에서만 유효성 검사를 실시 함으로 서버측도 같은 형식의 검사를 진행하도록 유효성체크 : api를 php단에서 직접 사용시 사용하는 구문 blade body에서 직접 라우트를 url로 지정해서 사용해야 아래 구문을 사용할 수 있음
+    // public function chdeckEmail(Request $request) {
+    //     $rules = ['user_email' => 'required|unique:user_infos'];
+    
+    //     $validator = Validator::make($request->only('user_email'), $rules);
+    
+    //     if ($validator->fails()) {
+    //         return response()->json(['exists' => 1]);
+    //     }
+    //     return response()->json(['exists' => 0]);
+    // }
