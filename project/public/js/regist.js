@@ -1,9 +1,12 @@
-const isEmailChecked = false;
+// const isEmailChecked = false;
 const userEmailField = document.getElementById('user_email');
 const emailRegexm = document.getElementById('emailRegexm');
 const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
+
+const chdeckEmailbutton = document.getElementById('chdeckEmail');
 userEmailField.addEventListener('input', function() {
-    // 동작 순서 구조 수정 필요함. : 문제점 - 이메일 형식이 다 완성되기도 전에 회원가입 버튼까지 활성화됨
+  
+
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
             chdeckEmail.disabled = true;
@@ -13,37 +16,36 @@ userEmailField.addEventListener('input', function() {
             emailRegexm.innerHTML = '영문(대소)및 숫자로 이메일 형식에 맞춰서 입력해주세요';
             chdeckEmail.disabled = false;
             signupButton.disabled = true;
-        }else {
-            emailRegexm.innerHTML = ''; 
-            signupButton.disabled = false;
-            chdeckEmail.disabled = false;
         }
-    });
 
+        
+        chdeckEmailbutton.addEventListener('click',function(){
 
+            const id = document.getElementById('user_email');
+            const url = "/api/user/useremailedt/" + id.value; //빈값의 경우 처리 과정 추가
 
-const chdeckEmailbutton = document.getElementById('chdeckEmail');
-chdeckEmailbutton.addEventListener('click',function(){
-    
-    const id = document.getElementById('user_email');
-    const url = "/api/user/" + id.value; //빈값의 경우 처리 과정 추가
-    
-    fetch(url)
-        .then(data => {
-            if (!data.status) {
-                throw new Error(data.status + ' : API Response Error' );
-            }
-            return data.json();
-        })
-        .then(apiData  => {
-            const idspan = document.getElementById('emailRegexm');
-                if(apiData["flg"] === "1") {
-                    idspan.innerHTML = apiData["msg"];
-                } else {
-                    idspan.innerHTML = "사용가능한 Email입니다. "
+            fetch(url)
+            .then(data => {
+                if (!data.status) {
+                    throw new Error(data.status + ' : API Response Error' );
                 }
+                return data.json();
+            })
+            .then(apiData  => {
+                const idspan = document.getElementById('emailRegexm');
+                    if(apiData["flg"] === "1") {
+                        idspan.innerHTML = apiData["msg"];
+                    } else {
+                        idspan.innerHTML = "사용가능한 Email입니다. "
+                        signupButton.disabled = false;
+                    }
+            });
         });
-});
+    });
+//동작 구조 문제점 : 이메일 형식이 @까지만 작성시는 정상적이나 완전한 형식을 작성후 다시 삭제시 @앞자리 까지 완전히 삭제하지 않으면 가입 버튼이 활서오하 되있음.
+// ex : ddd@ddd.com 에서 -> ddd@까지 삭제하지 않으면 그전까지는 활성화됨 
+
+
 
 
 

@@ -12,6 +12,7 @@
     @show
 </head>
 {{-- <body  data-url="{{ url('user/chdeckEmail') }}" data-csrf="{{ csrf_token() }}"> --}}
+<body>
     @include('layout.header')
     @yield('contents')
     @include('layout.footer')

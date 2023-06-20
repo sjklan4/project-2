@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ApiUserController extends Controller
 {
@@ -23,4 +25,16 @@ class ApiUserController extends Controller
         // return response()->json($arrData);
         return $arrData;
     }
+
+    public function chdeckpassword(Request $req){
+        $arrmsg = ["flg" => "0"];
+        $baseUser = UserInfo::find(Auth::Userinfo()->user_id); //기존 데이터 획득
+        if(Hash::check($req->bpassword, $baseUser->password)){
+            $arrmsg["flg"]="1";
+            $arrmsg["msg"]="비밀번호를 확인해 주세요";
+        }
+        return $arrmsg;
+    }
+
 }
+

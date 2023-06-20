@@ -26,7 +26,7 @@
     <button type="submti">로그인</button>
 </form>
 <br>
-<button type="button"onclick="location.href = '{{route('user.regist')}}'">회원가입</button>
+<button type="button" onclick="location.href = '{{route('user.regist')}}'">회원가입</button>
 
 
 @endsection

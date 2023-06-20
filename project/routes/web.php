@@ -84,7 +84,14 @@ Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('
 Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');
 Route::post('/user/userinfoPost',[UserController::class,'userinfoeditPost'])->name('user.userinfoeditPost');
 
+
+Route::get('/user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');
+Route::post('/user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');
 Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
+
+Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo');
+Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit');
+
 
 
 //----------------테스트용--------------------------------------

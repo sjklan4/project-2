@@ -72,7 +72,7 @@
 
 
 @section('js')
-    <script src="{{ asset('js/regist.js') }}"></script>
+    <script src="{{ asset('js/kcal.js') }}"></script>
 @endsection
 
 
