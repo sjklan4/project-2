@@ -1,25 +1,25 @@
-// const isEmailChecked = false;
-// const userEmailField = document.getElementById('user_email');
-// const emailRegexm = document.getElementById('emailRegexm');
-// const emailRegx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-// userEmailField.addEventListener('input', function(e) {
+const isEmailChecked = false;
+const userEmailField = document.getElementById('user_email');
+const emailRegexm = document.getElementById('emailRegexm');
+const emailRegx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+userEmailField.addEventListener('input', function(e) {
     
-//         if (userEmailField.value.trim()==="") {
-//             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
-//             signupButton.disabled = true;
-//             chdeckEmail.disabled = true;
+        if (userEmailField.value.trim()==="") {
+            emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
+            signupButton.disabled = true;
+            chdeckEmail.disabled = true;
             
     
-//         }else if(!emailRegx.test(userEmailField.value)){
-//             emailRegexm.innerHTML = '영문(대소)및 숫자로 이메일 형식에 맞춰서 입력해주세요';
-//             signupButton.disabled = true;
-//             chdeckEmail.disabled = false;
-//         }else {
-//             emailRegexm.innerHTML = ''; 
-//             signupButton.disabled = false;
-//             chdeckEmail.disabled = false;
-//         }
-//     });
+        }else if(!emailRegx.test(userEmailField.value)){
+            emailRegexm.innerHTML = '영문(대소)및 숫자로 이메일 형식에 맞춰서 입력해주세요';
+            signupButton.disabled = true;
+            chdeckEmail.disabled = false;
+        }else {
+            emailRegexm.innerHTML = ''; 
+            signupButton.disabled = false;
+            chdeckEmail.disabled = false;
+        }
+    });
 
 
 
