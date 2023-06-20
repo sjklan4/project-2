@@ -33,11 +33,11 @@ class HomeController extends Controller
 
         // 날짜 획득
         $today = Carbon::now()->format('Y-m-d');
-        if(isNull($req->getDate)){
-            $date = $req->getDate;
+        if(empty($req->getDate)){
+            $date = $today;
         }
         else{
-            $date = $today;
+            $date = $req->getDate;
         }
 
         // 사용자 목표 칼로리
