@@ -18,10 +18,8 @@ class DietFood extends Model
 
     protected $dates = ['deleted_at'];
 
-    // 참고 사이트
-    // https://www.lesstif.com/laravelprog/query-scope-27295884.html
-    public function scopeDietFood($query, $id , $date, $flg)
-    {
-        return $query->join('diets','diet_food.d_id','=','diets.d_id')->where('diets.user_id', '=', $id)->where('diets.d_date', '=', $date)->where('diets.d_flg', '=', $flg);
-    }
+    // public function scopeDietFood($query, $id , $date, $flg)
+    // {
+    //     return $query->join('diets','diet_food.d_id','=','diets.d_id')->where('diets.user_id', '=', $id)->where('diets.d_date', '=', $date)->where('diets.d_flg', '=', $flg);
+    // }
 }
