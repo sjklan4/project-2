@@ -3,9 +3,9 @@
 @section('title', '게시글 작성')
 
 @section('boardContent')
-    <div class="shadow">
-        <form action="{{route('board.store')}}" method="post">
-            @csrf
+    <form action="{{route('board.store')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="shadowYellow">
             <label for="cate">카테고리</label>
             <select name="cate" id="cate">
                 <option value="1">건강 관리</option>
@@ -21,10 +21,11 @@
             <label for="content">내용</label>
             <textarea name="content" id="content" placeholder="내용을 입력해주세요." cols="40" rows="8"></textarea>
             <br>
-            <label for="pic">사진</label>
-            <input type="file" name="pic" id="pic">
+            <label for="picture">사진</label>
+            <input type="file" id="picture" name="picture">
+            <button type="button" onclick="resetImg();">사진 초기화</button>
+        </div>
             <button type="button" onclick="location.href='{{ url()->previous() }}'">취소</button>
             <button type="submit">작성</button>
-        </form>
-    </div>
+    </form>
 @endsection

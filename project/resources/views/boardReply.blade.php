@@ -3,6 +3,7 @@
         <div>{{$item->rcontent}}</div>
         <div>{{$item->nkname}}</div>
         <div>{{substr($item->created_at, 0, 10)}}</div>
+        <hr>
     @empty
         <div>댓글이 없습니다</div>
     @endforelse
