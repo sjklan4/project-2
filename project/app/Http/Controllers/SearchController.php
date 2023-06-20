@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
 use App\Models\FavDiet;
+use App\Models\FavDietFood;
+use Illuminate\support\Facades\Session;
 use Illuminate\Support\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -128,50 +130,48 @@ class SearchController extends Controller
         exit();
     }
     // v002, v003 add : 음식 검색 기능 추가
-    public function searchselect(Request $req) {
+    public function searchselect(Request $req, $id) {
         $usersearch = $req->search_input;
-        // $user_id = FoodInfo::find($id);
+
+        $diets = DB::table('fav_diets')
+        ->select('fav_diets.fav_name', 'fav_diet_food.food_id', 'fav_diet_food.fav_f_intake',
+        'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein',
+        'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
+        ->join('fav_diet_food', 'fav_diet_food.fav_id', '=', 'fav_diets.fav_id')
+        ->join('food_infos', 'food_infos.food_id', '=', 'fav_diet_food.food_info')
+        ->where('fav_diets.user_id', $id);
+
         if(!empty($usersearch)){
-            // if(!empty($user_id)){
-            //     $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
-            //     ->where('food_name', 'like', '%'.$usersearch.'%')
-            //     ->orwhere('user_id', $id)
-            //     ->where('userfood_flg', '0')
-            //     ->whereNull('deleted_at')
-            //     ->get();
-            // }else{
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
-            ->whereNull('deleted_at')
+            // ->whereNull('deleted_at')
             ->get();
-        // }
-    
-        return view('FoodList')->with('foods', $foods);
-        // return view('FoodList')->with('foods', $foods)->with('fav_diets', []);
-    }
+            return view('FoodList')->with('foods', $foods)->with('diet', $diets);
+        }
 
-        
-        // if(!$user_id){
-        //     return view('FoodList')->with('userid', $user_id);
-        // }
-        
-        return view('FoodList')->with('foods', []);
-        // return view('FoodList')->with('foods', [])->with('fav_diets', []);
+        return view('FoodList')->with('diet', $diets);
+        // return view('FoodList')->with('foods', $foods);
     }
-
-    // public function userchoice(Request $req) {
-    //     $selectedUser = $req->selectedUser;
-    //     return $selectedUser;
-    // }
 
     public function favdiets($id) {
         $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
         ->where('user_id', $id)
-        ->whereNull('deleted_at')
+        // ->whereNull('deleted_at')
         ->get();
-        
+
         return view('FoodList')->with('fav_diets', $favdiets);
-        // return view('FoodList')->with('fav_diets', $favdiets)->with('foods', []);
+    }
+
+    public function userchoice(Request $req) {
+        var_dump($req);
+        $food_id = $req->usercheck;
+
+        $select = FoodInfo::select('food_id', 'food_name')
+        ->where('food_id', $food_id)
+        ->get();
+
+        return view("FoodList")->with('select_food', $select);
+    
     }
 }

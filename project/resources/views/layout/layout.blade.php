@@ -11,6 +11,7 @@
     @section('css')
     @show
 </head>
+<body>
 {{-- <body  data-url="{{ url('user/chdeckEmail') }}" data-csrf="{{ csrf_token() }}"> --}}
     @include('layout.header')
     @yield('contents')
