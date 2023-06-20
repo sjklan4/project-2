@@ -15,6 +15,7 @@ use App\Models\Board;
 use App\Models\BoardCate;
 use App\Models\BoardLike;
 use App\Models\UserInfo;
+use App\Models\BoardImg;
 
 class BoardController extends Controller
 {
@@ -90,7 +91,6 @@ class BoardController extends Controller
         // 게시글 테이블에 인서트 후 pk 값 획득
         $board_id = DB::table('boards')->insertGetId([
                 'user_id'     => $id
-                ,'nkname'     => UserInfo::find($id)->nkname
                 ,'bcate_id'   => $req->cate
                 ,'btitle'     => $req->title
                 ,'bcontent'   => $req->content
@@ -98,6 +98,19 @@ class BoardController extends Controller
             ]
             ,'board_id'
         );
+
+        // 이미지 파일이 있다면, 이미지 경로에 저장
+        if($req->hasFile('picture')){
+            $fileName = time().'_'.$req->file('picture')->getClientOriginalName();
+            $path = $req->file('picture')->storeAs('public/images/board', $fileName);
+
+            DB::table('board_imgs')
+                ->insert([
+                    'board_id'      => $board_id
+                    ,'bimg_name'    => $fileName
+                    ,'bimg_path'    => $path
+                ]);
+        }
 
         return redirect()->route('board.show', ['board' => $board_id]);
     }
@@ -127,14 +140,22 @@ class BoardController extends Controller
         // 게시글 상세 정보 획득
         $board = Board::find($id);
         $bcate = BoardCate::find($board->bcate_id);
+        $user = UserInfo::find($board->user_id);
+        $boardImg = DB::table('board_imgs')
+            ->where('board_id', $id)
+            ->select('bimg_name')
+            ->get();
+
+        // 댓글 관련 정보 획득
         $reply = DB::table('board_replies')
-                ->select('rcontent', 'nkname', 'created_at')
-                ->where('board_id', $board->board_id)
+                ->join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
+                ->select('board_replies.rcontent', 'user_infos.nkname', 'board_replies.created_at')
+                ->where('board_replies.board_id', $board->board_id)
                 ->get();
 
         $arr = [
             'cate'        => $bcate->bcate_name
-            ,'nkname'     => $board->nkname
+            ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
             ,'content'    => $board->bcontent
             ,'hits'       => $board->hits
@@ -143,6 +164,10 @@ class BoardController extends Controller
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
         ];
+
+        if (isset($boardImg[0])) {
+            $arr['img'] = $boardImg[0]->bimg_name;
+        }
 
         return view('boardDetail')->with('data', $arr)->with('reply', $reply);
     }
@@ -161,14 +186,7 @@ class BoardController extends Controller
 
         $board = Board::find($id);
 
-        $arr = [
-            'title'     => $board->btitle
-            ,'content'  => $board->bcontent
-            ,'id'       => $board->board_id
-            ,'like'     => $board->likes
-        ];
-
-        return view('boardEdit')->with('data', $arr);
+        return view('boardEdit')->with('data', $board);
     }
 
     /**
@@ -184,11 +202,27 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
+        // todo 트랜잭션 처리
+        // 게시글 테이블 정보 수정
         $board = Board::find($id);
         $board->bcate_id = $req->cate;
         $board->btitle = $req->title;
         $board->bcontent = $req->content;
         $board->save();
+
+        // 이미지 테이블 정보 수정
+        if($req->hasFile('picture')){
+            $fileName = time().'_'.$req->file('picture')->getClientOriginalName();
+            $path = $req->file('picture')->storeAs('public/images/board', $fileName);
+
+            DB::table('board_imgs')
+                ->where('board_id', $id)
+                ->update([
+                    'bimg_name'    => $fileName
+                    ,'bimg_path'    => $path
+                ]);
+
+        }
 
         return redirect()->route('board.show', ['board' => $id]);
     }
@@ -271,7 +305,6 @@ class BoardController extends Controller
         // 댓글 테이블 인서트
         DB::table('board_replies')->insert([
             'user_id'       => $user_id
-            ,'nkname'       => UserInfo::find($user_id)->nkname
             ,'board_id'     => $req->board_id
             ,'rcontent'     => $req->reply
             ,'created_at'   => now()
