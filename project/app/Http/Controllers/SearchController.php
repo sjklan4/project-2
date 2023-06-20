@@ -134,12 +134,15 @@ class SearchController extends Controller
         $usersearch = $req->search_input;
 
         $diets = DB::table('fav_diets')
-        ->select('fav_diets.fav_name', 'fav_diet_food.food_id', 'fav_diet_food.fav_f_intake',
+        ->select('fav_diets.fav_id', 'fav_diets.fav_name', 'fav_diet_food.food_id', 'fav_diet_food.fav_f_intake',
         'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein',
         'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
         ->join('fav_diet_food', 'fav_diet_food.fav_id', '=', 'fav_diets.fav_id')
-        ->join('food_infos', 'food_infos.food_id', '=', 'fav_diet_food.food_info')
-        ->where('fav_diets.user_id', $id);
+        ->join('food_infos', 'food_infos.food_id', '=', 'fav_diet_food.food_id')
+        ->where('fav_diets.user_id', $id)
+        ->get();
+        // var_dump($diets);
+        // exit;
 
         if(!empty($usersearch)){
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')

@@ -30,26 +30,39 @@ function getCheckboxValue()  {
 
 // ---------------------------- 저장된 식단 ----------------------------
 
-tab1.addEventListener('click', () => {
-    // console.log(fav_diets);
-    if(fav_diets.style.display === 'none'){
-        fav_diets.style.display = 'block';
-        // no_user_search.style.display = 'none';
-        user_select.style.display = 'none';
-    }else{
-        fav_diets.style.display = 'none';
-    }
+// tab1.addEventListener('click', () => {
+//     // console.log(fav_diets);
+//     if(fav_diets.style.display == 'none'){
+//         fav_diets.style.display = 'block';
+//         // no_user_search.style.display = 'none';
+//         user_select.style.display = 'none';
+//     }else{
+//         fav_diets.style.display = 'none';
+//     }
+// });
+
+// tab1.addEventListener('click', function() {
+//     if(fav_diets.classList.contains('d-none')){
+//         fav_diets.classList.remove('d-none')
+//     }
+// });
+tab1.addEventListener('click', function(){
+    console.log("ggg");
 });
+
+
+
+
 
 
 // ---------------------------- 선택된 음식 ----------------------------
 
-tab2.addEventListener('click', () => {
-    if(user_select.style.display === 'none'){
-        user_select.style.display = 'block';
-        // no_user_search.style.display = 'none';
-        fav_diets.style.display = 'none';
-    }else{
-        user_select.style.display = 'none';
-    }
-});
+// tab2.addEventListener('click', () => {
+//     if(user_select.style.display == 'none'){
+//         user_select.style.display = 'block';
+//         // no_user_search.style.display = 'none';
+//         fav_diets.style.display = 'none';
+//     }else{
+//         user_select.style.display = 'none';
+//     }
+// });

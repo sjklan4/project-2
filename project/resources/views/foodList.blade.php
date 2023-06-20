@@ -39,22 +39,26 @@
             <p class="nosearch">검색어</p>
         @endif
         
-        @if (!empty($fav_diets))
-            <div id="fav_diets" class="d-none">
+        <div class="fav_diets">
+        @if (!empty($diet))
                 <h2>자주먹는 식단</h2>
-                @foreach ($diets as $diet)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$diet->fav_id}}" onclick='getCheckboxValue()'>
-                    <span> {{$diet->fav_name}}</span>
+                @foreach ($diet as $diets)
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$diets->fav_id}}" onclick='getCheckboxValue()'>
+                    <span> {{$diets->fav_name}}</span>
                     <br>
                 @endforeach
+                @else
+                <p>asdsdf</p>
+                @endif
+                {{-- {{var_dump($diet);}} --}}
             </div>
-        @endif
+        <div class="user_select">
         @if (!empty($select_food))
-            <div id="user_select" class="d-none">
+            
                 <h2>user-select</h2>
                 
-            </div>
         @endif
+        </div>
     </div>
 @endsection
 
