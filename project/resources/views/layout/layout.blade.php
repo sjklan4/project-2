@@ -13,7 +13,11 @@
     @show
 </head>
 <body>
+<<<<<<< HEAD
+{{-- <body  data-url="{{ url('user/chdeckEmail') }}" data-csrf="{{ csrf_token() }}"> --}}
+=======
     {{-- data-url="{{ url('user/chdeckEmail') }}" data-csrf="{{ csrf_token() }}"> --}}
+>>>>>>> 6c45eab85eb5561f863b3f0d23e4fe47a79e3b1f
     @include('layout.header')
     @yield('contents')
     @include('layout.footer')
