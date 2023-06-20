@@ -36,6 +36,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/board.js') }}"></script>
+    <script src="{{asset('js/board.js')}}"></script>
 @endsection
-
