@@ -1,19 +1,18 @@
 const isEmailChecked = false;
 const userEmailField = document.getElementById('user_email');
 const emailRegexm = document.getElementById('emailRegexm');
-const emailRegx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-userEmailField.addEventListener('input', function(e) {
-    
+const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
+userEmailField.addEventListener('input', function() {
+    // 동작 순서 구조 수정 필요함. : 문제점 - 이메일 형식이 다 완성되기도 전에 회원가입 버튼까지 활성화됨
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
-            signupButton.disabled = true;
             chdeckEmail.disabled = true;
+            signupButton.disabled = true;
             
-    
         }else if(!emailRegx.test(userEmailField.value)){
             emailRegexm.innerHTML = '영문(대소)및 숫자로 이메일 형식에 맞춰서 입력해주세요';
-            signupButton.disabled = true;
             chdeckEmail.disabled = false;
+            signupButton.disabled = true;
         }else {
             emailRegexm.innerHTML = ''; 
             signupButton.disabled = false;
