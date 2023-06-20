@@ -34,6 +34,7 @@
             </div>
         </div>
         {{-- 테스트존 --}}
+        {{$data['date'] ?? $data['today']}}
         <hr class="bc-green">
         <div id="myDiet">
             <div class="box1">
