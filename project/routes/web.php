@@ -119,7 +119,7 @@ use App\Http\Controllers\FavController;
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
 Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
-Route::post('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
+Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
