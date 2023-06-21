@@ -23,8 +23,8 @@
 <input type="radio" name="gender" id="gender" value="0" readonly>남자
 <input type="radio" name="gender" id="gender" value="1" readonly>여자
 <br>
-<label for="age">나이 :</label>
-<input type="number" name="age" id="age">
+<label for="user_birth">나이 :</label>
+<input type="date" name="user_birth" id="user_birth">
 <br>
 <label for="tall">키(cm) :</label>
 <input type="number" name="tall" id="tall">
@@ -33,9 +33,9 @@
 <input type="number" name="weight" id="weight">
 <br>
 <label for="acctivaty">활동량 :</label>
-<input type="radio" name="acctivaty" id="acctivaty" value="0">적음<br>
-<input type="radio" name="acctivaty" id="acctivaty" value="1">보통<br>
-<input type="radio" name="acctivaty" id="acctivaty" value="2">많음<br>
+<input type="radio" name="acctivaty" id="acctivaty0" value="0">적음<br>
+<input type="radio" name="acctivaty" id="acctivaty1" value="1">보통<br>
+<input type="radio" name="acctivaty" id="acctivaty2" value="2">많음<br>
 <br>
 <br>
 <button type ="submit">입력</button>
@@ -44,7 +44,7 @@
 
 
 @section('js')
-    <script src="{{ asset('js/kcal.js') }}"></script>
+    <script src="{{ asset('js/suggestkcal.js') }}"></script>
 @endsection
 
 

@@ -70,29 +70,34 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 기능         : 로그인, 회원가입 등 라우트 설정
 // 관리자       : 박상준
 // 생성일       : 2023-06-15
+// 라우트수      : 총 12개 (진행중 1개)
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
-Route::get('/user/login', [UserController::class,'login'])->name('user.login');
-Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');
+Route::get('/user/login', [UserController::class,'login'])->name('user.login');// 로그인 페이지 이동 라우트
+Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');//로그인 작동라우트
 
 
-Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');
-Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');
-Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('user.chdeckEmail');
-//유저 정보변경 라우트 확인하기 클레스, 함수 구문 이름 상태등
+Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');//회원가입 페이지 이동 라우트
+Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');//회원가입 진행 라우트
 
-Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');
-Route::post('/user/userinfoPost',[UserController::class,'userinfoeditPost'])->name('user.userinfoeditPost');
+Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');//유저 정보 수정 페이지 이동 라우트
+Route::post('/user/userinfoPost',[UserController::class,'userinfoeditPost'])->name('user.userinfoeditPost');//유저 정보 수정 입력 라우트
 
+Route::get('/user/userfindE',[UserController::class, 'userfindE'])->name('user.userfindE'); //유저 아이디를 찬는 구문
+Route::post('/user/userfindEPost',[UserController::class,'userfindEPost'])->name('user.userfindEPost'); //유저 아이디를 찾는 값을 요청하는 구문
 
-Route::get('/user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');
-Route::post('/user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');
+Route::get('/user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');//유저 비밀번호 수정 이동 라우트
+Route::post('/user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');//변경 비밀번호 적용 라우트
+Route::post('user/userKcalup',[UserController::class, 'userKcalup'])->name('user.userKcalup');//유저 칼로리 정보 입력 라우트 - 버튼은 기본자료 수정 버튼 구동
 Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
 
-Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo');
-Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit');
+Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo'); // 유저의 식단변경과 목표 칼로리 변경 페이지로 이동
+Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
 
 
+//------------------------------------------정리용 라우터---------------------------------------------------------------
+// Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('user.chdeckEmail');
+//---------------------------------------------------------------------------------------------------------------------
 
 //----------------테스트용--------------------------------------
 // use App\Http\Controllers\ButtonController;
@@ -107,6 +112,8 @@ Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FavController;
+Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet');
+Route::post('/userfav/favfoodinfo',[FavController::class,'favfoodinfo'])->name('fav.favfoodinfo');
 
 
 // ---------------------------------------------
