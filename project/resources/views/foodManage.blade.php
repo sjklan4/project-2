@@ -70,14 +70,14 @@
                                         <label for="radio-2">ml</label>
                                     </div>
                                 @else
-                                <div class="form_radio_btn">
-                                    <input id="radio-1" type="radio" name="ser_unit" value="0">
-                                    <label for="radio-1">g</label>
-                                </div>
-                                <div class="form_radio_btn">
-                                    <input id="radio-2" type="radio" name="ser_unit" value="1" checked>
-                                    <label for="radio-2">ml</label>
-                                </div>
+                                    <div class="form_radio_btn">
+                                        <input id="radio-1" type="radio" name="ser_unit" value="0">
+                                        <label for="radio-1">g</label>
+                                    </div>
+                                    <div class="form_radio_btn">
+                                        <input id="radio-2" type="radio" name="ser_unit" value="1" checked>
+                                        <label for="radio-2">ml</label>
+                                    </div>
                                 @endif
                                 
                             </div>
