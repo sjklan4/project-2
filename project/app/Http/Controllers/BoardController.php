@@ -16,6 +16,9 @@ use App\Models\BoardCate;
 use App\Models\BoardLike;
 use App\Models\UserInfo;
 use App\Models\BoardImg;
+use App\Models\BoardReply;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
@@ -26,15 +29,15 @@ class BoardController extends Controller
      */
     public function index()
     {
+        // 로그인 확인
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
 
-        $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
-            ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+        // 게시글 정보 획득
+        $result = Board::join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name', 'boards.created_at')
             ->orderBy('boards.created_at', 'desc')
-            ->where('boards.deleted_at', null)
             ->paginate(10)
             ;
 
@@ -43,15 +46,15 @@ class BoardController extends Controller
 
     public function indexNum($id)
     {
+        // 로그인 확인
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
 
-        $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
-            ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+        // 게시글 정보 획득
+        $result = Board::join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name', 'boards.created_at')
             ->where('boards.bcate_id', $id)
-            ->where('boards.deleted_at', null)
             ->orderBy('boards.created_at', 'desc')
             ->paginate(10)
             ;
@@ -66,6 +69,7 @@ class BoardController extends Controller
      */
     public function create()
     {
+        // 로그인 확인
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
@@ -81,16 +85,40 @@ class BoardController extends Controller
      */
     public function store(Request $req)
     {
+        // 로그인 확인
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
 
-        $id = session('user_id');
+        // 유효성 검사
+        $rules = [
+            'cate'      => 'required'
+            ,'title'    => 'required|max:50'
+            ,'content'  => 'required|max:4000'
+            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+        ];
+
+        $messages = [
+            'cate.required'     => '카테고리는 필수 입력 항목입니다.',
+            'title.required'    => '제목은 필수 입력 항목입니다.',
+            'title.max'         => ':max자까지 입력 가능합니다.',
+            'content.required'  => '본문은 필수 입력 항목입니다.',
+            'content.max'       => ':max자까지 입력 가능합니다.',
+            'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
+            'picture'           => '5mb까지 업로드 가능합니다.',
+        ];
+
+        $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)
+                        ->withInput();
+        }
 
         // todo 트랜잭션
         // 게시글 테이블에 인서트 후 pk 값 획득
         $board_id = DB::table('boards')->insertGetId([
-                'user_id'     => $id
+                'user_id'     => Auth::user()->user_id
                 ,'bcate_id'   => $req->cate
                 ,'btitle'     => $req->title
                 ,'bcontent'   => $req->content
@@ -147,11 +175,10 @@ class BoardController extends Controller
             ->get();
 
         // 댓글 관련 정보 획득
-        $reply = DB::table('board_replies')
-                ->join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
-                ->select('board_replies.rcontent', 'user_infos.nkname', 'board_replies.created_at')
+        $reply = BoardReply::join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
+                ->select('board_replies.rcontent', 'user_infos.nkname', 'board_replies.created_at', 'board_replies.reply_id', 'board_replies.user_id')
                 ->where('board_replies.board_id', $board->board_id)
-                ->get();
+                ->paginate(5);
 
         $arr = [
             'cate'        => $bcate->bcate_name
@@ -185,8 +212,9 @@ class BoardController extends Controller
         }
 
         $board = Board::find($id);
-
-        return view('boardEdit')->with('data', $board);
+        $bcate = BoardCate::orderBy('bcate_id')->get();
+        
+        return view('boardEdit')->with('data', $board)->with('cate', $bcate);
     }
 
     /**
@@ -200,6 +228,31 @@ class BoardController extends Controller
     {
         if(auth()->guest()) {
             return redirect()->route('user.login');
+        }
+
+        // 유효성 검사
+        $rules = [
+            'cate'      => 'required'
+            ,'title'    => 'required|max:50'
+            ,'content'  => 'required|max:4000'
+            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+        ];
+
+        $messages = [
+            'cate.required'     => '카테고리는 필수 입력 항목입니다.',
+            'title.required'    => '제목은 필수 입력 항목입니다.',
+            'title.max'         => ':max자까지 입력 가능합니다.',
+            'content.required'  => '본문은 필수 입력 항목입니다.',
+            'content.max'       => ':max자까지 입력 가능합니다.',
+            'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
+            'picture'           => '5mb까지 업로드 가능합니다.',
+        ];
+
+        $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)
+                        ->withInput();
         }
 
         // todo 트랜잭션 처리
@@ -299,7 +352,23 @@ class BoardController extends Controller
     }
 
     public function replyPost(Request $req) {
-        // todo 유효성 검사
+        // 유효성 검사
+        $rules = [
+            'reply'    => 'required|max:200'
+        ];
+
+        $messages = [
+            'reply.required'    => '댓글은 필수 입력 항목입니다.',
+            'reply.max'         => '200자까지 입력가능합니다.',
+        ];
+
+        $validator = Validator::make($req->only('reply'), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1'])
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $user_id = session('user_id');
         // 댓글 테이블 인서트
@@ -321,4 +390,21 @@ class BoardController extends Controller
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
     }
+
+    // 댓글 삭제
+    public function replyDelete($board, $id) {
+        
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
+        // todo 유효성 검사
+
+        // 댓글 삭제 처리
+        BoardReply::destroy($id);
+
+        // todo 에러처리, 트랜잭션 처리
+        return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
+    }
+
 }

@@ -14,11 +14,13 @@
                         <td>{{$item->hits}}</td>
                         <td>{{$item->likes}}</td>
                         <td>{{$item->replies}}</td>
+                        <td>{{substr($item->created_at, 0, 16)}}</td>
                     </tr>
                 @empty
                 <tr>
                     <td></td>
                     <td>게시글 없음</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
