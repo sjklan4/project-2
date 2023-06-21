@@ -4,6 +4,7 @@
 
 @section('contents')
 
+
 <form action="{{route('user.registpost')}}" method="post">
     @csrf
 <label for="user_email">이메일</label>
@@ -72,7 +73,7 @@
 
 
 @section('js')
-    <script src="{{ asset('js/kcal.js') }}"></script>
+    <script src="{{ asset('js/regist.js') }}"></script>
 @endsection
 
 
