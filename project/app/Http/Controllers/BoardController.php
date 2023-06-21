@@ -31,7 +31,7 @@ class BoardController extends Controller
         }
 
         $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name', 'boards.created_at')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->orderBy('boards.created_at', 'desc')
             ->where('boards.deleted_at', null)
@@ -48,7 +48,7 @@ class BoardController extends Controller
         }
 
         $result = DB::table('boards')
-            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name')
+            ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name', 'boards.created_at')
             ->join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->where('boards.bcate_id', $id)
             ->where('boards.deleted_at', null)

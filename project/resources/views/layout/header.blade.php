@@ -80,20 +80,3 @@
         </nav>
     </div>
 </section>
-<h2>Header</h2>
-
-{{-- 로그인 상태 --}}
-@auth
-
-
-@endauth
-
-{{-- 로그아웃 상태 --}}
-@guest
-<button type="button" onclick="location.href='{{route('user.login')}}'">로그인</button>
-@endguest
-
-
-
-
-<hr> 
