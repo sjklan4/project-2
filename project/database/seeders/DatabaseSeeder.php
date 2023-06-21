@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // 개인 식단음식 더미 데이터 삽입용 팩토리 호출
         // DietFood::factory(1000)->create();
 
-        // BoardHit::factory(107)->create();
+        // 게시글 더미 데이터 삽입용 팩토리 호출
+        Board::factory(100)->create();
     }
 }
