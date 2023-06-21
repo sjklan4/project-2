@@ -1,8 +1,32 @@
+/* 전체 */
 .boardCon {
+    padding-top: 50px;
     display: grid;
-    grid-template-columns: 15rem 1fr;
+    grid-template-columns: 1fr minmax(150px, 2fr) 5fr 1fr;
 }
 
+/* 네비 */
+.mNav {
+    display: none;
+}
+
+.boardNavDiv > div{
+    font-size: 35px;
+    font-weight: 900;
+    padding: 5px 0 20px 16px;
+}
+
+.boardNavDiv ul li a, a {
+    text-decoration: none;
+    color: #000
+}
+
+.boardNavDiv ul li a:hover, a:hover {
+    color: #538E04;
+}
+
+
+/* 게시판 콘텐츠 */
 .shadow {
     background: #FFFFFF;
     box-shadow: 0px 10px 30px rgba(25, 95, 28, 0.1);
@@ -10,8 +34,14 @@
 }
 
 .shadowYellow {
+    /* max-width: 800px; */
+    min-width: 600px;
     background: #FFFFF0;
     box-shadow: 0px 12px 30px #ECECEC;
+}
+
+.shadowYellow > div {
+    margin: 0 auto;
 }
 
 .boardDetailTitle {
@@ -74,4 +104,24 @@ table {
 .form_radio_btn input[type=radio] + label {
     background: #C4C4C4;
     color: #fff;
+}
+
+
+@media (max-width: 800px) {
+    .boardCon {
+        padding: 0;
+        display: block;
+    }
+
+    .dis-left, .dis-right, .boardNavDiv {
+        display: none;
+    }
+
+    .boardConDiv {
+        max-width: 800px;
+    }
+
+    .mNav {
+        display: block;
+    }
 }

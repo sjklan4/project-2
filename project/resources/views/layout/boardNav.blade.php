@@ -5,8 +5,17 @@
 @endsection
 
 @section('contents')
+    <span class="mNav">
+        <a href="#">전체</a>
+        <a href="#">건강 관리</a>
+        <a href="#">다이어트</a>
+        <a href="#">10대</a>
+        <a href="#">20대</a>
+        <a href="#">30대</a>
+    </span>
     <div class="boardCon">
-        <div>
+        <div class="dis-left"></div>
+        <div class="boardNavDiv">
             <div>게시판</div>
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -29,9 +38,10 @@
                 </li>
             </ul>
         </div>
-        <div>
+        <div class="boardConDiv">
             @yield('boardContent')
         </div>
+        <div class="dis-right"></div>
     </div>
 @endsection
 
