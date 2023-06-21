@@ -21,8 +21,7 @@ class BoardFactory extends Factory
             ,'nkname'       => $this->faker->unique()->word()
             ,'btitle'       => $this->faker->unique()->realText(15)
             ,'bcontent'     => $this->faker->realText(1000)
-            ,'bcate_id'     => $this->faker->randomNumber(1)
-            ,'likes'        => $this->faker->numberBetween(1, 5)
+            ,'bcate_id'     => $this->faker->numberBetween(1, 5)
             ,'created_at'   => $this->faker->dateTimeBetween('-1 years')
         ];
     }

@@ -145,6 +145,67 @@ class UserController extends Controller
         return redirect()->route('user.userinfoedit');
     }
 
+    public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
+        $arrKey = [];
+        $baseUser = KcalInfo::find(Auth::User()->user_id);
+
+        if($req->user_birth !== $baseUser->user_birth){
+            $arrKey[] = 'user_birth';
+        }
+        //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
+        if($req->user_tall !== $baseUser->user_tall){
+            $arrKey[] = 'user_tall';
+        }
+      
+        if($req->user_weight !== $baseUser->user_weight){
+            $arrKey[] = 'user_weight';
+        }
+          // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
+        if($req->user_weight !== $baseUser->user_weight){
+            $arrKey[] = 'user_activity';
+        }
+        foreach($arrKey as $val) {
+        
+            $baseUser->$val = $req->$val;
+        }
+        $baseUser->save(); // update
+        return redirect()->route('user.userinfoedit');
+
+    }
+
+    //유저 Email찾기 구문
+    public function userfindE(){
+        return view('userfind');
+    }
+
+    //유저 Email찾기 요청하는 구문
+    public function userfindEPost(Request $req){
+        $rules = [
+            'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
+            ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'
+        ];
+        $validate = Validator::make($req->only('user_name','user_phone_num'),$rules,[
+            'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+            'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
+        ]);
+
+        if ($validate->fails()) {
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
+
+        $data = [
+            'user_name' => $req->user_name
+            ,'user_phone_num' => $req->user_phone_num
+        ];
+
+        $findemail = DB::select('select user_email from user_infos where user_name = ? and user_phone_num = ?',[$data['user_name'], $data['user_phone_num']]);
+
+        return redirect()->route('user.userfindE')->with('data',$findemail);
+    }
+
+
+
 
 
 
@@ -189,22 +250,25 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
     
-    public function userKcalinfo(){
+    public function userKcalinfo(){//유저의 식단과 목표칼로리 변경 페이지로 이동
         $id = session('user_id');
         $userdinfo = KcalInfo::FindOrFail($id);
         return view('prevateinfo')->with('data',$userdinfo);
     }
     
     
-    public function userKcaledit(Request $req){
+    public function userKcaledit(Request $req){  //유저가 입력한 식단과 목표 칼로리를 적용 시키는 기능 - 오류 출력이 안됨.
+    $KcalInfo = KcalInfo::find(Auth::user()->user_id);
+    $KcalInfo->goal_kcal = $req->goal_kcal;
 
-        $KcalInfo = KcalInfo::find(Auth::user()->user_id);
-        $KcalInfo -> nutrition_ratio = $req->nutrition_ratio;
-        $KcalInfo -> goal_kcal =$req->goal_kcal;
-        $KcalInfo->save();
-        return redirect()->route('user.prevateinfo');
-    }
-
+        if($req->nutrition_ratio === ""){
+            return redirect()->route('user.prevateinfo')->withErrors(['error' => '식단을 선택해주세요']);
+        } else {
+            $KcalInfo->nutrition_ratio = $req->nutrition_ratio;
+            $KcalInfo->save();
+            return redirect()->route('user.prevateinfo');
+        }
+}
 
     public function logout() {
         Session::flush(); // 세션 파기

@@ -8,6 +8,11 @@
 <button type="button" onclick="location.href='{{route('user.userinfoedit')}}'">회원정보수정</button>
 <button type="button" onclick="location.href='{{route('user.userpsedit')}}'">비밀번호 수정</button>
 <button type="button" onclick="location.href='{{route('user.prevateinfo')}}'">개인설정 & 목표 칼로리 수정</button>
+<button type="button" onclick="location.href='{{route('user.userfindE')}}'">회원아이디찾기</button>
+
+<button type="button" onclick="location.href='{{route('fav.favdiet')}}'">테스트화면</button>
+
+
 
 @if(!empty($error))
     <span>{{$error}}</span>
@@ -16,7 +21,8 @@
     @csrf
     <label for="email">email : </label>
     <input type="text" name="email" id="email" value="{{ $errors->has('email') ? '' : old('email', isset($data) ? $data->user_email : '') }}">
-    @error('email')
+    {{-- validator에서 출력하는 오류 메시지를 출력하기 위해서 추가한 구문 --}}
+    @error('email') 
     <div class="text-danger">{{ $message }}</div>
     @enderror
     <br>
