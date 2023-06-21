@@ -1,10 +1,11 @@
 const tab1 = document.querySelector('.tab1')
 const tab2 = document.querySelector('.tab2')
 
-// let nosearch = document.getElementsByClassName('nosearch')
-let search = document.getElementsByClassName('user_search')
-let fav_diets = document.getElementsByClassName('fav_diets')
-let user_select = document.getElementsByClassName('user_select')
+const search = document.getElementsByClassName('user_search')
+const fav_diets = document.getElementsByClassName('fav_diets')
+const user_select = document.getElementsByClassName('user_select')
+
+
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
@@ -13,6 +14,8 @@ function getFoodValue()  {
     const query = 'input[name="usercheck"]:checked';
     const selectedEls = 
         document.querySelectorAll(query);
+    // const food_name = document.getElementById('food_name')
+    const food_name = document.getElementById('food_name')
     
     // 선택된 목록에서 value 찾기
     let result = '';
@@ -20,9 +23,21 @@ function getFoodValue()  {
         result += el.value + '\n';
     });
 
+    // let fname = food_name.innerHTML;
+    //     console.log(fname);
+
     document.getElementById('resultfood').innerText
             = result;
 }
+
+// todo : 인분 수 겹침 해결하기
+const serving = document.getElementById('userving');
+serving.addEventListener('input', function() {
+
+    document.getElementById('resultserving').innerText
+            = serving.value;
+    
+})
 
 function getDietValue()  {
     // 선택된 목록 가져오기
@@ -39,16 +54,6 @@ function getDietValue()  {
     document.getElementById('resultdiet').innerText
             = resultdiet;
 }
-
-
-// todo : 인분 수 겹침 해결하기
-const serving = document.getElementById('userving');
-serving.addEventListener('input', function() {
-
-    document.getElementById('resultserving').innerText
-            = serving.value;
-    
-})
 
 // ---------------------------- 저장된 식단 ----------------------------
 

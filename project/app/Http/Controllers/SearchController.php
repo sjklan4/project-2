@@ -6,6 +6,7 @@
  * 이력         : v001 0615 채수지 new
  *                v002 0616 채수지 add (검색 기능 추가)
  *                v003 0619 채수지 add (탭 기능 추가, 식단 정보 불러오기)
+ *                v004 0620 채수지 update (sql 수정)
 *****************************/
 namespace App\Http\Controllers;
 
@@ -133,6 +134,7 @@ class SearchController extends Controller
     public function searchselect(Request $req, $id) {
         $usersearch = $req->search_input;
 
+        // v004, v005
         $dietnames = DB::table('fav_diets')
         ->select('fav_id', 'fav_name')
         ->where('user_id', $id)
@@ -145,8 +147,10 @@ class SearchController extends Controller
         ->where('fav_diets.user_id', $id)
         ->get();
 
+        // v002
         if(!empty($usersearch)){
 
+            // v004
             if(!empty($id)){
                 $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
                 ->where('food_name', 'like', '%'.$usersearch.'%')
@@ -156,6 +160,7 @@ class SearchController extends Controller
                 return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
             }
 
+            // v005
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
@@ -166,6 +171,8 @@ class SearchController extends Controller
         return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods);
     }
 
-    
+    public function searchinsert(Request $req, $id) {
+        
+    }
 
 }

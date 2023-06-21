@@ -27,6 +27,7 @@
 {{-- todo : 사용자 등록/최근 먹은 음식 표시, 유효성 검사 --}}
 {{-- todo : 저장된 식단 페이징 / 검색 결과 더보기 또는 페이징 --}}
 {{-- todo : 선택된 음식 식단/음식 삭제 및 인분 수 조절 --}}
+{{-- todo : insert 기능 수행 --}}
 {{-- ? 검색/선택된 음식 인분 수 입력 및 설정 -> 첫 입력 값만 가져옴 : search.js --}}
 {{-- todo : 드롭다운 메뉴 -> 영양성분 표시 --}}
 
@@ -35,8 +36,8 @@
         @if (!empty($foods))
             <div class="user_search">
                 @foreach ($foods as $item)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'>
-                    <span>{{$item->food_name}}</span>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'/>
+                    <span id="food_name">{{$item->food_name}}</span>
                     <span>인분 수 : </span>
                     <input type="number" name="userving" id="userving" min="0.5" max="100">
                     <br>
@@ -75,7 +76,7 @@
         <div class="user_select">
             <form action="" method="post">
                 <p>음식</p>
-                <span id='resultfood'></span>
+                <input type="checkbox" name="checkedf" id="checkedf" checked><span id='resultfood'/>
                 <span id='resultserving'></span>
                 <hr>
                 <p>식단</p>
