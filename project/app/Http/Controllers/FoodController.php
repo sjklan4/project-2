@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\FoodInfo;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FoodController extends Controller
 {
@@ -14,22 +16,20 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
         
-        $user_id = session('user_id');
+        $user_id = Auth::user()->user_id;
 
         // 사용자 등록 음식 목록
-        $result = DB::table('food_infos')
-        ->select('food_name', 'food_id', 'user_id')
+        $result = FoodInfo::select('food_name', 'food_id', 'user_id')
         ->where('user_id', $user_id)
         ->get();
 
         // 세부 등록 음식 정보 획득
         if ($id > 0) {
-            $food = DB::table('food_infos')
-            ->select('food_name', 'food_id', 'user_id', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit')
+            $food = FoodInfo::select('food_name', 'food_id', 'user_id', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit')
             ->where('food_id', $id)
             ->get();
 
-            // todo 사용자 id가 다른 음식 조회&수정 방지
+            // 사용자 id가 다른 음식 조회&수정 방지
             if ($food[0]->user_id !== $user_id) {
                 return redirect()->route('food.index');
             }
@@ -57,8 +57,51 @@ class FoodController extends Controller
         }
 
         // todo 유효성 검사, 영양 정보 값이 없으면 0으로 처리
+        $rules = [
+            'foodName'      => 'required|min:2|max:20|regex:/^[가-힣0-9]+$/'
+            ,'serving'      => 'required|integer|min:1|max:1000'
+            ,'ser_unit'     => 'required'
+            ,'kcal'         => 'required|integer|min:0|max:10000'
+            ,'carbs'        => 'required|integer|min:0|max:10000'
+            ,'protein'      => 'required|integer|min:0|max:10000'
+            ,'fat'          => 'required|integer|min:0|max:10000'
+            ,'sugar'        => 'integer|max:10000|nullable'
+            ,'sodium'       => 'integer|max:10000|nullable'
+        ];
 
-        $id = session('user_id');
+        $messages = [
+            'foodName'          => '음식명은 2~20자 한글과 숫자만 입력 가능합니다.',
+            'serving'           => '제목은 필수 입력 항목입니다.',
+            'ser_unit'          => 'g, ml을 선택해주세요.',
+            'kcal'              => '필수 입력사항입니다. 0~10000 사이 숫자를 입력해주세요',
+            'carbs'             => '필수 입력사항입니다. 0~10000 사이 숫자를 입력해주세요',
+            'protein'           => '필수 입력사항입니다. 0~10000 사이 숫자를 입력해주세요',
+            'fat'               => '필수 입력사항입니다. 0~10000 사이 숫자를 입력해주세요',
+            'sugar'             => '0~10000 사이 숫자를 입력해주세요',
+            'sodium'            => '0~10000 사이 숫자를 입력해주세요',
+        ];
+
+        $validator = Validator::make($req->only(
+            'foodName'
+            ,'serving'
+            ,'ser_unit'
+            ,'kcal'
+            ,'carbs'
+            ,'protein'
+            ,'fat'
+            ,'sugar'
+            ,'sodium'
+        ), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)
+                        ->withInput();
+        }
+
+        // 유저 id 획득
+        $id = Auth::user()->user_id;
+
+        // todo 같은 회원이 같은 이름으로 정보 등록 못하게 하기
 
         // 음식 정보 테이블 인서트
         DB::table('food_infos')
@@ -69,8 +112,8 @@ class FoodController extends Controller
                 ,'carbs'        => $req->carbs
                 ,'protein'      => $req->protein
                 ,'fat'          => $req->fat
-                ,'sugar'        => $req->sugar
-                ,'sodium'       => $req->sodium
+                ,'sugar'        => $req->sugar ?? 0
+                ,'sodium'       => $req->sodium ?? 0
                 ,'serving'      => $req->serving
                 ,'ser_unit'     => $req->ser_unit
                 ,'created_at'   => now()
