@@ -138,7 +138,7 @@ class SearchController extends Controller
         $dietnames = DB::table('fav_diets')
         ->select('fav_id', 'fav_name')
         ->where('user_id', $id)
-        ->get();
+        ->Paginate(15);
 
         $dietfoods = DB::table('food_infos')
         ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
@@ -156,7 +156,7 @@ class SearchController extends Controller
                 ->where('food_name', 'like', '%'.$usersearch.'%')
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
-                ->get();
+                ->Paginate(15);
                 return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
             }
 
@@ -164,15 +164,17 @@ class SearchController extends Controller
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
-            ->get();
+            ->Paginate(15);
             return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
         }
-
         return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods);
     }
 
     public function searchinsert(Request $req, $id) {
+        // var_dump($req);
+        $test = explode('/' ,$req->resultfood);
         
+        return $test;
     }
 
 }

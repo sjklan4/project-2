@@ -36,16 +36,39 @@
         @if (!empty($foods))
             <div class="user_search">
                 @foreach ($foods as $item)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'/>
-                    <span id="food_name">{{$item->food_name}}</span>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}/{{$item->food_name}}" onclick='getFoodValue()'>
+                    <label for="usercheck" id="food_name">{{$item->food_name}}</label>
                     <span>인분 수 : </span>
-                    <input type="number" name="userving" id="userving" min="0.5" max="100">
+                    <input type="number" name="userving" id="userving" min="0.5" max="100" value="1">
                     <br>
                 @endforeach
-            </div>
-        @else
-            <p class="nosearch">검색어</p>
-        @endif
+                @if ($foods->hasPages())
+                <ul class="pagination pagination">
+                @if ($foods->currentPage() > 1)
+                    <a href="{{ $foods->previousPageUrl() }}"><span class="fa fa-chevron-left" aria-hidden="true">이전</span></a>
+                @else
+                    <span>이전</span>
+                @endif
+
+                @for($i = 1; $i <= $foods->lastPage(); $i++)
+                    @if ($i == $foods->currentPage())
+                        <li class="active"><span>{{ $i }}</span></li>
+                    @else
+                        <li><a href="{{ $foods->url($i) }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
+                
+                @if ($foods->currentPage() < $foods->lastPage() )
+                    <a href="{{$foods->nextPageUrl()}}"><span class="fa fa-chevron-right" aria-hidden="true">이후</span></a>
+                @else
+                    <span>이후</span>
+                @endif
+                </ul>
+                @endif
+                    </div>
+                @else
+                    <p class="nosearch">검색어</p>
+                @endif
         
         <div class="fav_diets">
         @if (!empty($dietname))
@@ -71,16 +94,42 @@
                 @else
                 <p>asdsdf</p>
                 @endif
+            
+                {{-- @if ($dietname->hasPages())
+                <ul class="pagination pagination">
+                    @if ($dietname->currentPage() > 1)
+                        <a href="{{ $dietname->previousPageUrl() }}"><span class="fa fa-chevron-left" aria-hidden="true">이전</span></a>
+                    @else
+                        <span>이전</span>
+                    @endif
+
+                    @for($i = 1; $i <= $dietname->lastPage(); $i++)
+                        @if ($i == $dietname->currentPage())
+                            <li class="active"><span>{{ $i }}</span></li>
+                        @else
+                            <li><a href="{{ $dietname->url($i) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                
+                    @if ($dietname->currentPage() < $dietname->lastPage() )
+                        <a href="{{$dietname->nextPageUrl()}}"><span class="fa fa-chevron-right" aria-hidden="true">이후</span></a>
+                    @else
+                        <span>이후</span>
+                    @endif
+                </ul>
+                @endif --}}
             </div>
             
         <div class="user_select">
-            <form action="" method="post">
-                <p>음식</p>
-                <input type="checkbox" name="checkedf" id="checkedf" checked><span id='resultfood'/>
+            <form action="{{route('search.insert', ['date' => '2023-05-01' , 'time' => '1'])}}" method="post" class="uselect">
+                @csrf
+                <p>음식</p>  
+                    <input type="text" id="resultfood" name="resultfood" value="" readonly>
+                    <br>
                 <span id='resultserving'></span>
                 <hr>
                 <p>식단</p>
-                <span id='resultdiet'></span>
+                <input type="text" id="resultdiet" name="resultdiet" value="" readonly>
                 <button type="submit">입력</button>
             </form>
         </div>
@@ -89,5 +138,6 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
 @endsection

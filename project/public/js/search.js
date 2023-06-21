@@ -14,20 +14,38 @@ function getFoodValue()  {
     const query = 'input[name="usercheck"]:checked';
     const selectedEls = 
         document.querySelectorAll(query);
-    // const food_name = document.getElementById('food_name')
-    const food_name = document.getElementById('food_name')
     
     // 선택된 목록에서 value 찾기
-    let result = '';
+    // let result = '';
+    let result = [];
     selectedEls.forEach((el) => {
-        result += el.value + '\n';
+        // result += el.value;
+        // el.split('/');
+        result.push([
+            el.value
+        ]);
     });
 
-    // let fname = food_name.innerHTML;
-    //     console.log(fname);
-
-    document.getElementById('resultfood').innerText
-            = result;
+    console.log(result);
+    // for (let index = 0; index < result.length; index++) {
+    //     $(document).ready(function() {
+    //         // let input = document.createElement('input');
+    //         // let resultfood = input.setAttribute('id', 'resultfood'+[index]);
+    //         // console.log(resultfood);
+    //         // let input = document.createElement('input').setAttribute('id', 'resultfood'+index);
+    //         // let lresult = result+index;
+    //         $(input).val(lresult);
+    //     });
+    for (let index = 0; index < result.length; index++) {
+        $(document).ready(function() {
+            // let input = document.createElement('input');
+            // let resultfood = input.setAttribute('id', 'resultfood'+[index]);
+            // console.log(resultfood);
+            // let input = document.createElement('input').setAttribute('id', 'resultfood'+index);
+            // let lresult = result+index;
+            $('#resultfood').val(result);
+        });
+    }
 }
 
 // todo : 인분 수 겹침 해결하기
@@ -48,11 +66,15 @@ function getDietValue()  {
     // 선택된 목록에서 value 찾기
     let resultdiet = '';
     selectedEls.forEach((el) => {
-        resultdiet += el.value + '\n';
+        resultdiet += el.value;
     });
 
-    document.getElementById('resultdiet').innerText
-            = resultdiet;
+    $(document).ready(function() {
+        $('#resultdiet').val(resultdiet);
+    });
+
+    // document.getElementById('resultdiet').innerText
+    //         = resultdiet;
 }
 
 // ---------------------------- 저장된 식단 ----------------------------
