@@ -24,14 +24,22 @@
             음식등록
         </li>
     </ul>
+{{-- todo : 사용자 등록/최근 먹은 음식 표시, 유효성 검사 --}}
+{{-- todo : 저장된 식단 페이징 / 검색 결과 더보기 또는 페이징 --}}
+{{-- todo : 선택된 음식 식단/음식 삭제 및 인분 수 조절 --}}
+{{-- todo : insert 기능 수행 --}}
+{{-- ? 검색/선택된 음식 인분 수 입력 및 설정 -> 첫 입력 값만 가져옴 : search.js --}}
+{{-- todo : 드롭다운 메뉴 -> 영양성분 표시 --}}
 
+{{-- !? 선택된 음식 새로고침 시 유지 --}}
     <div>
-        <div id='result'></div>
         @if (!empty($foods))
             <div class="user_search">
                 @foreach ($foods as $item)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getCheckboxValue()'>
-                    <span>{{$item->food_name}}</span>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'/>
+                    <span id="food_name">{{$item->food_name}}</span>
+                    <span>인분 수 : </span>
+                    <input type="number" name="userving" id="userving" min="0.5" max="100">
                     <br>
                 @endforeach
             </div>
@@ -40,29 +48,46 @@
         @endif
         
         <div class="fav_diets">
-        @if (!empty($diet))
+        @if (!empty($dietname))
                 <h2>자주먹는 식단</h2>
-                @foreach ($diet as $diets)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$diets->fav_id}}" onclick='getCheckboxValue()'>
-                    <span> {{$diets->fav_name}}</span>
+                @foreach ($dietname as $names)
+                    <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue()'>
+                    <span> {{$names->fav_name}}</span>
                     <br>
+                    @foreach ($dietfood as $foods)
+                    @if($foods->fav_id === $names->fav_id)
+                        <span> {{$foods->food_name}}</span>
+                        <span> {{$foods->kcal}} </span>
+                        <span> {{$foods->carbs}} </span>
+                        <span> {{$foods->protein}} </span>
+                        <span> {{$foods->fat}} </span>
+                        <span> {{$foods->sugar}} </span>
+                        <span> {{$foods->sodium}} </span>
+                        <span> {{$foods->fav_f_intake}} </span>
+                        <br>
+                    @endif
+                    @endforeach
                 @endforeach
                 @else
                 <p>asdsdf</p>
                 @endif
-                {{-- {{var_dump($diet);}} --}}
             </div>
-        <div class="user_select">
-        @if (!empty($select_food))
             
-                <h2>user-select</h2>
-                
-        @endif
+        <div class="user_select">
+            <form action="" method="post">
+                <p>음식</p>
+                <input type="checkbox" name="checkedf" id="checkedf" checked><span id='resultfood'/>
+                <span id='resultserving'></span>
+                <hr>
+                <p>식단</p>
+                <span id='resultdiet'></span>
+                <button type="submit">입력</button>
+            </form>
         </div>
+        
     </div>
 @endsection
 
 @section('js')
-    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
 @endsection
