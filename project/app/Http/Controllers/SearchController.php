@@ -133,48 +133,39 @@ class SearchController extends Controller
     public function searchselect(Request $req, $id) {
         $usersearch = $req->search_input;
 
-        $diets = DB::table('fav_diets')
-        ->select('fav_diets.fav_id', 'fav_diets.fav_name', 'fav_diet_food.food_id', 'fav_diet_food.fav_f_intake',
-        'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein',
-        'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
-        ->join('fav_diet_food', 'fav_diet_food.fav_id', '=', 'fav_diets.fav_id')
-        ->join('food_infos', 'food_infos.food_id', '=', 'fav_diet_food.food_id')
+        $dietnames = DB::table('fav_diets')
+        ->select('fav_id', 'fav_name')
+        ->where('user_id', $id)
+        ->get();
+
+        $dietfoods = DB::table('food_infos')
+        ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
+        ->join('fav_diet_food', 'food_infos.food_id', '=', 'fav_diet_food.food_id')
+        ->join('fav_diets', 'fav_diets.fav_id', '=', 'fav_diet_food.fav_id')
         ->where('fav_diets.user_id', $id)
         ->get();
-        // var_dump($diets);
-        // exit;
 
         if(!empty($usersearch)){
+
+            if(!empty($id)){
+                $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+                ->where('food_name', 'like', '%'.$usersearch.'%')
+                ->where('userfood_flg', '0')
+                ->orWhere('user_id', $id)
+                ->get();
+                return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
+            }
+
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
-            // ->whereNull('deleted_at')
             ->get();
-            return view('FoodList')->with('foods', $foods)->with('diet', $diets);
+            return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
         }
 
-        return view('FoodList')->with('diet', $diets);
-        // return view('FoodList')->with('foods', $foods);
+        return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods);
     }
 
-    public function favdiets($id) {
-        $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
-        ->where('user_id', $id)
-        // ->whereNull('deleted_at')
-        ->get();
-
-        return view('FoodList')->with('fav_diets', $favdiets);
-    }
-
-    public function userchoice(Request $req) {
-        var_dump($req);
-        $food_id = $req->usercheck;
-
-        $select = FoodInfo::select('food_id', 'food_name')
-        ->where('food_id', $food_id)
-        ->get();
-
-        return view("FoodList")->with('select_food', $select);
     
-    }
+
 }

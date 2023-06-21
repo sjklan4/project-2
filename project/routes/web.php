@@ -118,9 +118,7 @@ use App\Http\Controllers\FavController;
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
 Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
-// Route::post('/search/listpost', [SearchController::class, 'userchoice'])->name('search.list.post');
-Route::get('/search/menutab/{id}', [SearchController::class, 'favdiets'])->name('fav.diets');
-// Route::get('/search/list/{usearch}/uchoice', [SearchController::class, 'userchoice'])->name('user.choice');
+Route::post('/search/list/{id}', [SearchController::class, 'searchinsert'])->name('search.insert');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
