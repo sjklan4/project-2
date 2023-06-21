@@ -3,7 +3,7 @@
 @section('title', '게시글 수정')
 
 @section('boardContent')
-    <form action="{{route('board.update', ['board' => $data->board_id])}}" method="post">
+    <form action="{{route('board.update', ['board' => $data->board_id])}}" method="post" enctype="multipart/form-data">
         <div class="shadowYellow">
             @csrf
             @method('put')
