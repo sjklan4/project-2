@@ -71,7 +71,6 @@
 
 @endsection
 
-
 @section('js')
     <script src="{{ asset('js/regist.js') }}"></script>
 @endsection
