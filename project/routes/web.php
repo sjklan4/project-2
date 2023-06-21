@@ -32,6 +32,7 @@ Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->nam
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
 Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
+Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete'])->name('board.replyDelete');
 
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
