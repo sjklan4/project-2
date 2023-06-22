@@ -13,7 +13,9 @@
         </div>
         <div class="boardDetailContet">
             @if (isset($data['img']))
-            <img src="{{asset('storage/images/board/'.$data['img'])}}" alt="1" style="width: 20rem;">
+            <div class="imgDiv">
+                <img src="{{asset('storage/images/board/'.$data['img'])}}" class="img-fluid" alt="1">
+            </div>
             @endif
             <p>{{$data['content']}}</p>
             <button

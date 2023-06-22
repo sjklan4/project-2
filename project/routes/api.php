@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +40,12 @@ use App\Http\Controllers\ApiUserController;
 
 Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
 Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpassword']);
+
+// ---------------------------------------------
+// 섹션명       : 카트(Cart)
+// 기능         : 사용자 체크 음식 관련 api 라우트 설정
+// 관리자       : 채수지
+// 생성일       : 2023-06-22
+// ---------------------------------------------
+// Route::post('/cart', [ApiController::class, 'postFoodCart']);
+Route::post('/cart/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
