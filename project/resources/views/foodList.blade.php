@@ -36,10 +36,10 @@
         @if (!empty($foods))
             <div class="user_search">
                 @foreach ($foods as $item)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}/{{$item->food_name}}" onclick='getFoodValue()'>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'>
                     <label for="usercheck" id="food_name">{{$item->food_name}}</label>
                     <span>인분 수 : </span>
-                    <input type="number" name="userving" id="userving" min="0.5" max="100" value="1">
+                    <input type="number" name="userving" id="userving" min="0.5" max="100">
                     <br>
                 @endforeach
                 @if ($foods->hasPages())
@@ -72,7 +72,9 @@
         
         <div class="fav_diets">
         @if (!empty($dietname))
-                <h2>자주먹는 식단</h2>
+                <h2>
+                    자주먹는 식단
+                </h2>
                 @foreach ($dietname as $names)
                     <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue()'>
                     <span> {{$names->fav_name}}</span>
