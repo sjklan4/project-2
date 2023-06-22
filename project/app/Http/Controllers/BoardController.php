@@ -41,6 +41,7 @@ class BoardController extends Controller
             ->paginate(10)
             ;
 
+
         return view('boardList')->with('data', $result);
     }
 

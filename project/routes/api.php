@@ -48,4 +48,4 @@ Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpasswo
 // 생성일       : 2023-06-22
 // ---------------------------------------------
 // Route::post('/cart', [ApiController::class, 'postFoodCart']);
-Route::post('/cart/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
+Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
