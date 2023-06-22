@@ -87,6 +87,7 @@ Route::post('/user/userinfoPost',[UserController::class,'userinfoeditPost'])->na
 Route::get('/user/userfindE',[UserController::class, 'userfindE'])->name('user.userfindE'); //유저 아이디를 찬는 구문
 Route::post('/user/userfindEPost',[UserController::class,'userfindEPost'])->name('user.userfindEPost'); //유저 아이디를 찾는 값을 요청하는 구문
 
+
 Route::get('/user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');//유저 비밀번호 수정 이동 라우트
 Route::post('/user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');//변경 비밀번호 적용 라우트
 Route::post('user/userKcalup',[UserController::class, 'userKcalup'])->name('user.userKcalup');//유저 칼로리 정보 입력 라우트 - 버튼은 기본자료 수정 버튼 구동
@@ -113,8 +114,9 @@ Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FavController;
-Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet');
-Route::post('/userfav/favfoodinfo',[FavController::class,'favfoodinfo'])->name('fav.favfoodinfo');
+Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet'); //즐겨찾는 식단 정보 페이지 이동
+Route::get('/userfav/favfoodinfo/{fav_id}',[FavController::class,'favdiet'])->name('fav.favfoodinfo'); //즐겨 찾는 식단 정보의 식단별 음식들의 영양 정보 확인 하는 구문의 라우터
+Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name('fav.intakeupdate'); // 즐겨 찾는 식단 정보에서 수량조절(인분서 - 먹은양)하는 라우터
 
 
 // ---------------------------------------------

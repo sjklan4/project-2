@@ -10,14 +10,18 @@
 *****************************/
 namespace App\Http\Controllers;
 
+use App\Models\Diet;
 use Illuminate\Http\Request;
 // v001 add
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
 use App\Models\FavDiet;
 use App\Models\FavDietFood;
+use App\Models\DietFood;
 use Illuminate\support\Facades\Session;
 use Illuminate\Support\Eloquent\SoftDeletes;
+use App\Models\FoodCart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -135,6 +139,7 @@ class SearchController extends Controller
         $usersearch = $req->search_input;
 
         // v004, v005
+        // 저장된 식단 정보
         $dietnames = DB::table('fav_diets')
         ->select('fav_id', 'fav_name', 'user_id')
         ->where('user_id', $id)
@@ -147,17 +152,25 @@ class SearchController extends Controller
         ->where('fav_diets.user_id', $id)
         ->get();
 
-        // v002
+        $seleted = DB::table('food_carts')
+        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name')
+        ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
+        ->where('food_carts.user_id', $id)
+        ->get();
+
+        // v002 
+        // 검색 정보
         if(!empty($usersearch)){
 
             // v004
+            // 유저가 등록한 음식이 있을 경우
             if(!empty($id)){
                 $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
                 ->where('food_name', 'like', '%'.$usersearch.'%')
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
                 ->Paginate(15);
-                return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
+                return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
             }
 
             // v005
@@ -165,16 +178,73 @@ class SearchController extends Controller
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
             ->Paginate(15);
-            return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods);
+            return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
         }
-        return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods);
+        return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
     }
 
-    public function searchinsert(Request $req, $id) {
-        // var_dump($req);
-        $test = explode('/' ,$req->resultfood);
+    public function searchinsert($date, $time) {
+        $id = Auth::user()->user_id;
+
+        // return var_dump($id);
         
-        return $test;
+        $cart = FoodCart::select('amount', 'food_id')
+        // ->count('amount')
+        ->where('user_id', $id)
+        ->get();
+
+        $cart = DB::table('food_carts')
+        ->select('amount', 'food_id')
+        ->where('user_id', $id)
+        ->get()
+        ->toArray();
+        /*
+        Array ( [0] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
+                [1] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
+                [2] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
+                [3] => stdClass Object ( [amount] => 1.5 [food_id] => 4901 ) 
+                [4] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
+                [5] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
+                [6] => stdClass Object ( [amount] => 0.5 [food_id] => 1921 ) 
+                [7] => stdClass Object ( [amount] => 0.5 [food_id] => 8404 ) 
+                [8] => stdClass Object ( [amount] => 0.5 [food_id] => 8690 ) )
+        */
+
+        print_r($cart);
+
+        // $sum = (int)'';
+        $sum = (int)'';
+        $i = 0;
+        foreach ($cart as $key) {
+            $reduplication = $key->food_id;
+            if($reduplication === $key->food_id){
+                $sum += $key->amount;
+                $red_total = $sum;
+            }
+            $sum = 0;
+            echo $red_total.' ';
+            
+        }
+        // echo $sum;
+        var_dump($sum);
+
+        // $insertD = new Diet([
+        //     'user_id' => $id,
+        //     'd_date' => $date,
+        //     'd_flg' => $time
+        // ]);
+        // $insertD->save();
+// echo '========================';
+//         $total = array_count_values($cart);
+//         print_r($total);
+
+
+        // $insertDF = new DietFood([
+            
+        // ]);
+        // $insertDF->save();
+        // FoodCart::destroy($id);
+        // return redirect()->route('home');
     }
 
 }

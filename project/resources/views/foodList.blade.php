@@ -36,7 +36,7 @@
         @if (!empty($foods))
             <div class="user_search">
                 @foreach ($foods as $item)
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue()'>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue({{Auth::user()->user_id}})'>
                     <label for="usercheck" id="food_name">{{$item->food_name}}</label>
                     <span>인분 수 : </span>
                     <input type="number" name="userving" id="userving" min="0.5" max="100">
@@ -123,17 +123,20 @@
             </div>
             
         <div class="user_select">
-            <form action="{{route('search.insert', ['date' => '2023-05-01' , 'time' => '1'])}}" method="post" class="uselect">
-                @csrf
-                <p>음식</p>  
-                    <input type="text" id="resultfood" name="resultfood" value="" readonly>
+            @if (!empty($seleted))
+                <h3>선택한 음식</h3>
+                @foreach ($seleted as $food)
+                    <span>{{$food->food_name}}</span>
+                    <button type="button">X</button>
                     <br>
-                <span id='resultserving'></span>
+                @endforeach
                 <hr>
-                <p>식단</p>
+                <h3>선택한 식단</h3>
                 <input type="text" id="resultdiet" name="resultdiet" value="" readonly>
-                <button type="submit">입력</button>
-            </form>
+                <br>
+            @endif
+                <button type="button">취소</button>
+                <button type="button" onclick="location.href='{{route('search.insert', ['id' => Auth::user()->user_id, 'date' => '2023-06-22', 'time' => '1'])}}'">입력</button>
         </div>
         
     </div>
