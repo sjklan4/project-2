@@ -2,7 +2,7 @@
 .boardCon {
     padding-top: 50px;
     display: grid;
-    grid-template-columns: 1fr minmax(150px, 2fr) 5fr 1fr;
+    grid-template-columns: 1.5fr minmax(150px, 2fr) 5fr 1.5fr;
 }
 
 /* 네비 */
@@ -25,6 +25,30 @@
     color: #538E04;
 }
 
+.listCon {
+    padding: 20px 0;
+}
+
+/* 버튼 */
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+
+#greenBtn {
+    color: white;
+    height: 2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    background-color: #538E04;
+    border: none;
+    border-radius: 3px;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+.rightBtn {
+    text-align: right;
+    padding-right: 8%;
+}
 
 /* 게시판 콘텐츠 */
 .shadow {
@@ -34,14 +58,14 @@
 }
 
 .shadowYellow {
-    /* max-width: 800px; */
-    min-width: 600px;
     background: #FFFFF0;
     box-shadow: 0px 12px 30px #ECECEC;
+    display: flex;
+    justify-content: center;
 }
 
 .shadowYellow > div {
-    margin: 0 auto;
+    padding: 50px 0;
 }
 
 .boardDetailTitle {
@@ -52,9 +76,35 @@
     margin-right: 2rem;
 }
 
+/* 이미지 */
+.imgDiv {
+    max-width: 350px;
+}
+
 table {
-    border-spacing: 1rem;
+    width: 800px;
+    border-spacing: 2rem;
     border-collapse: separate;
+}
+
+tr td:not(:nth-child(2)) {text-align: center;}
+.trBasic tr td:nth-child(2) { width: 300px;}
+
+.trMobileMargin {
+    border-bottom: 100px solid transparent;
+}
+
+td {
+    font-size: 15px;
+}
+
+.pagination {
+    justify-content: center;
+    font: 2rem;
+}
+
+.trMobile {
+    display: none;
 }
 
 .foodInsertGrid {
@@ -71,9 +121,37 @@ table {
     display: flex;
 }
 
-.inputRadioBtnDiv input {
-    margin-right: 1rem;
+/* 리스트 페이지 아이콘 */
+.bi-bar-chart-fill {
+    color: #FFD029;
 }
+
+.bi-heart-fill {
+    color: #EE6666;
+}
+
+.bi-chat-dots-fill {
+    color: #6799E4;
+}
+
+/* 페이징 */
+.pagination li {
+    width: 30px;
+    height: 30px;
+    margin: 0 3px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.active span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #538E04;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
 
 
 /* 라디오 버튼 */
@@ -106,22 +184,90 @@ table {
     color: #fff;
 }
 
-
-@media (max-width: 800px) {
+/* 모바일 */
+@media (max-width: 500px) {
     .boardCon {
         padding: 0;
         display: block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .shadowYellow {
+        width: 100vw;
+        display: flex;
+        
+    }
+
+    .shadowYellow > div {
+        width: 380px;
+        padding: 10px 20px;
+    }
+
+    .listCon {
+        padding: 0 0 10px 0;
     }
 
     .dis-left, .dis-right, .boardNavDiv {
         display: none;
     }
 
-    .boardConDiv {
-        max-width: 800px;
+    /* 페이징 */
+    .pagination li {
+        width: 20px;
+        height: 20px;
+        margin: 0 1px;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .active span {
+        display: block;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        background: #538E04;
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+
+    .rightBtn {
+        text-align: right;
+        padding-right: 0;
     }
 
     .mNav {
         display: block;
+    }
+
+    td {
+        font-size: 14px;
+    }
+
+    table {
+        padding-top: 10px;
+        width: 90vw;
+        border-spacing: 0.2rem;
+        border-collapse: separate;
+    }
+
+    .trMobile {
+        display: block;
+    }
+
+    .trBasic {
+        display: none;
+    }
+
+    .trMobileMargin {
+        border-bottom: 20px solid transparent;
+    }
+
+    #greenBtn {
+        height: 30px;
+        width: 70px;
+        padding: 1.5em auto;
+        border-radius: 3px;
+        font-size: 14px;
     }
 }
