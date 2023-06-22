@@ -101,14 +101,14 @@
                 <div id="flush-collapseOne" class="accordion-collapse collapse">
                     <div class="accordion-body">
                             @forelse($data['dietFood']['dietBrf'] as $val)
-                                <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST">
+                                <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST" style="display:inline-block">
                                     @csrf
                                     {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->{{$val->df_id}}
                                     음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 :
                                     {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : <input name="df_intake" value="{{$val->df_intake}}">
                                     <button type="submit">수정하기</button>
                                 </form>
-                                <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post">
+                                <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post" style="display:inline-block">
                                     @csrf
                                     @method('delete')
                                     <button type="submit">삭제</button>
@@ -122,11 +122,11 @@
                                     ])}}'">음식추가
                             </button>
                             @if(isset($data['dietFood']['dietBrf'][0]))
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal0">
                                     즐겨찾기 등록
                                 </button>
                                 <!-- 즐겨찾기 등록 Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -139,10 +139,11 @@
                                                 음식 목록<br>                                       
                                                 @foreach($data['dietFood']['dietBrf'] as $val)
                                                     {{$val->food_name}}<br>
-                                                    식단 아이디 : {{$val->diet}}
                                                 @endforeach
                                                 <form action="{{route('fav.insert')}}">
-                                                    <input type="text" name="fav_name">
+                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                    <input type="hidden" name="d_flg" value="0">
+                                                    <input type="text" name="fav_name" required>
                                                     <button type="submit">등록하기</button>
                                                 </form>
                                             </div>

@@ -170,7 +170,7 @@ class HomeController extends Controller
         $dietfood->df_intake = $req->df_intake;
         $dietfood->save();
 
-        return redirect()->route('home');
+        return redirect()->route('home.post');
     }
 
     public function homedelete($id){
@@ -191,17 +191,39 @@ class HomeController extends Controller
         if(!Auth::user()) {
             return redirect()->route('user.login');
         }
-
-        // 유저 pk획득
+        // 사용자 pk 획득
         $id = Auth::user()->user_id;
+        $d_date = $req->input('date');
+        $d_flg = $req->input('d_flg');
 
-        // $fav_diets = new FavDiet([
-        //     'user_id'   => $id
-        //     ,'fav_name' => $req->input('fav_name')
-        // ]);
+        $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
+                ->where('diets.user_id','=',$id)
+                ->where('diets.d_date','=',$d_date)
+                ->where('diets.d_flg','=',$d_flg)
+                ->get();
 
-        // insert
-        $diets->save();
+        $fav_id = DB::table('fav_diets')->insertGetId([
+            'user_id'       => $id
+            ,'fav_name'     => $req->input('fav_name')
+            ,'created_at'   => now()
+            ]
+        ,'fav_id'
+        );
+
+        $df_arr = [];
+        foreach ($dietFood as $val)
+        {
+            $df_arr[] = [
+                'fav_id'        => $fav_id
+                ,'food_id'      => $val->food_id
+                ,'fav_f_intake' => $val->df_intake
+                ,'created_at'   => now()
+            ];
+        }
+        
+        DB::table('fav_diet_food')
+        ->insert($df_arr);
+
         return redirect()->route('fav.favdiet');
     }
 }
