@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Models\UserInfo;
 use App\Models\Diet;
 use App\Models\DietFood;
+use App\Models\FavDiet;
 use App\Models\KcalInfo;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -158,4 +159,49 @@ class HomeController extends Controller
         return view('home')->with("data",$arrData);
     }
 
+    public function homeupdate(Request $req, $id){
+
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
+
+        $dietfood = DietFood::find($id);
+        $dietfood->df_intake = $req->df_intake;
+        $dietfood->save();
+
+        return redirect()->route('home');
+    }
+
+    public function homedelete($id){
+
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
+
+        DietFood::destroy($id);
+
+        return redirect()->route('home');
+    }
+
+    public function favinsert(Request $req){
+
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
+
+        // 유저 pk획득
+        $id = Auth::user()->user_id;
+
+        // $fav_diets = new FavDiet([
+        //     'user_id'   => $id
+        //     ,'fav_name' => $req->input('fav_name')
+        // ]);
+
+        // insert
+        $diets->save();
+        return redirect()->route('fav.favdiet');
+    }
 }

@@ -26,4 +26,22 @@
             $('.navbar-dropdown').hide();
         });
     }); 
-})(jQuery); 
+})(jQuery);
+
+// $(document).ready(function(){
+//     var headerHeight = $('#header').height();
+
+//     function floatSearch(){
+//         if($(window).scrollTop() > headerHeight){
+//             $('.navigation').addClass('fixed');
+//         }else{
+//             $('.navigation').removeClass('fixed');
+//         }
+//     }
+
+//     $(window).scroll(function(){
+//         floatSearch();
+//     });
+
+//     floatSearch();
+// });

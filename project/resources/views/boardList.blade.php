@@ -5,18 +5,29 @@
 @section('boardContent')
     <div class="shadowYellow">
         <div>
-            <button type="button" onclick="location.href='{{route('board.create')}}'">작성하기</button>
+            <div class="rightBtn">
+                <button type="button" id="greenBtn" onclick="location.href='{{route('board.create')}}'">작성하기</button>
+            </div>
             <div class="listCon">
                 <table>
                     @forelse ($data as $item)
-                        <tr>
-                            <td>{{$item->bcate_name}}</td>
-                            <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
-                            <td>{{$item->hits}}</td>
-                            <td>{{$item->likes}}</td>
-                            <td>{{$item->replies}}</td>
-                            <td>{{substr($item->created_at, 0, 16)}}</td>
-                        </tr>
+                    <tr class="trBasic">
+                        <td>{{$item->bcate_name}}</td>
+                        <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
+                        <td><i class="bi bi-bar-chart-fill"></i> {{$item->hits}}</td>
+                        <td><i class="bi bi-heart-fill"></i> {{$item->likes}}</td>
+                        <td><i class="bi bi-chat-dots-fill"></i> {{$item->replies}}</td>
+                        <td>{{substr($item->created_at, 0, 10)}}</td>
+                    </tr>
+                    <tr class="trMobile">
+                        <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
+                    </tr>
+                    <tr class="trMobile trMobileMargin">
+                        <td><i class="bi bi-bar-chart-fill"></i> {{$item->hits}}</td>
+                        <td><i class="bi bi-heart-fill"></i> {{$item->likes}}</td>
+                        <td><i class="bi bi-chat-dots-fill"></i> {{$item->replies}}</td>
+                        <td>{{substr($item->created_at, 0, 10)}}</td>
+                    </tr>
                     @empty
                     <tr>
                         <td></td>
@@ -28,30 +39,38 @@
                     </tr>
                     @endforelse
                 </table>
-                @if ($data->hasPages())
-                    <ul class="pagination pagination">
-                    @if ($data->currentPage() > 1)
-                        <a href="{{ $data->previousPageUrl() }}"><span class="fa fa-chevron-left" aria-hidden="true">이전</span></a>
-                    @else
-                        <span>이전</span>
-                    @endif
-    
-                    @for($i = 1; $i <= $data->lastPage(); $i++)
-                        @if ($i == $data->currentPage())
-                            <li class="active"><span>{{ $i }}</span></li>
-                        @else
-                            <li><a href="{{ $data->url($i) }}">{{ $i }}</a></li>
-                        @endif
-                    @endfor
-                    
-                    @if ($data->currentPage() < $data->lastPage() )
-                        <a href="{{$data->nextPageUrl()}}"><span class="fa fa-chevron-right" aria-hidden="true">이후</span></a>
-                    @else
-                        <span>이후</span>
-                    @endif
-                    </ul>
-                @endif
             </div>
+            @if ($data->hasPages())
+                <ul class="pagination pagination">
+                @if ($data->currentPage() > 1)
+                <li>
+                    <a href="{{ $data->previousPageUrl() }}">
+                        <span class="fa fa-chevron-left" aria-hidden="true"><</span>
+                    </a>
+                </li>
+                @else
+                    <li><</li>
+                @endif
+
+                @for($i = 1; $i <= $data->lastPage(); $i++)
+                    @if ($i == $data->currentPage())
+                        <li class="active"><span>{{ $i }}</span></li>
+                    @else
+                        <li><a href="{{ $data->url($i) }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
+                
+                @if ($data->currentPage() < $data->lastPage() )
+                    <li>
+                        <a href="{{$data->nextPageUrl()}}">
+                            <span class="fa fa-chevron-right" aria-hidden="true">></span>
+                        </a>
+                    </li>
+                @else
+                    <li>></li>
+                @endif
+                </ul>
+            @endif
         </div>
     </div>
 @endsection

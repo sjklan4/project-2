@@ -68,14 +68,14 @@
                 <li>
                     {{-- 로그인 상태 --}}
                     @auth
-                    <a href='{{route('user.logout')}}'" id="logoutBtn">
+                    <a href='{{route('user.logout')}}' id="logoutBtn">
                         <img src="{{asset('img/logoutBtn.png')}}">
                     </a>
                     @endauth
         
                     {{-- 로그아웃 상태 --}}
                     @guest
-                    <a href='{{route('user.login')}}'">
+                    <a href='{{route('user.login')}}' id="logoutBtn">
                         <img src="{{asset('img/loginBtn.png')}}">
                     </a>
                     @endguest

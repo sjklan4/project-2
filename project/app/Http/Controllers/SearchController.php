@@ -136,7 +136,7 @@ class SearchController extends Controller
 
         // v004, v005
         $dietnames = DB::table('fav_diets')
-        ->select('fav_id', 'fav_name')
+        ->select('fav_id', 'fav_name', 'user_id')
         ->where('user_id', $id)
         ->Paginate(15);
 
