@@ -6,46 +6,40 @@ use Illuminate\Http\Request;
 use App\Models\FoodCart;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FavDiet;
+use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
 {
     
-    // public function postFoodCart($food_id, $amount) {
-    public function postFoodCart($data) {
-        echo 'sedfg';
-        echo 'asdkf';
-        $id = Auth::user()->user_id;
-        $uid = FavDiet::find($id);
-        $data = json_decode($data);
+    public function postFoodCart($user_id, $food_id, $amount) {
+    // public function postFoodCart($data) {
+        Log::debug("시작");
+        // if(Auth::check()) {
+        //     Log::debug("Auth On");
+        // }
+        // if(auth('api')->guest()) {
+        //     $arr['error'] = '1';
+        //     $arr['msg'] = 'guest';
+        //     return $arr;
+        // }
+        
+        Log::debug("식단 획득");
+        // $data = json_decode($data);
         $cart = new FoodCart([
-            'user_id' => $uid,
-            'food_id' => $data->food_id,
-            'amount' => $data->amount
+            'user_id' => $user_id,
+            'food_id' => $food_id,
+            'amount' => $amount
         ]);
         $cart->save();
-    // public function postFoodCart(Request $req) {
-    //     echo 'asdkf';
-    //     $cart = new FoodCart([
-    //         'user_id' => Auth::user()->user_id,
-    //         'food_id' => $req->food_id,
-    //         'amount' => $req->amount
-    //     ]);
-    //     $cart->save();
 
         $arr = [
             'error' => '0'
             ,'msg' => ''
         ];
 
-        if(!$data->food_id){
+        if(!$food_id){
             $arr['error'] = '1';
             $arr['msg'] = 'fall';
-        // if(!$food_id){
-        //     $arr['error'] = '1';
-        //     $arr['msg'] = 'fall';
-        // if(!$req->food_id){
-        //     $arr['error'] = '1';
-        //     $arr['msg'] = 'fall';
         }else{
             $arr['error'] = '2';
             $arr['msg'] = 'success';

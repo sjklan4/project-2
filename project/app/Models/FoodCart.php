@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FoodCart extends Model
 {
     use HasFactory;
+
+    protected  $table = 'food_carts';
+
+    protected  $primaryKey = 'cart_id';
+
+    protected $guarded = ['cart_id'];
 }

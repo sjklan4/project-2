@@ -10,7 +10,7 @@ const uselect = document.getElementsByClassName('uselect')
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
-function getFoodValue()  {
+function getFoodValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="usercheck"]:checked';
     const selectedEls = 
@@ -22,7 +22,7 @@ function getFoodValue()  {
     let result = '';
     // let result = [];
     selectedEls.forEach((el) => {
-        result += el.value;
+        result = el.value;
         // el.split('/');
         // result.push([
         //     el.value
@@ -33,9 +33,6 @@ function getFoodValue()  {
     var amount = '';
     selectedInp.forEach((el2) => {
         amount += el2.value;
-        // amount.push([
-        //     el2.value
-        // ]);
         parseFloat(amount);
     });
 
@@ -46,23 +43,24 @@ function getFoodValue()  {
     console.log(result);
     console.log(amount);
 
-    var data = {
-        food_id : result,
-        amount : amount
-    };
     // JSON.parse(data);
-JSON.stringify(data);
-    $.ajax({
-        type: "post",
-        url: `/api/cart/${result}/${amount}`,
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    }).done(res => {
-        alert("성공");
-    }).fail(error => {
-        alert("실패");
-    });
+    fetch(`/api/cart/${userId}/${result}/${amount}`, {
+        method: "post"
+    })
+    .then(res => res.json())
+    .then(data => { console.log(data); console.log(data.error); console.log(data.msg); console.log(data.data); });
+
+    location.reload();
+    // $.ajax({
+    //     type: "post",
+    //     url: `/api/cart/${userId}`,
+    //     data: formData,
+    // }).done(res => {
+    //     console.log(res);
+    //     alert("성공");
+    // }).fail(error => {
+    //     alert("실패");
+    // });
     // $.ajax({
     //     type: "post",
     //     url: `/api/cart/${result}/${amount}`,
