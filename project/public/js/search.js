@@ -4,6 +4,7 @@ const tab2 = document.querySelector('.tab2')
 const search = document.getElementsByClassName('user_search')
 const fav_diets = document.getElementsByClassName('fav_diets')
 const user_select = document.getElementsByClassName('user_select')
+const uselect = document.getElementsByClassName('uselect')
 
 
 
@@ -14,38 +15,65 @@ function getFoodValue()  {
     const query = 'input[name="usercheck"]:checked';
     const selectedEls = 
         document.querySelectorAll(query);
+    const query2 = 'input[name="userving"]'
+    const selectedInp = document.querySelectorAll(query2);
     
     // 선택된 목록에서 value 찾기
-    // let result = '';
-    let result = [];
+    let result = '';
+    // let result = [];
     selectedEls.forEach((el) => {
-        // result += el.value;
+        result += el.value;
         // el.split('/');
-        result.push([
-            el.value
-        ]);
+        // result.push([
+        //     el.value
+        // ]);
     });
 
+    // var amount = [];
+    var amount = '';
+    selectedInp.forEach((el2) => {
+        amount += el2.value;
+        // amount.push([
+        //     el2.value
+        // ]);
+        parseFloat(amount);
+    });
+
+    // var amount = amount.filter(function(item){
+    //     return item !== null && item !== undefined && item !== '';
+    // })
+
     console.log(result);
-    // for (let index = 0; index < result.length; index++) {
-    //     $(document).ready(function() {
-    //         // let input = document.createElement('input');
-    //         // let resultfood = input.setAttribute('id', 'resultfood'+[index]);
-    //         // console.log(resultfood);
-    //         // let input = document.createElement('input').setAttribute('id', 'resultfood'+index);
-    //         // let lresult = result+index;
-    //         $(input).val(lresult);
-    //     });
-    for (let index = 0; index < result.length; index++) {
-        $(document).ready(function() {
-            // let input = document.createElement('input');
-            // let resultfood = input.setAttribute('id', 'resultfood'+[index]);
-            // console.log(resultfood);
-            // let input = document.createElement('input').setAttribute('id', 'resultfood'+index);
-            // let lresult = result+index;
-            $('#resultfood').val(result);
-        });
-    }
+    console.log(amount);
+
+    var data = {
+        food_id : result,
+        amount : amount
+    };
+    // JSON.parse(data);
+JSON.stringify(data);
+    $.ajax({
+        type: "post",
+        url: `/api/cart/${result}/${amount}`,
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(res => {
+        alert("성공");
+    }).fail(error => {
+        alert("실패");
+    });
+    // $.ajax({
+    //     type: "post",
+    //     url: `/api/cart/${result}/${amount}`,
+    //     data: JSON.stringify(result),
+    //     contentType: "application/json; charset=utf-8",
+    //     dataType: "json"
+    // }).done(res => {
+    //     alert("성공");
+    // }).fail(error => {
+    //     alert("실패");
+    // });
 }
 
 // todo : 인분 수 겹침 해결하기
