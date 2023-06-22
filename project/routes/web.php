@@ -137,4 +137,6 @@ Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert
 use App\Http\Controllers\HomeController;
 Route::get('/home', [HomeController::class, 'homepost'])->name('home');
 Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
-
+Route::post('/home/{df_id}', [HomeController::class, 'homeupdate'])->name('home.update');
+Route::delete('/home/{df_id}', [HomeController::class, 'homedelete'])->name('home.delete');
+Route::get('/userfav', [HomeController::class, 'favinsert'])->name('fav.insert');

@@ -39,6 +39,9 @@
         </div>
     </div>
     {{-- 테스트존 --}}
+    {{-- https://codepen.io/rafaelavlucas/pen/zyVXYV --}}
+    {{-- https://nanati.me/css-animation-library/ --}}
+    {{-- https://animate.style/ --}}
     <hr class="bc-green">
     <div id="myDiet">
         <div class="box1">
@@ -87,58 +90,70 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <div class="imgbox">
-                            <div class="img">d</div>
-                            아침<br>
-                            칼로리 총합 : {{$data['brfSum']['brfKcalSum']}} | 탄수화물 총합 : {{$data['brfSum']['brfCarbSum']}} | 단백질
-                            총합 : {{$data['brfSum']['brfProteinSum']}} | 지방 총합 : {{$data['brfSum']['brfFatSum']}}
-                        </div>
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">아침
                     </button>
+                    <div class="imgbox">
+                        <div class="img">이미지</div>
+                        칼로리 총합 : {{$data['brfSum']['brfKcalSum']}} | 탄수화물 총합 : {{$data['brfSum']['brfCarbSum']}} | 단백질
+                        총합 : {{$data['brfSum']['brfProteinSum']}} | 지방 총합 : {{$data['brfSum']['brfFatSum']}}
+                    </div>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        @forelse($data['dietFood']['dietBrf'] as $val)
-                        {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->
-                        음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 :
-                        {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 :
-                        {{$val->df_intake}}
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제
-                        </button><br>
-                        @empty
-                        정보가 없어요 ㅠㅠ
-                        @endforelse
-                        <button type="button" onclick="location.href='{{route('search.insert',[
-                                    'date' => $data['date'] ?? $data['today'],
-                                    'time' => '0'
-                                ])}}'">음식추가
-                        </button>
-                        <button type="button" onclick="location.href=''">수정하기
-                        </button>
+                            @forelse($data['dietFood']['dietBrf'] as $val)
+                                <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST">
+                                    @csrf
+                                    {{($val->kcal)*($val->df_intake)}}KCAL | 상세정보 ->{{$val->df_id}}
+                                    음식명 : {{$val->food_name}} | 칼로리 : {{$val->kcal}} | 탄수화물 : {{$val->carbs}} | 단백질 :
+                                    {{$val->protein}} | 지방 : {{$val->fat}} |당 : {{$val->sugar}} | 나트륨 : {{$val->sodium}} | 섭취량 : <input name="df_intake" value="{{$val->df_intake}}">
+                                    <button type="submit">수정하기</button>
+                                </form>
+                                <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit">삭제</button>
+                                </form>
+                            @empty
+                                정보가 없어요 ㅠㅠ
+                            @endforelse
+                            <button type="button" onclick="location.href='{{route('search.insert',[
+                                        'date' => $data['date'] ?? $data['today'],
+                                        'time' => '0'
+                                    ])}}'">음식추가
+                            </button>
+                            @if(isset($data['dietFood']['dietBrf'][0]))
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    즐겨찾기 등록
+                                </button>
+                                <!-- 즐겨찾기 등록 Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                음식 목록<br>                                       
+                                                @foreach($data['dietFood']['dietBrf'] as $val)
+                                                    {{$val->food_name}}<br>
+                                                    식단 아이디 : {{$val->diet}}
+                                                @endforeach
+                                                <form action="{{route('fav.insert')}}">
+                                                    <input type="text" name="fav_name">
+                                                    <button type="submit">등록하기</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
+                                            </div>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            @endif
                     </div>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <form action="/user/out" method="get">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <input type="hidden" name="no" value="">
-                                <div class="modal-body">
-                                    정말 삭제하시겠습니까?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
-                                    <button type="submit" class="btn btn-success">삭제하기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
             <div class="accordion-item">
