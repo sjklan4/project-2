@@ -19,23 +19,22 @@ class FavController extends Controller
                                 join food_infos i
                                     on f.food_id = i.food_id 
                                 where d.user_id = ? group by d.fav_name', [$user]);
-                            // var_dump($favfood);
-                            
+                            var_dump($favfood);
+                            exit;
         return view('favdiet')->with('favfood', $favfood);
     }
 
     public function favfoodinfo(){
         $user = Auth::user()->user_id;
-        // $fav_id = 
-        // $favfoodinfo = DB::select('
-        //     SELECT i.food_name,i.kcal,i.carbs,i.protein,i.fat,i.sugar,i.sodium
-        //         FROM fav_diets d
-        //     	JOIN fav_diet_food f
-        //     	ON d.fav_id = f.fav_id
-        //      	JOIN food_infos i
-        //      	ON i.food_id = f.food_id
-        //         WHERE d.user_id = ? AND d.fav_id = ?',[$user, $fav_id]);
-        // return view('favdiet')->with('favfood', $favfoodinfo);
+        $favfoodinfo = DB::select('
+            SELECT i.food_name,i.kcal,i.carbs,i.protein,i.fat,i.sugar,i.sodium
+                FROM fav_diets d
+            	JOIN fav_diet_food f
+            	ON d.fav_id = f.fav_id
+             	JOIN food_infos i
+             	ON i.food_id = f.food_id
+                WHERE d.user_id = ? AND d.fav_id = ?',[$user, $fav_id]);
+        return view('favdiet')->with('favfood', $favfoodinfo);
     }
 
 }

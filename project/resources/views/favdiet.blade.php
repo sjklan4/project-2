@@ -6,11 +6,9 @@
 
 
         @forelse($favfood as $val)
-        <form action="{{route('fav.favfoodinfo')}}" method="post">
-            @csrf
             {{ $val->fav_name }}|{{ $val->food_name }}
-                <br>
-        </form>
+             <br>
+     
         @empty
             <p>즐겨 찾는 식단을 추가해주세요</p>
         @endforelse
@@ -21,3 +19,6 @@
 {{-- @section('js')
     <script src="{{ asset('js/password.js') }}"></script>
 @endsection --}}
+
+{{-- <form action="{{route('fav.favfoodinfo')}}" method="post">
+</form> --}}
