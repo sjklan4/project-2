@@ -2,7 +2,8 @@
 .boardCon {
     padding-top: 50px;
     display: grid;
-    grid-template-columns: 1.5fr minmax(150px, 2fr) 5fr 1.5fr;
+    grid-template-columns: 1.5fr minmax(150px, 1.5fr) 1000px 2fr;
+    font-size: 16px;
 }
 
 /* 네비 */
@@ -13,7 +14,7 @@
 .boardNavDiv > div{
     font-size: 35px;
     font-weight: 900;
-    padding: 5px 0 20px 16px;
+    padding: 5px 0 40px 16px;
 }
 
 .boardNavDiv ul li a, a {
@@ -21,12 +22,19 @@
     color: #000
 }
 
+.nav-item {
+    font-size: 18px;
+    font-weight: 500;
+    height: 60px;
+}
+
 .boardNavDiv ul li a:hover, a:hover {
     color: #538E04;
+    font-weight: 600;
 }
 
 .listCon {
-    padding: 20px 0;
+    padding: 20px 0 50px 0;
 }
 
 /* 버튼 */
@@ -82,20 +90,31 @@
 }
 
 table {
-    width: 800px;
-    border-spacing: 2rem;
+    /* width: 800px; */
+    /* border-spacing: 1rem; */
     border-collapse: separate;
+    margin: 0 30px 0px 10px;
+}
+
+.trBasic {
+    height: 60px;
 }
 
 tr td:not(:nth-child(2)) {text-align: center;}
-.trBasic tr td:nth-child(2) { width: 300px;}
+.trBasic td:nth-child(1) { width: 150px;}
+.trBasic td:nth-child(2) { width: 350px; padding-left: 5px;}
+.trBasic td:nth-child(3) { width: 60px;}
+.trBasic td:nth-child(4) { width: 60px;}
+.trBasic td:nth-child(5) { width: 60px;}
+.trBasic td:nth-child(6) { width: 180px;}
 
 .trMobileMargin {
     border-bottom: 100px solid transparent;
 }
 
 td {
-    font-size: 15px;
+    /* font-size: 16px; */
+    font-weight: 500;
 }
 
 .pagination {
@@ -143,6 +162,10 @@ td {
     line-height: 30px;
 }
 
+.pagination li a:hover {
+    font-weight: 900;
+}
+
 .active span {
     display: block;
     width: 30px;
@@ -188,19 +211,19 @@ td {
 @media (max-width: 500px) {
     .boardCon {
         padding: 0;
-        display: block;
+        display: inline-block;
         padding: 0;
         margin: 0;
+        font-size: 14px;
     }
 
     .shadowYellow {
         width: 100vw;
-        display: flex;
+        display: inline-block;
         
     }
 
     .shadowYellow > div {
-        width: 380px;
         padding: 10px 20px;
     }
 
@@ -238,15 +261,17 @@ td {
 
     .mNav {
         display: block;
+        text-align: center;
+        padding: 20px 0;
     }
 
-    td {
-        font-size: 14px;
+    .mNav a {
+        margin: 0 5px;
+        font-weight: 600;
     }
 
     table {
         padding-top: 10px;
-        width: 90vw;
         border-spacing: 0.2rem;
         border-collapse: separate;
     }
@@ -260,8 +285,13 @@ td {
     }
 
     .trMobileMargin {
-        border-bottom: 20px solid transparent;
+        border-bottom: 30px solid transparent;
     }
+
+    .trMobileMargin td:nth-child(1){width: 40px;}
+    .trMobileMargin td:nth-child(2){width: 40px;}
+    .trMobileMargin td:nth-child(3){width: 40px;}
+    .trMobileMargin td:nth-child(4){width: 100px;}
 
     #greenBtn {
         height: 30px;
@@ -269,5 +299,9 @@ td {
         padding: 1.5em auto;
         border-radius: 3px;
         font-size: 14px;
+    }
+
+    tr td:not(:nth-child(2)) {
+        text-align: left;
     }
 }
