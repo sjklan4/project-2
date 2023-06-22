@@ -34,7 +34,7 @@
             <input type="file" id="picture" name="picture">
             <button type="button" onclick="resetImg();">사진 초기화</button>
         </div>
-            <button type="button" onclick="location.href='{{ url()->previous() }}'">취소</button>
+            <button type="button" onclick="location.href='{{ route('board.shows', ['board' => $data->board_id, 'flg' => '1']) }}'">취소</button>
             <button type="submit">수정</button>
     </form>
 @endsection

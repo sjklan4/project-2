@@ -7,7 +7,7 @@
             <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
             <ul class="nav-list">
                 <li>
-                    <a href="#">My Food</a>
+                    <a id="cursorPointer">My Food</a>
                     <ul class="navbar-dropdown">
                         <li>
                             <a href="#!">기록</a>
@@ -21,7 +21,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#!">Board</a>
+                    <a id="cursorPointer">Board</a>
                     <ul class="navbar-dropdown">
                         <li>
                             <a href="{{route('board.indexNum', ['board' => 1])}}">건강관리</a>
@@ -41,7 +41,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#!">My Page</a>
+                    <a id="cursorPointer">My Page</a>
                     <ul class="navbar-dropdown">
                         <li>
                             <a href="#!">나의정보</a>
@@ -55,7 +55,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#!">Challenge</a>
+                    <a id="cursorPointer">Challenge</a>
                     <ul class="navbar-dropdown">
                         <li>
                             <a href="#!">퀘스트 수락</a>
@@ -68,12 +68,16 @@
                 <li>
                     {{-- 로그인 상태 --}}
                     @auth
-                    <button type="button" onclick="location.href='{{route('user.logout')}}'">로그아웃</button>
+                    <a href='{{route('user.logout')}}'" id="logoutBtn">
+                        <img src="{{asset('img/logoutBtn.png')}}">
+                    </a>
                     @endauth
         
                     {{-- 로그아웃 상태 --}}
                     @guest
-                    <button type="button" onclick="location.href='{{route('user.login')}}'">로그인</button>
+                    <a href='{{route('user.login')}}'">
+                        <img src="{{asset('img/loginBtn.png')}}">
+                    </a>
                     @endguest
                 </li>
             </ul>

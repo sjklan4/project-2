@@ -105,6 +105,13 @@ class HomeController extends Controller
             $snackFatSum += (($val->fat)*($val->df_intake));
         }
 
+        // 하루 전체
+        $kcalTotal = $brfKcalSum + $lunchKcalSum + $dinnerKcalSum + $snackKcalSum ;
+        $carbTotal = $brfCarbSum + $lunchCarbSum + $dinnerCarbSum + $snackCarbSum ;
+        $proteinTotal = $brfProteinSum + $lunchProteinSum + $dinnerProteinSum + $snackProteinSum;
+        $fatTotal = $brfFatSum + $lunchFatSum + $dinnerFatSum + $snackFatSum;
+        $tdgTotal = $carbTotal + $proteinTotal + $fatTotal ;
+
         $arrData = [
             'date'          => $date
             ,'today'        => $today
@@ -138,6 +145,13 @@ class HomeController extends Controller
                 ,'snackCarbSum'   => $snackCarbSum
                 ,'snackProteinSum'=> $snackProteinSum
                 ,'snackFatSum'    => $snackFatSum
+            ]
+            ,'total'   => [
+                'kcalTotal'     => $kcalTotal
+                ,'carbTotal'    => $carbTotal
+                ,'proteinTotal' => $proteinTotal
+                ,'fatTotal'     => $fatTotal
+                ,'tdgTotal'     => $tdgTotal
             ]          
         ];
 
