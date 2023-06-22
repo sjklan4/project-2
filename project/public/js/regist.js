@@ -20,7 +20,7 @@ userEmailField.addEventListener('input', function() {
 
         
         chdeckEmailbutton.addEventListener('click',function(){
-
+            
             const id = document.getElementById('user_email');
             const url = "/api/user/useremailedt/" + id.value; //빈값의 경우 처리 과정 추가
 

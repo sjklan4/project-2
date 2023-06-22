@@ -205,11 +205,6 @@ class UserController extends Controller
     }
 
 
-
-
-
-
-
     //유저 비밀번호 변경출력
     public function userpsedit(){ //비밀전호 변경 페이지로 이동
         return view('UserPasswordedt');
@@ -258,7 +253,7 @@ class UserController extends Controller
     
     
     public function userKcaledit(Request $req){  //유저가 입력한 식단과 목표 칼로리를 적용 시키는 기능 - 오류 출력이 안됨.
-    $KcalInfo = KcalInfo::find(Auth::user()->user_id);
+    $KcalInfo = KcalInfo::find(Auth::user()->user_id); //로그인 된 유저id를 kcaliinfo테이블에서 찾아서 그 번호를 반환한다.
     $KcalInfo->goal_kcal = $req->goal_kcal;
 
         if($req->nutrition_ratio === ""){

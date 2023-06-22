@@ -1,6 +1,6 @@
-@extends('layout.layout')
+@extends('layout.index')
 
-@section('title', 'List')
+@section('title', 'inforupdate')
 
 @section('contents')
     <form action="{{ route('user.userinfoeditPost') }}" method="post">

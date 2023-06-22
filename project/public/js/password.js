@@ -1,9 +1,14 @@
     const chkpasswordbutton = document.getElementById('passwordchk');
+    const passwordchanhe = document.getElementById('passwordchg')
     const writeerror = document.getElementById('writeerror');
     const userpasswordField = document.getElementById('password');
 
-    userpasswordField.addEventListener('oninput', function(){
-    
+    userpasswordField.addEventListener('input', function(){
+        if(userpasswordField.value.trim()===""){
+            chkpasswordbutton.disabled = true;
+            passwordchanhe.disabled = true;
+        }
+        chkpasswordbutton.disabled = false;
     });
     
     chkpasswordbutton.addEventListener('click',function(){
@@ -24,7 +29,7 @@
                         idspan.innerHTML = apiData["msg"];
                     } else {
                         idspan.innerHTML = "확인되었습니다."
-                        passwordchg.disabled = false;
+                        passwordchanhe.disabled = false;
                     }
             });
     });
