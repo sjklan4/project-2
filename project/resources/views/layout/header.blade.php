@@ -13,7 +13,7 @@
                             <a href="#!">기록</a>
                         </li>
                         <li>
-                            <a href="#!">자주먹는 식단</a>
+                            <a href="{{route('fav.favdiet')}}">자주먹는 식단</a>
                         </li>
                         <li>
                             <a href="{{route('food.index')}}">등록한 음식</a>

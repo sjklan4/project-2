@@ -16,12 +16,18 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    //로그인 페이지 이동, 로그인시 홈으로 이동 아니면 로그인 페이지로
     public function login(){
+        if(Auth::check(true)){
+            return redirect()->intended(route('home'));
+        
+        }
         return view('login');
     }
 
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){  
+
         $rules = [
             'email'    =>  'required|email|max:20'
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
