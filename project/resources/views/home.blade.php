@@ -19,13 +19,11 @@
                 </svg>
             </a>
         </div>
-        {{$data['date']}}
         <div class="dateBox">
             <form action="{{route('home.post')}}" method="post">
                 @csrf
-                <input name="getDate" id="calendar" type="date" data-placeholder="" required
-                    value="{{$data['date'] ?? $data['today']}}" onchange="test()">
-                {{-- <button type="submit">이동</button> --}}
+                <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date'] ?? $data['today']}}">
+                <button type="submit">이동</button>
             </form>
         </div>
         <div>
@@ -36,39 +34,57 @@
             </svg>
         </div>
     </div>
-    {{-- 테스트존 --}}
-    {{-- https://codepen.io/rafaelavlucas/pen/zyVXYV --}}
-    {{-- https://nanati.me/css-animation-library/ --}}
-    {{-- https://animate.style/ --}}
-    <hr class="bc-green">
+    <hr class="bg-green">
     <div id="myDiet">
-        <div class="box1">
-            <div class="sub1">
+        <div class="diet1">
+            <div class="box1">
                 <canvas id="doughnut-chart" width="60%" height="40"></canvas>
+                <div class="todayKcal">
+                    {{$data['total']['kcalTotal']}}Kcal
+                </div>
             </div>
-            <div class="sub2">
+            {{-- 먹은거 없을 때 오류 방지 --}}
+            <div class="box2">
                 @if($data['total']['tdgTotal'] === 0)
-                {{$data['total']['kcalTotal']}}
-                탄수화물 : 0 %
-                단백질 : 0 %
-                지방 : 0 %
+                <div class="percent">
+                    <span class="fc-red">■</span> 0 % <br>
+                    <span class="fc-yel">■</span> 0 % <br>
+                    <span class="fc-blue">■</span> 0 % <br>
+                </div>
                 @else
-                {{$data['total']['kcalTotal']}}
-                탄수화물 : {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} % <br>
-                단백질 : {{round(($data['total']['proteinTotal']*100)/($data['total']['tdgTotal']))}} % <br>
-                지방 : {{round(($data['total']['fatTotal']*100)/($data['total']['tdgTotal']))}} %
+                {{-- 탄, 단, 지 비율 계산 --}}
+                <div class="percent">
+                    <span class="fc-pink">■</span>
+                    {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} % <br>
+                    <span class="fc-yel">■</span>
+                    {{round(($data['total']['proteinTotal']*100)/($data['total']['tdgTotal']))}} % <br>
+                    <span class="fc-blue">■</span>
+                    {{round(($data['total']['fatTotal']*100)/($data['total']['tdgTotal']))}} %
+                </div>
                 @endif
             </div>
         </div>
-        <div class="box2">
-            <div class="sub3">
+        <div class="diet2">
+            <div class="box3">
                 @if(($data['userKcal']->nutrition_ratio)==1)
-                탄수화물 : {{$data['total']['carbTotal']}} / {{($data['userKcal']->goal_kcal)*0.4}}<br>
-                단백질 : {{$data['total']['proteinTotal']}} / {{($data['userKcal']->goal_kcal)*0.4}}<br>
-                지방 : {{$data['total']['fatTotal']}} / {{($data['userKcal']->goal_kcal)*0.2}}
+                순탄수<br>
+                <progress id="kcalPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
+                {{$data['total']['carbTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
+                단백질<br>
+                <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
+                    @if($data['total']['proteinTotal'] > ((($data['userKcal']->goal_kcal)*0.4)/4))
+                        <span class="fc-red">{{$data['total']['proteinTotal']}}</span> / 
+                        {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
+                    @else
+                        {{$data['total']['proteinTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
+                    @endif
+                    
+                지방<br>
+                <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress><br>
+                {{$data['total']['fatTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.2)/9)}}g
                 @endif
             </div>
-            <div class="sub4">
+            <div class="box4">
                 @if ($data['userKcal']->goal_kcal < $data['total']['kcalTotal']) {{($data['total']['kcalTotal']) -
                     ($data['userKcal']->goal_kcal)}} KCAL 만큼 초과했습니다 ㅠㅠ<br>
                     @else
@@ -82,7 +98,7 @@
             </div>
         </div>
     </div>
-    <hr class="bc-green">
+    <hr class="bg-green">
     <div class="foodBox">
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
@@ -155,6 +171,12 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -248,10 +270,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="{{asset('js/home.js')}}"></script>
 <script>
-    function test(){
-        let val = document.getElementById('calendar').value;
-        location.href="{{route('home')->}}";
-    }
     if({{$data['total']['tdgTotal']}} === 0)
         {
             new Chart(document.getElementById("doughnut-chart"),
@@ -259,11 +277,11 @@
                     type: 'doughnut',
                         data:
                         {
-                            // labels: ["0"],
+                            // labels: ["탄수화물", "단백질", "지방"],
                             datasets: [
                                 {
                                 label: "Population (millions)",
-                                backgroundColor: ["#cccccc"],
+                                backgroundColor: ["#F2F2F2"],
                                 data: [100]
                                 }
                             ]

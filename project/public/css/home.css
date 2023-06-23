@@ -1,3 +1,9 @@
+/* 
+{{-- https://codepen.io/rafaelavlucas/pen/zyVXYV --}}
+{{-- https://nanati.me/css-animation-library/ --}}
+{{-- https://animate.style/ --}}
+*/
+
 /* 전체 */
 #wrap{
     width: 95vw;
@@ -6,8 +12,20 @@
 #wrap > h1{
     text-align: center;
 }
-.bc-green{
+.bg-green{
     color: #195F1C;
+}
+.fc-pink{
+    color: #EE6666;
+}
+.fc-yel{
+    color: #FFD029;
+}
+.fc-blue{
+    color: #6799E4;
+}
+.fc-red{
+    color: red;
 }
 
 /* 날짜 변경 박스 */
@@ -39,22 +57,11 @@ div.dateBox button:hover{
 input[type="date"]:hover{
     color: #195F1C;
 }
-/* input[type="date"]{
+input[type="date"]{
     position: relative;
     width: 125px;
     height: 35px;
     padding-right: 20px;
-    outline: none;
-    border: none;
-    background: url(https://cdn-icons-png.flaticon.com/512/1250/1250599.png?w=740&t=st=1686849013~exp=1686849613~hmac=d3b8bc2ffdd6cd48ec807b3668640b6dc522bb2a4aa6b55c0df21122441f5bbb) no-repeat right 8px center / 10px auto;
-    background-size: 20px;
-    font-weight: 700;
-} */
-input[type="date"]{
-    position: relative;
-    width: 25px;
-    height: 35px;
-    padding-right: 34px;
     outline: none;
     border: none;
     background: url(https://cdn-icons-png.flaticon.com/512/1250/1250599.png?w=740&t=st=1686849013~exp=1686849613~hmac=d3b8bc2ffdd6cd48ec807b3668640b6dc522bb2a4aa6b55c0df21122441f5bbb) no-repeat right 8px center / 10px auto;
@@ -89,32 +96,65 @@ input[type="date"]:valid::before {
 #myDiet{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    margin-bottom: 40px;
 }
-#myDiet > div.box1{
+#myDiet > div.diet1{
     display: flex;
     height: 300px;
 }
 
-#myDiet > div.box2{
+#myDiet > div.diet2{
     height: 300px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-div.sub1{
+div.box1{
     width: 50%;
     min-width: 365px;
     height: 300px;
-    background-color: yellow;
+    text-align: center;
 }
-div.sub2{
+
+div.box2{
     width: 50%;
     height: 300px;
 }
-div.sub3{
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+div.box2 > div.percent{
+    margin: 100px 0 0 10px;
+    line-height: 40px;
 }
-div.sub4{
+
+div.box3{
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+}
+#kcalPro, #proteinPro, #fatPro{
+    appearance: none;
+}
+#kcalPro::-webkit-progress-bar,#proteinPro::-webkit-progress-bar,#fatPro::-webkit-progress-bar{
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+}
+#proteinPro::-webkit-progress-value{
+    border-radius: 10px;
+    background: #FFD029;
+}
+#kcalPro::-webkit-progress-value{
+    border-radius: 10px;
+    background: #EE6666;
+};
+#fatPro::-webkit-progress-value{
+    border-radius: 10px;
+    background: #6799E4;
+}
+#fatPro::-webkit-progress-value{
+    border-radius: 10px;
+    background: #6799E4;
+}
+
+div.box4{
     border-right: 1px solid #ccc;
 }
 
