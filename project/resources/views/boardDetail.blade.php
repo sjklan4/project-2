@@ -31,15 +31,16 @@
                         <button
                             type="button"
                             onclick="location.href='{{route('board.edit', ['board' => $data['id']])}}'"
+                            id="greenBtn"
                             >글 수정
                         </button>
                     @endif
                     @csrf
                     @method('delete')
-                    <button type="submit">글 삭제</button>
+                    <button type="submit" id="greenBtn">글 삭제</button>
                 </form>
             @endif
         </div>
+        @include('boardReply')
     </div>
-    @include('boardReply')
 @endsection

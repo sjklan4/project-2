@@ -1,8 +1,7 @@
 @extends('layout.layout')
 
 @section('title')
-{{-- {{$data->user_id}}'s HOME --}}
-{{Auth::user()->user_id}}
+{{Auth::user()->user_name}}'s HOME
 @endsection
 
 @section('css')
@@ -11,23 +10,22 @@
 
 @section('contents')
 <div id="wrap">
-    <h1>{{Auth::user()->user_name}}'s HOME</h1>
     <div id="dateArea">
         <div>
             <a href="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#538E04"
                     class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                    <path
-                        d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                 </svg>
             </a>
         </div>
+        {{$data['date']}}
         <div class="dateBox">
             <form action="{{route('home.post')}}" method="post">
                 @csrf
                 <input name="getDate" id="calendar" type="date" data-placeholder="" required
-                    value="{{$data['date'] ?? $data['today']}}">
-                <button type="submit">이동</button>
+                    value="{{$data['date'] ?? $data['today']}}" onchange="test()">
+                {{-- <button type="submit">이동</button> --}}
             </form>
         </div>
         <div>
@@ -64,7 +62,7 @@
         </div>
         <div class="box2">
             <div class="sub3">
-                @if(($data['userKcal']->nutrition_ratio)==0)
+                @if(($data['userKcal']->nutrition_ratio)==1)
                 탄수화물 : {{$data['total']['carbTotal']}} / {{($data['userKcal']->goal_kcal)*0.4}}<br>
                 단백질 : {{$data['total']['proteinTotal']}} / {{($data['userKcal']->goal_kcal)*0.4}}<br>
                 지방 : {{$data['total']['fatTotal']}} / {{($data['userKcal']->goal_kcal)*0.2}}
@@ -245,9 +243,15 @@
     </div>
 </div>
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="{{asset('js/home.js')}}"></script>
 <script>
+    function test(){
+        let val = document.getElementById('calendar').value;
+        location.href="{{route('home')->}}";
+    }
     if({{$data['total']['tdgTotal']}} === 0)
         {
             new Chart(document.getElementById("doughnut-chart"),
@@ -275,7 +279,7 @@
         }
         else
         {
-                        new Chart(document.getElementById("doughnut-chart"), {
+            new Chart(document.getElementById("doughnut-chart"), {
                 type: 'doughnut',
                 data: {
                 labels: ["탄수화물", "단백질", "지방"],

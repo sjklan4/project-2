@@ -3,6 +3,13 @@ body{
     padding: 0;
 }
 
+/* 추가 */
+section{
+    position: sticky;
+    background-color: #ffffff;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+}
+
 #logoutBtn img {
     width: 35px;
     height: 35px;
