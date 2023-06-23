@@ -1,0 +1,211 @@
+.intro_login{
+    position: relative;
+    top:145px;
+    left: 191px;
+    height: 730px;
+    width:  550px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 8px 2px #999;
+    font-size: 50px;
+    font-weight: bolder;
+    
+}
+
+.img1{
+    position: absolute;
+    top: 250px;
+    left: 20px;
+    overflow: hidden;
+    opacity: 0.5;
+    width: 500px;
+    height: 480px;
+    background-image: url(../img/login.png);
+}
+.p-tag{
+    padding-left: 50px;
+    position: absolute;
+    top: 83px;
+}
+
+p{
+    color: #7c7c7c;
+    margin: 0;
+    padding: 0;
+}
+
+p.first-line{
+    color: #195F1C;
+    margin: 0px;
+}
+
+
+.registpage{
+    background-color: rgba(255, 255, 240, 1);
+    position: absolute;
+    top: 15%;
+    left: 690px;
+    height: 730px;
+    width: 550px;
+    border-radius: 3px;
+    box-shadow:  2px 2px 15px 2px #999;
+    
+}
+
+input{
+    width: 300px;
+    height: 40px;
+    background-color: rgba(255, 255, 240, 1);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid rgba(25, 95, 28, 1);
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+
+label{
+    margin-right: 20px;
+}
+[type="radio"]{
+    vertical-align: middle;
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 50%;
+    width: 1.25em;
+    height: 1.25em;
+    transition: border 0.3s ease-in-out;
+}
+
+[type="radio"]:checked{
+    border: 0.4em solid  rgba(25, 95, 28, 1);
+}
+
+[type="radio"]:focus-visible{
+    outline-offset: max(2px,00.1em);
+    outline: max(2px, 00.1em) dotted rgb(12, 48, 14);
+}
+
+[type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) rgb(202, 233, 206);
+    cursor: pointer;
+}
+.write_name{
+    width: 108px;
+}
+
+.registinfo{
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+.regist_button {
+    width: 300px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: absolute;
+    top: 560px;
+    left: 136px;
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    z-index: 2;
+}
+
+.btn-stlye {
+    border: none;
+    background:#195F1C;
+    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
+    color: #fff;
+    overflow: hidden;
+}
+
+.btn-stlye:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.btn-stlye:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+}
+
+.btn-stlye:hover{
+    opacity: .7;
+}
+
+.btn-stlye:active{
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+                -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+
+@-webkit-keyframes shiny-btn1 {
+    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+
+a{
+    position: absolute;
+    bottom: 10px;
+    left: 398px;
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    color: #195F1C;
+    font-size: large;
+}
+
+a:active{
+    color: rgb(64, 231, 41);
+}
+
+h1{
+    margin-left: 30px;
+}
+
+
+
+.email_write{
+
+}
+.name_write{
+
+}
+.password_write{
+
+}
+.nkname_write{
+
+}
+.user_birth_write{
+
+}
+.phone_write{
+
+}
+.gender_btn{
+    
+}
