@@ -3,7 +3,7 @@
 @section('title', '게시글 상세')
 
 @section('boardContent')
-    <div class="shadow">
+    <div class="shadowWhite">
         <div class="divUnderShadow">
             <div class="boardDetailTitle">
                 <div>{{$data['title']}}</div>
@@ -18,7 +18,7 @@
                     <img src="{{asset('storage/images/board/'.$data['img'])}}" class="img-fluid" alt="1">
                 </div>
                 @endif
-                <p>{{$data['content']}}</p>
+                <span>{{$data['content']}}</span>
                 <div class="likeDiv">
                     <button
                         type="button"

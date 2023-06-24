@@ -1,6 +1,6 @@
 /* 전체 */
 .boardCon {
-    padding-top: 50px;
+    padding-top: 100px;
     display: grid;
     grid-template-columns: 1.5fr minmax(150px, 1.5fr) 1000px 2fr;
     font-size: 16px;
@@ -74,9 +74,9 @@ button:hover {
 }
 
 /* 게시판 콘텐츠 */
-.shadow {
+.shadowWhite {
     background: #FFFFFF;
-    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     border-radius: 1px;
     padding: 50px;
 }
@@ -97,7 +97,6 @@ button:hover {
 .boardDetailTitle {
     display: grid;
     grid-template-columns: 4fr 0.7fr 1fr 1.5fr 0.7fr;
-    grid-template-rows: 60px;
     justify-content: space-around;
     font-weight: 600;
     padding-bottom: 10px;
@@ -126,7 +125,7 @@ button:hover {
 }
 
 .rigtTwoBtnDiv > button {
-    margin-left: 5px;
+    margin-right: 10px;
 }
 
 /* 이미지 */
@@ -168,26 +167,12 @@ td {
     display: none;
 }
 
-.foodInsertGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.foodInsertTitleGrid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.inputRadioBtnDiv{
-    display: flex;
-}
-
 /* 리스트 페이지 아이콘 */
 .bi-bar-chart-fill {
     color: #FFD029;
 }
 
-.bi-heart-fill {
+.bi-heart-fill{
     color: #EE6666;
 }
 
@@ -257,11 +242,10 @@ textarea {
     text-align: right;
 }
 
-/* 수정&작성 */
-label {
+/* 게시글 수정&작성 */
+#boardInserDiv label {
     font-weight: 600;
     width: 80px;
-    /* background-color: #195F1C; */
 }
 
 #boardInserDiv {
@@ -289,6 +273,14 @@ input {
     padding: 0 10px;
 }
 
+input:focus {
+    outline: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
 #content {
     scroll-behavior: smooth;
     height: 350px;
@@ -313,18 +305,99 @@ input {
     font-weight: 600;
 }
 
+/* 등록 음식 관리 */
+.foodShadow {
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1200px 1fr;
+}
 
+.foodInsertGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 100px;
+}
+
+.foodInsertTitleGrid{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding-bottom: 30px;
+}
+
+.foodInsertTitleGrid > div {
+    text-align: right;
+}
+
+h2 {
+    font-weight: 900;
+}
+
+.foodUpdateForm {
+    padding: 10px 0;
+    width: 400px;
+}
+
+.foodCreateForm {
+    padding-top: 20px;
+}
+
+#foodNameGrid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-column-gap: 10px;
+}
+
+.foodUpdateForm form, .foodCreateForm form {
+    display: grid;
+    grid-row-gap: 30px;
+}
+
+.foodUpdateForm input, .foodCreateForm input {
+    width: 200px;
+    box-shadow: none;
+    background-color: transparent;
+    border-bottom: 1px solid #000000;
+}
+
+.foodUpdateForm label, .foodCreateForm label {
+    width: 150px;
+    margin-bottom: 20px;
+    line-height: 10px;
+}
+
+.foodInsertGrid > div:nth-child(1) {
+    display: grid;
+    align-content: space-between;
+}
+
+h5 {
+    font-weight: 700;
+}
+
+.bi-asterisk {
+    font-size: 3px;
+    color: #EE6666;
+}
 
 /* 라디오 버튼 */
+.inputRadioBtnDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
 .form_radio_btn {
     width: 45px;
     height : 45px;
     margin-right: 1rem;
 }
+
 .form_radio_btn input[type=radio] {
     display: none;
 }
+
 .form_radio_btn label {
+    width: 45px;
+    height: 45px;
     display: block;
     border-radius: 50%;
     margin: 0 auto;
@@ -343,6 +416,11 @@ input {
 .form_radio_btn input[type=radio] + label {
     background: #C4C4C4;
     color: #fff;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+.form_radio_btn input[type=radio] + label:hover {
+    background-color: #538E04;
 }
 
 /* 모바일 */
@@ -352,25 +430,35 @@ input {
         display: inline-block;
         padding: 0;
         margin: 0;
-        font-size: 14px;
+        font-size: 15px;
     }
 
-    .shadow {
+    .shadowWhite {
         padding: 0px;
     }
 
     .divUnderShadow {
         padding: 30px;
+        width: 100vw;
     }
 
     .shadowYellow {
         width: 100vw;
         display: inline-block;
-        
+        padding: 10px;
+        margin-bottom: 0;
     }
 
     .shadowYellow > div {
-        padding: 10px 20px;
+        padding: 10px;
+    }
+
+    #boardInserDiv {
+        width: 100%;
+    }
+
+    #yellowMargin {
+        margin-top: 0px;
     }
 
     .listCon {
@@ -379,6 +467,43 @@ input {
 
     .dis-left, .dis-right, .boardNavDiv {
         display: none;
+    }
+
+    .boardDetailTitle {
+        display: grid;
+        grid-template-columns: 1fr 2fr 3fr 1fr;
+        grid-template-rows: none;
+        grid-row-gap: 5px;
+    }
+
+    .boardDetailTitle > div:nth-child(1) {
+        grid-column: 1/5;
+        grid-row: 1/2;
+        padding: 0;
+    }
+    
+    .boardDetailTitle > div:nth-child(2) {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(3) {
+        grid-column: 2/3;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(4) {
+        grid-column: 3/4;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(5) {
+        grid-column: 4/5;
+        grid-row: 2/3;
+        font-size: 12px;
     }
 
     /* 페이징 */
@@ -460,5 +585,76 @@ input {
 
     #reply {
         width: 100%;
+    }
+
+    /* 음식 */
+    .foodUpdateForm {
+        padding-top: 50px;
+        width: 100%;
+    }
+
+    .foodShadow {
+        display: block;
+        padding: 0;
+    }
+
+    .foodInsertGrid {
+        display: block;
+    }
+
+    .foodInsertGrid .shadowWhite {
+        padding: 20px;
+        overflow:scroll;
+    }
+
+    .foodCreateTitle > div {
+        margin-bottom: 20px;
+    }
+
+    .shadowYellow .foodManage {
+        padding: 20px;
+    }
+
+    .nav li {
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+    }
+
+    h2, h5 {
+        font-size: 20px;
+    }
+
+    #foodNameGrid {
+        grid-template-columns: 130px 150px;
+        grid-column-gap: 5px;
+    }
+
+    .foodUpdateForm input, .foodCreateForm input {
+        width: 150px;
+        font-size: 14px;
+    }
+    
+    .foodUpdateForm label, .foodCreateForm label {
+        width: 130px;
+        font-size: 14px;
+    }
+
+    /* 라디오 */
+    .form_radio_btn label {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .form_radio_btn {
+        width: 40px;
+        height : 40px;
+        margin-right: 1rem;
+    }
+
+    .errorMsg {
+        font-size: 12px;
+        font-weight: 500;
     }
 }

@@ -80,7 +80,7 @@
         <form action="{{route('board.replyPost')}}" method="post">
             @csrf
             <div id="replyInsertDiv">
-                <div>{{count($errors) > 0 ? $errors->first('reply', ':message') : ''}}</div>
+                <div class="errorMsg">{{count($errors) > 0 ? $errors->first('reply', ':message') : ''}}</div>
                 <div><input type="hidden" name="board_id" value="{{$data['id']}}"></div>
                 <div><textarea textarea name="reply" id="reply" placeholder="댓글을 작성하세요.">{{count($errors) > 0 ? old('reply') : ''}}</textarea></div>
                 <div><button type="sumbit" id="greenBtn">작성</button></div>
