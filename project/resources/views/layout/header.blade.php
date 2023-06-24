@@ -24,6 +24,9 @@
                     <a id="cursorPointer">Board</a>
                     <ul class="navbar-dropdown">
                         <li>
+                            <a href="{{route('board.index')}}">전체</a>
+                        </li>
+                        <li>
                             <a href="{{route('board.indexNum', ['board' => 1])}}">건강관리</a>
                         </li>
                         <li>

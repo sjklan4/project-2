@@ -56,7 +56,7 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사, 영양 정보 값이 없으면 0으로 처리
+        //유효성 검사
         $rules = [
             'foodName'      => 'required|min:2|max:20|regex:/^[가-힣0-9]+$/'
             ,'serving'      => 'required|integer|min:1|max:1000'
@@ -103,7 +103,7 @@ class FoodController extends Controller
 
         // todo 같은 회원이 같은 이름으로 정보 등록 못하게 하기
 
-        // 음식 정보 테이블 인서트
+        // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
         DB::table('food_infos')
             ->insert([
                 'user_id'       => $id
