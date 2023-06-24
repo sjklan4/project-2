@@ -129,10 +129,10 @@
             <tr>
                 <td class="write_name">
                     <div class="phone_write">
-                    <label for="user_phone_num">전화번호</label>
+                        <label for="user_phone_num">전화번호</label>
                 </td>
                 <td>   
-                    <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
+                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
                     </div>
                 </td>      
             </tr>
@@ -147,11 +147,11 @@
             <tr>
                 <td class="write_name">    
                     <div class="gender_btn">
-                    <label for="gender">성별</label>
+                        <label for="gender">성별</label>
                 </td>
                 <td>   
-                    <input type="radio" name="gender" id="gender" value="0">남자
-                    <input type="radio" name="gender" id="gender" value="1">여자
+                    <input type="radio" name="gender" id="gender" value="0"> 남자 <img src="{{ asset('img/manmark.png') }}">
+                    <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}">
                     </div>
                 </td>
             </tr>

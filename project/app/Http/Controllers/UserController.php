@@ -20,10 +20,10 @@ class UserController extends Controller
     public function login(){
         if(Auth::check(true)){
             return redirect()->intended(route('home'));
-        
         }
         return view('login');
     }
+
 
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){  
@@ -200,15 +200,27 @@ class UserController extends Controller
             return redirect()->back()->withErrors($errors)->withInput();
         }
 
-        $data = [
-            'user_name' => $req->user_name
-            ,'user_phone_num' => $req->user_phone_num
-        ];
+        // $data = [
+        //     'user_name' => $req->user_name
+        //     ,'user_phone_num' => $req->user_phone_num
+        // ];
 
-        $findemail = DB::select('select user_email from user_infos where user_name = ? and user_phone_num = ?',[$data['user_name'], $data['user_phone_num']]);
+        $findemail = DB::table('user_infos')
+        ->where('user_name', $req->user_name)
+        ->where('user_phone_num', $req->user_phone_num)
+        ->value('user_email');
 
-        return redirect()->route('user.userfindE')->with('data',$findemail);
+        if ($findemail) {
+            return redirect()->route('user.userfindE')->with('data', $findemail);
+        } else {
+            $error = '일치하는 사용자를 찾을 수 없습니다.';
+            return redirect()->back()->with('data',$error);
+        }
     }
+    // redirect()->back()->withErrors($error)->withInput();
+//     SELECT user_email
+// FROM user_infos
+// WHERE user_name = "수정확인" AND user_phone_num = 01078451296;
 
 
     //유저 비밀번호 변경출력

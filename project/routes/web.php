@@ -74,11 +74,12 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 라우트수      : 총 12개 (진행중 1개)
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
-Route::get('/user/login', [UserController::class,'login'])->name('user.login');// 로그인 페이지 이동 라우트
-Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');//로그인 작동라우트
 
-
+Route::get('/user/login', [UserController::class,'login'])->name('user.login')->middleware('guest');// 로그인 페이지 이동 라우트
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');//회원가입 페이지 이동 라우트
+
+
+Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');//로그인 작동라우트
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');//회원가입 진행 라우트
 
 Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');//유저 정보 수정 페이지 이동 라우트

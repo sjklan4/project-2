@@ -186,6 +186,22 @@ h1{
     margin-left: 30px;
 }
 
+.genman{
+    padding-left: 5px;
+    background-image: url(../img/manmark.png);
+    width: 30px;
+    height: 30px;
+}
+.genwoman{
+    padding-left: 5px;
+    background-image: url(../img/womanmark.png);
+    width: 30px;
+    height: 30px;
+}
+img{
+    width: 35px;
+    height: 35px;
+}
 
 
 .email_write{

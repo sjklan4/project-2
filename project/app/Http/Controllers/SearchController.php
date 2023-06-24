@@ -7,6 +7,9 @@
  *                v002 0616 채수지 add (검색 기능 추가)
  *                v003 0619 채수지 add (탭 기능 추가, 식단 정보 불러오기)
  *                v004 0620 채수지 update (sql 수정)
+ *                v005 0621 채수지 update (음식 검색 기능 수정)
+ *                v006 0622 채수지 update (선택된 음식 불러오기)
+ *                v007 0624 채수지 update (insert 기능 추가)
 *****************************/
 namespace App\Http\Controllers;
 
@@ -158,6 +161,15 @@ class SearchController extends Controller
         ->where('food_carts.user_id', $id)
         ->get();
 
+
+        // todo : 최근 먹은 음식 쿼리 수정 필요
+        $recent = DB::table('diets')
+        ->select('diets.user_id', 'diet_food.food_id', 'diet_food.created_at')
+        ->join('diet_food', 'diets.d_id', 'diet_food.d_id')
+        ->whereRaw('created_at <= DATE_ADD(now(), INTERVAL -7 DAY)')
+        ->where('diets.user_id', $id)
+        ->get();
+
         // v002 
         // 검색 정보
         if(!empty($usersearch)){
@@ -170,7 +182,11 @@ class SearchController extends Controller
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
                 ->Paginate(15);
-                return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
+                return view('FoodList')->with('foods', $foods)
+                ->with('dietname', $dietnames)
+                ->with('dietfood', $dietfoods)
+                ->with('seleted', $seleted)
+                ->with('recent', $recent);
             }
 
             // v005
@@ -178,71 +194,82 @@ class SearchController extends Controller
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
             ->Paginate(15);
-            return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
+            return view('FoodList')
+            ->with('foods', $foods)
+            ->with('dietname', $dietnames)
+            ->with('dietfood', $dietfoods)
+            ->with('seleted', $seleted)
+            ->with('recent', $recent);
         }
-        return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
+        return view('FoodList')
+        ->with('dietname', $dietnames)
+        ->with('dietfood', $dietfoods)
+        ->with('seleted', $seleted)
+        ->with('recent', $recent);
     }
 
+    // v006
     public function searchinsert($date, $time) {
         $id = Auth::user()->user_id;
-
-        // return var_dump($id);
-        
-        $cart = FoodCart::select('amount', 'food_id')
-        // ->count('amount')
-        ->where('user_id', $id)
-        ->get();
 
         $cart = DB::table('food_carts')
         ->select('amount', 'food_id')
         ->where('user_id', $id)
         ->get()
         ->toArray();
-        /*
-        Array ( [0] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [1] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [2] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [3] => stdClass Object ( [amount] => 1.5 [food_id] => 4901 ) 
-                [4] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
-                [5] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
-                [6] => stdClass Object ( [amount] => 0.5 [food_id] => 1921 ) 
-                [7] => stdClass Object ( [amount] => 0.5 [food_id] => 8404 ) 
-                [8] => stdClass Object ( [amount] => 0.5 [food_id] => 8690 ) )
-        */
 
-        print_r($cart);
-
-        // $sum = (int)'';
-        $sum = (int)'';
-        $i = 0;
+        // v007
+        // collection 객체로 반환됨 -> 어떻게 중복 값 찾을 지 몰라서 그냥 일반 배열로 바꿈
         foreach ($cart as $key) {
-            $reduplication = $key->food_id;
-            if($reduplication === $key->food_id){
-                $sum += $key->amount;
-                $red_total = $sum;
-            }
-            $sum = 0;
-            echo $red_total.' ';
-            
+            $arr_cart[] = [$key->food_id, $key->amount];
         }
-        // echo $sum;
-        var_dump($sum);
+        var_dump($arr_cart);
 
-        // $insertD = new Diet([
-        //     'user_id' => $id,
-        //     'd_date' => $date,
-        //     'd_flg' => $time
-        // ]);
-        // $insertD->save();
-// echo '========================';
-//         $total = array_count_values($cart);
-//         print_r($total);
+        $insertD = new Diet([
+            'user_id' => $id,
+            'd_date' => $date,
+            'd_flg' => $time
+        ]);
+        $insertD->save();
 
+        $selectD = Diet::select('d_id')
+        ->where('user_id', $id)
+        ->get();
 
-        // $insertDF = new DietFood([
-            
-        // ]);
-        // $insertDF->save();
+        // var_dump($selectD);
+        foreach ($selectD as $key) {
+            $d_id = $key->d_id;
+        }
+
+        $sum = 0;
+        $totalsum = 0.0;
+        // todo : food_id가 다른 각각의 음식이 들어왔을 경우(연달아서 같은 음식이 들어오지 않았을 경우)
+        // todo : 첫 번째 음식의 인분 수는 0이 되는 것 고치기
+        for ($i=0; $i < count($arr_cart); $i++) { 
+            for ($z=1; $z <= $i; $z++) {
+                if($arr_cart[$i] == $arr_cart[$z]){ // 같은 값이 여러번 들어왔을 때
+                    $sum += $arr_cart[$i][1];
+                    // if($arr_cart[$i] !== $arr_cart[$z]){
+                    //     $sum += $arr_cart[$i][1];
+                    // }
+                    // echo $sum;
+                }else{ // 다른 값이 들어왔을 경우
+                    // $sum = $arr_cart[$i][1];
+                    // // $totalsum = $sum;
+                    $sum = 0;
+                }
+            }
+            // echo $totalsum;
+            echo $sum;
+            $insertDF = new DietFood([
+                'food_id' => $arr_cart[$i][0],
+                'd_id' => $d_id,
+                'df_intake' => $totalsum
+            ]);
+            $insertDF->save();
+        }
+        
+        // FoodCart::where('user_id', $id)->delete();
         // FoodCart::destroy($id);
         // return redirect()->route('home');
     }
