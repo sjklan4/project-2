@@ -206,3 +206,18 @@ tbody, td, tfoot, th, thead, tr{
 th{
     min-width: 100px !important;
 }
+/* button.delBtn{
+    position: relative;
+}
+div.delAlert{
+    width: 200px;
+    padding: 10px 15px;
+    background-color: #444444;
+    border-radius: 5px;
+    color: #ffffff;
+    display: none;
+    position: absolute;
+}
+button.delBtn:hover + div.delAlert {
+    display: block;
+} */

@@ -104,8 +104,8 @@
         {{-- 아침 식단 --}}
         <div class="flgBox text-center">
             아침
-            <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                ^
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="toggle">
+                <span class="fc-green">▲</span>
             </button>
         </div>
         <div class="diet">
@@ -204,7 +204,8 @@
                                                         <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post" style="display:inline-block">
                                                             @csrf
                                                             @method('delete')
-                                                            <button type="submit">삭제</button>
+                                                            <button type="submit" class="delBtn">삭제</button>
+                                                            {{-- <div class="delAlert">정말 삭제 하시겠습니까 ? <br>클릭 시 삭제됩니다.</div> --}}
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -236,7 +237,7 @@
         <div class="flgBox text-center">
             점심
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
-                ^
+                <span class="fc-green">▲</span>
             </button>
         </div>
         <div class="diet">
@@ -367,7 +368,7 @@
         <div class="flgBox text-center">
             저녁
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree">
-                ^
+                <span class="fc-green">▲</span>
             </button>
         </div>
         <div class="diet">
@@ -498,7 +499,7 @@
         <div class="flgBox text-center">
             저녁
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleFour" aria-expanded="false" aria-controls="collapseExampleFour">
-                ^
+                <span class="fc-green">▲</span>
             </button>
         </div>
         <div class="diet">
@@ -628,7 +629,7 @@
 </div>
 
 
-
+<script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="{{asset('js/home.js')}}"></script>
 <script>
