@@ -74,14 +74,13 @@ function getFoodValue(userId)  {
     // });
 }
 
-// todo : 인분 수 겹침 해결하기
-const serving = document.getElementById('userving');
-serving.addEventListener('input', function() {
+// const serving = document.getElementById('userving');
+// serving.addEventListener('input', function() {
 
-    document.getElementById('resultserving').innerText
-            = serving.value;
+//     document.getElementById('resultserving').innerText
+//             = serving.value;
     
-})
+// })
 
 function getDietValue()  {
     // 선택된 목록 가져오기
