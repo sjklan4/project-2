@@ -8,6 +8,7 @@
 
 
 @section('contents')
+<div class="page-body">
     <div class="login">
         <div class="intro_login">
             <h1>Logo??</h1>
@@ -25,7 +26,7 @@
                 @if(!empty($error))
                     <span>{{$error}}</span>
                 @endif
-            <div class="write">
+        <div class="write">
                 <form action="{{route('user.loginpost')}}"  method="post">
                     @csrf
                 <div class="writein">
@@ -47,12 +48,14 @@
                             @enderror
                             <br>
                 </div>
-            </div>
-
                     <button type="submti" class="login_button btn-stlye">로그인</button>
                 </form>
+           
             <div class="registlink">
+                <a href="{{route('user.userfindE')}}">이메일찾기/비밀번호찾기</a>
                 <a href="{{route('user.regist')}}">회원가입</a>
             </div>
+        </div>
     </div>
+</div>
 @endsection
