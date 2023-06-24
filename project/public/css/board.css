@@ -24,13 +24,12 @@
 
 .nav-item {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     height: 60px;
 }
 
 .boardNavDiv ul li a:hover, a:hover {
     color: #538E04;
-    font-weight: 600;
 }
 
 .listCon {
@@ -38,31 +37,48 @@
 }
 
 /* 버튼 */
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #9D9D9D;
+}
+
 #greenBtn:hover {
     background-color: #195F1C;
 }
 
-#greenBtn {
-    color: white;
-    height: 2rem;
-    width: 6rem;
-    padding: 1.5em auto;
-    background-color: #538E04;
-    border: none;
-    border-radius: 3px;
-    transition: all 0.2s cubic-bezier(.4,0,.2,1);
-}
-
 .rightBtn {
     text-align: right;
-    padding-right: 8%;
+    padding-right: 50px;
+}
+
+#greenBtn {
+    background-color: #538E04;
+}
+
+#deleteBtn {
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
 }
 
 /* 게시판 콘텐츠 */
 .shadow {
     background: #FFFFFF;
-    box-shadow: 0px 10px 30px rgba(25, 95, 28, 0.1);
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
     border-radius: 1px;
+    padding: 50px;
 }
 
 .shadowYellow {
@@ -70,6 +86,8 @@
     box-shadow: 0px 12px 30px #ECECEC;
     display: flex;
     justify-content: center;
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 .shadowYellow > div {
@@ -77,21 +95,46 @@
 }
 
 .boardDetailTitle {
-    display: flex;
+    display: grid;
+    grid-template-columns: 4fr 0.7fr 1fr 1.5fr 0.7fr;
+    grid-template-rows: 60px;
+    justify-content: space-around;
+    font-weight: 600;
+    padding-bottom: 10px;
 }
 
-.boardDetailTitle div {
-    margin-right: 2rem;
+.boardDetailTitle div:not(:nth-child(1)) {
+    text-align: center;
+}
+
+.boardDetailTitle div:nth-child(1) {
+    padding: 0 10px;
+}
+
+.boardDetailContet {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.likeDiv {
+    padding-top: 20px; 
+}
+
+.rigtTwoBtnDiv {
+    text-align: right;
+    padding-top: 20px;
+}
+
+.rigtTwoBtnDiv > button {
+    margin-left: 5px;
 }
 
 /* 이미지 */
 .imgDiv {
-    max-width: 350px;
+    padding-bottom: 20px;
 }
 
 table {
-    /* width: 800px; */
-    /* border-spacing: 1rem; */
     border-collapse: separate;
     margin: 0 30px 0px 10px;
 }
@@ -100,20 +143,19 @@ table {
     height: 60px;
 }
 
-tr td:not(:nth-child(2)) {text-align: center;}
-.trBasic td:nth-child(1) { width: 150px;}
-.trBasic td:nth-child(2) { width: 350px; padding-left: 5px;}
-.trBasic td:nth-child(3) { width: 60px;}
-.trBasic td:nth-child(4) { width: 60px;}
-.trBasic td:nth-child(5) { width: 60px;}
-.trBasic td:nth-child(6) { width: 180px;}
+tr td:not(:nth-child(2)) { text-align: center; }
+.trBasic td:nth-child(1) { width: 100px; }
+.trBasic td:nth-child(2) { width: 350px; padding-right: 20px; }
+.trBasic td:nth-child(3) { width: 75px; }
+.trBasic td:nth-child(4) { width: 75px; }
+.trBasic td:nth-child(5) { width: 75px; }
+.trBasic td:nth-child(6) { width: 130px; }
 
 .trMobileMargin {
     border-bottom: 100px solid transparent;
 }
 
 td {
-    /* font-size: 16px; */
     font-weight: 500;
 }
 
@@ -122,7 +164,7 @@ td {
     font: 2rem;
 }
 
-.trMobile {
+.trMobile, .trMobileMargin {
     display: none;
 }
 
@@ -175,6 +217,102 @@ td {
     font-weight: 700;
 }
 
+/* 댓글 */
+#yellowMargin {
+    margin-top: 40px;
+}
+
+#yellowMargin > div {
+    padding: 30px;
+    width: 90%;
+}
+
+.replyDiv {
+    display: grid;
+    row-gap: 10px;
+}
+
+.replyDiv > div:nth-child(2) > span{
+    display: inline-block;
+    margin-right: 10px;
+    height: 30px;
+    padding: auto 0;
+}
+
+/* textarea */
+textarea {
+    border: none;
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+}
+
+#replyInsertDiv {
+    display: grid;
+    grid-row-gap: 10px;
+}
+
+#replyInsertDiv > div:nth-child(4) {
+    text-align: right;
+}
+
+/* 수정&작성 */
+label {
+    font-weight: 600;
+    width: 80px;
+    /* background-color: #195F1C; */
+}
+
+#boardInserDiv {
+    display: grid;
+    grid-row-gap: 30px;
+    border: none;
+    width: 90%;
+}
+
+select {
+    border: none;
+    border-radius: 0;
+    width: 200px;
+    height: 35px;
+    padding: 0 10px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+}
+
+input {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: 35px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+    padding: 0 10px;
+}
+
+#content {
+    scroll-behavior: smooth;
+    height: 350px;
+}
+
+#picture {
+    box-shadow: none;
+    padding: 0;
+}
+
+#pictureSpan {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+}
+
+#pictureSpan > div {
+    text-align: right;
+}
+
+.errorMsg {
+    color: #538E04;
+    font-weight: 600;
+}
+
 
 
 /* 라디오 버튼 */
@@ -217,6 +355,14 @@ td {
         font-size: 14px;
     }
 
+    .shadow {
+        padding: 0px;
+    }
+
+    .divUnderShadow {
+        padding: 30px;
+    }
+
     .shadowYellow {
         width: 100vw;
         display: inline-block;
@@ -228,7 +374,7 @@ td {
     }
 
     .listCon {
-        padding: 0 0 10px 0;
+        padding: 10px;
     }
 
     .dis-left, .dis-right, .boardNavDiv {
@@ -255,8 +401,8 @@ td {
     }
 
     .rightBtn {
-        text-align: right;
-        padding-right: 0;
+        padding-top: 10px;
+        padding-right: 20px;
     }
 
     .mNav {
@@ -268,32 +414,38 @@ td {
     .mNav a {
         margin: 0 5px;
         font-weight: 600;
+        font-size: 12px;
     }
 
     table {
         padding-top: 10px;
         border-spacing: 0.2rem;
         border-collapse: separate;
+        margin: 0;
     }
-
+    
+    .trBasic {
+        display: none;
+    }
+    
     .trMobile {
         display: block;
     }
 
-    .trBasic {
-        display: none;
+    tr td:not(:nth-child(2)) {
+        text-align: left;
     }
 
     .trMobileMargin {
-        border-bottom: 30px solid transparent;
+        display: block;
+        border-bottom: 35px solid transparent;
     }
 
-    .trMobileMargin td:nth-child(1){width: 40px;}
-    .trMobileMargin td:nth-child(2){width: 40px;}
-    .trMobileMargin td:nth-child(3){width: 40px;}
-    .trMobileMargin td:nth-child(4){width: 100px;}
+    .trMobileMargin td{
+        padding-right: 8px;
+    }
 
-    #greenBtn {
+    button {
         height: 30px;
         width: 70px;
         padding: 1.5em auto;
@@ -301,7 +453,12 @@ td {
         font-size: 14px;
     }
 
-    tr td:not(:nth-child(2)) {
-        text-align: left;
+    /* 댓글 */
+    #yellowMargin > div {
+        width: 100%;
+    }
+
+    #reply {
+        width: 100%;
     }
 }

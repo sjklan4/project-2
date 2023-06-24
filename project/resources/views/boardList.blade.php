@@ -14,18 +14,18 @@
                     <tr class="trBasic">
                         <td>{{$item->bcate_name}}</td>
                         <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
-                        <td><i class="bi bi-bar-chart-fill"></i> {{$item->hits}}</td>
-                        <td><i class="bi bi-heart-fill"></i> {{$item->likes}}</td>
-                        <td><i class="bi bi-chat-dots-fill"></i> {{$item->replies}}</td>
+                        <td><i class="bi bi-bar-chart-fill"></i> {{number_format($item->hits)}}</td>
+                        <td><i class="bi bi-heart-fill"></i> {{number_format($item->likes)}}</td>
+                        <td><i class="bi bi-chat-dots-fill"></i> {{number_format($item->replies)}}</td>
                         <td>{{substr($item->created_at, 0, 10)}}</td>
                     </tr>
                     <tr class="trMobile">
                         <td><a href="{{route('board.show', ['board' => $item->board_id])}}">{{$item->btitle}}</a></td>
                     </tr>
-                    <tr class="trMobile trMobileMargin">
-                        <td><i class="bi bi-bar-chart-fill"></i> {{$item->hits}}</td>
-                        <td><i class="bi bi-heart-fill"></i> {{$item->likes}}</td>
-                        <td><i class="bi bi-chat-dots-fill"></i> {{$item->replies}}</td>
+                    <tr class="trMobileMargin">
+                        <td><i class="bi bi-bar-chart-fill"></i> {{number_format($item->hits)}}</td>
+                        <td><i class="bi bi-heart-fill"></i> {{number_format($item->likes)}}</td>
+                        <td><i class="bi bi-chat-dots-fill"></i> {{number_format($item->replies)}}</td>
                         <td>{{substr($item->created_at, 0, 10)}}</td>
                     </tr>
                     @empty
