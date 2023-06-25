@@ -39,62 +39,158 @@
         <div class="diet1">
             <div class="box1">
                 <canvas id="doughnut-chart" width="60%" height="40"></canvas>
-                <div class="todayKcal">
-                    {{$data['total']['kcalTotal']}}Kcal
-                </div>
             </div>
             {{-- 먹은거 없을 때 오류 방지 --}}
             <div class="box2">
                 @if($data['total']['tdgTotal'] === 0)
-                <div class="percent">
-                    <span class="fc-red">■</span> 0 % <br>
-                    <span class="fc-yel">■</span> 0 % <br>
-                    <span class="fc-blue">■</span> 0 % <br>
-                </div>
+                    <div class="percent mt-5">
+                        {{-- <div class="todayKcal my-4 my-xl-5">
+                            총 칼로리<br>
+                            {{$data['total']['kcalTotal']}}Kcal
+                        </div> --}}
+                        <p>
+                            <span class="fc-green">■</span>
+                            0 %
+                        </p>
+                        <p>
+                            <span class="fc-pink">■</span>
+                            0 %
+                        </p>
+                        <p>
+                            <span class="fc-yel">■</span>
+                            0 %
+                        </p>
+                        <p>
+                            <span class="fc-blue">■</span>
+                            0 %
+                        </p>
+                    </div>
                 @else
                 {{-- 탄, 단, 지 비율 계산 --}}
-                <div class="percent">
-                    <span class="fc-pink">■</span>
-                    {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} % <br>
-                    <span class="fc-yel">■</span>
-                    {{round(($data['total']['proteinTotal']*100)/($data['total']['tdgTotal']))}} % <br>
-                    <span class="fc-blue">■</span>
-                    {{round(($data['total']['fatTotal']*100)/($data['total']['tdgTotal']))}} %
-                </div>
+                    <div class="percent mt-5">
+                        {{-- <div class="todayKcal my-4 my-xl-5">
+                            총 칼로리<br>
+                            {{$data['total']['kcalTotal']}}Kcal
+                        </div> --}}
+                        <p>
+                            <span class="fc-green">■</span>
+                            {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
+                        </p>
+                        <p>
+                            <span class="fc-pink">■</span>
+                            {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} %
+                        </p>
+                        <p>
+                            <span class="fc-yel">■</span>
+                            {{round(($data['total']['proteinTotal']*100)/($data['total']['tdgTotal']))}} %
+                        </p>
+                        <p>
+                            <span class="fc-blue">■</span>
+                            {{round(($data['total']['fatTotal']*100)/($data['total']['tdgTotal']))}} %
+                        </p>
+                    </div>
                 @endif
             </div>
         </div>
-        <div class="diet2">
-            <div class="box3">
-                @if(($data['userKcal']->nutrition_ratio)==1)
-                순탄수<br>
-                <progress id="kcalPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
-                {{$data['total']['carbTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
-                단백질<br>
-                <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
-                    @if($data['total']['proteinTotal'] > ((($data['userKcal']->goal_kcal)*0.4)/4))
-                        <span class="fc-red">{{$data['total']['proteinTotal']}}</span> / 
-                        {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
-                    @else
-                        {{$data['total']['proteinTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g<br>
-                    @endif
+        <div class="diet2 container text-center">
+            <div class="medalbox my-3 my-md-5">
+                <img src="{{asset('img/medal.png')}}" alt="훈장">
+                <span>{{Auth::user()->user_name}}님의 식단</span>
+            </div>
+            <div class="box3 row row-cols-3 ms-xl-5 ms-md-1 my-md-4 my-xl-5">
+                {{-- 일반식 또는 비건식 : 플래그 0번 또는 3번 --}}
+                @if((($data['userKcal']->nutrition_ratio)=='0') || (($data['userKcal']->nutrition_ratio)=='3'))
+                    <div class="col">
+                        순탄수<br>
+                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.5)/4)}}"></progress><br>
+                        <span class="carbSpan">{{$data['total']['carbTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.5)/4)}}g
+                    </div>
+                    <div class="col">
+                        단백질<br>
+                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.3)/4)}}"></progress><br>
+                        <span class="proteinSpan">{{$data['total']['proteinTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.3)/4)}}g
+                    </div>
+                    <div class="col">
+                        지방<br>
+                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress><br>
+                        <span class="fatSpan">{{$data['total']['fatTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.2)/9)}}g
+                    </div>
                     
-                지방<br>
-                <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress><br>
-                {{$data['total']['fatTotal']}} / {{round((($data['userKcal']->goal_kcal)*0.2)/9)}}g
+                {{-- 운동식 : 플래그 1번--}}
+                @elseif(($data['userKcal']->nutrition_ratio)=='1')
+                    <div>
+                        순탄수
+                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress>
+                        <span class="carbSpan">{{$data['total']['carbTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g
+                    </div>
+                    <div>
+                        단백질
+                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress>
+                        <span class="proteinSpan">{{$data['total']['proteinTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g
+                    </div>
+                    <div>
+                        지방
+                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress>
+                        <span class="fatSpan">{{$data['total']['fatTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.2)/9)}}g
+                    </div>
+                    
+                {{-- 키토식 : 플래그 2번 --}}
+                @elseif(($data['userKcal']->nutrition_ratio)=='2')
+                    <div>
+                        순탄수
+                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.08)/4)}}"></progress>
+                        <span class="carbSpan">{{$data['total']['carbTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.08)/4)}}g
+                    </div>
+                    <div>
+                        단백질
+                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.22)/4)}}"></progress>
+                        <span class="proteinSpan">{{$data['total']['proteinTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.22)/4)}}g
+                    </div>
+                    <div>
+                        지방
+                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.7)/9)}}"></progress>
+                        <span class="fatSpan">{{$data['total']['fatTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.7)/9)}}g
+                    </div>
                 @endif
             </div>
-            <div class="box4">
-                @if ($data['userKcal']->goal_kcal < $data['total']['kcalTotal']) {{($data['total']['kcalTotal']) -
-                    ($data['userKcal']->goal_kcal)}} KCAL 만큼 초과했습니다 ㅠㅠ<br>
+            <div class="box4 row row-cols-1 row-cols-md-2 row-cols-xl-1 row-cols-xxl-2">
+                <div class="todayKcal col my-2">
+                    총
+                    <span class="fsBig">{{$data['total']['kcalTotal']}}</span>Kcal 먹었어요.<br>
+                    @if ($data['userKcal']->goal_kcal < $data['total']['kcalTotal'])
+                        <span class="fsBig fc-red">
+                            {{($data['total']['kcalTotal']) - ($data['userKcal']->goal_kcal)}}
+                        </span>
+                        KCAL 만큼 초과했습니다<span><span>
                     @else
-                    {{($data['userKcal']->goal_kcal) - ($data['total']['kcalTotal'])}}
-                    KCAL 더 먹을 수 있어요!<br>
+                        <span class="fsBig fc-blue">
+                            {{($data['userKcal']->goal_kcal) - ($data['total']['kcalTotal'])}}
+                        </span>
+                        KCAL 더 먹을 수 있어요!
                     @endif
-                    나의 목표 칼로리 : {{$data['userKcal']->goal_kcal}}<br>
-                    @if(($data['userKcal']->nutrition_ratio)==0)
-                    나의 식단 : 탄40 : 단40 : 지20
-                    @endif
+                </div>
+                {{-- 목표 칼로리 출력 --}}
+                @if($data['userKcal']->goal_kcal === 0)
+                    <div class="col mt-4">
+                        <p>정확한 식단 관리를 위해 목표칼로리와 식단을 설정해주세요.</p>
+                        <p><a href="#">목표칼로리 & 식단설정 바로가기</a></p>
+                    </div>
+                @else
+                    <div class="col mt-4">
+                        <p>나의 목표 칼로리 : {{$data['userKcal']->goal_kcal}}</p>
+                        @if(($data['userKcal']->nutrition_ratio) == '0')
+                            <p>나의 식단(일반식단) : 탄50 : 단30 : 지20</p>
+                        @elseif(($data['userKcal']->nutrition_ratio) == '1')
+                            <p>나의 식단(운동식단) : 탄40 : 단40 : 지20</p>
+                        @elseif(($data['userKcal']->nutrition_ratio) == '2')
+                            <p>나의 식단(키토식단) : 탄8 : 단22 : 지88</p>
+                        @elseif(($data['userKcal']->nutrition_ratio) == '3')
+                            <p>나의 식단(비건식단) : 탄50 : 단30 : 지20</p>
+                        @else
+                            <p>잘못된 식단입니다.</p>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -105,7 +201,9 @@
         <div class="flgBox text-center">
             아침
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="toggle">
-                <span class="fc-green">▲</span>
+                더보기
+                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green upbtn">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -162,7 +260,7 @@
         </div>
         <div class="dietDetail">
             <div class="collapse" id="collapseExample">
-                <div class="card mb-3" style="width:95vw; border:none; background:#fffff0">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
                             <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
@@ -237,7 +335,8 @@
         <div class="flgBox text-center">
             점심
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
-                <span class="fc-green">▲</span>
+                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green upbtn">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -294,7 +393,7 @@
         </div>
         <div class="dietDetail">
             <div class="collapse" id="collapseExampleTwo">
-                <div class="card mb-3" style="width:95vw; border:none; background:#fffff0">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
                             <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
@@ -368,7 +467,8 @@
         <div class="flgBox text-center">
             저녁
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree">
-                <span class="fc-green">▲</span>
+                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green upbtn">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -425,7 +525,7 @@
         </div>
         <div class="dietDetail">
             <div class="collapse" id="collapseExampleThree">
-                <div class="card mb-3" style="width:95vw; border:none; background:#fffff0">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
                             <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
@@ -497,9 +597,10 @@
 
         {{-- 간식 식단 --}}
         <div class="flgBox text-center">
-            저녁
+            간식
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleFour" aria-expanded="false" aria-controls="collapseExampleFour">
                 <span class="fc-green">▲</span>
+                <span class="fc-green upbtn">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -556,7 +657,7 @@
         </div>
         <div class="dietDetail">
             <div class="collapse" id="collapseExampleFour">
-                <div class="card mb-3" style="width:95vw; border:none; background:#fffff0">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
                             <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
@@ -633,7 +734,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="{{asset('js/home.js')}}"></script>
 <script>
-
+    var test = document.getElementById('calendar').value;
+    
     if({{$data['total']['tdgTotal']}} === 0)
         {
             new Chart(document.getElementById("doughnut-chart"),

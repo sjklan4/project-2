@@ -27,7 +27,12 @@
 .fc-red{
     color: red;
 }
-
+.fc-blue{
+    color: blue;
+}
+.fsBig{
+    font-size: 2rem;
+}
 /* 날짜 변경 박스 */
 #dateArea{
     display: flex;
@@ -93,7 +98,7 @@ input[type="date"]:valid::before {
 
 
 /* 마이 칼로리 */
-#myDiet{
+/* #myDiet{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     margin-bottom: 40px;
@@ -114,11 +119,13 @@ div.box1{
     min-width: 365px;
     height: 300px;
     text-align: center;
+    background: pink;
 }
 
 div.box2{
     width: 50%;
     height: 300px;
+    background: burlywood;
 }
 div.box2 > div.percent{
     margin: 100px 0 0 10px;
@@ -127,12 +134,42 @@ div.box2 > div.percent{
 
 div.box3{
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    background: skyblue;
 
 }
-#kcalPro, #proteinPro, #fatPro{
+div.box4{
+    background: palegreen;
+} */
+#myDiet{
+    width: 95vw;
+    margin: 0 auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
+}
+div.diet1{
+    display: flex;
+}
+div.box1{
+    width: 70%;
+}
+div.box2{
+    width: 30%;
+}
+/* div.todayKcal{
+    border-radius: 10px;
+    background: #fffff0;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);;
+} */
+div.box4{
+    border-radius: 10px;
+    background: #fffff0;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+}
+
+#carbPro, #proteinPro, #fatPro{
     appearance: none;
 }
-#kcalPro::-webkit-progress-bar,#proteinPro::-webkit-progress-bar,#fatPro::-webkit-progress-bar{
+#carbPro::-webkit-progress-bar,#proteinPro::-webkit-progress-bar,#fatPro::-webkit-progress-bar{
     background: #f0f0f0;
     border-radius: 10px;
     box-shadow: inset 3px 3px 10px #ccc;
@@ -141,7 +178,11 @@ div.box3{
     border-radius: 10px;
     background: #FFD029;
 }
-#kcalPro::-webkit-progress-value{
+#carbPro::-webkit-progress-value{
+    border-radius: 10px;
+    background: #EE6666;
+};
+#carbPro::-webkit-progress-value{
     border-radius: 10px;
     background: #EE6666;
 };
@@ -164,12 +205,15 @@ div.flgBox{
     width: 100%;
     height: 50px;
     line-height: 50px;
-    background: #FFFFF0;
+    background: #FFFFFF;
     border: 1px solid #195F1C;
+    border-bottom: none;
 }
 div.diet{
     width: 100%;
     background: #FFFFF0;
+    border-right: 1px solid #195F1C;
+    border-left: 1px solid #195F1C;
 }
 div.food{
     min-height: 50px;
@@ -194,6 +238,13 @@ div.flgBox > button::after{
 div.dietDetail{
     width: 95vw;
 }
+div.dietDetail div.card{
+    width: 95vw;
+    border: 1px solid #195F1C;
+    background: #fffff0;
+    border-top: none;
+}
+
 .table{
     background: white;
     --bs-table-striped-color: #538E04;
@@ -221,3 +272,6 @@ div.delAlert{
 button.delBtn:hover + div.delAlert {
     display: block;
 } */
+.upbtn, .upbtn2, .upbtn3, .upbtn4, .downbtn{
+    display: none;
+}

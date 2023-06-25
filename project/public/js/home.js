@@ -1,24 +1,32 @@
-let calendar = document.getElementById("calendar").value;
+$(document).ready(function(){
+    var carbVal = $('#carbPro').val();
+    var carbMax = $('#carbPro').attr("max");
+    var proVal = $('#proteinPro').val();
+    var proMax = $('#proteinPro').attr("max");
+    var fatVal = $('#fatPro').val();
+    var fatMax = $('#fatPro').attr("max");
 
-// calendar.value = new Date().toISOString().substring(0,10);
+    fcRed();
+    function fcRed(){
+        if(carbVal >= carbMax){
+            $('span.carbSpan').addClass('fc-red');
+        }
+        if(proVal >= proMax){
+            $('span.proteinSpan').addClass('fc-red');
+        }
+        if(fatVal >= fatMax){
+            $('span.fatSpan').addClass('fc-red');
+        }
+    }
 
-function chkDate(){
-    let calendar = document.getElementById("calendar").value;
 
-    console.log(calendar);
-}
+    $("button.toggle").on("click",function(){
+        $(this).children("span.upbtn").css("display","block");
+        $(this).children("span.downbtn").css("display","none");
+    });
+    $("span.upbtn").on("click",function(){
+        $("span.upbtn").css("display","none");
+        $("span.downbtn").css("display","block");
+    });
 
-// const toggleBtn = document.querySelectorAll(".toggle");
-// const btnOn = document.querySelector('.on');
-// const btnOff = document.querySelector('.off');
-
-// for (let i = 0; i < toggleBtn.length; i++) {
-//     toggleBtn[i].addEventListener("click", toggle);
-// }
-
-// function toggle() {
-//     if(!btnOn.contains('d-block')){
-//         btnOff.classList.remove('d-block');
-//         btnOn.classList.add('d-none');
-//     }
-// }
+});
