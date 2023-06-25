@@ -1,0 +1,35 @@
+.boardCon {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+}
+
+.shadow {
+    background: #FFFFFF;
+    box-shadow: 0px 10px 30px rgba(25, 95, 28, 0.1);
+    border-radius: 1px;
+}
+
+.shadowYellow {
+    background: #FFFFF0;
+    box-shadow: 0px 12px 30px #ECECEC;
+}
+
+.boardDetailTitle {
+    display: flex;
+    
+}
+
+table {
+    border-spacing: 1rem;
+    border-collapse: separate;
+}
+
+.foodInsertGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.foodInsertTitleGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

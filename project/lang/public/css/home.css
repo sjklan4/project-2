@@ -1,0 +1,103 @@
+/* 전체 */
+#wrap{
+    width: 95vw;
+    min-height: 200px;
+    margin: 0 auto;
+}
+#wrap > h1{
+    text-align: center;
+}
+.bc-green{
+    color: #195F1C;
+}
+
+/* 날짜 변경 박스 */
+#dateArea{
+    display: flex;
+    width: 100%;
+    height: 35px;
+    background-color: #FFFFF0;
+}
+#dateArea > div:nth-child(2n+1){
+    margin-top: 5px;
+}
+#dateArea > .dateBox{
+    width: calc(95vw - 60px);
+    font-weight: 700;
+    text-align: center;
+}
+input[type="date"]{
+    position: relative;
+    width: 120px;
+    height: 35px;
+    padding-right: 20px;
+    outline: none;
+    border: none;
+    background: url(https://cdn-icons-png.flaticon.com/512/1250/1250599.png?w=740&t=st=1686849013~exp=1686849613~hmac=d3b8bc2ffdd6cd48ec807b3668640b6dc522bb2a4aa6b55c0df21122441f5bbb) no-repeat right 8px center / 10px auto;
+    background-size: 20px;
+}
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button {display: none;}
+input[type="date"]::-webkit-calendar-picker-indicator{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+}
+input[type="date"]::before{
+    content: attr(data-placeholder);
+    width: 100%;
+}
+input[type="date"]:valid::before {
+    display: none;
+}
+input[data-placehoder]::before{
+    color: red;
+}
+
+
+/* 마이 칼로리 */
+#myDiet{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-gap: 5px;
+}
+#myDiet > div.box1{
+    display: flex;
+    height: 200px;
+}
+
+#myDiet > div.box2{
+    height: 200px;
+    background: red;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+div.sub1{
+    width: 50%;
+    height: 200px;
+}
+div.sub2{
+    width: 50%;
+    height: 200px;
+    background: pink;
+}
+div.sub3{
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    background: blue;
+}
+div.sub4{
+    background: gold;
+}
+
+/* 식단 아침~간식 */
+div.foodBox{
+    width: 100%;
+    min-height: 200px;
+    background-color: #FFFFF0;
+};

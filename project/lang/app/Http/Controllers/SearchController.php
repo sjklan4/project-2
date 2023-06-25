@@ -5,23 +5,16 @@
  * 파일명       : SearchController.php
  * 이력         : v001 0615 채수지 new
  *                v002 0616 채수지 add (검색 기능 추가)
- *                v003 0619 채수지 add (탭 기능 추가, 식단 정보 불러오기)
- *                v004 0620 채수지 update (sql 수정)
+ *                v003 0617 채수지 add (검색 기능 추가)
 *****************************/
 namespace App\Http\Controllers;
 
-use App\Models\Diet;
 use Illuminate\Http\Request;
 // v001 add
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
 use App\Models\FavDiet;
-use App\Models\FavDietFood;
-use App\Models\DietFood;
-use Illuminate\support\Facades\Session;
 use Illuminate\Support\Eloquent\SoftDeletes;
-use App\Models\FoodCart;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -135,116 +128,31 @@ class SearchController extends Controller
         exit();
     }
     // v002, v003 add : 음식 검색 기능 추가
-    public function searchselect(Request $req, $id) {
+    public function searchselect(Request $req) {
+
         $usersearch = $req->search_input;
-
-        // v004, v005
-        // 저장된 식단 정보
-        $dietnames = DB::table('fav_diets')
-        ->select('fav_id', 'fav_name', 'user_id')
-        ->where('user_id', $id)
-        ->Paginate(15);
-
-        $dietfoods = DB::table('food_infos')
-        ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
-        ->join('fav_diet_food', 'food_infos.food_id', '=', 'fav_diet_food.food_id')
-        ->join('fav_diets', 'fav_diets.fav_id', '=', 'fav_diet_food.fav_id')
-        ->where('fav_diets.user_id', $id)
-        ->get();
-
-        $seleted = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name')
-        ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
-        ->where('food_carts.user_id', $id)
-        ->get();
-
-        // v002 
-        // 검색 정보
         if(!empty($usersearch)){
-
-            // v004
-            // 유저가 등록한 음식이 있을 경우
-            if(!empty($id)){
-                $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
-                ->where('food_name', 'like', '%'.$usersearch.'%')
-                ->where('userfood_flg', '0')
-                ->orWhere('user_id', $id)
-                ->Paginate(15);
-                return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
-            }
-
-            // v005
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
-            ->Paginate(15);
-            return view('FoodList')->with('foods', $foods)->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
+            ->whereNull('deleted_at')
+            ->get();
+    
+            return view('FoodList')->with('foddd', $foods);
         }
-        return view('FoodList')->with('dietname', $dietnames)->with('dietfood', $dietfoods)->with('seleted', $seleted);
+        return view('FoodList')->with('foddd', []);
     }
 
-    public function searchinsert($date, $time) {
-        $id = Auth::user()->user_id;
+    public function userchoice(Request $req) {
+        $selectedUser = $req->selectedUser;
+        return $selectedUser;
+    }
 
-        // return var_dump($id);
-        
-        $cart = FoodCart::select('amount', 'food_id')
-        // ->count('amount')
-        ->where('user_id', $id)
+    public function favdiets() {
+        $favdiets = FavDiet::select('fav_id', 'user_id', 'fav_name')
+        ->whereNull('deleted_at')
         ->get();
 
-        $cart = DB::table('food_carts')
-        ->select('amount', 'food_id')
-        ->where('user_id', $id)
-        ->get()
-        ->toArray();
-        /*
-        Array ( [0] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [1] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [2] => stdClass Object ( [amount] => 0.5 [food_id] => 4888 ) 
-                [3] => stdClass Object ( [amount] => 1.5 [food_id] => 4901 ) 
-                [4] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
-                [5] => stdClass Object ( [amount] => 0.5 [food_id] => 1919 ) 
-                [6] => stdClass Object ( [amount] => 0.5 [food_id] => 1921 ) 
-                [7] => stdClass Object ( [amount] => 0.5 [food_id] => 8404 ) 
-                [8] => stdClass Object ( [amount] => 0.5 [food_id] => 8690 ) )
-        */
-
-        print_r($cart);
-
-        // $sum = (int)'';
-        $sum = (int)'';
-        $i = 0;
-        foreach ($cart as $key) {
-            $reduplication = $key->food_id;
-            if($reduplication === $key->food_id){
-                $sum += $key->amount;
-                $red_total = $sum;
-            }
-            $sum = 0;
-            echo $red_total.' ';
-            
-        }
-        // echo $sum;
-        var_dump($sum);
-
-        $insertD = new Diet([
-            'user_id' => $id,
-            'd_date' => $date,
-            'd_flg' => $time
-        ]);
-        $insertD->save();
-// echo '========================';
-//         $total = array_count_values($cart);
-//         print_r($total);
-
-
-        // $insertDF = new DietFood([
-            
-        // ]);
-        // $insertDF->save();
-        // FoodCart::destroy($id);
-        // return redirect()->route('home');
+        return $favdiets;
     }
-
 }
