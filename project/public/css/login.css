@@ -1,7 +1,27 @@
 .page-body{
     width: 100vw;
+    height: 100vh;
     display: flex;
 }
+
+@media ( min-width : 768px) {
+    .intro_login{
+        width: 0%;
+    }
+}
+
+@media ( min-width : 992px) {
+    .intro_login{
+        width: 30%;
+    }
+}
+@media ( min-width : 1200px) {
+    .intro_login{
+        width: 40%;
+    }
+}
+
+
 .intro_login{
     /* position: relative;
     top:145px;
@@ -14,7 +34,7 @@
     font-weight: bolder;
     background-image: url(../img/login.png);
     background-repeat: no-repeat;
-    /* background-position: -21vh 26vw; */
+    background-position: -212px 409px;
 }
 .loginpage{
     background-color: rgba(255, 255, 240, 1);
@@ -41,21 +61,27 @@
 
 /* 박스 2중으로 margin auto로   */
 
-/* .write{
 
+.write{
+    margin: auto;
+
+}
+/* .writein{
+    margin: auto;
 } */
+
 .email_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
     width: 390px;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    /* padding-bottom: 10px;
+    margin-bottom: 20px; */
 }
 
 .password_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
     width: 390px;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    /* padding-bottom: 10px;
+    margin-bottom: 20px; */
 }
 
 input{
@@ -63,11 +89,8 @@ input{
     height: 40px;
     border: none;
     background-color: rgba(255, 255, 240, 1);
-    margin-left: 20px;
 }
-button{
-    
-}
+
 /* .login_button{
     position: absolute;
     top: 355px;
@@ -82,6 +105,9 @@ button{
     font-weight: 600;
     transition: 0.25s;
 } */
+.linkbutton{
+    /* margin: auto; */
+}
 .login_button {
     width: 300px;
     height: 40px;
@@ -130,7 +156,7 @@ button{
 } */
 
 .btn-stlye:hover{
-    opacity: .7;
+    opacity: 0.7;
 }
 
 .btn-stlye:active{
@@ -151,17 +177,15 @@ button{
 
 
 .registlink{
-
-    margin: 45px;
-    padding: 15px;
-    width: 500px;
     text-align: center;
+    width: 250px;
+    height: 30px;
+    margin: 26px;
 }
 
 a{
     color: black;
     text-decoration: none;
-    padding: 10px;
 }
 a:hover{
     color: #195F1C;
@@ -177,15 +201,13 @@ h1{
     left: 20px; */
 }
 .p-tag{
-    padding-left: 50px;
     /* position: absolute;
     top: 83px; */
 }
 
 p{
     color: #7c7c7c;
-    margin: 0;
-    padding: 0;
+
 }
 
 p.first-line{

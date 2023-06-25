@@ -8,159 +8,155 @@
 @endsection
 
 @section('contents')
-    <div class="login">
-        <div class="intro_login">
+
+<div class="regist-body">
+    <div class="intro_login">
             <h1>Logo??</h1>
             <br>
             <br>
                 <div class="p-tag">
-                    <p class="first-line">Achiev rewards</p>
+                    <p class="first-line">Achieve rewards</p>
                     <p>through healthy</p>
                     <p>missions</p>
                 </div>
                     <div class="img1"></div>
-        </div>
     </div>
+  
+    <div class = "registpage">
 
-<div class = "registpage">
-        <h1>WELCOME!</h1>
-        <h1>PLEASE REGIST!</h1>
-            <form action="{{route('user.registpost')}}" method="post">
-                @csrf
-    <div class="registinfo">
-        <table>
-            <tr>
-                <td class="write_name">
-                    <div class="email_write"> 
-                    <label for="user_email">이메일</label>
-                </td>
-                <td>        
-                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
-                    <button type="button" id="chdeckEmail" disabled>중복체크</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><span id="emailRegexm"></span></td>
-            </tr>    
-            <tr>
-                <td class="write_name">    
-                    <div class="name_write">
-                    <label for="user_name">이름</label>
-                </td>
-                <td>   
-                    <input type="text" name="user_name" id="user_name"   value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}">
-                    </div>
-                   
-                </td>    
-            </tr>
-            <tr>
-                <td></td>
-                <td> @error('user_name')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </td>
-            </tr>           
-            <tr>
-                <td class="write_name">   
-                    <div class="password_write">
-                    <label for="password">비밀번호</label>
-                </td>
-                <td>   
-                    <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>   
-                    @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </td>
-            </tr> 
-            <tr>    
-                <td class="write_name">
-                    <div class="password_write">
-                    <label for="passwordchk">비밀번호 확인</label>
-                </td>
-                <td>   
-                    <input type="password" name="passwordchk" id="passwordchk" value="{{ $errors->has('passwordchk') ? '' : old('passwordchk', isset($data) ? $data->passwordchk : '') }}">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>   
-                    @error('passwordchk')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </td>
-            </tr>   
-            <tr>
-                <td class="write_name">
-                    <div class="nkname_write">
-                    <label for="nkname">닉네임</label>
-                </td>
-                <td>   
-                    <input type="text" name="nkname" id="nkname"  value="{{ $errors->has('nkname') ? '' : old('nkname', isset($data) ? $data->nkname : '') }}">
-                    </div>
-                </td>    
-            </tr>
-            <tr>
-                <td></td>
-                <td>   
-                    @error('nkname')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </td> 
-            </tr>     
-            <tr>
-                <td class="write_name">        
-                    <div class="user_birth_write">
-                    <label for="user_birth">생년월일</label>
-                </td>
-                <td>   
-                    <input type="date" name="user_birth" id="user_birth">
-                    </div>
-                </td>
-            </tr>    
-            <tr>
-                <td class="write_name">
-                    <div class="phone_write">
-                        <label for="user_phone_num">전화번호</label>
-                </td>
-                <td>   
-                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
-                    </div>
-                </td>      
-            </tr>
-            <tr>
-                <td></td>
-                <td>   
-                    @error('user_phone_num')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </td> 
-            </tr>     
-            <tr>
-                <td class="write_name">    
-                    <div class="gender_btn">
-                        <label for="gender">성별</label>
-                </td>
-                <td>   
-                    <input type="radio" name="gender" id="gender" value="0"> 남자 <img src="{{ asset('img/manmark.png') }}">
-                    <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}">
-                    </div>
-                </td>
-            </tr>
+                <form action="{{route('user.registpost')}}" method="post">
+                    @csrf
+
+        <div class="registinfo">
+            <h1>WELCOME!</h1>
+            <h1>PLEASE REGIST!</h1>
+            <table>
+                <tr>
+                    <td class="write_name">
+                        <label for="user_email">이메일</label>
+                    </td>
+                    <td>        
+                        <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
+                        <button type="button" id="chdeckEmail" disabled>중복체크</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><span id="emailRegexm"></span></td>
+                </tr>    
+                <tr>
+               
+                    <td class="write_name">    
+                        <label for="user_name">이름</label>
+                    </td>
+                    <td>   
+                        <input type="text" name="user_name" id="user_name"   value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}">
+                    </td>    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> @error('user_name')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </td>
+                </tr>           
+                <tr>
+             
+                    <td class="write_name">   
+                        <label for="password">비밀번호</label>
+                    </td>
+                    <td>   
+                        <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>   
+                        @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </td>
+                </tr> 
+                <tr> 
+               
+                    <td class="write_name">
+                        <label for="passwordchk">비밀번호 확인</label>
+                    </td>
+                    <td>   
+                        <input type="password" name="passwordchk" id="passwordchk" value="{{ $errors->has('passwordchk') ? '' : old('passwordchk', isset($data) ? $data->passwordchk : '') }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>   
+                        @error('passwordchk')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </td>
+                </tr>   
+                <tr>
+                
+                    <td class="write_name">
+                        <label for="nkname">닉네임</label>
+                    </td>
+                    <td>   
+                        <input type="text" name="nkname" id="nkname"  value="{{ $errors->has('nkname') ? '' : old('nkname', isset($data) ? $data->nkname : '') }}">
+
+                    </td>    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>   
+                        @error('nkname')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </td> 
+                </tr>     
+                <tr>
+                    <td class="write_name">        
+                        <div class="user_birth_write">
+                        <label for="user_birth">생년월일</label>
+                    </td>
+                    <td>   
+                        <input type="date" name="user_birth" id="user_birth">
+                  
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="write_name">
+                            <label for="user_phone_num">전화번호</label>
+                    </td>
+                    <td>   
+                            <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
+                      
+                    </td>      
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>   
+                        @error('user_phone_num')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </td> 
+                </tr>     
+                <tr>
+                
+                    <td class="write_name">    
+                            <label for="gender">성별</label>
+                    </td>
+                    <td>   
+                        <input type="radio" name="gender" id="gender" value="0"> 남자 <img src="{{ asset('img/manmark.png') }}">
+                        <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}">
+                    </td>
+                </tr>
             
-        </table>    
-    </div>
-            <button type ="submit" id="signupButton" class="regist_button btn-stlye" disabled>회원가입</button>
-            </form>
-            <a href="{{route('user.login')}}">취소</a>
+                </table>    
+                <button type ="submit" id="signupButton" class="regist_button btn-stlye" disabled>회원가입</button>
+            
+            </div>
+                </form>
+                <a href="{{route('user.login')}}">취소</a>
+        </div>
     </div>
 
 @endsection

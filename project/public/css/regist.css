@@ -1,55 +1,66 @@
+.regist-body{
+    width : 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+@media ( min-width : 768px) {
+    .intro_login{
+        width: 0vw;
+    }
+}
+
+@media ( min-width : 992px) {
+    .intro_login{
+        width: 30vw;
+    }
+}
+@media ( min-width : 1200px) {
+    .intro_login{
+        width: 40vw;
+    }
+}
+
+
 .intro_login{
-    position: relative;
-    top:145px;
-    left: 191px;
-    height: 730px;
-    width:  550px;
+    width:  50vw;
     border-radius: 3px;
     box-shadow: 2px 2px 8px 2px #999;
     font-size: 50px;
     font-weight: bolder;
-    
-}
-
-.img1{
-    position: absolute;
-    top: 250px;
-    left: 20px;
-    overflow: hidden;
-    opacity: 0.5;
-    width: 500px;
-    height: 480px;
     background-image: url(../img/login.png);
-}
-.p-tag{
-    padding-left: 50px;
-    position: absolute;
-    top: 83px;
-}
-
-p{
-    color: #7c7c7c;
-    margin: 0;
-    padding: 0;
-}
-
-p.first-line{
-    color: #195F1C;
-    margin: 0px;
+    background-repeat: no-repeat;
 }
 
 
 .registpage{
     background-color: rgba(255, 255, 240, 1);
-    position: absolute;
-    top: 15%;
-    left: 690px;
-    height: 730px;
-    width: 550px;
+    width: 50vw;
     border-radius: 3px;
     box-shadow:  2px 2px 15px 2px #999;
+    display: flex;
+    justify-content: center;
+}
+
+.registinfo{
+    display: block;
+    margin: 10px;
     
 }
+
+.p-tag{
+
+}
+
+p{
+    color: #7c7c7c;
+}
+
+p.first-line{
+    color: #195F1C;
+
+}
+
 
 input{
     width: 300px;
@@ -59,15 +70,11 @@ input{
     border-left: none;
     border-right: none;
     border-bottom: 3px solid rgba(25, 95, 28, 1);
-    margin-right: 0;
-    margin-left: 0;
-    margin-bottom: 10px;
 }
-
 
 label{
-    margin-right: 20px;
 }
+
 [type="radio"]{
     vertical-align: middle;
     appearance: none;
@@ -95,10 +102,7 @@ label{
     width: 108px;
 }
 
-.registinfo{
-    margin-left: 50px;
-    margin-top: 30px;
-}
+
 
 .regist_button {
     width: 300px;
@@ -111,9 +115,7 @@ label{
     background: transparent;
     cursor: pointer;
     transition: all 0.5s ease;
-    position: absolute;
-    top: 560px;
-    left: 136px;
+
     display: inline-block;
     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
     7px 7px 20px 0px rgba(0,0,0,.1),
@@ -135,7 +137,7 @@ label{
     color: #ffffff;
 }
 
-.btn-stlye:before {
+/* .btn-stlye:before {
     position: absolute;
     content: '';
     display: inline-block;
@@ -145,7 +147,7 @@ label{
     height: 100%;
     background-color: #fff;
     animation: shiny-btn1 3s ease-in-out infinite;
-}
+} */
 
 .btn-stlye:hover{
     opacity: .7;
@@ -167,9 +169,6 @@ label{
 }
 
 a{
-    position: absolute;
-    bottom: 10px;
-    left: 398px;
     color: black;
     text-decoration: none;
 }
@@ -183,7 +182,7 @@ a:active{
 }
 
 h1{
-    margin-left: 30px;
+
 }
 
 .genman{
@@ -204,24 +203,3 @@ img{
 }
 
 
-.email_write{
-
-}
-.name_write{
-
-}
-.password_write{
-
-}
-.nkname_write{
-
-}
-.user_birth_write{
-
-}
-.phone_write{
-
-}
-.gender_btn{
-    
-}

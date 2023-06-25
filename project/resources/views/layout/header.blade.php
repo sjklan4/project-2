@@ -53,7 +53,7 @@
                             <a href="{{route('user.userpsedit')}}">비밀번호 변경</a>
                         </li>
                         <li>
-                            <a href="#!">식단 설정 변경</a>
+                            <a href="{{route('fav.favdiet')}}">식단 설정 변경</a>
                         </li>
                     </ul>
                 </li>
