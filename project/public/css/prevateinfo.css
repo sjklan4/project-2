@@ -1,0 +1,258 @@
+.boardCon {
+    /* padding-top: 50px; */
+    display: grid;
+    grid-template-columns: 1fr minmax(200px, 1.5fr) 1000px 2fr;
+    font-size: 16px;
+}
+
+h2{
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.mNav {
+    display: none;
+}
+.boardNavDiv{
+    border-right: 1px solid #ccc;
+}
+.boardNavDiv > div{
+    font-size: 35px;
+    font-weight: 900;
+    margin-top: 50px;
+}
+
+.boardNavDiv ul li a, a {
+    text-decoration: none;
+    color: #000
+}
+
+.nav-item {
+    font-size: 18px;
+    font-weight: 600;
+    height: 60px;
+}
+
+.boardNavDiv ul li a:hover, a:hover {
+    color: #538E04;
+}
+
+.prvateinfo {
+    padding: 0 0 50px 0;
+    
+}
+
+
+.diechk-td{
+    width: 100px;
+    vertical-align: top;
+    padding-top: 8px;
+}
+.goal_kcal_input{
+    width: 305px;
+}
+.table-diet{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+    width: 50vw;
+
+}
+table{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin: auto;
+    padding: auto;
+}
+td{
+    min-width: 9vw;
+    height: 5vh;
+    padding-left:15px ;
+}
+
+.table-prevate{
+    padding: 20px;
+    margin: auto;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+    width: 50vw;
+    text-align: center;
+}
+.line{
+    border: 2px solid #ccc;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 53vw;
+}
+li.info-list{
+    list-style: none;
+    text-align: center;
+    margin: 10px;
+}
+
+.hover-btn{
+    position: relative;
+}
+
+.arrow_box{
+    position: absolute;
+    top: 35px; /* 말풍선의 상단 위치 조정 */
+    left: 0; /* 말풍선의 왼쪽 위치 조정 */
+    display: none; /* 초기에 숨김 처리 */
+    color:black;
+    padding: 5px;
+    width: 15vw;
+}
+.hover-btn:hover .arrow_box{
+    display: inline-block;
+}
+
+
+.button{
+    text-align: center;
+}
+.button #insert{
+    width: 220px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    /* font-family: 'Lato', sans-serif; */
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    /* position: absolute;
+    top: 24vh;
+    left: 3vw; */
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    z-index: 2;
+    font-size: 22px;
+    margin: 20px;
+}
+.btn-stlye #insert{
+    border: none;
+    background:#195F1C;
+    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
+    color: #fff;
+    overflow: hidden;
+    
+}
+.btn-stlye:hover #insert{
+    text-decoration: none;
+    color: #ffffff;
+}
+#suggest{
+    width: 100px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    /* font-family: 'Lato', sans-serif; */
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    /* position: absolute;
+    top: 24vh;
+    left: 3vw; */
+    display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    z-index: 2;
+    margin-left: 15px;
+}
+.btn-stlye #suggest{
+    border: none;
+    background:#195F1C;
+    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
+    color: #fff;
+    overflow: hidden;
+}
+.btn-stlye:hover #suggest{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#exit{
+    text-align: end;
+}
+input{
+    border-radius: 7px;
+    border: 2px #ccc solid;
+
+}
+
+input#tall{
+    border-radius: 7px;
+    border: 2px #ccc solid;
+    width: 100px;
+    margin-left: 29px;
+}
+input#weight{
+    border-radius: 7px;
+    border: 2px #ccc solid;
+    width: 100px;
+}
+input#acctivaty0{
+    margin-left: 15px;
+}
+input#acctivaty1{
+    margin-left: 15px;
+}
+input#acctivaty2{
+    margin-left: 15px;
+}
+
+/* 레디오 버튼 디자인 */
+[type="radio"]{
+    vertical-align: middle;
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    transition: border 0.3s ease-in-out;
+}
+
+[type="radio"]:checked{
+    border: 0.4em solid  rgba(25, 95, 28, 1);
+}
+
+[type="radio"]:focus-visible{
+    outline-offset: max(2px,00.1em);
+    outline: max(2px, 00.1em) dotted rgb(12, 48, 14);
+}
+
+[type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) rgb(202, 233, 206);
+    cursor: pointer;
+}
+.genman{
+    padding-left: 5px;
+    background-image: url(../img/manmark.png);
+    width: 20px;
+    height: 20px;
+}
+.genwoman{
+    padding-left: 5px;
+    background-image: url(../img/womanmark.png);
+    width: 20px;
+    height: 20px;
+}
+img{
+    width: 35px;
+    height: 35px;
+}

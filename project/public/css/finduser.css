@@ -1,43 +1,30 @@
 .findemail {
-    display: block;
+    display: flex;
+    width: 100vw;
 }
 
 .findpsw {
     display: none;
 }
 .intro_login{
-    position: relative;
-    top:13%;
-    left: 30%;
-    height: 730px;
-    width:  550px;
+    width: 50vw;
     border-radius: 3px;
     box-shadow: 2px 2px 8px 2px #999;
     font-size: 50px;
     font-weight: bolder;
-    display: inline-block;
-    
 }
+.finduserpage{
+    width: 50vw;
+}
+
+
 p.first-line{
     color: #195F1C;
     margin: 0px;
 }
+
 .p-tag{
-    padding-left: 50px;
-    position: absolute;
-    top: 83px;
+
 }
 
 
-.finduserpage{
-    background-color: rgba(255, 255, 240, 1);
-    position: relative;
-    top: 13%;
-    left: 54%;
-    height: 730px;
-    width: 550px;
-    border-radius: 3px;
-    box-shadow:  2px 2px 15px 2px #999;
-    display: inline-block;
-    
-}
