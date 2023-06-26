@@ -65,28 +65,32 @@
 .write{
     width: 390px;
     margin: 0 auto;
+    margin-top: 165px;
 
 }
 
 .email_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
-    width: 28vw;
+    width: 390px;
+    background-color: rgba(255, 255, 240, 1);
     /* padding-bottom: 10px;
     margin-bottom: 20px; */
 }
 
 .password_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
-    width: 28vw;
+    width: 390px;
     /* padding-bottom: 10px;
     margin-bottom: 20px; */
 }
 
 input{
-    width: 15vw;
+    width: 250px;
     height: 40px;
     border: none;
     background-color: rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    margin-left: 36px;
 }
 
 /* .login_button{
@@ -134,6 +138,7 @@ input{
     background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
     color: #fff;
     overflow: hidden;
+    margin: 5vh;
 }
 
 .btn-stlye:hover {
@@ -178,7 +183,7 @@ input{
     text-align: center;
     width: 250px;
     height: 30px;
-    margin: 26px;
+    margin: 0 auto;
 }
 
 a{

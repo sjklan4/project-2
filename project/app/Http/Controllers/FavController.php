@@ -46,7 +46,7 @@ class FavController extends Controller
 
         return view('favdiet')->with('favname',$favname)->with('favfood', $arr);
         }   
-
+            
         public function intakeupdate(Request $req){
             
             $food_id = $req->input('food_id'); //input에 있는 food_id를 받아온다.
