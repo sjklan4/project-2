@@ -218,7 +218,7 @@
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
                     <div class="col">
                         <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
-                            'id'   => Auth::user()->user_name,
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '0'
                         ])}}'">음식추가
@@ -352,7 +352,7 @@
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['lunchSum']['lunchFatSum']}} g</div>
                     <div class="col">
                         <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
-                            'id'   => Auth::user()->user_name,
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '1'
                         ])}}'">음식추가
@@ -485,7 +485,7 @@
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['dinnerSum']['dinnerFatSum']}} g</div>
                     <div class="col">
                         <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
-                            'id'   => Auth::user()->user_name,
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '2'
                         ])}}'">음식추가
@@ -618,7 +618,7 @@
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['snackSum']['snackFatSum']}} g</div>
                     <div class="col">
                         <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
-                            'id'   => Auth::user()->user_name,
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '3'
                         ])}}'">음식추가
