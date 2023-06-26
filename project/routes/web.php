@@ -27,7 +27,6 @@ use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 
-
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
@@ -49,6 +48,10 @@ Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\QuestController;
+
+Route::get('/quest', [QuestController::class,'index'])->name('quest.index');
+Route::post('/quest', [QuestController::class, 'store'])->name('quest.store');
+Route::get('/quest/log', [QuestController::class,'show'])->name('quest.show');
 
 
 // ---------------------------------------------

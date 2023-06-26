@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quest_logs', function (Blueprint $table) {
-            $table->integer('quest_log_id')->autoIncrement();
-            $table->integer('quest_status_id');
-            $table->date('effective_date');
+        Schema::create('quest_statuses', function (Blueprint $table) {
+            $table->integer('quest_status_id')->autoIncrement();
+            $table->integer('user_id');
+            $table->integer('quest_cate_id');
             $table->char('complete_flg', 1)->default('0');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quest_logs');
+        Schema::dropIfExists('quest_statuses');
     }
 };
