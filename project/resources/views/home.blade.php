@@ -34,6 +34,8 @@
             </svg>
         </div>
     </div>
+    {{-- {{var_dump($data['total']['tdgTotal'])}} --}}
+    
     <hr class="fc-green">
     <div id="myDiet">
         <div class="diet1">
@@ -41,17 +43,18 @@
                 <canvas id="doughnut-chart" width="60%" height="40"></canvas>
             </div>
             {{-- 먹은거 없을 때 오류 방지 --}}
+            {{-- 중요!!!! 토탈칼로리 오류 수정해야함!! --}}
             <div class="box2">
-                @if($data['total']['tdgTotal'] === 0)
+                @if($data['total']['tdgTotal'] == 0)
                     <div class="percent mt-5">
-                        {{-- <div class="todayKcal my-4 my-xl-5">
-                            총 칼로리<br>
-                            {{$data['total']['kcalTotal']}}Kcal
-                        </div> --}}
-                        <p>
-                            <span class="fc-green">■</span>
-                            0 %
-                        </p>
+                        @if($data['userKcal']->goal_kcal === 0)
+                            <p>목표칼로리를 설정해주세요</p>
+                        @else
+                            <p>
+                                <span class="fc-green">■</span>
+                                0 %
+                            </p>
+                        @endif
                         <p>
                             <span class="fc-pink">■</span>
                             0 %
@@ -68,14 +71,14 @@
                 @else
                 {{-- 탄, 단, 지 비율 계산 --}}
                     <div class="percent mt-5">
-                        {{-- <div class="todayKcal my-4 my-xl-5">
-                            총 칼로리<br>
-                            {{$data['total']['kcalTotal']}}Kcal
-                        </div> --}}
-                        <p>
-                            <span class="fc-green">■</span>
-                            {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
-                        </p>
+                        @if($data['userKcal']->goal_kcal === 0)
+                            <p>목표칼로리를 설정해주세요</p>
+                        @else
+                                <p>
+                                <span class="fc-green">■</span>
+                                {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
+                            </p>
+                        @endif
                         <p>
                             <span class="fc-pink">■</span>
                             {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} %
@@ -214,11 +217,17 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['brfProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
                     <div class="col">
-                        <button class="btn btn-success" type="button" onclick="location.href='{{route('search.insert',[
+                        {{-- <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '0'
                         ])}}'">음식추가
-                        </button>
+                        </button> --}}
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                            <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
+                            <input type="hidden" name="time" value="0">
+                            <button type="submit">음식추가</button>
+                        </form>
                     </div>
                     <div class="col">
                         @if(isset($data['dietFood']['dietBrf'][0]))
@@ -347,11 +356,17 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['lunchSum']['lunchProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['lunchSum']['lunchFatSum']}} g</div>
                     <div class="col">
-                        <button class="btn btn-success" type="button" onclick="location.href='{{route('search.insert',[
+                        {{-- <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '1'
                         ])}}'">음식추가
-                        </button>
+                        </button> --}}
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                            <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
+                            <input type="hidden" name="time" value="1">
+                            <button type="submit">음식추가</button>
+                        </form>
                     </div>
                     <div class="col">
                         @if(isset($data['dietFood']['dietLunch'][0]))
@@ -479,11 +494,17 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['dinnerSum']['dinnerProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['dinnerSum']['dinnerFatSum']}} g</div>
                     <div class="col">
-                        <button class="btn btn-success" type="button" onclick="location.href='{{route('search.insert',[
+                        {{-- <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '2'
                         ])}}'">음식추가
-                        </button>
+                        </button> --}}
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                            <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
+                            <input type="hidden" name="time" value="2">
+                            <button type="submit">음식추가</button>
+                        </form>
                     </div>
                     <div class="col">
                         @if(isset($data['dietFood']['dietDinner'][0]))
@@ -611,11 +632,17 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['snackSum']['snackProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['snackSum']['snackFatSum']}} g</div>
                     <div class="col">
-                        <button class="btn btn-success" type="button" onclick="location.href='{{route('search.insert',[
+                        {{-- <button class="btn btn-success" type="button" onclick="location.href='{{route('search.list.get',[
+                            'id'   => Auth::user()->user_id,
                             'date' => $data['date'] ?? $data['today'],
                             'time' => '3'
                         ])}}'">음식추가
-                        </button>
+                        </button> --}}
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                            <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
+                            <input type="hidden" name="time" value="3">
+                            <button type="submit">음식추가</button>
+                        </form>
                     </div>
                     <div class="col">
                         @if(isset($data['dietFood']['dietSnack'][0]))

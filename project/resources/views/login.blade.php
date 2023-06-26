@@ -10,7 +10,7 @@
 @section('contents')
 <div class="page-body">
 
-        <div class="intro_login">
+        <div class="intro_login d-none d-md-block">
             <h1>Logo??</h1>
             <br>
             <br>

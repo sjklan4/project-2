@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     
     @section('css')
-    @yield('css')
+    {{-- @yield('css') --}}
     @show
 </head>
 <body>

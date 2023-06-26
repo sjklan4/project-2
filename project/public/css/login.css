@@ -1,10 +1,11 @@
 .page-body{
     width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
     height: 100vh;
-    display: flex;
 }
 
-@media ( min-width : 768px) {
+/* @media ( min-width : 768px) {
     .intro_login{
         width: 0%;
     }
@@ -19,15 +20,14 @@
     .intro_login{
         width: 40%;
     }
-}
+} */
 
 
 .intro_login{
     /* position: relative;
     top:145px;
     left: 191px; */
-    /* height: 100vh; */
-    width:  50%;
+    height: 100vh;
     border-radius: 3px;
     box-shadow: 2px 2px 8px 2px #999;
     font-size: 50px;
@@ -38,12 +38,12 @@
 }
 .loginpage{
     background-color: rgba(255, 255, 240, 1);
+    height: 100vh;
     /* position: relative; */
     /* position: absolute;
     top: 15%;
     left: 690px; */
     /* height: 100vh; */
-    width:  50%;
     border-radius: 3px;
     box-shadow:  2px 2px 15px 2px #999;
 }
@@ -63,29 +63,27 @@
 
 
 .write{
-    margin: auto;
+    width: 390px;
+    margin: 0 auto;
 
 }
-/* .writein{
-    margin: auto;
-} */
 
 .email_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
-    width: 390px;
+    width: 28vw;
     /* padding-bottom: 10px;
     margin-bottom: 20px; */
 }
 
 .password_write{
     border-bottom: 3px solid rgba(25, 95, 28, 1);
-    width: 390px;
+    width: 28vw;
     /* padding-bottom: 10px;
     margin-bottom: 20px; */
 }
 
 input{
-    width: 250px;
+    width: 15vw;
     height: 40px;
     border: none;
     background-color: rgba(255, 255, 240, 1);
@@ -105,9 +103,9 @@ input{
     font-weight: 600;
     transition: 0.25s;
 } */
-.linkbutton{
-    /* margin: auto; */
-}
+/* .linkbutton{
+    margin: auto;
+} */
 .login_button {
     width: 300px;
     height: 40px;
@@ -167,13 +165,13 @@ input{
 }
 
 
-@-webkit-keyframes shiny-btn1 {
+/* @-webkit-keyframes shiny-btn1 {
     0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
     80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
     81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
     100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
 }
-
+ */
 
 
 .registlink{
