@@ -44,14 +44,14 @@
             <div class="box2">
                 @if($data['total']['tdgTotal'] === 0)
                     <div class="percent mt-5">
-                        {{-- <div class="todayKcal my-4 my-xl-5">
-                            총 칼로리<br>
-                            {{$data['total']['kcalTotal']}}Kcal
-                        </div> --}}
-                        <p>
-                            <span class="fc-green">■</span>
-                            0 %
-                        </p>
+                        @if($data['userKcal']->goal_kcal === 0)
+                            <p>목표칼로리를 설정해주세요</p>
+                        @else
+                            <p>
+                                <span class="fc-green">■</span>
+                                0 %
+                            </p>
+                        @endif
                         <p>
                             <span class="fc-pink">■</span>
                             0 %
@@ -68,14 +68,14 @@
                 @else
                 {{-- 탄, 단, 지 비율 계산 --}}
                     <div class="percent mt-5">
-                        {{-- <div class="todayKcal my-4 my-xl-5">
-                            총 칼로리<br>
-                            {{$data['total']['kcalTotal']}}Kcal
-                        </div> --}}
-                        <p>
-                            <span class="fc-green">■</span>
-                            {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
-                        </p>
+                        @if($data['userKcal']->goal_kcal === 0)
+                            <p>목표칼로리를 설정해주세요</p>
+                        @else
+                                <p>
+                                <span class="fc-green">■</span>
+                                {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
+                            </p>
+                        @endif
                         <p>
                             <span class="fc-pink">■</span>
                             {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} %
