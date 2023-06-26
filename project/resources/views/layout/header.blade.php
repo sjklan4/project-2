@@ -61,10 +61,10 @@
                     <a id="cursorPointer">Challenge</a>
                     <ul class="navbar-dropdown">
                         <li>
-                            <a href="#!">퀘스트 수락</a>
+                            <a href="{{route('quest.index')}}">퀘스트 수락</a>
                         </li>
                         <li>
-                            <a href="#!">퀘스트 관리</a>
+                            <a href="{{route('quest.show')}}">퀘스트 관리</a>
                         </li>
                     </ul>
                 </li>
