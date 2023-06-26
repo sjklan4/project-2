@@ -19,14 +19,22 @@ $(document).ready(function(){
         }
     }
 
+    $("#file").on('change',function(){
+        var fileName = $("#file").val();
+        $(".upload-name").val(fileName);
+    });
 
-    $("button.toggle").on("click",function(){
-        $(this).children("span.upbtn").css("display","block");
-        $(this).children("span.downbtn").css("display","none");
-    });
-    $("span.upbtn").on("click",function(){
-        $("span.upbtn").css("display","none");
-        $("span.downbtn").css("display","block");
-    });
+    // $("button.toggle").on("click",function(){
+    //     $(this).children("span.upbtn").css("display","block");
+    //     $(this).children("span.downbtn").css("display","none");
+    // });
+    // $("div.downbtn").on("click",function(){
+    //     $("span.upbtn").css("display","block");
+    //     $("span.downbtn").css("display","none");
+    // });
+    // $("span.upbtn").on("click",function(){
+    //     $("span.upbtn").css("display","none");
+    //     $("span.downbtn").css("display","block");
+    // });
 
 });

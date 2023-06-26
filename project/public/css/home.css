@@ -27,7 +27,7 @@
 .fc-red{
     color: red;
 }
-.fc-blue{
+.fc-blue2{
     color: blue;
 }
 .fsBig{
@@ -257,6 +257,50 @@ tbody, td, tfoot, th, thead, tr{
 th{
     min-width: 100px !important;
 }
+
+.img-fluid{
+    width: 500px !important;
+    height: 300px !important;
+}
+.imgBox{
+    font-size: 1.2rem;
+    width: 100%;
+    min-height: 200px;
+    line-height: 200px;
+    text-align: center;
+    background: rgba(255,255,255,0.6);
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 65%;
+    color: #999999;
+    outline: none;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
 /* button.delBtn{
     position: relative;
 }
@@ -272,6 +316,6 @@ div.delAlert{
 button.delBtn:hover + div.delAlert {
     display: block;
 } */
-.upbtn, .upbtn2, .upbtn3, .upbtn4, .downbtn{
+/* .upbtn, .upbtn2, .upbtn3, .upbtn4{
     display: none;
-}
+} */
