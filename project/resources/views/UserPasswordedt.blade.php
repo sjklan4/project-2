@@ -1,8 +1,8 @@
-@extends('layout.layout')
+@extends('layout.userinfoNav')
 
 @section('title', 'passwordchange')
 
-@section('contents')
+@section('passwordcontents')
     <form action="{{ route('user.userpseditpost') }}" method="post">
         @csrf
         <label for="password">기존비밀번호 : </label>
