@@ -1,31 +1,38 @@
 @extends('layout.layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/board.css') }}">  
+    <link rel="stylesheet" href="{{ asset('css/quest.css') }}">  
 @endsection
 
 @section('contents')
-    <h1>퀘스트 수락</h1>
-    <div>
-        <div>퀘스트 목록</div>
+<div class="cards">
+    <div class="options">
         @foreach ($data as $item)
-            <div>
-                <span>{{$item->quest_name}}</span>
-                <span>{{$item->quest_content}}</span>
-                <span>{{$item->min_period}}일</span>
-                {{-- todo 이미 수락된 퀘스트가 있으면 수락 버튼 안뜨게 하기 --}}
-                <span>
-                    <form action="{{route('quest.store')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
-                        <button id="greenBtn">수락</button>
-                    </form>
-                </span>
+            <div class="option" style="--optionBackground:url({{asset('img/quest_1.jpg')}});">
+                <div class="shadow"></div>
+                <div class="label">
+                    <div class="icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="info">
+                        <div class="main">{{$item->quest_name}}</div>
+                        <div class="sub">{{$item->quest_content}} {{$item->min_period}}일
+                            @if (isset($flg))
+                            <form action="{{route('quest.store')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
+                                <button type="submit">시작하기</button>
+                            </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         @endforeach
     </div>
+</div>
 @endsection
 
 @section('js')
-    <script src="{{asset('js/board.js')}}"></script>
+    <script src="{{asset('js/quest.js')}}"></script>
 @endsection

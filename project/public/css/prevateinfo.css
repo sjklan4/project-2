@@ -256,3 +256,65 @@ img{
     width: 35px;
     height: 35px;
 }
+
+/* 유저정보 페이지 */
+.userinfomenu{
+    padding-top: 20px;
+    /* display: grid;
+    grid-template-columns: 1fr minmax(200px, 1.5fr) 1000px 2fr;
+    font-size: 16px; */
+}
+.info-tablemenu{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+    width: 50vw;
+}
+.Physical-table{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+    width: 50vw;
+}
+
+/* table.info-t{
+    border-radius: 10px;
+    background-color: #fff;
+} */
+caption{
+    margin: 10px;
+    display: table-caption;
+    text-align: center;
+    caption-side: bottom;
+}
+.info-boxt{
+    border-radius: 10px;
+    width: 45vw;
+    height: 33vh;
+    background-color: white;
+}
+td.info-table{
+    width: 5vw;
+}
+.info-t{
+    width: auto;
+    margin: 0 auto;
+}
+button#userinfosubmit{
+    border-radius: 12px;
+    background-color: #195F1C;
+    color: #ffffff;
+    width: 12vw;
+    height: 4vh;
+    font-weight: bolder;
+    letter-spacing: 5px;
+    margin-top: 15px;
+}
+
+/* 비밀번호 변경 부분 */

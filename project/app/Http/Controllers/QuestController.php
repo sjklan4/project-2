@@ -30,7 +30,13 @@ class QuestController extends Controller
         $result = QuestCate::get();
 
         // todo 이미 수락된 퀘스트가 있는지 확인
-
+        $questLog = QuestStatus::where('complete_flg','=', '0')
+            ->where('user_id','=', Auth::user()->user_id)
+            ->count();
+        
+        if($questLog < 1) {
+            return view('questList')->with('data', $result)->with('flg', 1);
+        }
 
         return view('questList')->with('data', $result);
     }
@@ -70,9 +76,25 @@ class QuestController extends Controller
             return redirect()->route('user.login');
         }
 
+        // todo 어재 꺼 했는지 확인, 안햇으면 퀘스트 실패 띄워야 함
+
         // 퀘스트 정보 획득, 현재 진행중인 퀘스트
+        $quest_status = QuestStatus::where('complete_flg','=', '0')
+            ->where('user_id','=', Auth::user()->user_id)
+            ->first();
 
+        $quest_info = QuestCate::find($quest_status->quest_cate_id);
+            
+        $questLog = DB::table('quest_logs')
+            ->where('quest_status_id', $quest_status->quest_status_id)
+            ->get();
 
-        return view('questDetail');
+        $todayLog = DB::table('quest_logs')
+            ->where('quest_status_id', $quest_status->quest_status_id)
+            ->where('effective_date', Carbon::now()->format("Y-m-d"))
+            ->first();
+            
+        return view('questDetail')->with('info', $quest_info)->with('logs', $questLog)->with('todayLog', $todayLog)-with('questStat', $quest_status);
+
     }
 }

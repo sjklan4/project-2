@@ -45,7 +45,7 @@
                     <td><span id="emailRegexm"></span></td>
                 </tr>    
                 <tr>
-               
+                
                     <td class="write_name">    
                         <label for="user_name">이름</label>
                     </td>
@@ -61,7 +61,7 @@
                     </td>
                 </tr>           
                 <tr>
-             
+            
                     <td class="write_name">   
                         <label for="password">비밀번호</label>
                     </td>
@@ -78,7 +78,7 @@
                     </td>
                 </tr> 
                 <tr> 
-               
+                
                     <td class="write_name">
                         <label for="passwordchk">비밀번호 확인</label>
                     </td>
@@ -119,7 +119,7 @@
                     </td>
                     <td>   
                         <input type="date" name="user_birth" id="user_birth">
-                  
+                
                     </td>
                 </tr>    
                 <tr>
@@ -128,7 +128,7 @@
                     </td>
                     <td>   
                             <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
-                      
+                    
                     </td>      
                 </tr>
                 <tr>

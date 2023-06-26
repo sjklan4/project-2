@@ -18,16 +18,19 @@ class UserController extends Controller
 {
     //로그인 페이지 이동, 로그인시 홈으로 이동 아니면 로그인 페이지로
     public function login(){
+        Log::debug('LoginGet : 인증 확인');
         if(Auth::check(true)){
+            Log::debug('LoginGet : 인증 상태 : 홈으로');
             return redirect()->intended(route('home'));
         }
+        Log::debug('LoginGet : 미인증 상태 : 로그인으로');
         return view('login');
     }
-
+    
 
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
-    public function loginpost(Request $req){  
-
+    public function loginpost(Request $req){
+        Log::debug('LoginPost : 로그인처리 시작', $req->all());
         $rules = [
             'email'    =>  'required|email|max:20'
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
@@ -186,6 +189,7 @@ class UserController extends Controller
 
     //유저 Email찾기 요청하는 구문
     public function userfindEPost(Request $req){
+        Log::debug('메일 찾기: 이메일 확인', $req->all());
         $rules = [
             'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'
@@ -226,9 +230,14 @@ class UserController extends Controller
     //유저 비밀번호 변경출력
     public function userpsedit(){ //비밀전호 변경 페이지로 이동
         return view('UserPasswordedt');
+        Log::debug('userpsedit : 비밀번호 확인');
     }
+   
+    
 
     public function userpseditpost(Request $req){ //변경 비밀번호를 업데이트 하기위한 구문
+        Log::debug('userpsedit : 비번확인', $req->all());
+   
         $arrdata=[]; //값을 넣기 위한 빈 배열을 준비
         $basepassword = Auth::User()->password; //기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
         if(hash::make($req->newpassword !== $basepassword->$req)){ //전달받은 값을 hash화 해서 비교하기 위함

@@ -30,6 +30,16 @@ use App\Http\Controllers\ApiFoodController;
 Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
 
 // ---------------------------------------------
+// 섹션명       : 퀘스트(Quest)
+// 기능         : 퀘스 관련 api 라우트 설정
+// 관리자       : 최아란
+// 생성일       : 2023-06-26
+// ---------------------------------------------
+use App\Http\Controllers\ApiQuestController;
+
+Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate']);
+
+// ---------------------------------------------
 // 섹션명       : 회원(User)
 // 기능         : 회원 관리 api 라우트 설정
 // 관리자       : 박상준

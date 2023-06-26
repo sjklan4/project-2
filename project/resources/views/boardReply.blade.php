@@ -47,33 +47,29 @@
 
         @if ($reply->hasPages())
             <ul class="pagination pagination">
-                @if ($reply->currentPage() > 1)
-                <li>
-                    <a href="{{ $reply->previousPageUrl() }}">
-                        <span class="fa fa-chevron-left" aria-hidden="true"><</span>
-                    </a>
-                </li>
-                @else
+            @if ($reply->currentPage() > 1)
+            <li class="active">
+                <a href="{{ $reply->previousPageUrl() }}"><</a>
+            </li>
+            @else
                 <li><</li>
-                @endif
+            @endif
 
-                @for($i = 1; $i <= $reply->lastPage(); $i++)
-                    @if ($i == $reply->currentPage())
-                        <li class="active"><span>{{ $i }}</span></li>
-                    @else
-                        <li><a href="{{ $reply->url($i) }}">{{ $i }}</a></li>
-                    @endif
-                @endfor
-                
-                @if ($reply->currentPage() < $reply->lastPage() )
-                <li>
-                    <a href="{{$reply->nextPageUrl()}}">
-                        <span class="fa fa-chevron-right" aria-hidden="true">></span>
-                    </a>
-                </li>
+            @for($i = 1; $i <= $reply->lastPage(); $i++)
+                @if ($i == $reply->currentPage())
+                    <li class="active"><span>{{ $i }}</span></li>
                 @else
-                <li>></li>
+                    <li><a href="{{ $reply->url($i) }}">{{ $i }}</a></li>
                 @endif
+            @endfor
+            
+            @if ($reply->currentPage() < $reply->lastPage() )
+                <li class="active">
+                    <a href="{{$reply->nextPageUrl()}}">></a>
+                </li>
+            @else
+                <li>></li>
+            @endif
             </ul>
         @endif
 
