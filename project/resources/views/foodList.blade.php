@@ -41,18 +41,25 @@
                     <div class="searchhhh">
                         <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue({{Auth::user()->user_id}})'>
                         <label for="usercheck" id="food_name">{{$item->food_name}}</label>
-                    
-                    <span>인분 수 : </span>
-                    <input type="number" name="userving" id="userving" min="0.5" max="100">
-                    @if (!empty($item->user_id))
-                        <span class="usercreate">사용자 등록</span>
-                    @endif
-                    @if (!empty($recent))
-                        
-                        {{-- <span>최근 먹은 음식</span> --}}
-                    @endif
-                    <hr class="div_hr">
-                </div>
+                        <strong>영양성분</strong>
+                        <span> > </span>
+                        <span>kcal : {{$item->kcal}}, </span>
+                        <span>carbs : {{$item->carbs}}, </span>
+                        <span>protein : {{$item->protein}}, </span>
+                        <span>fat : {{$item->fat}}, </span>
+                        <span>sugar : {{$item->sugar}}, </span>
+                        <span>sodium : {{$item->sodium}}</span>
+                        <span>인분 수 : </span>
+                        <input type="number" name="userving" id="userving" min="0.5" max="100">
+                        @if (!empty($item->user_id))
+                            <span class="usercreate">사용자 등록</span>
+                        @endif
+                        @if (!empty($recent))
+                            
+                            {{-- <span>최근 먹은 음식</span> --}}
+                        @endif
+                        <hr class="div_hr">
+                    </div>
                     <br>
                 @endforeach
                 @if ($foods->hasPages())
@@ -93,17 +100,19 @@
                         <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue()'>
                         <span> {{$names->fav_name}}</span>
                     </div>
-                    <br>
                     @foreach ($dietfood as $foods)
                     @if($foods->fav_id === $names->fav_id)
                         <span> {{$foods->food_name}}</span>
-                        <span> {{$foods->kcal}} </span>
-                        <span> {{$foods->carbs}} </span>
-                        <span> {{$foods->protein}} </span>
-                        <span> {{$foods->fat}} </span>
-                        <span> {{$foods->sugar}} </span>
-                        <span> {{$foods->sodium}} </span>
-                        <span> {{$foods->fav_f_intake}} </span>
+                        <br>
+                        <strong>영양성분</strong>
+                        <span> > </span>
+                        <span>kcal : {{$foods->kcal}}, </span>
+                        <span>carbs : {{$foods->carbs}}, </span>
+                        <span>protein : {{$foods->protein}}, </span>
+                        <span>fat : {{$foods->fat}}, </span>
+                        <span>sugar : {{$foods->sugar}}, </span>
+                        <span>sodium : {{$foods->sodium}}</span>
+                        <span>{{$foods->fav_f_intake}}</span>
                         <br>
                     @endif
                     @endforeach
