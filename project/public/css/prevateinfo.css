@@ -147,7 +147,6 @@ li.info-list{
     background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
     color: #fff;
     overflow: hidden;
-    
 }
 .btn-stlye:hover #insert{
     text-decoration: none;
@@ -318,3 +317,28 @@ button#userinfosubmit{
 }
 
 /* 비밀번호 변경 부분 */
+.findps-body{
+    padding-top: 55px;
+    width: 50vw;
+    margin: 0 auto;
+
+}
+
+
+.findps-table{
+    width: 44vw;
+    margin: 0 auto;
+}
+
+button#passwordchk{
+    width: 55px;
+    background-color: #195F1C;
+    border-radius: 5px;
+}
+
+button#passwordchg{
+    width: 100px;
+    background-color: #195F1C;
+    border-radius: 5px;
+ 
+}
