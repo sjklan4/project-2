@@ -128,9 +128,10 @@ Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
-Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
-// Route::get('/search/list/{id}/{date}/{time}', [SearchController::class, 'searchselect'])->name('search.list.get');
+Route::post('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
+Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
+Route::get('/search/{f_id}', [SearchController::class, 'fooddelete'])->name('food.delete');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)

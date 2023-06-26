@@ -7,9 +7,11 @@
 @endsection
 
 @section('contents')
-    <form action="{{route('search.list.get', ['id' => Auth::user()->user_id])}}" method="get" class="searchform">
+    <form action="{{route('search.list.get', ['id' => Auth::user()->user_id])}}" method="post" class="searchform">
         @csrf
         <div class="searchform">
+            <input type="hidden" name="date" value="{{$data['date']}}">
+            <input type="hidden" name="time" value="{{$data['time']}}">
         <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요.">
         <button type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
         </div>
@@ -29,8 +31,7 @@
             음식등록
         </li>
     </ul>
-{{-- todo : 사용자 등록/최근 먹은 음식 표시, 유효성 검사 --}}
-{{-- todo : 저장된 식단 페이징 / 검색 결과 더보기 또는 페이징 --}}
+{{-- todo : 사용자 등록 표시, 유효성 검사 --}}
 {{-- todo : 선택된 음식 식단/음식 삭제 및 인분 수 조절 --}}
 {{-- todo : 드롭다운 메뉴 -> 영양성분 표시 --}}
     <div class="searchContainer">
@@ -41,6 +42,7 @@
                     <div class="searchhhh">
                         <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue({{Auth::user()->user_id}})'>
                         <label for="usercheck" id="food_name">{{$item->food_name}}</label>
+                        <br>
                         <strong>영양성분</strong>
                         <span> > </span>
                         <span>kcal : {{$item->kcal}}, </span>
@@ -58,7 +60,6 @@
                             
                             {{-- <span>최근 먹은 음식</span> --}}
                         @endif
-                        <hr class="div_hr">
                     </div>
                     <br>
                 @endforeach
@@ -148,27 +149,30 @@
             
         <div class="user_select">
             @if (!empty($seleted))
-                <h3>선택한 음식</h3>
-                @foreach ($seleted as $food)
+            <h3>선택한 음식</h3>
+            @foreach ($seleted as $food)
+                <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get">
                     <span>{{$food->food_name}}</span>
-                    <button type="button">X</button>
+                    <input type="hidden" name="date" value="{{$data['date']}}">
+                    <input type="hidden" name="time" value="{{$data['time']}}">
+                    <button type="submit" class="delete_btn">X</button>
                     <br>
-                @endforeach
-                <hr>
+                </form>
+            @endforeach
                 <h3>선택한 식단</h3>
                 <input type="text" id="resultdiet" name="resultdiet" value="" readonly>
                 <br>
+            @else
+                <span>선택된 음식 또는 식단이 없습니다.</span>
             @endif
-                <button type="button">취소</button>
-                <button type="button" onclick="location.href='{{route('search.insert', 
-                ['id' => Auth::user()->user_id, 'date' => '2023-06-22', 'time' => '0'])}}'">입력</button>
+            <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
+            <button type="button" onclick="location.href='{{route('search.insert', ['date' => session('date'), 'time' => session('time')])}}'">입력</button>
+            {{-- <button type="button" onclick="location.href='{{route('search.insert', ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button> --}}
         </div>
-        
     </div>
 @endsection
 
 @section('js')
     <script src="https://kit.fontawesome.com/8c69259d3d.js" crossorigin="anonymous"></script>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/search.js')}}"></script>
 @endsection
