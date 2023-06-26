@@ -44,9 +44,7 @@
                 <ul class="pagination pagination">
                 @if ($data->currentPage() > 1)
                 <li class="active">
-                    <a href="{{ $data->previousPageUrl() }}">
-                        <span class="fa fa-chevron-left" aria-hidden="true"><</span>
-                    </a>
+                    <a href="{{ $data->previousPageUrl() }}"><</a>
                 </li>
                 @else
                     <li><</li>
@@ -62,9 +60,7 @@
                 
                 @if ($data->currentPage() < $data->lastPage() )
                     <li class="active">
-                        <a href="{{$data->nextPageUrl()}}">
-                            <span class="fa fa-chevron-right" aria-hidden="true">></span>
-                        </a>
+                        <a href="{{$data->nextPageUrl()}}">></a>
                     </li>
                 @else
                     <li>></li>
