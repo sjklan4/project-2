@@ -177,7 +177,7 @@ class SearchController extends Controller
             // v004
             // 유저가 등록한 음식이 있을 경우
             if(!empty($id)){
-                $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+                $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
                 ->where('food_name', 'like', '%'.$usersearch.'%')
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
@@ -190,7 +190,7 @@ class SearchController extends Controller
             }
 
             // v005
-            $foods = FoodInfo::select('food_id', 'user_id', 'food_name')
+            $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
             ->Paginate(15);

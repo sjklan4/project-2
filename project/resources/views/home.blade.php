@@ -34,6 +34,8 @@
             </svg>
         </div>
     </div>
+    {{-- {{var_dump($data['total']['tdgTotal'])}} --}}
+    
     <hr class="fc-green">
     <div id="myDiet">
         <div class="diet1">
@@ -43,7 +45,7 @@
             {{-- 먹은거 없을 때 오류 방지 --}}
             {{-- 중요!!!! 토탈칼로리 오류 수정해야함!! --}}
             <div class="box2">
-                @if($data['total']['tdgTotal'] === 0)
+                @if($data['total']['tdgTotal'] == 0)
                     <div class="percent mt-5">
                         @if($data['userKcal']->goal_kcal === 0)
                             <p>목표칼로리를 설정해주세요</p>
