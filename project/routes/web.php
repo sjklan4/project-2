@@ -128,7 +128,8 @@ Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
 Route::get('/apisearch', [SearchController::class, 'apisearch']);
-Route::get('/search/list/{id}/{date}/{time}', [SearchController::class, 'searchselect'])->name('search.list.get');
+Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
+// Route::get('/search/list/{id}/{date}/{time}', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
 
 // ---------------------------------------------
