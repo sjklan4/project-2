@@ -200,10 +200,11 @@
 
     <div class="dietArea">
         {{-- 아침 식단 --}}
-        <div class="flgBox text-center">
+        <div class="flgBox text-center" id="brfBtn">
             아침
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green downbtn1">▲</span>
+                <span class="fc-green upbtn1">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -265,28 +266,25 @@
                         {{-- 식단이 있는지 체크 --}}
                         @if(isset($data['dietFood']['dietBrf'][0]->d_id))
                             <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
-                                <form action="{{route('img.edit')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietBrf'][0]->d_id])}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     {{-- 식단은 있지만 사진이 있는지 체크 --}}
                                     @if (isset($data['dietFood']['dietBrf'][0]->d_img_path))
-                                    {{$data['dietFood']['dietBrf'][0]->d_img_path}}
                                         <div class="imgBox">
                                             <img src="{{asset($data['dietFood']['dietBrf'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
                                         </div>
                                     @else
                                         <div class="imgBox">사진을 추가해주세요</div>
                                     @endif
-                                    <input type="hidden" name="d_flg" value="0">
                                     <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                    {{-- <input type="file" name="dietImg"> --}}
-                                    <div class="filebox">
-                                        <input class="upload-name" value="첨부파일" placeholder="첨부파일">
-                                        <label for="file">파일찾기</label> 
-                                        <input type="file" id="file" name="dietImg">
+                                    <div class="filebox my-2">
+                                        <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
+                                        <label for="filebrf">파일찾기</label>
+                                        <input type="file" id="filebrf" name="dietImg">
                                     </div>
                                     <button type="submit" class="btn btn-success">사진등록</button>
-                                </form>                           
+                                </form>                        
                             </div>
                         @endif
                         <div class="col-md-9 mx-auto">
@@ -328,7 +326,6 @@
                                                             @csrf
                                                             @method('delete')
                                                             <button type="submit" class="delBtn">삭제</button>
-                                                            {{-- <div class="delAlert">정말 삭제 하시겠습니까 ? <br>클릭 시 삭제됩니다.</div> --}}
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -357,10 +354,11 @@
         </div>
 
         {{-- 점심 식단 --}}
-        <div class="flgBox text-center">
+        <div class="flgBox text-center" id="lunchBtn">
             점심
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
-                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green downbtn2">▲</span>
+                <span class="fc-green upbtn2">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -419,10 +417,29 @@
             <div class="collapse" id="collapseExampleTwo">
                 <div class="card mb-3">
                     <div class="row g-0">
-                        <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
-                            <img src="" class="img-fluid rounded-start" alt="">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#lunchImg">사진수정</button>
-                        </div>
+                        @if(isset($data['dietFood']['dietLunch'][0]->d_id))
+                            <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
+                                <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietLunch'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                    @if (isset($data['dietFood']['dietLunch'][0]->d_img_path))
+                                        <div class="imgBox">
+                                            <img src="{{asset($data['dietFood']['dietLunch'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                    @else
+                                        <div class="imgBox">사진을 추가해주세요</div>
+                                    @endif
+                                    <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                    <div class="filebox my-2">
+                                        <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
+                                        <label for="fileLunch">파일찾기</label>
+                                        <input type="file" id="fileLunch" name="dietImg">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">사진등록</button>
+                                </form>                        
+                            </div>
+                        @endif
                         <div class="col-md-9 mx-auto">
                             <div class="card-body">
                                 <div class="table-responsive text-center">
@@ -454,6 +471,7 @@
                                                         <td>{{$val->sugar}}</td>
                                                         <td>{{$val->sodium}}</td>
                                                         <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                         <td><button type="submit">수정하기</button></td>
                                                     </form>
                                                     <td>
@@ -489,10 +507,11 @@
         </div>
 
         {{-- 저녁 식단 --}}
-        <div class="flgBox text-center">
+        <div class="flgBox text-center" id="dinnerBtn">
             저녁
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree">
-                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green downbtn3">▲</span>
+                <span class="fc-green upbtn3">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -551,9 +570,29 @@
             <div class="collapse" id="collapseExampleThree">
                 <div class="card mb-3">
                     <div class="row g-0">
-                        <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
-                            <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
-                        </div>
+                        @if(isset($data['dietFood']['dietDinner'][0]->d_id))
+                            <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
+                                <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietDinner'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                    @if (isset($data['dietFood']['dietDinner'][0]->d_img_path))
+                                        <div class="imgBox">
+                                            <img src="{{asset($data['dietFood']['dietDinner'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                    @else
+                                        <div class="imgBox">사진을 추가해주세요</div>
+                                    @endif
+                                    <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                    <div class="filebox my-2">
+                                        <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
+                                        <label for="fileDinner">파일찾기</label>
+                                        <input type="file" id="fileDinner" name="dietImg">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">사진등록</button>
+                                </form>                        
+                            </div>
+                        @endif
                         <div class="col-md-9 mx-auto">
                             <div class="card-body">
                                 <div class="table-responsive text-center">
@@ -585,6 +624,7 @@
                                                         <td>{{$val->sugar}}</td>
                                                         <td>{{$val->sodium}}</td>
                                                         <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                         <td><button type="submit">수정하기</button></td>
                                                     </form>
                                                     <td>
@@ -620,10 +660,11 @@
         </div>
 
         {{-- 간식 식단 --}}
-        <div class="flgBox text-center">
+        <div class="flgBox text-center" id="snackBtn">
             간식
             <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleFour" aria-expanded="false" aria-controls="collapseExampleFour">
-                <span class="fc-green downbtn">▲</span>
+                <span class="fc-green downbtn4">▲</span>
+                <span class="fc-green upbtn4">▼</span>
             </button>
         </div>
         <div class="diet">
@@ -682,9 +723,29 @@
             <div class="collapse" id="collapseExampleFour">
                 <div class="card mb-3">
                     <div class="row g-0">
-                        <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
-                            <img src="https://cdn.pixabay.com/photo/2016/05/03/12/19/credit-card-1369111__340.png" class="img-fluid rounded-start" alt="...">
-                        </div>
+                        @if(isset($data['dietFood']['dietSnack'][0]->d_id))
+                            <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
+                                <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietSnack'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                    @if (isset($data['dietFood']['dietSnack'][0]->d_img_path))
+                                        <div class="imgBox">
+                                            <img src="{{asset($data['dietFood']['dietSnack'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                    @else
+                                        <div class="imgBox">사진을 추가해주세요</div>
+                                    @endif
+                                    <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                    <div class="filebox my-2">
+                                        <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
+                                        <label for="fileSnack">파일찾기</label>
+                                        <input type="file" id="fileSnack" name="dietImg">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">사진등록</button>
+                                </form>                        
+                            </div>
+                        @endif
                         <div class="col-md-9 mx-auto">
                             <div class="card-body">
                                 <div class="table-responsive text-center">
@@ -716,6 +777,7 @@
                                                         <td>{{$val->sugar}}</td>
                                                         <td>{{$val->sodium}}</td>
                                                         <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                         <td><button type="submit">수정하기</button></td>
                                                     </form>
                                                     <td>

@@ -149,4 +149,4 @@ Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
 Route::post('/home/{df_id}', [HomeController::class, 'homeupdate'])->name('home.update');
 Route::delete('/home/{df_id}', [HomeController::class, 'homedelete'])->name('home.delete');
 Route::get('/userfav', [HomeController::class, 'favinsert'])->name('fav.insert');
-Route::put('/home',[HomeController::class, 'imgEdit'])->name('img.edit');
+Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');

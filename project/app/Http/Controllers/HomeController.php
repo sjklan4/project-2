@@ -183,6 +183,7 @@ class HomeController extends Controller
         $dietfood->df_intake = $req->df_intake;
         $dietfood->save();
 
+        // 수정 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
         Session::put('d_date',$req->d_date);
 
         return redirect()->route('home.post');
@@ -200,16 +201,22 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    /**********************************************
+    * 식단 즐겨찾기 등록
+    **********************************************/
     public function favinsert(Request $req){
 
         // 사용자 인증 작업
         if(!Auth::user()) {
             return redirect()->route('user.login');
         }
+
         // 사용자 pk 획득
         $id = Auth::user()->user_id;
+
         $d_date = $req->input('date');
         $d_flg = $req->input('d_flg');
+
 
         $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
                 ->where('diets.user_id','=',$id)
@@ -217,6 +224,7 @@ class HomeController extends Controller
                 ->where('diets.d_flg','=',$d_flg)
                 ->get();
 
+        // 즐겨찾는 식단 insert 후 즐겨찾는 식단의 pk 획득
         $fav_id = DB::table('fav_diets')->insertGetId([
             'user_id'       => $id
             ,'fav_name'     => $req->input('fav_name')
@@ -242,34 +250,36 @@ class HomeController extends Controller
         return redirect()->route('fav.favdiet');
     }
 
-    public function imgEdit(Request $req){
-        $id = Auth::user()->user_id;
+    public function imgEdit(Request $req, $id){
+        
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
 
         $diet = Diet::find($id);
-
-        Session::put('d_date',$req->d_date);
 
         // 이미지 수정
         if($req->hasFile('dietImg')){
             $img = $req->file('dietImg');
             $fileName = $req->file('dietImg')->getClientOriginalName();
-            // $fileName = 'test';
             // $path = $req->file('dietImg')->storeAs('/storage/images/food', $fileName);
+
             $img->move(public_path('foodImg'), $fileName);
             // 이미지 경로
             $imagePath = 'foodImg/' . $fileName;
             // 이미지 경로를 image_path칼럼에 insert
-            // $diet->d_img_path = $imagePath;
-            
-                    DB::table('diets')
-                        ->where('user_id', '=', $id)
-                        ->where('d_date', '=', $req->d_date)
-                        ->where('d_flg', '=', $req->d_flg)
-                        ->update(['d_img_path' => $imagePath]);
-        }
-        // $diet->save();
+            $diet->d_img_path = $imagePath;          
+            // DB::table('diets')
+            //     ->where('user_id', '=', $id)
+            //     ->where('d_date', '=', $req->d_date)
+            //     ->where('d_flg', '=', $req->d_flg)
+            //     ->update(['d_img_path' => $imagePath]);
+            $diet->save();
 
-    
+        }
+        Session::put('d_date',$req->d_date);
+
         // return redirect()->route('home.post')->with('d_flg',$req->d_flg);
         return redirect()->route('home.post');
     }

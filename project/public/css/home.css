@@ -316,6 +316,6 @@ div.delAlert{
 button.delBtn:hover + div.delAlert {
     display: block;
 } */
-/* .upbtn, .upbtn2, .upbtn3, .upbtn4{
+.upbtn1, .upbtn2, .upbtn3, .upbtn4{
     display: none;
-} */
+}

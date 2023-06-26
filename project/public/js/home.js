@@ -6,6 +6,7 @@ $(document).ready(function(){
     var fatVal = $('#fatPro').val();
     var fatMax = $('#fatPro').attr("max");
 
+    // 섭취량이 목표보다 초과할 경우 붉은글씨로 출력
     fcRed();
     function fcRed(){
         if(carbVal >= carbMax){
@@ -19,22 +20,77 @@ $(document).ready(function(){
         }
     }
 
-    $("#file").on('change',function(){
-        var fileName = $("#file").val();
-        $(".upload-name").val(fileName);
+    // input file의 값을 첨부파일 input에 출력
+    $("#filebrf").on('change',function(){
+        var fileName = $("#filebrf").val();
+        $(".fileBrfName").val(fileName);
     });
 
-    // $("button.toggle").on("click",function(){
-    //     $(this).children("span.upbtn").css("display","block");
-    //     $(this).children("span.downbtn").css("display","none");
+    $("#fileLunch").on('change',function(){
+        var fileName = $("#fileLunch").val();
+        $(".fileLunchName").val(fileName);
+    });
+
+    $("#fileDinner").on('change',function(){
+        var fileName = $("#fileDinner").val();
+        $(".fileDinnerName").val(fileName);
+    });
+
+    $("#fileSnack").on('change',function(){
+        var fileName = $("#fileSnack").val();
+        $(".fileSnackName").val(fileName);
+    });
+
+    // $('.imgBox').click(function(){
+    //     $('.filebox').removeClass('d-none');
     // });
-    // $("div.downbtn").on("click",function(){
-    //     $("span.upbtn").css("display","block");
-    //     $("span.downbtn").css("display","none");
-    // });
-    // $("span.upbtn").on("click",function(){
-    //     $("span.upbtn").css("display","none");
-    //     $("span.downbtn").css("display","block");
-    // });
+
+    // 드롭다운 버튼
+    $("span.downbtn1").on("click",function(){
+        $("span.upbtn1").css("display","block");
+        $("span.downbtn1").css("display","none");
+        $("div#brfBtn").css("background","#fffff0");
+    });
+    $("span.upbtn1").on("click",function(){
+        $("span.upbtn1").css("display","none");
+        $("span.downbtn1").css("display","block");
+        $("div#brfBtn").css("background","#ffffff");
+    });
+
+    $("span.downbtn2").on("click",function(){
+        $("span.upbtn2").css("display","block");
+        $("span.downbtn2").css("display","none");
+        $("div#lunchBtn").css("background","#fffff0");
+    });
+    $("span.upbtn2").on("click",function(){
+        $("span.upbtn2").css("display","none");
+        $("span.downbtn2").css("display","block");
+        $("div#lunchBtn").css("background","#ffffff");
+    });
+
+    $("span.downbtn3").on("click",function(){
+        $("span.upbtn3").css("display","block");
+        $("span.downbtn3").css("display","none");
+        $("div#dinnerBtn").css("background","#fffff0");
+    });
+    $("span.upbtn3").on("click",function(){
+        $("span.upbtn3").css("display","none");
+        $("span.downbtn3").css("display","block");
+        $("div#dinnerBtn").css("background","#ffffff");
+    });
+
+    $("span.downbtn4").on("click",function(){
+        $("span.upbtn4").css("display","block");
+        $("span.downbtn4").css("display","none");
+        $("div#snackBtn").css("background","#fffff0");
+    });
+    $("span.upbtn4").on("click",function(){
+        $("span.upbtn4").css("display","none");
+        $("span.downbtn4").css("display","block");
+        $("div#snackBtn").css("background","#ffffff");
+    });
+
+
+
 
 });
