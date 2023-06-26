@@ -10,17 +10,17 @@
 @section('contents')
 <div class="page-body">
 
-        <div class="intro_login d-none d-md-block">
-            <h1>Logo??</h1>
-            <br>
-            <br>
-                <div class="p-tag">
-                    <p class="first-line">Achiev rewards</p>
-                    <p>through healthy</p>
-                    <p>missions</p>
-                </div>
-                    <div class="img1"></div>
-        </div>
+    <div class="intro_login d-none d-xl-block">
+        <h1>Logo??</h1>
+        <br>
+        <br>
+            <div class="p-tag">
+                <p class="first-line">Achiev rewards</p>
+                <p>through healthy</p>
+                <p>missions</p>
+            </div>
+                <div class="img1"></div>
+    </div>
 
     <div class="loginpage">
         <div class="write">

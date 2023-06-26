@@ -64,7 +64,10 @@ hr {
     border-radius: 20px;
     background:transparent;
 }
-
+.delete_btn{
+    border: none;
+    background-color: transparent;
+}
 /* tab 버튼 */
 ul{
     overflow:hidden;
@@ -90,4 +93,52 @@ ul{
     background-color: rgba(165, 190, 228, 0.5);
     border-radius: 20px;
     width: 80px;
+}
+
+/* checkbox */
+input[type="checkbox"]{
+    -webkit-appearance: none; /* -webkit-appearance : 요소의 자체 구성요소 숨기기 / 사파리 & 크롬 적용 */
+    position: relative;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    outline: none !important; /* !important : 나중에 적용하는 값이 적용되지 않도록 함 */
+    border: 0.5px solid #acacac;
+    border-radius: 2px;
+    background: rgba(151, 182, 112, 0.5);
+    margin-top:2px;
+}
+input[type="checkbox"]::before {
+    content: "\2713"; /* 체크 표시(✓)의 CSS 번호 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden; /* 요소 밖으로 튀어나오는 컨텐츠를 숨김 */
+    /* transform / scale : 요소를 확대 또는 축소 */
+    transform: scale(0) translate(-50%, -50%); 
+    /* translate : 상대적으로 위치 지정, 이동 및 재배치 */
+    line-height: 1;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #acacac;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #538E04;
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+input[type="checkbox"]:checked::before {
+    border-radius: 2px;
+    transform: scale(1) translate(-50%, -50%) 
+    /* scale(1) : 해당 요소의 본래 치수를 유지하고 그 이상의 값 > 늘림 그 이하의 값 < 줄임*/
+}
+
+.nosearch{
+    color:#919191;
+    font-weight: 400;
+    text-align: center;
+    /* padding-top:23em; */
 }
