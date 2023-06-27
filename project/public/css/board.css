@@ -143,7 +143,7 @@ table {
     height: 60px;
 }
 
-tr td:not(:nth-child(2)) { text-align: center; }
+/* tr td:not(:nth-child(2)) { text-align: center; } */
 .trBasic td:nth-child(1) { width: 100px; }
 .trBasic td:nth-child(2) { width: 350px; padding-right: 20px; }
 .trBasic td:nth-child(3) { width: 75px; }
@@ -153,10 +153,6 @@ tr td:not(:nth-child(2)) { text-align: center; }
 
 .trMobileMargin {
     border-bottom: 100px solid transparent;
-}
-
-td {
-    font-weight: 500;
 }
 
 .pagination {
