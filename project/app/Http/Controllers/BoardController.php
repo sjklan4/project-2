@@ -205,6 +205,7 @@ class BoardController extends Controller
             ,'created_at' => $board->created_at
             ,'like_flg'   => $like_flg
         ];
+        
 
         if (isset($boardImg[0])) {
             $arr['img'] = $boardImg[0]->bimg_name;
