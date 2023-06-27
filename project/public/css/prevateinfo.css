@@ -109,16 +109,16 @@ input{
 
 }
 table{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin: auto;
-    padding: auto;
-    font-size: 20px;
+    padding-top: 10px;
+    border-spacing: 0.2rem;
+    border-collapse: separate;
+    margin: 0;
+    
 }
 td{
     min-width: 9vw;
     height: 5vh;
-    padding-left:10px ;
+    padding-left:15px ;
 }
 
 .table-prevate{

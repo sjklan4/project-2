@@ -30,10 +30,13 @@ class ApiUserController extends Controller
 
     public function chdeckpassword(Request $req){
         $arrmsg = ["flg" => "0"];
-        $baseUser = UserInfo::find(Auth::Userinfo()->password); //기존 데이터 획득
-        if(Hash::check($req->bpassword, $baseUser->password)){
+        $baseUser = Auth::User(); //기존 데이터 획득
+        if(!Hash::check($req->bpassword, $baseUser->password)){
             $arrmsg["flg"]="1";
             $arrmsg["msg"]="비밀번호를 확인해 주세요";
+        }
+        else{
+            $arrmsg["msg"]="확인 되었습니다.";
         }
         return $arrmsg;
     }
