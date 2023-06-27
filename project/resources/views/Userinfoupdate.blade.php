@@ -11,19 +11,19 @@
                 <form action="{{ route('user.userinfoeditPost') }}" method="post">
                     @csrf
                 <tr class="trBasic">    
-                    <th class="info-table"><label for="user_email">Email : </label></th>
+                    <th class="info-table"><label for="user_email">Email  </label></th>
                     <td class="info-table"><input type="text" name="user_email" id="user_email" value= "{{old('user_email') !== null ? old('user_email') : $data->user_email}}" readonly></td>
                 </tr>
                 <tr>
-                    <th class="info-table"><label for="user_name">이름 : </label></th>
+                    <th class="info-table"><label for="user_name">이름  </label></th>
                     <td class="info-table"><input type="text" name="user_name" id="user_name" value= "{{old('user_name') !== null ? old('user_name') : $data->user_name}}"></td>
                 </tr>
                 <tr>
-                    <th class="info-table"><label for="nkname">닉네임 : </label></th>
+                    <th class="info-table"><label for="nkname">닉네임  </label></th>
                     <td class="info-table"><input type="text" name="nkname" id="nkname" value= "{{old('nkname') !== null ? old('nkname') : $data->nkname}}"></td>
                 </tr>
                 <tr>
-                    <th class="info-table"><label for="user_phone_num">전화번호 : </label></th>
+                    <th class="info-table"><label for="user_phone_num">전화번호  </label></th>
                     <td class="info-table"><input type="text" name="user_phone_num" id="user_phone_num" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}"></td>
                 </tr>
                     <caption><button type = "submit" id="greenBtn">정보수정</button></caption>

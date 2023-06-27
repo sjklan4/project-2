@@ -37,9 +37,8 @@ a{
 }
 
 .foodnutri{
-    overflow: auto;
-    width: 66vw;
-    height: 25vh;
+    width: auto;
+    height: auto;
     margin: 0 auto;
     font-size: large;
     margin-top: 20px;
@@ -51,10 +50,12 @@ a{
 span{
     margin-left: 10px;
     word-spacing: 5px;
+    font-size: 16px;
 }
 
 .submitbtn{
     text-align: end;
+    margin-top: 20px;
 }
 
 input{
@@ -91,10 +92,10 @@ button:hover {
 /* #greenBtn:hover {
     background-color: #195F1C;
 } */
-/* .bi-asterisk {
+.bi-asterisk {
     font-size: 3px;
     color: #EE6666;
-} */
+}
 
 label{
     padding-left: 10px;
@@ -103,21 +104,45 @@ input#intake{
     text-align: right;
 }
 
-a{
+.favdietname{
     text-decoration-style: none;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .del-food{
     cursor: pointer;
     position: relative;
 }
-
 .del-food:hover .arrow_box{
     color: red;
-    display:inline-block
+    display:inline-block;
+    position: absolute;
+    top: 100%;
+    right: -24vw;
 }
+
+.del-diet{
+    cursor: pointer;
+    position: relative;
+}
+.del-diet:hover .arrow_box-diet{
+    color: red;
+    display:inline-block;
+ 
+}
+
 .arrow_box{
     width: 28vw;
     display: none;
 }
 
+h2 {
+    margin-left: 20px;
+    font-weight: 900;
+}
+
+th{
+    width: 10vw;
+    vertical-align: top;
+}
