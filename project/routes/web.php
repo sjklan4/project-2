@@ -136,6 +136,7 @@ Route::post('/search/list/{id}', [SearchController::class, 'searchselect'])->nam
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
 Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
 Route::get('/search/{f_id}', [SearchController::class, 'fooddelete'])->name('food.delete');
+Route::get('/search/{d_id}', [SearchController::class, 'dietdelete'])->name('diet.delete');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)

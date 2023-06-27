@@ -47,4 +47,28 @@ class ApiController extends Controller
         }
         return $arr;
     }
+    public function postFoodCart2($user_id, $fav_id){
+        $cart = new FoodCart([
+            'user_id' => $user_id,
+            'fav_id' => $fav_id,
+            'food_id' => 0,
+            'amount' => 0.0
+        ]);
+        $cart->save();
+
+        $arr = [
+            'error' => '0'
+            ,'msg' => ''
+        ];
+
+        if(!$fav_id){
+            $arr['error'] = '1';
+            $arr['msg'] = 'fall';
+        }else{
+            $arr['error'] = '2';
+            $arr['msg'] = 'success';
+            $arr['data'] = $cart->only('fav_id', 'user_id');
+        }
+        return $arr;
+    }
 }
