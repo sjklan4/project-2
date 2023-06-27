@@ -34,13 +34,14 @@ form{
     display: inline-block;
 }
 .plusBtn{
-    background: rgb(25, 95, 28);
+    /* background: rgb(25, 95, 28); */
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    /* width: 30px; */
+    /* height: 30px; */
     border: none;
     color: white;
-    line-height: 30px;
+    line-height: 28px;
+    background: none;
 }
 .delBtn, .editBtn{
     border: none;
@@ -52,6 +53,10 @@ form{
     padding: 5px 10px;
     border: none;
     color: #ffffff;
+}
+button{
+    background: none;
+    border: none;
 }
 
 /* 날짜 변경 박스 */
@@ -228,7 +233,7 @@ div.box4{
 div.dietArea{
     width: 95vw;
 }
-#brfArea{
+#brfArea, #lunchArea, #dinnerArea, #snackArea{
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
 div.flgBox{
@@ -315,6 +320,9 @@ th, td{
     text-align: center;
     cursor: pointer;
 }
+.imgBox > svg{
+    cursor: pointer;
+}
 
 .filebox .upload-name {
     display: inline-block;
@@ -349,3 +357,5 @@ th, td{
 .upbtn1, .upbtn2, .upbtn3, .upbtn4{
     display: none;
 }
+
+/* 즐겨찾기 모달팝업 */
