@@ -60,13 +60,13 @@ class SearchController extends Controller
             //     if(!empty($array['body']['items']['item'][$i]['DESC_KOR'])){
             //         $foods = new FoodInfo([
             //             'food_name' => $array['body']['items']['item'][$i]['DESC_KOR']
-            //             , 'serving' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['SERVING_WT'])
-            //             , 'kcal' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT1'])
-            //             , 'carbs' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT2'])
-            //             , 'protein'=> $array['body']['items']['item'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT3'])
-            //             , 'fat' => $array['body']['items']['item'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT4'])
-            //             , 'sugar' => $array['body']['items']['item'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT5'])
-            //             , 'sodium' => $array['body']['items']['item'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : round($array['body']['items']['item'][$i]['NUTR_CONT6'])
+            //             , 'serving' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['SERVING_WT'])
+            //             , 'kcal' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT1'])
+            //             , 'carbs' => $array['body']['items']['item'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT2'])
+            //             , 'protein'=> $array['body']['items']['item'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT3'])
+            //             , 'fat' => $array['body']['items']['item'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT4'])
+            //             , 'sugar' => $array['body']['items']['item'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT5'])
+            //             , 'sodium' => $array['body']['items']['item'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : intval($array['body']['items']['item'][$i]['NUTR_CONT6'])
             //             , 'userfood_flg' => 0
             //         ]);
             //         $foods->save();
@@ -93,13 +93,13 @@ class SearchController extends Controller
             //     if(!empty($array['body']['items'][$i]['DESC_KOR'])){
             //         $foods = new FoodInfo([
             //             'food_name' => $array['body']['items'][$i]['DESC_KOR']
-            //             , 'serving' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['SERVING_WT'])
-            //             , 'kcal' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT1'])
-            //             , 'carbs' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT2'])
-            //             , 'protein'=> $array['body']['items'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT3'])
-            //             , 'fat' => $array['body']['items'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT4'])
-            //             , 'sugar' => $array['body']['items'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT5'])
-            //             , 'sodium' => $array['body']['items'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : round($array['body']['items'][$i]['NUTR_CONT6'])
+            //             , 'serving' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['SERVING_WT'])
+            //             , 'kcal' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT1'])
+            //             , 'carbs' => $array['body']['items'][$i]['NUTR_CONT2'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT2'])
+            //             , 'protein'=> $array['body']['items'][$i]['NUTR_CONT3'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT3'])
+            //             , 'fat' => $array['body']['items'][$i]['NUTR_CONT4'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT4'])
+            //             , 'sugar' => $array['body']['items'][$i]['NUTR_CONT5'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT5'])
+            //             , 'sodium' => $array['body']['items'][$i]['NUTR_CONT6'] === 'N/A' ? '0' : intval($array['body']['items'][$i]['NUTR_CONT6'])
             //             , 'userfood_flg' => 0
             //         ]);
             //         $foods->save();
@@ -182,38 +182,57 @@ class SearchController extends Controller
         // ->get();
 
         // todo : 0.5인분 일 경우에는 /0.5 그 이상일 경우 *@ 
-        foreach ($dietfoods as $key) {
-            if($key->fav_f_intake === 0.5){
-                $total_nutrient[] = [
-                    'kcal' => $key->kcal * 0.5,
-                    'carbs' => $key->carbs * 0.5,
-                    'protein' => $key->protein * 0.5,
-                    'fat' => $key->fat * 0.5,
-                    'sugar' => $key->sugar * 0.5,
-                    'sodium' => $key->sodium * 0.5
-                ];
+        // foreach ($dietfoods as $key) {
+        //     if($key->fav_f_intake === 0.5){
+        //         $total_nutrient[] = [
+        //             // intval($key->kcal * 0.5),
+        //             // intval($key->carbs * 0.5),
+        //             // intval($key->protein * 0.5),
+        //             // intval($key->fat * 0.5),
+        //             // intval($key->sugar * 0.5),
+        //             // intval($key->sodium * 0.5)
+        //             'kcal' => intval($key->kcal * 0.5),
+        //             'carbs' => intval($key->carbs * 0.5),
+        //             'protein' => intval($key->protein * 0.5),
+        //             'fat' => intval($key->fat * 0.5),
+        //             'sugar' => intval($key->sugar * 0.5),
+        //             'sodium' => intval($key->sodium * 0.5),
+        //         ];
                 
-            }else if($key->fav_f_intake === 1){
-                $total_nutrient[] = [
-                    'kcal' => $key->kcal,
-                    'carbs' => $key->carbs,
-                    'protein' => $key->protein,
-                    'fat' => $key->fat,
-                    'sugar' => $key->sugar,
-                    'sodium' => $key->sodium
-                ];
-            }else{
-                $total_nutrient[] = [
-                    'kcal' => $key->kcal * $key->fav_f_intake,
-                    'carbs' => $key->carbs * $key->fav_f_intake,
-                    'protein' => $key->protein * $key->fav_f_intake,
-                    'fat' => $key->fat * $key->fav_f_intake,
-                    'sugar' => $key->sugar * $key->fav_f_intake,
-                    'sodium' => $key->sodium * $key->fav_f_intake
-                ];
-            }
-        }
+        //     }else if($key->fav_f_intake === 1){
+        //         $total_nutrient[] = [
+        //             // intval($key->kcal),
+        //             // intval($key->carbs),
+        //             // intval($key->protein),
+        //             // intval($key->fat),
+        //             // intval($key->sugar),
+        //             // intval($key->sodium)
+        //             'kcal' => intval($key->kcal),
+        //             'carbs' => intval($key->carbs),
+        //             'protein' => intval($key->protein),
+        //             'fat' => intval($key->fat),
+        //             'sugar' => intval($key->sugar),
+        //             'sodium' => intval($key->sodium),
+        //         ];
+        //     }else{
+        //         $total_nutrient[] = [
+        //             // intval($key->kcal * $key->fav_f_intake),
+        //             // intval($key->carbs * $key->fav_f_intake),
+        //             // intval($key->protein * $key->fav_f_intake),
+        //             // intval($key->fat * $key->fav_f_intake),
+        //             // intval($key->sugar * $key->fav_f_intake),
+        //             // intval($key->sodium * $key->fav_f_intake)
+        //             'kcal' => intval($key->kcal * $key->fav_f_intake),
+        //             'carbs' => intval($key->carbs * $key->fav_f_intake),
+        //             'protein' => intval($key->protein * $key->fav_f_intake),
+        //             'fat' => intval($key->fat * $key->fav_f_intake),
+        //             'sugar' => intval($key->sugar * $key->fav_f_intake),
+        //             'sodium' => intval($key->sodium * $key->fav_f_intake),
+        //         ];
+        //     }
+        // }
         // var_dump($total_nutrient);
+        // exit;
         $data = [
             'date' => $req->date,
             'time' => $req->time
@@ -244,7 +263,7 @@ class SearchController extends Controller
                 ->with('seleted', $seleted)
                 ->with('seleted_diet', $seleted_diet)
                 // ->with('recent', $recent)
-                ->with('total', $total_nutrient)
+                // ->with('total', $total_nutrient)
                 ->with('data', $data);
             }
 
@@ -262,7 +281,7 @@ class SearchController extends Controller
             ->with('seleted', $seleted)
             ->with('seleted_diet', $seleted_diet)
             // ->with('recent', $recent)
-            ->with('total', $total_nutrient)
+            // ->with('total', $total_nutrient)
             ->with('data', $data);
         }
         return view('FoodList')
@@ -271,7 +290,7 @@ class SearchController extends Controller
         ->with('seleted', $seleted)
         ->with('seleted_diet', $seleted_diet)
         // ->with('recent', $recent)
-        ->with('total', $total_nutrient)
+        // ->with('total', $total_nutrient)
         ->with('data', $data);
     }
 

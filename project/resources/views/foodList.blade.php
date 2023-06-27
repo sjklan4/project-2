@@ -1,6 +1,7 @@
 {{-- todo : 최근 먹음 표시, 유효성 검사 --}}
 {{-- todo : 선택된 음식 인분 수 조절 --}}
 {{-- todo : 드롭다운 메뉴 --}}
+{{-- todo : 10개 이상 > 홈 --}}
 @extends('layout.layout')
 
 @section('title', 'FoodSearch')
@@ -75,10 +76,12 @@
             <h2>자주먹는 식단</h2>
             @foreach ($dietname as $names)
                 <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue({{Auth::user()->user_id}})'>
-                <span> {{$names->fav_name}}</span>
+                <span class="favname"> {{$names->fav_name}}</span>
                 <br>
                 <div class="diet_div">
                 @foreach ($dietfood as $foods)
+                {{-- {{$d = 0;}}
+                @foreach ($total[$d] as $item) --}}
                 @if($foods->fav_id === $names->fav_id)
                 {{-- @foreach ($total as $item)
                     <span>1회 총 제공량 : </span>
@@ -89,22 +92,32 @@
                     <span>Sugar, {{$item->sugar}}</span>
                     <span>Sodium, {{$item->sodium}}</span>
                 @endforeach --}}
-                
-                    <span> {{$foods->food_name}}</span>
-                    <br
-                    <strong>영양성분</strong>
-                    <span> > </span>
-                    @foreach ($total[0] as $item)
-                        <span>칼로리 : {{$item->kcal}}, </span>
-                        <span>탄수화물 : {{$item->carbs}}, </span>
-                        <span>단백질 : {{$item->protein}}, </span>
-                        <span>지방 : {{$item->fat}}, </span>
-                        <span>당 : {{$item->sugar}}, </span>
-                        <span>나트륨 : {{$item->sodium}}</span>
-                        <span> | {{$item->fav_f_intake}} 인분</span>
+                    <div class="dietinfo">
+                        <span> {{$foods->food_name}}</span>
+                        <br
+                        <strong>영양성분</strong>
+                        <span> > </span>
+                            
+                        {{-- <span>칼로리 : {{$total[$d]['kcal']}}, </span>
+                        <span>탄수화물 : {{$total[$d]['carbs']}}, </span>
+                        <span>단백질 : {{$total[$d]['protein']}}, </span>
+                        <span>지방 : {{$total[$d]['fat']}}, </span>
+                        <span>당 : {{$total[$d]['sugar']}}, </span>
+                        <span>나트륨 : {{$total[$d]['sodium']}}</span>
                         <br>
-                    @endforeach
+                        {{$d++;}} --}}
+                            
+                        <span>칼로리 : {{$foods->kcal}}, </span>
+                        <span>탄수화물 : {{$foods->carbs}}, </span>
+                        <span>단백질 : {{$foods->protein}}, </span>
+                        <span>지방 : {{$foods->fat}}, </span>
+                        <span>당 : {{$foods->sugar}}, </span>
+                        <span>나트륨 : {{$foods->sodium}}</span>
+                        <span> > {{$foods->fav_f_intake}} 인분</span>
+                    </div>
+                    <br>
                 @endif
+                {{-- @endforeach --}}
                 @endforeach
                 </div>
             @endforeach
@@ -151,7 +164,7 @@
             @endif
             <br>
             <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
-            <button type="button" onclick="location.href='{{route('search.insert', 
+            <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
             ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
         </div>
     </div>
