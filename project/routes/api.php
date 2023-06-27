@@ -20,6 +20,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // ---------------------------------------------
+// 섹션명       : 게시판(Board)
+// 기능         : 게시판 관련 api 라우트 설정
+// 관리자       : 최아란
+// 생성일       : 2023-06-27
+// ---------------------------------------------
+use App\Http\Controllers\ApiBoardController;
+
+Route::put('/board/likeup', [ApiBoardController::class, 'likeUp']);
+Route::put('/board/likedown', [ApiBoardController::class, 'likeDown']);
+
+// ---------------------------------------------
 // 섹션명       : 음식(Food)
 // 기능         : 사용자 등록 음식 관련 api 라우트 설정
 // 관리자       : 최아란
@@ -37,7 +48,7 @@ Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
 // ---------------------------------------------
 use App\Http\Controllers\ApiQuestController;
 
-Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate']);
+Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate'])->name('apiQuest.update');
 
 // ---------------------------------------------
 // 섹션명       : 회원(User)
@@ -59,3 +70,4 @@ Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpasswo
 // ---------------------------------------------
 // Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
+Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);

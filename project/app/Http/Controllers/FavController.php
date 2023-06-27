@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class FavController extends Controller
 {
@@ -28,6 +30,7 @@ class FavController extends Controller
             $favfood = FoodInfo::select('food_infos.food_name')
                             ->join('fav_diet_food','food_infos.food_id','fav_diet_food.food_id')
                             ->where('fav_diet_food.fav_id', $favname[$i]->fav_id)
+                            ->whereNull('fav_diet_food.deleted_at')
                             ->get();
             $arr[] = $favfood;
             
@@ -35,10 +38,11 @@ class FavController extends Controller
     
     
         if($id > 0){
-            $foodinfo = FoodInfo::select('food_infos.food_id','food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
+            $foodinfo = FoodInfo::select('fav_diet_food.fav_f_id','food_infos.food_id','food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
                                     ->join('fav_diet_food','fav_diet_food.food_id','food_infos.food_id')
                                     ->join('fav_diets','fav_diet_food.fav_id', 'fav_diets.fav_id')
                                     ->where('fav_diets.fav_id',$id)
+                                    ->whereNull('fav_diet_food.deleted_at')
                                     ->get();
                                     
             return view('favdiet')->with('favname',$favname)->with('favfood', $arr)->with('foodinfo', $foodinfo);
@@ -62,7 +66,14 @@ class FavController extends Controller
         }
         
         
-  // if($req->intake !== $favditefood->food_id){
+        public function favfoodDel($id){
+            $favtable = FavDietFood::find($id);
+            $favtable->delete();
+            return redirect()->route('fav.favdiet');
+        }
+    }
+
+     // if($req->intake !== $favditefood->food_id){
                 //     $arrkey[]='intake';
                 // }
 
@@ -71,8 +82,6 @@ class FavController extends Controller
                 //     }
                 // $favditefood->save();
 
-
-    }
 
 // UPDATE fav_diet_food SET fav_f_intake = 2 WHERE food_id = 1245;
         // var_dump($arr);
