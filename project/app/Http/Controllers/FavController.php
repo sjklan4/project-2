@@ -29,8 +29,9 @@ class FavController extends Controller
         for ($i=0; $i < $favname->count(); $i++) { 
             $favfood = FoodInfo::select('food_infos.food_name')
                             ->join('fav_diet_food','food_infos.food_id','fav_diet_food.food_id')
+                            ->join('fav_diets','fav_diet_food.fav_id','fav_diets.fav_id')
                             ->where('fav_diet_food.fav_id', $favname[$i]->fav_id)
-                            ->whereNull('fav_diet_food.deleted_at')
+                            ->whereNull('fav_diets.deleted_at')
                             ->get();
             $arr[] = $favfood;
             
@@ -64,6 +65,13 @@ class FavController extends Controller
 
             return redirect()->route('fav.favdiet');
         }
+
+        public function favdietDel($id){
+            $favtable = FavDietFood::find($id);
+            $favtable->delete();
+            return redirect()->route('fav.favdiet');
+        }
+
         
         
         public function favfoodDel($id){

@@ -65,7 +65,8 @@
 .write{
     width: 390px;
     margin: 0 auto;
-    margin-top: 165px;
+    margin-top: 253px;
+
 
 }
 
@@ -91,6 +92,7 @@ input{
     background-color: rgba(255, 255, 240, 1);
     border-radius: 10px;
     margin-left: 36px;
+    outline: none;
 }
 
 /* .login_button{
