@@ -5,7 +5,7 @@
 @section('userinfocontents')
 <div class="shadowYellow">
     <div>
-        <h1>나의 정보</h1>
+        <h2>나의 정보</h2>
         <div class="listCon">
             <table>
                 <form action="{{ route('user.userinfoeditPost') }}" method="post">

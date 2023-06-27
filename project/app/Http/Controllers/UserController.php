@@ -236,12 +236,12 @@ class UserController extends Controller
     
 
     public function userpseditpost(Request $req){ //변경 비밀번호를 업데이트 하기위한 구문
-        Log::debug('userpsedit : 비번확인', $req->all());
+       
    
-        $arrdata=[]; //값을 넣기 위한 빈 배열을 준비
+
         $basepassword = Auth::User()->password; //기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
-        if(hash::make($req->newpassword !== $basepassword->$req)){ //전달받은 값을 hash화 해서 비교하기 위함
-            $arrdata[] = 'newpassword'; //다르면 작성된 신규비밀번호가 배열에 들어감
+        if(!hash::make($req->newpassword, $basepassword)){ //전달받은 값을 hash화 해서 비교하기 위함
+            $newpassword = $req->newpassword; //다르면 작성된 신규비밀번호를 사용
         }
         else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
             $error = '기존 비밀번호와 다른 비밀번호로 해주세요';
@@ -252,23 +252,17 @@ class UserController extends Controller
         'newpassword' => 'same:newpasswordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/'
         ]; //유효성 검사 조건을 셋팅(신규비밀번호와 신규비밀번호 유효성 및 같은지 확인할 준비)
 
-        $validate = Validator::make($req->only('newpassword'),$rules,[
-            'newpassword' => '비밀번호를 확인해주세요'
+        $validator = Validator::make($req->all(), $rules, [
+            'newpassword.same' => '비밀번호를 확인해주세요',
+            'newpassword.regex' => '숫자영문특부문자 조합으로 해주세요'
         ]);
 
-        if ($validate->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
-            $errors = $validate->errors();
-            return redirect()->back()->withErrors($errors)->withInput();
+        if ($validator->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
+            return redirect()->back()->withErrors($validator)->withInput();
         }
         
-        foreach($arrdata as $val){
-            if($val === 'password'){
-                $basepassword->$val = Hash::make($req->$val);
-                continue;
-            }
-            $basepassword->$val = $req->$val;
-        }
-        $basepassword->save(); //update
+        $basepassword->password = Hash::make($newpassword);
+        $basepassword->save(); // 비밀번호 저장
         return redirect()->route('user.login');
     }
     
