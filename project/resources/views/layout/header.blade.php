@@ -10,7 +10,7 @@
                     <a id="cursorPointer">My Food</a>
                     <ul class="navbar-dropdown">
                         <li>
-                            <a href="#!">기록</a>
+                            <a href="{{route('home')}}">기록</a>
                         </li>
                         <li>
                             <a href="{{route('fav.favdiet')}}">자주먹는 식단</a>

@@ -11,3 +11,49 @@
     box-sizing: border-box;
     font-family: 'Pretendard-Regular';
 }
+
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    margin: auto;
+}
+
+.py-3 {
+    width: 100%;
+}
+
+.align-items-center {
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease; }
+a, a:hover {
+    text-decoration: none !important; 
+}
+
+.content {
+    height: 70vh; }
+
+.footer-95942 {
+    padding: 7rem 0;
+}
+.footer-95942 .social.app {
+    font-size: 13px; 
+}
+.footer-95942 .social li {
+    display: inline-block; 
+}
+.footer-95942 .social li a {
+    display: inline-block;
+    padding: 10px;
+    color: #000000; }
+    .footer-95942 .social li a:hover {
+    color: #195F1C; 
+}

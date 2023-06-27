@@ -100,7 +100,7 @@ button:hover {
     grid-template-columns: 4fr 0.7fr 1fr 1.5fr 0.7fr;
     justify-content: space-around;
     font-weight: 600;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .boardDetailTitle div:not(:nth-child(1)) {
@@ -117,7 +117,7 @@ button:hover {
 }
 
 .likeDiv {
-    padding-top: 20px; 
+    padding-top: 40px; 
 }
 
 .rigtTwoBtnDiv {
