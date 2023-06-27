@@ -13,7 +13,7 @@
     text-align: center;
 }
 .fc-green{
-    color: #195F1C;
+    color: rgb(83, 142, 4);
 }
 .fc-pink{
     color: #EE6666;
@@ -30,20 +30,43 @@
 .fc-blue2{
     color: blue;
 }
-.fsBig{
-    font-size: 2rem;
+form{
+    display: inline-block;
 }
+.plusBtn{
+    background: rgb(25, 95, 28);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: white;
+    line-height: 30px;
+}
+.delBtn, .editBtn{
+    border: none;
+    background: none;
+}
+.btnYg{
+    background-color: #538E04;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    color: #ffffff;
+}
+
 /* 날짜 변경 박스 */
 #dateArea{
     display: flex;
+    height: 50px;
+    line-height: 45px;
     width: 100%;
-    height: 35px;
     margin-top: 20px;
     background-color: #FFFFF0;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
-#dateArea > div:nth-child(2n+1){
+/* #dateArea > div:nth-child(2n+1){
     margin-top: 5px;
-}
+} */
 #dateArea > .dateBox{
     width: calc(95vw - 60px);
     font-weight: 700;
@@ -53,11 +76,13 @@ div.dateBox button{
     border: none;
     border-radius: 5px;
     background-color: #538E04;
-    width: 50px;
+    max-height: 30px;
+    vertical-align: baseline;
     color: #ffffff;
+    line-height: 20px;
 }
 div.dateBox button:hover{
-    background-color: #195F1C;
+    background-color: rgb(25, 95, 28);
 }
 input[type="date"]:hover{
     color: #195F1C;
@@ -98,48 +123,6 @@ input[type="date"]:valid::before {
 
 
 /* 마이 칼로리 */
-/* #myDiet{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    margin-bottom: 40px;
-}
-#myDiet > div.diet1{
-    display: flex;
-    height: 300px;
-}
-
-#myDiet > div.diet2{
-    height: 300px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-div.box1{
-    width: 50%;
-    min-width: 365px;
-    height: 300px;
-    text-align: center;
-    background: pink;
-}
-
-div.box2{
-    width: 50%;
-    height: 300px;
-    background: burlywood;
-}
-div.box2 > div.percent{
-    margin: 100px 0 0 10px;
-    line-height: 40px;
-}
-
-div.box3{
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    background: skyblue;
-
-}
-div.box4{
-    background: palegreen;
-} */
 #myDiet{
     width: 95vw;
     margin: 0 auto 40px;
@@ -149,23 +132,47 @@ div.box4{
 div.diet1{
     display: flex;
 }
+div.diet2{
+    min-height: 80%;
+    margin-top: 50px;
+    border-radius: 10px;
+    background: #fffff0;
+    box-shadow: 0 0 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0 0.4rem -0.0625rem rgba(11,15,25,.03);
+}
+div.diet2 > h3{
+    background: #ffffff;
+    padding: 20px;
+    margin: 15px auto 0px;
+    width: 95%;
+    border-radius: 15px 15px 0 0;
+}
 div.box1{
     width: 70%;
 }
 div.box2{
     width: 30%;
 }
-/* div.todayKcal{
-    border-radius: 10px;
-    background: #fffff0;
-    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);;
-} */
+div.box3{
+    width: 95%;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+}
 div.box4{
+    width: 95%;
+    margin: 0 auto;
     border-radius: 10px;
-    background: #fffff0;
+    background: #ffffff;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
-
+.percent{
+    background: #fffff0;
+    width: 85%;
+    height: 85%;
+    margin: 50px auto 0px;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    border-radius: 10px;
+}
 #carbPro, #proteinPro, #fatPro{
     appearance: none;
 }
@@ -201,24 +208,30 @@ div.box4{
 div.dietArea{
     width: 95vw;
 }
+#brfArea{
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+}
 div.flgBox{
     width: 100%;
     height: 50px;
     line-height: 50px;
-    background: #FFFFFF;
-    border: 1px solid #195F1C;
-    border-bottom: none;
+    background: #FFFFF0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 20px;
 }
 div.diet{
     width: 100%;
     background: #FFFFF0;
-    border-right: 1px solid #195F1C;
-    border-left: 1px solid #195F1C;
 }
 div.food{
-    min-height: 50px;
-    line-height: 50px;
+    min-height: 100px;
     background: #fffff0;
+}
+div.food > div.row{
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
 
 div.flgBox > button{
@@ -226,7 +239,7 @@ div.flgBox > button{
     border: none;
     background: none;
     float: right;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 div.flgBox > button::after{
     display: block;
@@ -237,60 +250,72 @@ div.flgBox > button::after{
 /* 아코디언 본문 */
 div.dietDetail{
     width: 95vw;
+    background: #fffff0;
 }
 div.dietDetail div.card{
-    width: 95vw;
-    border: 1px solid #195F1C;
+    width: 92vw;
+    border: none;
+    margin: 0 auto;
     background: #fffff0;
-    border-top: none;
 }
 
 .table{
-    background: white;
-    --bs-table-striped-color: #538E04;
-    --bs-table-active-color: #538E04;
+    /* --bs-table-striped-color: #538E04;
+    --bs-table-active-color: #538E04; */
+    border: none;
 }
 
 tbody, td, tfoot, th, thead, tr{
-    border-color: #538E04 !important;
+    border: none;
 }
-th{
-    min-width: 100px !important;
+th, td{
+    min-width: 100px;
+}
+.table>thead{
+    vertical-align: middle;
+
+}
+.table>tbody{
+    background: #ffffff;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    vertical-align: middle;
 }
 
 .img-fluid{
-    width: 500px !important;
-    height: 300px !important;
+    width: 450px !important;
+    height: 250px !important;
+    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
 .imgBox{
-    font-size: 1.2rem;
-    width: 100%;
+    min-width: 220px;
+    max-width: 350px;
     min-height: 200px;
     line-height: 200px;
+    font-size: 1.2rem;
     text-align: center;
-    background: rgba(255,255,255,0.6);
+    cursor: pointer;
 }
 
 .filebox .upload-name {
     display: inline-block;
-    height: 40px;
+    height: 35px;
     padding: 0 10px;
     vertical-align: middle;
     border: 1px solid #dddddd;
-    width: 65%;
+    width: 70%;
     color: #999999;
     outline: none;
 }
 
 .filebox label {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px;
     color: #fff;
     vertical-align: middle;
-    background-color: #999999;
+    background-color: #538E04;
     cursor: pointer;
-    height: 40px;
-    margin-left: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
 }
 
 .filebox input[type="file"] {
@@ -301,21 +326,6 @@ th{
     overflow: hidden;
     border: 0;
 }
-/* button.delBtn{
-    position: relative;
-}
-div.delAlert{
-    width: 200px;
-    padding: 10px 15px;
-    background-color: #444444;
-    border-radius: 5px;
-    color: #ffffff;
-    display: none;
-    position: absolute;
-}
-button.delBtn:hover + div.delAlert {
-    display: block;
-} */
 .upbtn1, .upbtn2, .upbtn3, .upbtn4{
     display: none;
 }
