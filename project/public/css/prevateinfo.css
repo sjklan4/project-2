@@ -1,8 +1,11 @@
 .boardCon {
-    /* padding-top: 50px; */
+    padding-top: 100px;
     display: grid;
     grid-template-columns: 1fr minmax(200px, 1.5fr) 1000px 2fr;
     font-size: 16px;
+}
+h1{
+    font-weight: bolder;
 }
 
 h2{
@@ -15,9 +18,21 @@ h2{
 .mNav {
     display: none;
 }
-.boardNavDiv{
-    border-right: 1px solid #ccc;
+.shadowWhite {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    border-radius: 1px;
+    padding: 50px;
 }
+.shadowYellow {
+    background: #FFFFF0;
+    box-shadow: 0px 12px 30px #ECECEC;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
 .boardNavDiv > div{
     font-size: 35px;
     font-weight: 900;
@@ -34,6 +49,32 @@ h2{
     font-weight: 600;
     height: 60px;
 }
+/* ****************공용 버튼 모음******************  */
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+button:hover {
+    background-color: #9D9D9D;
+}
+#greenBtn {
+    background-color: #538E04;
+}
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+
+.nav li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+}
 
 .boardNavDiv ul li a:hover, a:hover {
     color: #538E04;
@@ -43,23 +84,27 @@ h2{
     padding: 0 0 50px 0;
     
 }
+input{
+    border:none;
+    border-bottom: 2px solid #9d9d9d;
+    background-color: transparent;
+    width: 27vw;
 
+}
 
-.diechk-td{
-    width: 100px;
+/* .diechk-td{
+    width: 15vw;
     vertical-align: top;
     padding-top: 8px;
-}
-.goal_kcal_input{
-    width: 305px;
-}
+} */
+
 .table-diet{
     margin: auto;
     padding: 35px;
     font-size: 20px;
     background-color:rgba(255, 255, 240, 1);
     border-radius: 10px;
-    box-shadow: inset 3px 3px 10px #ccc;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     width: 50vw;
 
 }
@@ -68,11 +113,12 @@ table{
     margin-bottom: 20px;
     margin: auto;
     padding: auto;
+    font-size: 20px;
 }
 td{
     min-width: 9vw;
     height: 5vh;
-    padding-left:15px ;
+    padding-left:10px ;
 }
 
 .table-prevate{
@@ -81,7 +127,7 @@ td{
     font-size: 20px;
     background-color:rgba(255, 255, 240, 1);
     border-radius: 10px;
-    box-shadow: inset 3px 3px 10px #ccc;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     width: 50vw;
     text-align: center;
 }
@@ -109,96 +155,22 @@ li.info-list{
     display: none; /* 초기에 숨김 처리 */
     color:black;
     padding: 5px;
-    width: 15vw;
+    width: 28vw;
 }
 .hover-btn:hover .arrow_box{
     display: inline-block;
 }
 
 
-.button{
-    text-align: center;
-}
-.button #insert{
-    width: 220px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    /* font-family: 'Lato', sans-serif; */
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    /* position: absolute;
-    top: 24vh;
-    left: 3vw; */
-    display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(0,0,0,.1),
-    4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-    z-index: 2;
-    font-size: 22px;
-    margin: 20px;
-}
-.btn-stlye #insert{
-    border: none;
-    background:#195F1C;
-    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
-    color: #fff;
-    overflow: hidden;
-}
-.btn-stlye:hover #insert{
-    text-decoration: none;
-    color: #ffffff;
-}
-#suggest{
-    width: 100px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    /* font-family: 'Lato', sans-serif; */
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    /* position: absolute;
-    top: 24vh;
-    left: 3vw; */
-    display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(0,0,0,.1),
-    4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-    z-index: 2;
-    margin-left: 15px;
-}
-.btn-stlye #suggest{
-    border: none;
-    background:#195F1C;
-    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
-    color: #fff;
-    overflow: hidden;
-}
-.btn-stlye:hover #suggest{
-    text-decoration: none;
-    color: #ffffff;
-}
-
 #exit{
     text-align: end;
-}
-input{
-    border-radius: 7px;
-    border: 2px #ccc solid;
-
 }
 
 input#tall{
     border-radius: 7px;
     border: 2px #ccc solid;
     width: 100px;
-    margin-left: 29px;
+    
 }
 input#weight{
     border-radius: 7px;
@@ -214,6 +186,16 @@ input#acctivaty1{
 input#acctivaty2{
     margin-left: 15px;
 }
+input#goal_kcal{
+    width: 20vw;
+}
+input#user_birth{
+    width: 10vw;
+}
+input#calcul-kcal{
+    width: 10vw;
+}
+
 
 /* 레디오 버튼 디자인 */
 [type="radio"]{
@@ -256,29 +238,46 @@ img{
     height: 35px;
 }
 
-/* 유저정보 페이지 */
-.userinfomenu{
-    padding-top: 20px;
-    /* display: grid;
-    grid-template-columns: 1fr minmax(200px, 1.5fr) 1000px 2fr;
-    font-size: 16px; */
-}
+/**************************** 유저정보 변경 페이지 **************************/
+/* 유저 기본정보 변경 부분 */
+
 .info-tablemenu{
     margin: auto;
     padding: 35px;
     font-size: 20px;
     background-color:rgba(255, 255, 240, 1);
     border-radius: 10px;
-    box-shadow: inset 3px 3px 10px #ccc;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     width: 50vw;
+    
 }
+.info-t{
+    width: auto;
+    margin: 0 auto;
+}
+td.info-table{
+    width: 5vw;
+}
+
+.greenBtn{
+    background-color: #538E04;
+    color: #fff;
+}
+table {
+        padding-top: 10px;
+        border-spacing: 0.2rem;
+        border-collapse: separate;
+        margin: 0;
+}
+/* ************************************************************************** */
+
 .Physical-table{
     margin: auto;
     padding: 35px;
     font-size: 20px;
     background-color:rgba(255, 255, 240, 1);
     border-radius: 10px;
-    box-shadow: inset 3px 3px 10px #ccc;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     width: 50vw;
 }
 
@@ -292,29 +291,15 @@ caption{
     text-align: center;
     caption-side: bottom;
 }
-.info-boxt{
+/* .info-boxt{
     border-radius: 10px;
     width: 45vw;
     height: 33vh;
     background-color: white;
-}
-td.info-table{
-    width: 5vw;
-}
-.info-t{
-    width: auto;
-    margin: 0 auto;
-}
-button#userinfosubmit{
-    border-radius: 12px;
-    background-color: #195F1C;
-    color: #ffffff;
-    width: 12vw;
-    height: 4vh;
-    font-weight: bolder;
-    letter-spacing: 5px;
-    margin-top: 15px;
-}
+    box-shadow: 0px 12px 30px #ECECEC;
+} */
+
+
 
 /* 비밀번호 변경 부분 */
 .findps-body{
@@ -329,16 +314,18 @@ button#userinfosubmit{
     width: 44vw;
     margin: 0 auto;
 }
-
-button#passwordchk{
-    width: 55px;
-    background-color: #195F1C;
-    border-radius: 5px;
+.btn{
+    display: inline-block;
+    width: 75vw;
+    margin: 0 auto;
 }
 
-button#passwordchg{
-    width: 100px;
-    background-color: #195F1C;
-    border-radius: 5px;
- 
+/* 모달부분 css */
+.modal_wrap{
+    display: none;
+}
+
+.exit:hover{
+    display: inline-block;
+    cursor: pointer;
 }

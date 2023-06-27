@@ -1,6 +1,18 @@
-const suggetskcal = document.getElementById('suggest');
+window.onload = function(){
+        
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+    }   
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+    }
+    document.getElementById('suggest').addEventListener('click', onClick);
+    document.querySelector('.exit').addEventListener('click', offClick);
+    
+};
 
 
+const suggetskcal = document.getElementById('suggest-cal');
 suggetskcal.addEventListener('click', function(){
     const gender = document.getElementById('gender').value;
     const birthDate = new Date(document.getElementById('user_birth').value);
@@ -14,28 +26,36 @@ suggetskcal.addEventListener('click', function(){
     if(gender === "0"){
         let BMR = (10 * weight)+(6.25 * tall)-(5 * age)+5
             if(acctivaty ==="0"){
-                document.getElementById('goal_kcal').value = BMR * 1.2;
+                document.getElementById('calcul-kcal').value = BMR * 1.2;
             }
             else if(acctivaty ==="1"){
-                document.getElementById('goal_kcal').value = BMR * 1.55;
+                document.getElementById('calcul-kcal').value = BMR * 1.55;
             }
             else{
-                document.getElementById('goal_kcal').value = BMR * 1.9;
+                document.getElementById('calcul-kcal').value = BMR * 1.9;
             }
         }
     else{
         let BMR = (10 * weight)+(6.25 * tall)-(5 * age)-161
             if(acctivaty ==="0"){
-                document.getElementById('goal_kcal').value = BMR * 1.2;
+                document.getElementById('calcul-kcal').value = BMR * 1.2;
             }
             else if(acctivaty ==="1"){
-                document.getElementById('goal_kcal').value = BMR * 1.55;
+                document.getElementById('calcul-kcal').value = BMR * 1.55;
             }
             else{
-                document.getElementById('goal_kcal').value = BMR * 1.9;
+                document.getElementById('calcul-kcal').value = BMR * 1.9;
             }
         }
     });
+
+const suggestinsert = document.getElementById('suggest-insert');
+suggestinsert.addEventListener('click',function(){
+    const calculdata = document.getElementById('calcul-kcal').value;
+    document.getElementById('goal_kcal').value = calculdata;
+    document.querySelector('.modal_wrap').style.display ='none';
+});
+
 
 
 
