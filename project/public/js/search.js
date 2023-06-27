@@ -22,10 +22,6 @@ function getFoodValue(userId)  {
     // let result = [];
     selectedEls.forEach((el) => {
         result = el.value;
-        // el.split('/');
-        // result.push([
-        //     el.value
-        // ]);
     });
 
     // var amount = [];
@@ -34,10 +30,6 @@ function getFoodValue(userId)  {
         amount += el2.value;
         parseFloat(amount);
     });
-
-    // var amount = amount.filter(function(item){
-    //     return item !== null && item !== undefined && item !== '';
-    // })
 
     console.log(result);
     console.log(amount);
@@ -50,38 +42,9 @@ function getFoodValue(userId)  {
     .then(data => { console.log(data); console.log(data.error); console.log(data.msg); console.log(data.data); });
 
     location.reload();
-    // $.ajax({
-    //     type: "post",
-    //     url: `/api/cart/${userId}`,
-    //     data: formData,
-    // }).done(res => {
-    //     console.log(res);
-    //     alert("성공");
-    // }).fail(error => {
-    //     alert("실패");
-    // });
-    // $.ajax({
-    //     type: "post",
-    //     url: `/api/cart/${result}/${amount}`,
-    //     data: JSON.stringify(result),
-    //     contentType: "application/json; charset=utf-8",
-    //     dataType: "json"
-    // }).done(res => {
-    //     alert("성공");
-    // }).fail(error => {
-    //     alert("실패");
-    // });
 }
 
-// const serving = document.getElementById('userving');
-// serving.addEventListener('input', function() {
-
-//     document.getElementById('resultserving').innerText
-//             = serving.value;
-    
-// })
-
-function getDietValue()  {
+function getDietValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="userdiet"]:checked';
     const selectedEls = 
@@ -93,9 +56,16 @@ function getDietValue()  {
         resultdiet += el.value;
     });
 
-    $(document).ready(function() {
-        $('#resultdiet').val(resultdiet);
-    });
+    console.log(resultdiet);
+
+    // $(document).ready(function() {
+    //     $('#resultdiet').val(resultdiet);
+    // });
+    fetch(`/api/cart2/${userId}/${resultdiet}`, {
+        method: "post"
+    })
+    .then(res => res.json())
+    .then(data => { console.log(data); console.log(data.error); console.log(data.msg); console.log(data.data); });
 
     // document.getElementById('resultdiet').innerText
     //         = resultdiet;
