@@ -15,9 +15,8 @@
 }
 .box1{
     border-radius: 10px;
-    background-color: #6799E4;
+    background-color: transparent;
     padding: 20px;
-    box-shadow: 4px 4px 3px #ccc;
     width: 70vw;
 }
 .dietname{
@@ -27,9 +26,8 @@
     margin: 0 auto;
     font-size: x-large;
     border-radius: 10px;
-    border: 1px solid black;
     padding: 15px;
-   
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
 }
 a{
     text-decoration: none;
@@ -44,7 +42,6 @@ a{
     margin-top: 20px;
     background-color: #FFFFF0;
     border-radius: 10px;
-    border: 1px solid black;
     padding: 15px;
    
 }
@@ -69,17 +66,40 @@ h1{
     font-size: xx-large;
 }
 
-button{
-    border-radius: 12px;
-    background-color: #195F1C;
-    color: #ffffff;
-    width: 9vw;
-    height: 4vh;
-    font-weight: bolder;
-    letter-spacing: 5px;
-    margin-top: 15px;
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
 }
-.bi-asterisk {
+button:hover {
+    background-color: #9D9D9D;
+}
+#greenBtn {
+    background-color: #538E04;
+}
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+/* .bi-asterisk {
     font-size: 3px;
     color: #EE6666;
+} */
+
+label{
+    padding-left: 10px;
+}
+input#intake{
+    text-align: right;
+}
+
+.del-food{
+    cursor: pointer;
+}
+.del-food:hover{
+    color: red;
 }

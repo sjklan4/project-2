@@ -70,3 +70,4 @@ Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpasswo
 // ---------------------------------------------
 // Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
+Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
