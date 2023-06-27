@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ApiUserController extends Controller
 {
@@ -16,6 +17,7 @@ class ApiUserController extends Controller
 
         $user = UserInfo::where('user_email', $user_email)->first();
         
+    
 
         // 유저 유무 체크
         if($user !== null) {

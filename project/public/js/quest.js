@@ -5,24 +5,41 @@ $(".option").click(function(){
 });
 
 // 퀘스트 확인 갱신
-const questUdtBtn = document.querySelector('.questUdt');
-questUdtBtn.addEventListener('click', function(){
-    const id = document.getElementById('id');
-    const url = "/api/quest";
+if(document.querySelector('.questUdt')){
+    document.querySelector('.questUdt').addEventListener('click', () => {
+        const url = "/api/quest";
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const request = new Request(url, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": token
+                },
+            method: 'PUT',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                log_id: document.getElementById('log_id').value,
+                stat_id: document.getElementById('stat_id').value
+            })
+        });
 
-    fetch(url)
-    .then(data => {
-        if (!data.status) {
-            throw new Error(data.status + ' : API Response Error');
-        }
-        return data.json();
-    })
-    .then(apiData  => {
-        // const idspan = document.getElementById('errorMsg');
-        //     if(apiData["flg"] === "1") {
-        //         idspan.innerHTML = apiData["msg"];
-        //     } else {
-        //         idspan.innerHTML = "사용가능한 Email입니다. "
-        //     }
+        fetch(request)
+        .then(data => {
+            if (!data.status) {
+                throw new Error(data.status + ' : API 응답 오류');
+            }
+            return data.json();
+        })
+        .then(apiData  => {
+            const idspan = document.getElementById('errorMsg');
+            if(apiData["errorcode"] === "1") {
+                idspan.innerHTML = apiData["errmsg"];
+            } else {
+                const questUdtBtn = document.querySelector('.questUdt');
+                idspan.innerHTML = apiData["msg"];
+                questUdtBtn.style.display = "none";
+            }
+        });
     });
-});
+}

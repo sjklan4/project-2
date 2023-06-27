@@ -3,13 +3,14 @@
 @section('title', 'inforupdate')
 
 @section('userinfocontents')
-<div class="userinfomenu">
-    <div class="info-tablemenu">
-        <div class="info-boxt">
-            <table class="info-t">
+<div class="shadowYellow">
+    <div>
+        <h1>나의 정보</h1>
+        <div class="listCon">
+            <table>
                 <form action="{{ route('user.userinfoeditPost') }}" method="post">
                     @csrf
-                <tr>    
+                <tr class="trBasic">    
                     <th class="info-table"><label for="user_email">Email : </label></th>
                     <td class="info-table"><input type="text" name="user_email" id="user_email" value= "{{old('user_email') !== null ? old('user_email') : $data->user_email}}" readonly></td>
                 </tr>
@@ -25,14 +26,47 @@
                     <th class="info-table"><label for="user_phone_num">전화번호 : </label></th>
                     <td class="info-table"><input type="text" name="user_phone_num" id="user_phone_num" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}"></td>
                 </tr>
-                    <caption><button type = "submit" id="userinfosubmit">정보수정</button></caption>
-            </form>
+                    <caption><button type = "submit" id="greenBtn">정보수정</button></caption>
+                </form>
             </table>
         </div>    
-    </div> 
-    <hr>
-    <br>
-    <div class="Physical-table">
+    </div>
+</div>
+
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/userinfo.js') }}"></script>
+@endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{------------------ 제외 코드 최초수정 : 230627------------------------------------------}}
+{{-- //----------------------------------------------------------------------------------- --}}
+ {{-- <div class="Physical-table">
         <div class="info-boxt">
             <table class="info-t">
                 <form action="{{ route('user.userKcalup') }}" method="post">
@@ -60,11 +94,4 @@
             </table>
         </div>    
     </div>
-</div>
-
-@endsection
-
-@section('js')
-    <script src="{{ asset('js/userinfo.js') }}"></script>
-@endsection
-
+</div> --}}
