@@ -192,6 +192,7 @@ class BoardController extends Controller
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
         ];
+        
 
         if (isset($boardImg[0])) {
             $arr['img'] = $boardImg[0]->bimg_name;
