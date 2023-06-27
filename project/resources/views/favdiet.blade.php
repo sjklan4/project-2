@@ -14,13 +14,12 @@
         <div class="box1">
             <div class="dietname">
                 @for($i = 0; $i < count($favname); $i++)
-                    <a href="{{route('fav.favfoodinfo', ['fav_id' => $favname[$i]->fav_id])}}">{{$favname[$i]->fav_name}}</a>
+                    <a href="{{route('fav.favfoodinfo', ['fav_id' => $favname[$i]->fav_id])}}" id ="favdietname">{{$favname[$i]->fav_name}}</a>
                     @foreach ($favfood[$i] as $item)
                     <span>{{$item->food_name}}</span>
                     @endforeach
                     <br>
                 @endfor
-                <br>
             </div>
             <div class="foodnutri">
                 <h1>식단음식 상세정보</h1>
@@ -42,14 +41,16 @@
                         <span><i class="bi bi-asterisk"></i>나트륨 : {{$item->sodium}}</span>
                         <label for="intake">
                             <input type="number" name="intake[]" id="intake">인분</label>
-                            <span class="del-food" id="delfood"><a href="{{route('fav.del', $item->fav_f_id)}}">X</a></span>
+                            <span class="del-food" id="del-food">
+                                <a href="{{route('fav.del', $item->fav_f_id)}}" class="del-food">X</a>
+                            <p class="arrow_box">등록하신 음식이 삭제 됩니다.</p></span>
                         <br>
                     @endforeach 
                 @endif
             </div>
         </div>    
                     <div class="submitbtn">
-                        <button type="submit" id="greenBtn">수  정</button>
+                        <button type="submit" id="greenBtn" disabled>수  정</button>
                     </div>
                 </form>
         
@@ -57,6 +58,9 @@
     </div>
 </div>
 
+@endsection
+@section('js')
+    <script src="{{ asset('js/favinsert.js') }}"></script>
 @endsection
 
 {{-- {{var_dump($favfood[$i])}} --}}

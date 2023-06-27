@@ -21,6 +21,7 @@
 }
 .dietname{
     background-color: white;
+    overflow:auto;
     width: 66vw;
     height: 17vh;
     margin: 0 auto;
@@ -29,12 +30,14 @@
     padding: 15px;
     box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
 }
+
 a{
     text-decoration: none;
     color: #195F1C;
 }
 
 .foodnutri{
+    overflow: auto;
     width: 66vw;
     height: 25vh;
     margin: 0 auto;
@@ -76,15 +79,18 @@ button {
     padding: 1.5em auto;
     border-radius: 3px;
 }
+#greenBtn:disabled{
+    background-color: #e2f5e0;
+}
 button:hover {
     background-color: #9D9D9D;
 }
 #greenBtn {
     background-color: #538E04;
 }
-#greenBtn:hover {
+/* #greenBtn:hover {
     background-color: #195F1C;
-}
+} */
 /* .bi-asterisk {
     font-size: 3px;
     color: #EE6666;
@@ -97,9 +103,21 @@ input#intake{
     text-align: right;
 }
 
+a{
+    text-decoration-style: none;
+}
+
 .del-food{
     cursor: pointer;
+    position: relative;
 }
-.del-food:hover{
+
+.del-food:hover .arrow_box{
     color: red;
+    display:inline-block
 }
+.arrow_box{
+    width: 28vw;
+    display: none;
+}
+
