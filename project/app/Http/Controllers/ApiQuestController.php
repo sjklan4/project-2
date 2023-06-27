@@ -17,22 +17,29 @@ class ApiQuestController extends Controller
             ,'msg'      => ''
         ];
 
-        // 해당 유저인지 확인
+        // todo 유효성 체크
+
         $quest = QuestStatus::find($req->stat_id);
-        $user_id = Auth::user()->user_id;
-        if ($quest->user_id !== $user_id) {
-            $arr['errorcode'] = '1';
-            $arr['msg'] = '유저 정보 오류';
-            $arr['errmsg'] = '유저 정보가 일치하지 않습니다.';
-        } else {
+
+
+        // todo 해당 유저인지 확인
+        // $user_id = Auth::user()->user_id;
+        // $user_id = 18;
+
+        // if ($user_id !== $quest->user_id) {
+        //     $arr['errorcode'] = '1';
+        //     $arr['msg'] = '유저 정보 오류';
+        //     $arr['errmsg'] = '유저 정보가 일치하지 않습니다.';
+        // } else {
             // 완료 플래그 업데이트
-            $quest = QuestLog::find($req->log_id);
-            $quest->complete_flg = '1';
-            $quest->save();
+            DB::table('quest_logs')
+            ->where('quest_log_id', '=', $req->log_id)
+            ->update(['complete_flg' => '1']);
 
             $arr['errorcode'] = '0';
-            $arr['msg'] = '오늘 퀘스트 완료';
-        }
+            $arr['msg'] = '오늘 퀘스트 완료!';
+        // }
+
         return $arr;
     }
 }

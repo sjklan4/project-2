@@ -5,7 +5,7 @@ const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\
 
 const chdeckEmailbutton = document.getElementById('chdeckEmail');
 userEmailField.addEventListener('input', function() {
-  
+
 
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
