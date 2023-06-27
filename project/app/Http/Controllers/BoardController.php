@@ -157,18 +157,6 @@ class BoardController extends Controller
         }
 
         // todo 유효성 검사
-
-        // 해당 유저의 해당 글 좋아요 확인
-        $like_count = DB::table('board_likes')
-            ->where('user_id', Auth::user()->user_id)
-            ->where('board_id', $id)
-            ->count();
-
-        
-        $like_flg = 0;
-        if ($like_count > 0) { // 좋아요가 있을 때
-            $like_flg = 1;
-        }
         
         $board = Board::find($id);
         // 조회수 증가
@@ -197,13 +185,12 @@ class BoardController extends Controller
             'cate'        => $bcate->bcate_name
             ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
-            ,'content'    => nl2br($board->bcontent)
+            ,'content'    => $board->bcontent
             ,'hits'       => $board->hits
             ,'id'         => $board->board_id
             ,'like'       => $board->likes
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
-            ,'like_flg'   => $like_flg
         ];
 
         if (isset($boardImg[0])) {

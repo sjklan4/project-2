@@ -151,7 +151,8 @@ class SearchController extends Controller
         ->select('fav_id', 'fav_name', 'user_id')
         ->where('user_id', $id)
         ->whereNull('deleted_at')
-        ->Paginate(10);
+        ->get();
+        // ->Paginate(10);
 
         $dietfoods = DB::table('food_infos')
         ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
@@ -180,30 +181,39 @@ class SearchController extends Controller
         // ->where('diets.user_id', $id)
         // ->get();
 
-        $totalkcal = 0;
-        $totalcarbs = 0;
-        $totalprotein = 0;
-        $totalfat = 0;
-        $totalsugar = 0;
-        $totalsodium = 0;
+        // todo : 0.5인분 일 경우에는 /0.5 그 이상일 경우 *@ 
         foreach ($dietfoods as $key) {
-            $totalkcal += $key->kcal;
-            $totalcarbs += $key->carbs;
-            $totalprotein += $key->protein;
-            $totalfat += $key->fat;
-            $totalsugar += $key->sugar;
-            $totalsodium += $key->sodium;
+            if($key->fav_f_intake === 0.5){
+                $total_nutrient[] = [
+                    'kcal' => $key->kcal * 0.5,
+                    'carbs' => $key->carbs * 0.5,
+                    'protein' => $key->protein * 0.5,
+                    'fat' => $key->fat * 0.5,
+                    'sugar' => $key->sugar * 0.5,
+                    'sodium' => $key->sodium * 0.5
+                ];
+                
+            }else if($key->fav_f_intake === 1){
+                $total_nutrient[] = [
+                    'kcal' => $key->kcal,
+                    'carbs' => $key->carbs,
+                    'protein' => $key->protein,
+                    'fat' => $key->fat,
+                    'sugar' => $key->sugar,
+                    'sodium' => $key->sodium
+                ];
+            }else{
+                $total_nutrient[] = [
+                    'kcal' => $key->kcal * $key->fav_f_intake,
+                    'carbs' => $key->carbs * $key->fav_f_intake,
+                    'protein' => $key->protein * $key->fav_f_intake,
+                    'fat' => $key->fat * $key->fav_f_intake,
+                    'sugar' => $key->sugar * $key->fav_f_intake,
+                    'sodium' => $key->sodium * $key->fav_f_intake
+                ];
+            }
         }
-
-        $total = [
-            'kcal' => $totalkcal,
-            'carbs' => $totalcarbs,
-            'protein' => $totalprotein,
-            'fat' => $totalfat,
-            'sugar' => $totalsugar,
-            'sodium' => $totalsodium,
-        ];
-
+        // var_dump($total_nutrient);
         $data = [
             'date' => $req->date,
             'time' => $req->time
@@ -225,14 +235,16 @@ class SearchController extends Controller
                 ->where('food_name', 'like', '%'.$usersearch.'%')
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
-                ->Paginate(10);
+                ->get();
+                // ->Paginate(10);
+
                 return view('FoodList')->with('foods', $foods)
                 ->with('dietname', $dietnames)
                 ->with('dietfood', $dietfoods)
                 ->with('seleted', $seleted)
                 ->with('seleted_diet', $seleted_diet)
                 // ->with('recent', $recent)
-                ->with('total', $total)
+                ->with('total', $total_nutrient)
                 ->with('data', $data);
             }
 
@@ -240,7 +252,9 @@ class SearchController extends Controller
             $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
-            ->Paginate(10);
+            ->get();
+            // ->Paginate(10);
+
             return view('FoodList')
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
@@ -248,7 +262,7 @@ class SearchController extends Controller
             ->with('seleted', $seleted)
             ->with('seleted_diet', $seleted_diet)
             // ->with('recent', $recent)
-            ->with('total', $total)
+            ->with('total', $total_nutrient)
             ->with('data', $data);
         }
         return view('FoodList')
@@ -257,7 +271,7 @@ class SearchController extends Controller
         ->with('seleted', $seleted)
         ->with('seleted_diet', $seleted_diet)
         // ->with('recent', $recent)
-        ->with('total', $total)
+        ->with('total', $total_nutrient)
         ->with('data', $data);
     }
 

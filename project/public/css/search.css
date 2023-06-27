@@ -1,43 +1,82 @@
 @media(max-width:500px){
     
 }
-
-.fav_diets, .user_select {
-    display: none;
-}
 * {
     margin: 0 auto;
 }
-
+/* 자주먹는 식단, 선택된 음식 탭 */
+.fav_diets, .user_select {
+    display: none;
+}
+/* 검색 폼 */
 .searchform{
     margin-top: 5em;
-    /* padding:1em; */
     text-align: center;
 }
-/* .searchform, .searchtab{
-    width: 70vw;
-    background-color: #FFFFF0;
-    margin-bottom: 0px;
-} */
-
+/* 전체를 감싸는 div */
 .searchContainer {
     width: 910px;
+    height: 1000px;
     background-color: #FFFFF0;
     margin-top:0px;
     box-shadow: 0px 12px 30px #ECECEC;
 }
-
-.user_search, .fav_diets, .user_select {
-    padding-left:4.5em;
-    margin-top: 1em;
+/* 자주먹는 식단, 선택한 음식 내용 */
+.fav_diets, .user_select {
+    padding:3em;
+    padding-top:0.5em;
+    /* margin-top: 0.5em; */
+}
+.search_result{
+    margin:1em;
+}
+#usercheck{
+    position:absolute;
+    right:3em;
+}
+/* hr */
+.search_hr, .select_food, .select_diet{
+    width:713px;
+}
+/* 검색 결과 */
+.user_search{
+    overflow:scroll;
+    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
+    overflow-y: auto; /* 세로 스크롤바 활성화 */
+    margin-top:2em;
+    width:800px;
+    height: 800px;
+    position:relative;
+}
+.fav_diets{
+    overflow:scroll;
+    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
+    overflow-y: auto; /* 세로 스크롤바 활성화 */
+    width:800px;
+    height: 800px;
+    position:relative;
+}
+/* 스크롤 */
+.user_search::-webkit-scrollbar, .fav_diets::-webkit-scrollbar {
+    width:9px;
+    background-color: transparent;
+}
+.user_search::-webkit-scrollbar-thumb, .fav_diets::-webkit-scrollbar-thumb {
+    background-color: #538E04;
+    border-radius: 20px;
+}
+.user_search::-webkit-scrollbar-track, .fav_diets::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
-#userving, #resultdiet{
+/* 인분 수 input */
+#userving{
     border:0 solid black;
     border-bottom: 1px solid #000;
     outline: none;
     background-color: transparent;
 }
+
 .usercreate{
     color:#919191;
 }
@@ -100,13 +139,12 @@ ul{
     border-radius: 20px;
     width: 80px;
 }
-
 /* checkbox */
 input[type="checkbox"]{
     -webkit-appearance: none; /* -webkit-appearance : 요소의 자체 구성요소 숨기기 / 사파리 & 크롬 적용 */
     position: relative;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     outline: none !important; /* !important : 나중에 적용하는 값이 적용되지 않도록 함 */
     border: 0.5px solid #acacac;
@@ -125,30 +163,27 @@ input[type="checkbox"]::before {
     /* translate : 상대적으로 위치 지정, 이동 및 재배치 */
     line-height: 1;
 }
-
 input[type="checkbox"]:hover {
     border-color: #acacac;
 }
-
 input[type="checkbox"]:checked {
     background-color: #538E04;
     border-color: rgba(255, 255, 255, 0.3);
     color: white;
 }
-
 input[type="checkbox"]:checked::before {
     border-radius: 2px;
     transform: scale(1) translate(-50%, -50%) 
     /* scale(1) : 해당 요소의 본래 치수를 유지하고 그 이상의 값 > 늘림 그 이하의 값 < 줄임*/
 }
-
+/* 검색어 입력 안 했을 시 뜨는 span */
 .nosearch{
     color:#919191;
     font-weight: 400;
     text-align: center;
     /* padding-top:23em; */
 }
-
+/* 자주먹는 식단 > 음식 */
 .diet_div{
     margin:0.5em;
     padding:0.5em;
@@ -156,7 +191,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 10px;
     border: 0.5px solid #acacac;
 }
-
+/* 자주먹는 식단 div */
 .fav_food, .fav_diet{
     padding:0.5em;
 }

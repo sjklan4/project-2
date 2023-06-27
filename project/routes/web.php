@@ -122,7 +122,7 @@ use App\Http\Controllers\FavController;
 Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet'); //즐겨찾는 식단 정보 페이지 이동
 Route::get('/userfav/favfoodinfo/{fav_id}',[FavController::class,'favdiet'])->name('fav.favfoodinfo'); //즐겨 찾는 식단 정보의 식단별 음식들의 영양 정보 확인 하는 구문의 라우터
 Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name('fav.intakeupdate'); // 즐겨 찾는 식단 정보에서 수량조절(인분서 - 먹은양)하는 라우터
-Route::get('userfav/favfoodDel/{fav_f_id}',[FavController::class,'favfoodDel'])->name('fav.del'); //즐겨 찾는 식단 정보에서 음식 삭제 기능
+
 
 // ---------------------------------------------
 // 섹션명       : 검색(Search)

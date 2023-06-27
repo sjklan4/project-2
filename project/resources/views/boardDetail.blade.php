@@ -18,26 +18,13 @@
                     <img src="{{asset('storage/images/board/'.$data['img'])}}" class="img-fluid" alt="1">
                 </div>
                 @endif
-                <span>{!! $data['content']!!}</span>
+                <span>{{$data['content']}}</span>
                 <div class="likeDiv">
-                    <input type="hidden" id="value1" value="{{$data['user_id']}}">
-                    <input type="hidden" id="value2" value="{{$data['id']}}">
-                    @if ($data['like_flg'] === 1)
-                        <button
-                            class="likeUpDown"
-                            id="greenBtn"
-                            type="button"
-                            onclick="likeDown()"
-                            >좋아요 <span id="likes">{{$data['like']}}</span>
-                        </button>
-                    @else
-                        <button
-                            class="likeUpDown"
-                            type="button"
-                            onclick="likeUp()"
-                            >좋아요 <span id="likes">{{$data['like']}}</span>
-                        </button>
-                    @endif
+                    <button
+                        type="button"
+                        onclick="location.href='{{route('board.like', ['board' => $data['id']])}}'"
+                        >좋아요 {{$data['like']}}
+                    </button>
                 </div>
     
                 {{-- todo @can 방법 : https://laracasts.com/series/laravel-6-from-scratch/episodes/50 --}}

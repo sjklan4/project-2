@@ -13,7 +13,7 @@
     <div id="dateArea">
         <div>
             <a href="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="#538E04"
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="#538E04"
                     class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                     <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                 </svg>
@@ -23,7 +23,7 @@
             <form action="{{route('home.post')}}" method="post">
                 @csrf
                 <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date'] ?? $data['today']}}">
-                <button type="submit" class="btnYg">이동</button>
+                <button type="submit">이동</button>
             </form>
         </div>
         <div>
@@ -33,9 +33,10 @@
                     d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
             </svg>
         </div>
-    </div>    
+    </div>
+    {{-- {{var_dump($data['total']['tdgTotal'])}} --}}
+    
     <hr class="fc-green">
-    {{-- 상단 총 정보 --}}
     <div id="myDiet">
         <div class="diet1">
             <div class="box1">
@@ -50,46 +51,44 @@
                             <p>목표칼로리를 설정해주세요</p>
                         @else
                             <p>
-                                <span class="fc-green">●</span>
+                                <span class="fc-green">■</span>
                                 0 %
                             </p>
                         @endif
                         <p>
-                            <span class="fc-pink">●</span>
+                            <span class="fc-pink">■</span>
                             0 %
                         </p>
                         <p>
-                            <span class="fc-yel">●</span>
+                            <span class="fc-yel">■</span>
                             0 %
                         </p>
                         <p>
-                            <span class="fc-blue">●</span>
+                            <span class="fc-blue">■</span>
                             0 %
                         </p>
                     </div>
                 @else
                 {{-- 탄, 단, 지 비율 계산 --}}
-                    <div class="percent pt-3">
-                        {{-- 목표 칼로리가 0(=기본값일 경우) --}}
+                    <div class="percent mt-5">
                         @if($data['userKcal']->goal_kcal === 0)
                             <p>목표칼로리를 설정해주세요</p>
                         @else
-                            <h5 class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">영양비율</h5>
-                            <p class="ps-md-3 ps-xl-4 ps-xxl-5">
-                                <span class="fc-green">●</span> 칼로리
+                                <p>
+                                <span class="fc-green">■</span>
                                 {{(round(($data['total']['kcalTotal']*100)/($data['userKcal']->goal_kcal)))}} %
                             </p>
                         @endif
-                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
-                            <span class="fc-pink">●</span> 탄수화물
+                        <p>
+                            <span class="fc-pink">■</span>
                             {{(round(($data['total']['carbTotal']*100)/($data['total']['tdgTotal'])))}} %
                         </p>
-                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
-                            <span class="fc-yel">●</span> 단백질
+                        <p>
+                            <span class="fc-yel">■</span>
                             {{round(($data['total']['proteinTotal']*100)/($data['total']['tdgTotal']))}} %
                         </p>
-                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
-                            <span class="fc-blue">●</span> 지방
+                        <p>
+                            <span class="fc-blue">■</span>
                             {{round(($data['total']['fatTotal']*100)/($data['total']['tdgTotal']))}} %
                         </p>
                     </div>
@@ -97,8 +96,10 @@
             </div>
         </div>
         <div class="diet2 container text-center">
-            <h3 class="fw-bold">{{Auth::user()->user_name}}님의 식단</h3>
-            <div class="box3 row row-cols-1 row-cols-md-3">
+            <div class="medalbox my-3 my-md-5">
+                <span>{{Auth::user()->user_name}}님의 식단</span>
+            </div>
+            <div class="box3 row row-cols-3 ms-xl-5 ms-md-1 my-md-4 my-xl-5">
                 {{-- 일반식 또는 비건식 : 플래그 0번 또는 3번 --}}
                 @if((($data['userKcal']->nutrition_ratio)=='0') || (($data['userKcal']->nutrition_ratio)=='3'))
                     <div class="col">
@@ -154,49 +155,41 @@
                     </div>
                 @endif
             </div>
-            <div class="box4 row row-cols-1 row-cols-md-2 row-cols-xxl-2 my-2 my-xl-3">
-                <div class="todayKcal col pt-3">
-                    <p>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#538e04}</style><path d="M416 0C400 0 288 32 288 176V288c0 35.3 28.7 64 64 64h32V480c0 17.7 14.3 32 32 32s32-14.3 32-32V352 240 32c0-17.7-14.3-32-32-32zM64 16C64 7.8 57.9 1 49.7 .1S34.2 4.6 32.4 12.5L2.1 148.8C.7 155.1 0 161.5 0 167.9c0 45.9 35.1 83.6 80 87.7V480c0 17.7 14.3 32 32 32s32-14.3 32-32V255.6c44.9-4.1 80-41.8 80-87.7c0-6.4-.7-12.8-2.1-19.1L191.6 12.5c-1.8-8-9.3-13.3-17.4-12.4S160 7.8 160 16V150.2c0 5.4-4.4 9.8-9.8 9.8c-5.1 0-9.3-3.9-9.8-9L127.9 14.6C127.2 6.3 120.3 0 112 0s-15.2 6.3-15.9 14.6L83.7 151c-.5 5.1-4.7 9-9.8 9c-5.4 0-9.8-4.4-9.8-9.8V16zm48.3 152l-.3 0-.3 0 .3-.7 .3 .7z"/></svg>
-                        </span>
-                        &nbsp;총&nbsp;<span class="fc-green fw-bold">{{$data['total']['kcalTotal']}}</span> Kcal 먹었어요.
-                    </p>                    
+            <div class="box4 row row-cols-1 row-cols-md-2 row-cols-xl-1 row-cols-xxl-2">
+                <div class="todayKcal col my-2">
+                    총
+                    <span class="fsBig">{{$data['total']['kcalTotal']}}</span>Kcal 먹었어요.<br>
                     @if ($data['userKcal']->goal_kcal < $data['total']['kcalTotal'])
-                        <p>
-                            <span class="fc-red fw-bold">
-                                {{($data['total']['kcalTotal']) - ($data['userKcal']->goal_kcal)}}
-                            </span>
-                            KCAL 만큼 초과했습니다
-                        </p>
+                        <span class="fsBig fc-red">
+                            {{($data['total']['kcalTotal']) - ($data['userKcal']->goal_kcal)}}
+                        </span>
+                        KCAL 만큼 초과했습니다<span><span>
                     @else
-                        <p>
-                            <span class="fc-blue">
-                                {{($data['userKcal']->goal_kcal) - ($data['total']['kcalTotal'])}}
-                            </span>
-                            KCAL 더 먹을 수 있어요!
-                        </p>
+                        <span class="fsBig fc-blue2">
+                            {{($data['userKcal']->goal_kcal) - ($data['total']['kcalTotal'])}}
+                        </span>
+                        KCAL 더 먹을 수 있어요!
                     @endif
                 </div>
                 {{-- 목표 칼로리 출력 --}}
                 @if($data['userKcal']->goal_kcal === 0)
-                    <div class="goalKcal col pt-3">
+                    <div class="col mt-4">
                         <p>정확한 식단 관리를 위해 목표칼로리와 식단을 설정해주세요.</p>
                         <p><a href="#">목표칼로리 & 식단설정 바로가기</a></p>
                     </div>
                 @else
-                    <div class="goalKcal col pt-3">
-                        <p><span class="fw-bold">목표 칼로리</span> {{$data['userKcal']->goal_kcal}}</p>
+                    <div class="col mt-4">
+                        <p>나의 목표 칼로리 : {{$data['userKcal']->goal_kcal}}</p>
                         @if(($data['userKcal']->nutrition_ratio) == '0')
-                            <p><span class="fw-bold">일반식단</span> 탄50 : 단30 : 지20</p>
+                            <p>나의 식단(일반식단) : 탄50 : 단30 : 지20</p>
                         @elseif(($data['userKcal']->nutrition_ratio) == '1')
-                            <p><span class="fw-bold">운동식단</span> 탄40 : 단40 : 지20</p>
+                            <p>나의 식단(운동식단) : 탄40 : 단40 : 지20</p>
                         @elseif(($data['userKcal']->nutrition_ratio) == '2')
-                            <p><span class="fw-bold">키토식단</span>탄8 : 단22 : 지88</p>
+                            <p>나의 식단(키토식단) : 탄8 : 단22 : 지88</p>
                         @elseif(($data['userKcal']->nutrition_ratio) == '3')
-                            <p><span class="fw-bold">비건식단</span> 탄50 : 단30 : 지20</p>
+                            <p>나의 식단(비건식단) : 탄50 : 단30 : 지20</p>
                         @else
-                            <p>식단설정을 확인해주세요.</p>
+                            <p>잘못된 식단입니다.</p>
                         @endif
                     </div>
                 @endif
@@ -206,189 +199,160 @@
     <hr class="fc-green">
 
     <div class="dietArea">
-        <div id="brfArea">
         {{-- 아침 식단 --}}
-            {{-- 아침 식단이 존재하는 경우 --}}
-            @if(isset($data['dietFood']['dietBrf'][0]->d_id))
-                <div class="flgBox text-center" id="brfBtn">
-                    아침
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="me-3">
-                        <span class="fc-green downbtn1">▲</span>
-                        <span class="fc-green upbtn1">▼</span>
-                    </button>
-                </div>
-                <div class="diet">
-                    <div class="food container pb-3">
-                        <div class="row row-cols-2 row-cols-md-4 mx-auto p-3 p-xl-4 text-md-center">
-                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['brfSum']['brfKcalSum']}} Kcal</div>
-                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['brfSum']['brfCarbSum']}} g</div>
-                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['brfProteinSum']}} g</div>
-                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
-                        </div>
+        <div class="flgBox text-center" id="brfBtn">
+            아침
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <span class="fc-green downbtn1">▲</span>
+                <span class="fc-green upbtn1">▼</span>
+            </button>
+        </div>
+        <div class="diet">
+            <div class="food container">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 mx-auto">
+                    <div class="col"><span class="fc-green">■</span>칼로리 {{$data['brfSum']['brfKcalSum']}} Kcal</div>
+                    <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['brfSum']['brfCarbSum']}} g</div>
+                    <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['brfProteinSum']}} g</div>
+                    <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
+                    <div class="col">
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                            @csrf
+                            <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
+                            <input type="hidden" name="time" value="0">
+                            <button type="submit" class="btn btn-success">음식추가</button>
+                        </form>
                     </div>
-                </div>
-                <div class="dietDetail">
-                    <div class="collapse" id="collapseExample">
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                {{-- 식단이 있는지 체크 --}}
-                                @if(isset($data['dietFood']['dietBrf'][0]->d_id))
-                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
-                                        <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietBrf'][0]->d_id])}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('put')
-                                            {{-- 식단은 있지만 사진이 있는지 체크 --}}
-                                            @if (isset($data['dietFood']['dietBrf'][0]->d_img_path))
-                                                <div class="imgBox">
-                                                    <img src="{{asset($data['dietFood']['dietBrf'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
-                                                </div>
-                                            @else
-                                                <div class="imgBox ms-2 ms-sm-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                                    </svg>
-                                                </div>
-                                            @endif
-                                            <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                            <div class="filebox my-2 text-center d-none">
-                                                <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
-                                                <label for="filebrf">파일찾기</label>
-                                                <input type="file" id="filebrf" name="dietImg">
-                                                <button type="submit" class="btnYg my-2">사진등록</button>
-                                            </div>
-                                        </form>                        
-                                    </div>
-                                @endif
-                                <div class="col-md-9 mx-auto">
-                                    <div class="card-body">
-                                        <div class="table-responsive text-center">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2">음식명</th>
-                                                        <th>칼로리</th>
-                                                        <th>탄수화물</th>
-                                                        <th>단백질</th>
-                                                        <th>지방</th>
-                                                        <th>당</th>
-                                                        <th>나트륨</th>
-                                                        <th>섭취량</th>
-                                                        <th>
-                                                            <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
-                                                                <input type="hidden" name="time" value="0">
-                                                                <button type="submit" class="btnYg">음식추가</button>
-                                                            </form>
-                                                        </th>
-                                                        <th>
-                                                            {{-- 식단이 존재할 경우에만 즐겨찾기 등록 버튼 출력 --}}
-                                                            @if(isset($data['dietFood']['dietBrf'][0]))
-                                                                <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal0">
-                                                                즐겨찾기
-                                                                </button>
-                                                                <!-- 즐겨찾기 등록 Modal -->
-                                                                <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                음식 목록<br>                                       
-                                                                                @foreach($data['dietFood']['dietBrf'] as $val)
-                                                                                    {{$val->food_name}}<br>
-                                                                                @endforeach
-                                                                                <form action="{{route('fav.insert')}}">
-                                                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
-                                                                                    <input type="hidden" name="d_flg" value="0">
-                                                                                    <input type="text" name="fav_name" required>
-                                                                                    <button type="submit">등록하기</button>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>                    
-                                                                </div>
-                                                            @endif
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>                                          
-                                                    @forelse($data['dietFood']['dietBrf'] as $val)
-                                                        <tr>
-                                                            <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST" style="display:inline-block">
-                                                                @csrf
-                                                                <td colspan="2">{{$val->food_name}}</td>
-                                                                <td>{{$val->kcal}}</td>
-                                                                <td>{{$val->carbs}}</td>
-                                                                <td>{{$val->protein}}</td>
-                                                                <td>{{$val->fat}}</td>
-                                                                <td>{{$val->sugar}}</td>
-                                                                <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
-                                                                <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                                                <td>
-                                                                    <button type="submit" class="editBtn">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 512 512"><style>svg{fill:#195f1c}</style><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>
-                                                                    </button>
-                                                                </td>
-                                                            </form>
-                                                            <td>
-                                                                <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post" style="display:inline-block">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <input type="hidden" value="{{$data['date'] ?? $data['today']}}" name="date">
-                                                                    <button type="submit" class="delBtn">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25"      height="25" fill="#195F1C" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                                                                        </svg>
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td colspan="2"></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>정보가없어요</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        <tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                    <div class="col">
+                        @if(isset($data['dietFood']['dietBrf'][0]))
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal0">
+                                즐겨찾기 등록
+                            </button>
+                            <!-- 즐겨찾기 등록 Modal -->
+                            <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            음식 목록<br>                                       
+                                            @foreach($data['dietFood']['dietBrf'] as $val)
+                                                {{$val->food_name}}<br>
+                                            @endforeach
+                                            <form action="{{route('fav.insert')}}">
+                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                <input type="hidden" name="d_flg" value="0">
+                                                <input type="text" name="fav_name" required>
+                                                <button type="submit">등록하기</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">닫기</button>
                                         </div>
                                     </div>
+                                </div>                    
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dietDetail">
+            <div class="collapse" id="collapseExample">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        {{-- 식단이 있는지 체크 --}}
+                        @if(isset($data['dietFood']['dietBrf'][0]->d_id))
+                            <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
+                                <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietBrf'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                    @if (isset($data['dietFood']['dietBrf'][0]->d_img_path))
+                                        <div class="imgBox">
+                                            <img src="{{asset($data['dietFood']['dietBrf'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                    @else
+                                        <div class="imgBox">사진을 추가해주세요</div>
+                                    @endif
+                                    <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                    <div class="filebox my-2">
+                                        <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
+                                        <label for="filebrf">파일찾기</label>
+                                        <input type="file" id="filebrf" name="dietImg">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">사진등록</button>
+                                </form>                        
+                            </div>
+                        @endif
+                        <div class="col-md-9 mx-auto">
+                            <div class="card-body">
+                                <div class="table-responsive text-center">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">음식명</th>
+                                                <th>칼로리</th>
+                                                <th>탄수화물</th>
+                                                <th>단백질</th>
+                                                <th>지방</th>
+                                                <th>당</th>
+                                                <th>나트륨</th>
+                                                <th>섭취량</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                          
+                                            @forelse($data['dietFood']['dietBrf'] as $val)
+                                                <tr>
+                                                    <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST" style="display:inline-block">
+                                                        @csrf
+                                                        <td colspan="2">{{$val->food_name}}</td>
+                                                        <td>{{$val->kcal}}</td>
+                                                        <td>{{$val->carbs}}</td>
+                                                        <td>{{$val->protein}}</td>
+                                                        <td>{{$val->fat}}</td>
+                                                        <td>{{$val->sugar}}</td>
+                                                        <td>{{$val->sodium}}</td>
+                                                        <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                                        <td><button type="submit">수정하기</button></td>
+                                                    </form>
+                                                    <td>
+                                                        <form action="{{route('home.delete', ['df_id' => $val->df_id])}}" method="post" style="display:inline-block">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="delBtn">삭제</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>정보가없어요</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                <tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @else
-            {{-- 아침 식단이 존재하지 않는 경우 음식 추가버튼만 출력 --}}  
-                <div class="flgBox text-center">
-                    아침&nbsp;
-                    <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
-                        @csrf
-                        <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
-                        <input type="hidden" name="time" value="0">
-                        <button type="submit" class="plusBtn">+</button>
-                    </form>
-                </div>
-            @endif
+            </div>
         </div>
-
 
         {{-- 점심 식단 --}}
         <div class="flgBox text-center" id="lunchBtn">
@@ -851,7 +815,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
