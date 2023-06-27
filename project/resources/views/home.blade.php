@@ -215,7 +215,8 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['brfProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
                     <div class="col">
-                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                            @csrf
                             <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                             <input type="hidden" name="time" value="0">
                             <button type="submit" class="btn btn-success">음식추가</button>
@@ -369,7 +370,8 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['lunchSum']['lunchProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['lunchSum']['lunchFatSum']}} g</div>
                     <div class="col">
-                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                            @csrf
                             <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                             <input type="hidden" name="time" value="1">
                             <button type="submit" class="btn btn-success">음식추가</button>
@@ -522,7 +524,8 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['dinnerSum']['dinnerProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['dinnerSum']['dinnerFatSum']}} g</div>
                     <div class="col">
-                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                            @csrf
                             <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                             <input type="hidden" name="time" value="2">
                             <button type="submit" class="btn btn-success">음식추가</button>
@@ -675,7 +678,8 @@
                     <div class="col"><span class="fc-yel">■</span>단백질 {{$data['snackSum']['snackProteinSum']}} g</div>
                     <div class="col"><span class="fc-blue">■</span>지방 {{$data['snackSum']['snackFatSum']}} g</div>
                     <div class="col">
-                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="get">
+                        <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                            @csrf
                             <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                             <input type="hidden" name="time" value="3">
                             <button type="submit" class="btn btn-success">음식추가</button>
