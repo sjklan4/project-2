@@ -86,3 +86,9 @@ $(document).ready(function(){
         $('#brfArea .filebox').removeClass('d-none');
     });
 });
+
+// const prev = document.getElementById('prevBtn');
+
+// prev.addEventListener('click',function(){
+//     alert("home");
+// });

@@ -11,8 +11,8 @@
 @section('contents')
 <div id="wrap">
     <div id="dateArea">
-        <div>
-            <a href="">
+        <div id="prevBtn">
+            <a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="#538E04"
                     class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                     <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
@@ -35,36 +35,45 @@
         </div>
     </div>    
     <hr class="fc-green">
+
     {{-- 상단 총 정보 --}}
     <div id="myDiet">
+        {{-- todo 처음가입한경우 --}}
+        {{-- 가입하고 아무런 식단정보가없을경우 --}}
+        {{-- @if((!$data['dietFood']['dietBrf']) && (!$data['dietFood']['dietLunch']) && (!$data['dietFood']['dietDinner']) && (!$data['dietFood']['dietSnack']))
+            <div id="layor">
+                <a href="{{route('user.prevateinfo')}}" class="btnYg" id="layorBtn">식단설정바로가기</a>
+            </div>
+        @endif             --}}
         <div class="diet1">
-            <div class="box1">
+            <div class="box1 mt-4">
                 <canvas id="doughnut-chart" width="60%" height="40"></canvas>
             </div>
             {{-- 먹은거 없을 때 오류 방지 --}}
-            {{-- todo 토탈칼로리 오류 수정해야함 --}}
+            {{-- todo 토탈칼로리 오류 수정해야함 & isset포함한 조건문 확인하기 !! --}}
             <div class="box2">
                 @if($data['total']['tdgTotal'] == 0)
-                    <div class="percent mt-5">
+                    <div class="percent pt-3">
                         @if($data['userKcal']->goal_kcal === 0)
-                            <p>목표칼로리를 설정해주세요</p>
+                            <p class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">목표칼로리를 설정해주세요</p>
                         @else
-                            <p>
+                            <h5 class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">영양비율</h5>
+                            <p class="ps-md-3 ps-xl-4 ps-xxl-5">
                                 <span class="fc-green">●</span>
-                                0 %
+                                칼로리 0 %
                             </p>
                         @endif
-                        <p>
+                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
                             <span class="fc-pink">●</span>
-                            0 %
+                            탄수화물 0 %
                         </p>
-                        <p>
+                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
                             <span class="fc-yel">●</span>
-                            0 %
+                            단백질 0 %
                         </p>
-                        <p>
+                        <p class="ps-md-3 ps-xl-4 ps-xxl-5">
                             <span class="fc-blue">●</span>
-                            0 %
+                            지방 0 %
                         </p>
                     </div>
                 @else
@@ -72,7 +81,7 @@
                     <div class="percent pt-3">
                         {{-- 목표 칼로리가 0(=기본값일 경우) --}}
                         @if($data['userKcal']->goal_kcal === 0)
-                            <p>목표칼로리를 설정해주세요</p>
+                            <p class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">목표칼로리를 설정해주세요</p>
                         @else
                             <h5 class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">영양비율</h5>
                             <p class="ps-md-3 ps-xl-4 ps-xxl-5">
@@ -97,7 +106,7 @@
             </div>
         </div>
         <div class="diet2 container text-center">
-            <h3 class="fw-bold">{{Auth::user()->user_name}}님의 식단</h3>
+            <h3 class="fw-bold mt-xl-4">{{Auth::user()->user_name}}님의 식단</h3>
             <div class="box3 row row-cols-1 row-cols-md-3">
                 {{-- 일반식 또는 비건식 : 플래그 0번 또는 3번 --}}
                 @if((($data['userKcal']->nutrition_ratio)=='0') || (($data['userKcal']->nutrition_ratio)=='3'))
@@ -154,11 +163,11 @@
                     </div>
                 @endif
             </div>
-            <div class="box4 row row-cols-1 row-cols-md-2 row-cols-xxl-2 my-2 my-xl-3">
+            <div class="box4 row row-cols-1 row-cols-md-2 row-cols-xxl-2 my-2 my-xl-4">
                 <div class="todayKcal col pt-3">
                     <p>
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#538e04}</style><path d="M416 0C400 0 288 32 288 176V288c0 35.3 28.7 64 64 64h32V480c0 17.7 14.3 32 32 32s32-14.3 32-32V352 240 32c0-17.7-14.3-32-32-32zM64 16C64 7.8 57.9 1 49.7 .1S34.2 4.6 32.4 12.5L2.1 148.8C.7 155.1 0 161.5 0 167.9c0 45.9 35.1 83.6 80 87.7V480c0 17.7 14.3 32 32 32s32-14.3 32-32V255.6c44.9-4.1 80-41.8 80-87.7c0-6.4-.7-12.8-2.1-19.1L191.6 12.5c-1.8-8-9.3-13.3-17.4-12.4S160 7.8 160 16V150.2c0 5.4-4.4 9.8-9.8 9.8c-5.1 0-9.3-3.9-9.8-9L127.9 14.6C127.2 6.3 120.3 0 112 0s-15.2 6.3-15.9 14.6L83.7 151c-.5 5.1-4.7 9-9.8 9c-5.4 0-9.8-4.4-9.8-9.8V16zm48.3 152l-.3 0-.3 0 .3-.7 .3 .7z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 448 512" fill="#538e04"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 0C400 0 288 32 288 176V288c0 35.3 28.7 64 64 64h32V480c0 17.7 14.3 32 32 32s32-14.3 32-32V352 240 32c0-17.7-14.3-32-32-32zM64 16C64 7.8 57.9 1 49.7 .1S34.2 4.6 32.4 12.5L2.1 148.8C.7 155.1 0 161.5 0 167.9c0 45.9 35.1 83.6 80 87.7V480c0 17.7 14.3 32 32 32s32-14.3 32-32V255.6c44.9-4.1 80-41.8 80-87.7c0-6.4-.7-12.8-2.1-19.1L191.6 12.5c-1.8-8-9.3-13.3-17.4-12.4S160 7.8 160 16V150.2c0 5.4-4.4 9.8-9.8 9.8c-5.1 0-9.3-3.9-9.8-9L127.9 14.6C127.2 6.3 120.3 0 112 0s-15.2 6.3-15.9 14.6L83.7 151c-.5 5.1-4.7 9-9.8 9c-5.4 0-9.8-4.4-9.8-9.8V16zm48.3 152l-.3 0-.3 0 .3-.7 .3 .7z"/></svg>
                         </span>
                         &nbsp;총&nbsp;<span class="fc-green fw-bold">{{$data['total']['kcalTotal']}}</span> Kcal 먹었어요.
                     </p>                    
@@ -168,13 +177,25 @@
                                 {{($data['total']['kcalTotal']) - ($data['userKcal']->goal_kcal)}}
                             </span>
                             KCAL 만큼 초과했습니다
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ff0000" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                                </svg>
+                            </span>
                         </p>
                     @else
                         <p>
-                            <span class="fc-blue">
+                            <span class="fc-blue fw-bold">
                                 {{($data['userKcal']->goal_kcal) - ($data['total']['kcalTotal'])}}
                             </span>
-                            KCAL 더 먹을 수 있어요!
+                            KCAL 더 먹을 수 있어요
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#6799E4" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                                </svg>
+                            </span>
                         </p>
                     @endif
                 </div>
@@ -182,7 +203,7 @@
                 @if($data['userKcal']->goal_kcal === 0)
                     <div class="goalKcal col pt-3">
                         <p>정확한 식단 관리를 위해 목표칼로리와 식단을 설정해주세요.</p>
-                        <p><a href="#">목표칼로리 & 식단설정 바로가기</a></p>
+                        <p><a href="{{route('user.prevateinfo')}}">목표칼로리 & 식단설정 바로가기</a></p>
                     </div>
                 @else
                     <div class="goalKcal col pt-3">
@@ -203,6 +224,7 @@
             </div>
         </div>
     </div>
+
     <hr class="fc-green">
 
     <div class="dietArea">
@@ -233,7 +255,7 @@
                             <div class="row g-0">
                                 {{-- 식단이 있는지 체크 --}}
                                 @if(isset($data['dietFood']['dietBrf'][0]->d_id))
-                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5" style="max-width:350px;">
+                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
                                         <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietBrf'][0]->d_id])}}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             @method('put')
@@ -335,7 +357,7 @@
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <td>
                                                                     <button type="submit" class="editBtn">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 512 512"><style>svg{fill:#195f1c}</style><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 512 512" class="greenIcon"><style>svg.greenIcon{fill:#195f1c}</style><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>
                                                                     </button>
                                                                 </td>
                                                             </form>

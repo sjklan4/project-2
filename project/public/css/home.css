@@ -13,7 +13,7 @@
     text-align: center;
 }
 .fc-green{
-    color: rgb(83, 142, 4);
+    color: #538e04;
 }
 .fc-pink{
     color: #EE6666;
@@ -123,6 +123,23 @@ input[type="date"]:valid::before {
 
 
 /* 마이 칼로리 */
+div#layor{
+    width: 95vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+}
+a#layorBtn{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 5;
+    text-decoration: none;
+}
+a#layorBtn:hover{
+    color: #ffffff;
+}
 #myDiet{
     width: 95vw;
     margin: 0 auto 40px;
@@ -145,6 +162,7 @@ div.diet2 > h3{
     margin: 15px auto 0px;
     width: 95%;
     border-radius: 15px 15px 0 0;
+    box-shadow: rgba(11,15,25,.06) 3.95px 5.95px 9.6px;
 }
 div.box1{
     width: 70%;
@@ -157,18 +175,20 @@ div.box3{
     margin: 0 auto;
     background: #ffffff;
     padding: 20px;
+    box-shadow: rgba(11,15,25,.06) 3.95px 5.95px 9.6px;
+    border-radius: 0 0 10px 10px;
 }
 div.box4{
     width: 95%;
     margin: 0 auto;
     border-radius: 10px;
     background: #ffffff;
-    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    box-shadow: rgba(11,15,25,.06) 3.95px 5.95px 9.6px;
 }
 .percent{
     background: #fffff0;
     width: 85%;
-    height: 85%;
+    height: 88%;
     margin: 50px auto 0px;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
     border-radius: 10px;
