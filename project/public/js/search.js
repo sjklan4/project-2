@@ -6,6 +6,8 @@ const fav_diets = document.getElementsByClassName('fav_diets')
 const user_select = document.getElementsByClassName('user_select')
 const uselect = document.getElementsByClassName('uselect')
 const nosearch = document.querySelector('.nosearch')
+const userving = document.getElementsByClassName('userving')
+const check = document.querySelector('#usercheck')
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
@@ -102,3 +104,12 @@ tab2.addEventListener('click', () => {
     // nosearch.style.display = 'none'
     // location.reload();
 });
+
+// ---------------------------- input > checkbox ----------------------------
+
+// input.oninput = function() {
+//     if (input.value == null) {
+//         check.style.display = 'none';
+//     }
+//     check.style.display = 'block';
+// };

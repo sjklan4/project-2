@@ -13,7 +13,8 @@
                 <tr>
                     <th class="passth" colspan="2"><label for="password">기존비밀번호  </label></th>
                     <td colspan="2">
-                        <input type="password" name="bpassword" id="bpassword" placeholder="비밀번호를 입력해 주세요"><button type="button" id="passwordchk" class="greenBtn" >확인</button>
+                        <input type="password" name="bpassword" id="bpassword" placeholder="비밀번호를 입력해 주세요">
+                        <button type="button" id="passwordchk" class="greenBtn" >확인</button>
                     </td>
                     <span id="passworderror"></span>
                 </tr>
