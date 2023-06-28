@@ -47,25 +47,28 @@ class QuestController extends Controller
             return redirect()->route('user.login');
         }
 
-        // 퀘스트 로그 정보 생성
-        $quest = QuestCate::find($req->id);
-        $quest_period = $quest->min_period;
+        DB::transaction(function () use ($req) {
+            // 퀘스트 로그 정보 획득
+            $quest = QuestCate::find($req->id);
+            $quest_period = $quest->min_period;
 
-        // todo 트랜잭션
-
-        $quest_status_id = QuestStatus::insertGetId([
-            'user_id'           => Auth::user()->user_id,
-            'quest_cate_id'     => $req->id,
-            'created_at'        => now()
-        ]);
-
-        for ($i=0; $i < $quest_period; $i++) { 
-            $questLog = new QuestLog([
-                'quest_status_id'   => $quest_status_id,
-                'effective_date'    => Carbon::now()->addDays($i)->format("Y-m-d"),
+            // 퀘스트 스탯 테이블 인서트
+            $quest_status_id = QuestStatus::insertGetId([
+                'user_id'           => Auth::user()->user_id,
+                'quest_cate_id'     => $req->id,
+                'created_at'        => now()
             ]);
-            $questLog->save();
-        }
+            
+            // 퀘스트 로그 테이블 인서트
+            for ($i=0; $i < $quest_period; $i++) { 
+                $questLog = new QuestLog([
+                    'quest_status_id'   => $quest_status_id,
+                    'effective_date'    => Carbon::now()->addDays($i)->format("Y-m-d"),
+                ]);
+                $questLog->save();
+            }
+        });
+        
         
         // 퀘스트 관리 페이지 리턴
         return redirect()->route('quest.show');
