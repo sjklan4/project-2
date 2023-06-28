@@ -18,7 +18,6 @@ class BoardFactory extends Factory
     {
         return [
             'user_id'       => $this->faker->unique()->randomNumber(2)
-            ,'nkname'       => $this->faker->unique()->word()
             ,'btitle'       => $this->faker->unique()->realText(15)
             ,'bcontent'     => $this->faker->realText(1000)
             ,'bcate_id'     => $this->faker->numberBetween(1, 5)

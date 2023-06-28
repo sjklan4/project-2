@@ -42,7 +42,7 @@ a, a:hover {
     height: 70vh; }
 
 .footer-95942 {
-    padding: 7rem 0 2rem;
+    padding: 6rem 0 2rem;
 }
 .footer-95942 .social.app {
     font-size: 13px; 
@@ -56,4 +56,14 @@ a, a:hover {
     color: #000000; }
     .footer-95942 .social li a:hover {
     color: #195F1C; 
+}
+
+@media only screen and (max-width: 800px) {
+    .footer-95942 {
+        padding: 2rem 0 2rem;
+    }
+
+    .align-items-center > div:nth-child(1), .align-items-center > div:nth-child(3){
+        display: none;
+    }
 }

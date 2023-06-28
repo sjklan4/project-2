@@ -1,135 +1,12 @@
-@media(max-width:500px){
-    
-}
 * {
     margin: 0 auto;
 }
-/* 자주먹는 식단, 선택된 음식 탭 */
+/* 자주먹는 식단, 선택된 음식 탭 숨기기 및 내부 여백 */
 .fav_diets, .user_select {
     display: none;
-}
-/* 검색 폼 */
-.searchform{
-    margin-top: 5em;
-    text-align: center;
-}
-/* 전체를 감싸는 div */
-.searchContainer {
-    width: 910px;
-    height: 1000px;
-    background: #FFFFF0;
-    margin-top:0px;
-    box-shadow: 0px 12px 30px #ECECEC;
-}
-/* 자주먹는 식단, 선택한 음식 내용 */
-.fav_diets, .user_select {
     padding:3em;
     padding-top:0.5em;
-    /* margin-top: 0.5em; */
-}
-.search_result{
-    margin:1em;
-}
-#usercheck{
-    position:absolute;
-    right:3em;
-}
-.searchdiv{
-    position:relative;
-}
-.resetbtn{
-    border: none;
-    width: 50px;
-    height:50px;
-    background: transparent;
-    color:#000;
-    position:absolute;
-    right:130px;
-    top:13px;
-}
-.resetbtn:hover {
-    background: transparent;
-}
-/* hr */
-.search_hr, .select_food, .select_diet{
-    width:713px;
-}
-/* 검색 결과 */
-.user_search{
-    overflow:scroll;
-    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
-    overflow-y: auto; /* 세로 스크롤바 활성화 */
-    margin-top:2em;
-    width:800px;
-    height: 800px;
-    position:relative;
-}
-.fav_diets{
-    overflow:scroll;
-    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
-    overflow-y: auto; /* 세로 스크롤바 활성화 */
-    width:800px;
-    height: 800px;
-    position:relative;
-}
-/* 스크롤 */
-.user_search::-webkit-scrollbar, .fav_diets::-webkit-scrollbar {
-    width:9px;
-    background-color: transparent;
-}
-.user_search::-webkit-scrollbar-thumb, .fav_diets::-webkit-scrollbar-thumb {
-    background-color: #538E04;
-    border-radius: 20px;
-}
-.user_search::-webkit-scrollbar-track, .fav_diets::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-/* 인분 수 input */
-#userving{
-    border:0 solid black;
-    border-bottom: 1px solid #000;
-    outline: none;
-    background-color: transparent;
-}
-
-.usercreate{
-    color:#919191;
-}
-
-.div_hr{
-    width:40vw;
-}
-
-hr {
-    margin: 0;
-    width:910px;
-    text-align: center;
-}
-.search_div{
-    height:130px;
-}
-.searchip{
-    border:0 solid black;
-    border-bottom: 1px solid #000;
-    outline: none;
-    background-color: #FFFFF0;
-    width:735px;
-    height: 30px;
-    padding-right: 1em;
-    margin-top: 1.5em;
-}
-.searchbtn{
-    border : none;
-    border-radius: 20px;
-    background:transparent;
-}
-.delete_btn{
-    width:20px;
-    height:20px;
-    border: none;
-    border-radius: 50px;
-    background-color: #acacac;
+    padding-bottom:0px;
 }
 /* tab 버튼 */
 ul{
@@ -139,7 +16,6 @@ ul{
 .tab1, .tab2, .tab3{
     float:left;
     margin-top: 1em;
-    
     padding-top:0.5em;
     text-align: center;
 }
@@ -169,6 +45,153 @@ ul{
     background-color: rgba(165, 190, 228, 0.5);
     border-radius: 15px;
 }
+
+/* 전체를 감싸는 div */
+.searchContainer {
+    width: 910px;
+    height: 1100px;
+    background: #FFFFF0;
+    margin-top:0px;
+    box-shadow: 0px 12px 30px #ECECEC;
+}
+/* 검색 폼 div */
+.searchdiv{
+    position:relative;
+    height:70px;
+}
+/* 검색 폼 */
+.searchform{
+    margin-top: 5em;
+    text-align: center;
+}
+/* 검색 폼 안에 있는 리셋 버튼(검색어 초기화) */
+.resetbtn{
+    border: none;
+    width: 50px;
+    height:50px;
+    background: transparent;
+    color:#000;
+    position:absolute;
+    right:130px;
+    top:13px;
+}
+.resetbtn:hover {
+    background: transparent;
+}
+/* 검색 결과와 함께 보이는 checkbox */
+#usercheck{
+    display: none;
+    position:absolute;
+    right:3em;
+}
+/* 검색 결과 div */
+.search_result{
+    margin:1em;
+}
+.searchip{ /* 검색 폼 input */
+    border:0 solid black;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: #FFFFF0;
+    width:735px;
+    height: 30px;
+    padding-right: 1em;
+    margin-top: 1.5em;
+}
+.searchbtn{ /* 검색(돋보기)버튼 */
+    border : none;
+    border-radius: 20px;
+    background:transparent;
+}
+/* 검색 시 사용자 등록 음식 표시 */
+.usercreate{
+    color:#919191;
+}
+/* 검색어 입력 안 했을 시 뜨는 span */
+.nosearch{
+    color:#919191;
+    font-weight: 400;
+    text-align: center;
+    /* padding-top:23em; */
+}
+
+/* 자주먹는 식단 div */
+#fav_food, .fav_diet{
+    /* padding:1.5em; */
+    margin:0;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width:710px;
+    height: 300px;
+    background-color: #fff;
+}
+/* 자주 먹는 식단명 */
+.favname{
+    padding-bottom:1.5em;
+    font-weight: 400;
+}
+/* 자주먹는 식단 div, 음식 영양성분 */
+.diet_div{
+    margin:0.5em;
+    padding:1rem;
+    background-color: #fff;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+    /* border-radius: 10px;
+    border: 0.5px solid #acacac; */
+}
+.dietinfo{
+    padding-top:5px;
+}
+
+/* 인분 수 input */
+#userving{
+    border:0 solid black;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: transparent;
+}
+/* 선택된 음식/식단 정보 삭제 버튼 */
+.delete_btn{ 
+    width:20px;
+    height:20px;
+    border: none;
+    border-radius: 50px;
+    background-color: #acacac;
+    color:#000;
+}
+
+/* hr */
+.search_hr, .select_food, .select_diet{
+    width:713px;
+}
+.div_hr{
+    width:40vw;
+}
+
+/* 검색 결과 및 저장된 식단(즐겨찾기) 스크롤*/
+.user_search, .fav_scroll{
+    overflow:scroll;
+    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
+    overflow-y: auto; /* 세로 스크롤바 활성화 */
+    margin-top:2em;
+    width:800px;
+    height: 750px;
+    position:relative;
+}
+.user_search::-webkit-scrollbar, .fav_scroll::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_diet::-webkit-scrollbar {
+    width:9px;
+    background-color: transparent;
+}
+.user_search::-webkit-scrollbar-thumb, .fav_scroll::-webkit-scrollbar-thumb, #fav_food::-webkit-scrollbar-thumb, .fav_diet::-webkit-scrollbar-thumb {
+    background-color: #538E04;
+    border-radius: 20px;
+}
+.user_search::-webkit-scrollbar-track, .fav_scroll::-webkit-scrollbar-track, #fav_food::-webkit-scrollbar-track, .fav_diet::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
 /* checkbox */
 input[type="checkbox"]{
     -webkit-appearance: none; /* -webkit-appearance : 요소의 자체 구성요소 숨기기 / 사파리 & 크롬 적용 */
@@ -206,37 +229,8 @@ input[type="checkbox"]:checked::before {
     transform: scale(1) translate(-50%, -50%) 
     /* scale(1) : 해당 요소의 본래 치수를 유지하고 그 이상의 값 > 늘림 그 이하의 값 < 줄임*/
 }
-.favname{
-    padding-bottom:1.5em;
-    font-weight: 400;
-}
-/* .ffoodname{
-    margin:1em;
-} */
-/* 검색어 입력 안 했을 시 뜨는 span */
-.nosearch{
-    color:#919191;
-    font-weight: 400;
-    text-align: center;
-    /* padding-top:23em; */
-}
-/* 자주먹는 식단 > 음식 */
-.diet_div{
-    margin:0.5em;
-    padding:1rem;
-    background-color: #fff;
-    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
-    /* border-radius: 10px;
-    border: 0.5px solid #acacac; */
-}
-.dietinfo{
-    padding-top:5px;
-}
-/* 자주먹는 식단 div */
-.fav_food, .fav_diet{
-    padding:1.5em;
-}
 
+/* 버튼 */
 button {
     background-color: #c1c1c1;
     border: none;
@@ -247,15 +241,12 @@ button {
     padding: 1.5em auto;
     border-radius: 3px;
 }
-
 button:hover {
     background-color: #9D9D9D;
 }
-
 #greenBtn:hover {
     background-color: #195F1C;
 }
-
 #greenBtn {
     background-color: #538E04;
 }

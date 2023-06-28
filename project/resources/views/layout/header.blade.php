@@ -1,7 +1,7 @@
 <div class="nav-top"></div>
 <section class="navigation">
     <div class="nav-container">
-        <div class="brand">
+        <div class="brand ps-3 ps-sm-none">
             <a href="{{route('home')}}">
                 <img src="{{asset('img/logo.png')}}" alt="logo">
             </a>
