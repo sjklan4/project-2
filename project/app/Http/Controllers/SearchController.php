@@ -161,6 +161,7 @@ class SearchController extends Controller
         ->where('fav_diets.user_id', $id)
         ->get();
 
+        // 선택된 음식
         $seleted = DB::table('food_carts')
         ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
@@ -238,10 +239,10 @@ class SearchController extends Controller
             'time' => $req->time
         ];
 
-        // session([
-        //     'date' => $req->date,
-        //     'time' => $req->time
-        // ]);
+        session([
+            'date' => $req->date,
+            'time' => $req->time
+        ]);
 
         // v002 
         // 검색 정보
@@ -257,7 +258,9 @@ class SearchController extends Controller
                 ->get();
                 // ->Paginate(10);
 
-                return view('FoodList')->with('foods', $foods)
+                return view('FoodList')
+                ->with('uinput', $usersearch)
+                ->with('foods', $foods)
                 ->with('dietname', $dietnames)
                 ->with('dietfood', $dietfoods)
                 ->with('seleted', $seleted)
@@ -275,6 +278,7 @@ class SearchController extends Controller
             // ->Paginate(10);
 
             return view('FoodList')
+            ->with('uinput', $usersearch)
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
@@ -285,6 +289,7 @@ class SearchController extends Controller
             ->with('data', $data);
         }
         return view('FoodList')
+        ->with('uinput', $usersearch)
         ->with('dietname', $dietnames)
         ->with('dietfood', $dietfoods)
         ->with('seleted', $seleted)
@@ -337,7 +342,7 @@ class SearchController extends Controller
 
         // ! 식단 입력
         // v00
-        if(empty($arr_cart[0][1])){
+        if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
             if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
                 for($e=0; $e<count($arraydiet); $e++){
                     $insertDF = new DietFood([

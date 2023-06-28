@@ -20,15 +20,16 @@
                     <tr>
                         @for($i = 0; $i < count($favname); $i++)
                         <th>
+                            <span hidden>{{$favname[$i]->fav_id}}</span>
                             <a href="{{route('fav.favfoodinfo', ['fav_id' => $favname[$i]->fav_id])}}" class ="favdietname">{{$favname[$i]->fav_name}}</a>
+
+                            {{-- <span class="del-diet" id="del-diet">
+                                <a href="{{route('fav.delete', $favname[$i]->fav_id)}}" class="del-diet">X</a>
+                            </span> --}}
                         </th>
                         <td>
                             @foreach ($favfood[$i] as $item)
                             <span>{{$item->food_name}}</span>
-                            {{-- <span class="del-diet" id="del-diet">
-                                <a href="{{route('fav.delete', $item->fav_id)}}" class="del-diet">X</a>
-                                <p class="arrow_box-diet">등록하신 식단이 삭제 됩니다.</p>
-                            </span> --}}
                             @endforeach
                         </td>
                     </tr>
@@ -37,7 +38,6 @@
             </div>
 
             <div class="foodnutri">
-                
                 <form action="{{route('fav.intakeupdate')}}" method="post">
                     @csrf
                 @if (isset($foodinfo))
@@ -52,23 +52,36 @@
                             <th>
                                 <span>{{$item->food_name}}</span>
                             </th>
-                            
-                            <td><span><i class="bi bi-asterisk"></i>칼로리 : {{$item->kcal}}</span></td>  
-                            <td><span><i class="bi bi-asterisk"></i>탄수화물 : {{$item->carbs}}</span></td>
-                            <td><span><i class="bi bi-asterisk"></i>지방 : {{$item->fat}}</span></td> 
-                            <td><span><i class="bi bi-asterisk"></i>단백질 : {{$item->protein}}</span></td>             
-                            <td><span>당분 : {{$item->sugar}}</span></td>                                                  
-                            <td><span>나트륨 : {{$item->sodium}}</span></td>                   
+                            <td>
+                                <span><i class="bi bi-asterisk"></i>칼로리 : {{$item->kcal}}</span>
+                            </td>  
+                            <td>
+                                <span><i class="bi bi-asterisk"></i>탄수화물 : {{$item->carbs}}</span>
+                            </td>
+                            <td>
+                                <span><i class="bi bi-asterisk"></i>지방 : {{$item->fat}}</span>
+                            </td> 
+                            <td>
+                                <span><i class="bi bi-asterisk"></i>단백질 : {{$item->protein}}</span>
+                            </td>             
+                            <td>
+                                <span>당분 : {{$item->sugar}}</span>
+                            </td>                                                  
+                            <td>
+                                <span>나트륨 : {{$item->sodium}}</span>
+                            </td>                   
                                 <label for="intake">
-                            <td><input type="number" name="intake[]" id="intake">인분</label></td>
+                            <td><input type="number" name="intake[]" id="intake" value={{$item->fav_f_intake}}  required>인분</label>
+                            </td>
                             <td><span class="del-food" id="del-food">
                                     <a href="{{route('fav.del', $item->fav_f_id)}}" class="del-food">X</a>
                                 <p class="arrow_box">등록하신 음식이 삭제 됩니다.</p></span>
                             </td>
                             </tr>
                     </table>
-                    @endforeach 
+                    @endforeach
                     <div class="submitbtn">
+                        <button type="button" onclick="location.href='{{route('fav.delete', $id)}}'" id="greenBtn">삭  제</button>
                         <button type="submit" id="greenBtn">수  정</button>
                     </div>
                 @endif
