@@ -31,6 +31,7 @@
     margin:1em;
 }
 #usercheck{
+    display: none;
     position:absolute;
     right:3em;
 }

@@ -142,6 +142,18 @@ class ApiController extends Controller
         ]);
         $cart->save();
 
+        $seleted = DB::table('food_carts')
+        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+        ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
+        ->where('food_carts.user_id', $user_id)
+        ->get();
+
+        // $seleted_diet = DB::table('food_carts')
+        // ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+        // ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
+        // ->where('food_carts.user_id', $user_id)
+        // ->get();
+        
         $arr = [
             'error' => '0'
             ,'msg' => ''
@@ -153,9 +165,9 @@ class ApiController extends Controller
         }else{
             $arr['error'] = '2';
             $arr['msg'] = 'success';
-            $arr['data'] = $cart->only('food_id', 'user_id', 'amount');
+            $arr['data'] = $seleted->only('food_id', 'food_name', 'amount');
         }
-        return $arr;
+        return response()->json($seleted);
     }
     public function postFoodCart2($user_id, $fav_id){
         $cart = new FoodCart([
@@ -214,10 +226,7 @@ class ApiController extends Controller
             $arr['error'] = '2';
             $arr['msg'] = 'success';
             $arr['data'] = $seleted->only('food_id', 'food_name', 'amount');
-            // $arr['data1'] = $seleted->only('amount', 'food_name');
-            // $arr['data2'] = $seleted_diet->only('fav_name');
         }
         return response()->json($seleted);
-        // return $arr;
     }
 }
