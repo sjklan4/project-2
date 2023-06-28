@@ -43,7 +43,6 @@ class SearchController extends Controller
         ->where('user_id', $id)
         ->whereNull('deleted_at')
         ->get();
-        // ->Paginate(10);
 
         $dietfoods = DB::table('food_infos')
         ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
@@ -65,66 +64,6 @@ class SearchController extends Controller
         ->where('food_carts.user_id', $id)
         ->get();
 
-        // todo : 최근 먹은 음식 쿼리 수정 필요
-        // $recent = DB::table('diets')
-        // ->select('diets.user_id', 'diet_food.food_id', 'diet_food.created_at')
-        // ->join('diet_food', 'diets.d_id', 'diet_food.d_id')
-        // ->whereRaw('created_at <= DATE_ADD(now(), INTERVAL -7 DAY)')
-        // ->where('diets.user_id', $id)
-        // ->get();
-
-        // todo : 0.5인분 일 경우에는 /0.5 그 이상일 경우 *@ 
-        // foreach ($dietfoods as $key) {
-        //     if($key->fav_f_intake === 0.5){
-        //         $total_nutrient[] = [
-        //             // intval($key->kcal * 0.5),
-        //             // intval($key->carbs * 0.5),
-        //             // intval($key->protein * 0.5),
-        //             // intval($key->fat * 0.5),
-        //             // intval($key->sugar * 0.5),
-        //             // intval($key->sodium * 0.5)
-        //             'kcal' => intval($key->kcal * 0.5),
-        //             'carbs' => intval($key->carbs * 0.5),
-        //             'protein' => intval($key->protein * 0.5),
-        //             'fat' => intval($key->fat * 0.5),
-        //             'sugar' => intval($key->sugar * 0.5),
-        //             'sodium' => intval($key->sodium * 0.5),
-        //         ];
-                
-        //     }else if($key->fav_f_intake === 1){
-        //         $total_nutrient[] = [
-        //             // intval($key->kcal),
-        //             // intval($key->carbs),
-        //             // intval($key->protein),
-        //             // intval($key->fat),
-        //             // intval($key->sugar),
-        //             // intval($key->sodium)
-        //             'kcal' => intval($key->kcal),
-        //             'carbs' => intval($key->carbs),
-        //             'protein' => intval($key->protein),
-        //             'fat' => intval($key->fat),
-        //             'sugar' => intval($key->sugar),
-        //             'sodium' => intval($key->sodium),
-        //         ];
-        //     }else{
-        //         $total_nutrient[] = [
-        //             // intval($key->kcal * $key->fav_f_intake),
-        //             // intval($key->carbs * $key->fav_f_intake),
-        //             // intval($key->protein * $key->fav_f_intake),
-        //             // intval($key->fat * $key->fav_f_intake),
-        //             // intval($key->sugar * $key->fav_f_intake),
-        //             // intval($key->sodium * $key->fav_f_intake)
-        //             'kcal' => intval($key->kcal * $key->fav_f_intake),
-        //             'carbs' => intval($key->carbs * $key->fav_f_intake),
-        //             'protein' => intval($key->protein * $key->fav_f_intake),
-        //             'fat' => intval($key->fat * $key->fav_f_intake),
-        //             'sugar' => intval($key->sugar * $key->fav_f_intake),
-        //             'sodium' => intval($key->sodium * $key->fav_f_intake),
-        //         ];
-        //     }
-        // }
-        // var_dump($total_nutrient);
-        // exit;
         $data = [
             'date' => $req->date,
             'time' => $req->time
@@ -147,7 +86,6 @@ class SearchController extends Controller
                 ->where('userfood_flg', '0')
                 ->orWhere('user_id', $id)
                 ->get();
-                // ->Paginate(10);
 
                 return view('FoodList')
                 ->with('uinput', $usersearch)
@@ -156,8 +94,6 @@ class SearchController extends Controller
                 ->with('dietfood', $dietfoods)
                 ->with('seleted', $seleted)
                 ->with('seleted_diet', $seleted_diet)
-                // ->with('recent', $recent)
-                // ->with('total', $total_nutrient)
                 ->with('data', $data);
             }
 
@@ -166,7 +102,6 @@ class SearchController extends Controller
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where('userfood_flg', '0')
             ->get();
-            // ->Paginate(10);
 
             return view('FoodList')
             ->with('uinput', $usersearch)
@@ -175,8 +110,6 @@ class SearchController extends Controller
             ->with('dietfood', $dietfoods)
             ->with('seleted', $seleted)
             ->with('seleted_diet', $seleted_diet)
-            // ->with('recent', $recent)
-            // ->with('total', $total_nutrient)
             ->with('data', $data);
         }
         return view('FoodList')
@@ -185,8 +118,6 @@ class SearchController extends Controller
         ->with('dietfood', $dietfoods)
         ->with('seleted', $seleted)
         ->with('seleted_diet', $seleted_diet)
-        // ->with('recent', $recent)
-        // ->with('total', $total_nutrient)
         ->with('data', $data);
     }
 
@@ -315,7 +246,6 @@ class SearchController extends Controller
             }
     
             $sum = $arr_cart[0][1];
-            // todo : 계산 전 값이 입력되지 않도록 하기
             // ? 인분 수 계산식
             for ($i=0; $i < count($arr_cart); $i++) { 
                 for ($z=1; $z <= $i; $z++) {
@@ -338,7 +268,6 @@ class SearchController extends Controller
                 }
     
                 // ? 데이터베이스 입력
-                // todo : 여러 개의 음식 선택 후 입력 버튼을 누를 시 계산이 안 된 첫 번째 값과 계산이 된 값 두 개가 데이터베이스에 저장됨
                 $insertDF = new DietFood([
                     'food_id' => $arr_cart[$i][0],
                     'd_id' => $selete_d_id,
@@ -348,10 +277,8 @@ class SearchController extends Controller
             }
         }
     }
-
         
         DB::table('food_carts')->where('user_id', $id)->delete();
-        // FoodCart::destroy($id);
         return redirect()->route('home');
     }
 
@@ -363,13 +290,10 @@ class SearchController extends Controller
             'date' => $req->date,
             'time' => $req->time
         ];
-        // var_dump($data);
 
         DB::table('food_carts')->where('user_id', $id)->where('food_id', $f_id)->delete();
         // todo : route('home') -> route('search ... ')
         return redirect()->route('home');
-        // return redirect()->route('search.list.get', ['id' => Auth::user()->user_id])->with('data', $data);
-        // return redirect()->back()->with('data', $data);
     }
 
     // ! 선택한 음식 탭에서 자주먹는 식단 삭제
@@ -391,7 +315,6 @@ class SearchController extends Controller
         $id = Auth::user()->user_id;
 
         DB::table('food_carts')->where('user_id', $id)->delete();
-        // FoodCart::destroy($id);
         return redirect()->route('home');
     }
 
