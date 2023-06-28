@@ -12,31 +12,33 @@
 
 @section('contents')
 <div class="searchContainer">
-    <form action="{{route('search.list.get', ['id' => Auth::user()->user_id])}}" method="post" class="searchform">
-        @csrf
-        <div class="searchdiv">
-            <input type="hidden" name="date" value="{{$data['date']}}">
-            <input type="hidden" name="time" value="{{$data['time']}}">
-        <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요.">
-        <button type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
-        </div>
-    </form>
+    <div class="search_div">
+        <form action="{{route('search.list.get', ['id' => Auth::user()->user_id])}}" method="post" class="searchform">
+            @csrf
+            <div class="searchdiv">
+                <input type="hidden" name="date" value="{{$data['date']}}">
+                <input type="hidden" name="time" value="{{$data['time']}}">
+                <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요.">
+                <button type="reset" class="resetbtn">X</button>
+                <button type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
+            </div>
+        </form>
 
-    <ul class="searchtab">
-        <li class="tab1">
-            <i class="fa-solid fa-utensils" style="color: #ee6666;"></i>
-            저장된 식단
-        </li>
-        <li class="tab2">
-            <i class="fa-solid fa-cart-shopping" style="color: #538e04;"></i>
-            선택된 음식
-        </li>
-        <li class="tab3" onclick="location.href='{{route('food.create')}}'">
-            <i class="fa-solid fa-mortar-pestle" style="color: #6799e4;"></i>
-            음식등록
-        </li>
-    </ul>
-
+        <ul class="searchtab">
+            <li class="tab1">
+                <i class="fa-solid fa-utensils" style="color: #ee6666;"></i>
+                저장된 식단
+            </li>
+            <li class="tab2">
+                <i class="fa-solid fa-cart-shopping" style="color: #538e04;"></i>
+                선택된 음식
+            </li>
+            <li class="tab3" onclick="location.href='{{route('food.create')}}'">
+                <i class="fa-solid fa-mortar-pestle" style="color: #6799e4;"></i>
+                음식등록
+            </li>
+        </ul>
+    </div>
     <div class="searchTabContainer">
         <hr>
         @if (!empty($foods))
