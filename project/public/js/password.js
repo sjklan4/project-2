@@ -51,7 +51,7 @@
 
 
     // function likeUp() {
-    //     const url = "/api/board/likeup"; =라우트 주소
+    //     const url = "/api/board/likeup";
     //     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     //     const request = new Request(url, {  
     //         headers: {
