@@ -16,7 +16,7 @@
 /* 전체를 감싸는 div */
 .searchContainer {
     width: 910px;
-    height: 1000px;
+    height: 1050px;
     background: #FFFFF0;
     margin-top:0px;
     box-shadow: 0px 12px 30px #ECECEC;
@@ -55,8 +55,19 @@
 .search_hr, .select_food, .select_diet{
     width:713px;
 }
+/* 자주먹는 식단 div */
+#fav_food, .fav_diet{
+    /* padding:1.5em; */
+    margin:0;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width:710px;
+    height: 300px;
+    background-color: #fff;
+}
 /* 검색 결과 */
-.user_search{
+.user_search, .fav_scroll{
     overflow:scroll;
     overflow-x: hidden; /* 가로 스크롤바 숨기기 */
     overflow-y: auto; /* 세로 스크롤바 활성화 */
@@ -65,24 +76,16 @@
     height: 800px;
     position:relative;
 }
-.fav_diets{
-    overflow:scroll;
-    overflow-x: hidden; /* 가로 스크롤바 숨기기 */
-    overflow-y: auto; /* 세로 스크롤바 활성화 */
-    width:800px;
-    height: 800px;
-    position:relative;
-}
 /* 스크롤 */
-.user_search::-webkit-scrollbar, .fav_diets::-webkit-scrollbar {
+.user_search::-webkit-scrollbar, .fav_scroll::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_diet::-webkit-scrollbar {
     width:9px;
     background-color: transparent;
 }
-.user_search::-webkit-scrollbar-thumb, .fav_diets::-webkit-scrollbar-thumb {
+.user_search::-webkit-scrollbar-thumb, .fav_scroll::-webkit-scrollbar-thumb, #fav_food::-webkit-scrollbar-thumb, .fav_diet::-webkit-scrollbar-thumb {
     background-color: #538E04;
     border-radius: 20px;
 }
-.user_search::-webkit-scrollbar-track, .fav_diets::-webkit-scrollbar-track {
+.user_search::-webkit-scrollbar-track, .fav_scroll::-webkit-scrollbar-track, #fav_food::-webkit-scrollbar-track, .fav_diet::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
@@ -232,16 +235,6 @@ input[type="checkbox"]:checked::before {
 }
 .dietinfo{
     padding-top:5px;
-}
-/* 자주먹는 식단 div */
-#fav_food, .fav_diet{
-    padding:1.5em;
-    overflow: scroll;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width:600px;
-    height: 300px;
-    background-color: #fff;
 }
 /* 선택된 음식 */
 /* .fav_fname, .fav_famount{

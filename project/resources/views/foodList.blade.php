@@ -76,6 +76,7 @@
         <div class="fav_diets">
         @if (!empty($dietname))
             <h2>자주먹는 식단</h2>
+            <div class="fav_scroll">
             @foreach ($dietname as $names)
                 <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue({{Auth::user()->user_id}})'>
                 <span class="favname"> {{$names->fav_name}}</span>
@@ -124,6 +125,7 @@
                 @endforeach
                 </div>
             @endforeach
+        </div>
         @else
             <p>asdsdf</p>
         @endif
