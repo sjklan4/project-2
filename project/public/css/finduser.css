@@ -141,8 +141,7 @@ p.first-line{
 
 }
 
-
-img{
-    width: 32%;
-    height: 8%;
+.finduser-info img{
+    width: 150px;
+    height: 50px;
 }
