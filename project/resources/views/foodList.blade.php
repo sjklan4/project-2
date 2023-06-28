@@ -85,6 +85,7 @@
                 {{-- {{$d = 0;}}
                 @foreach ($total[$d] as $item) --}}
                 @if($foods->fav_id === $names->fav_id)
+                {{-- todo : 총 제공량 계산 --}}
                 {{-- @foreach ($total as $item)
                     <span>1회 총 제공량 : </span>
                     <span>Kcal, {{$item->total->kcal}}</span>
@@ -99,7 +100,7 @@
                         <br
                         <strong>영양성분</strong>
                         <span> > </span>
-                            
+                        {{-- todo : 영양성분 -> 먹은 인분 수 만큼 계산 --}}
                         {{-- <span>칼로리 : {{$total[$d]['kcal']}}, </span>
                         <span>탄수화물 : {{$total[$d]['carbs']}}, </span>
                         <span>단백질 : {{$total[$d]['protein']}}, </span>
@@ -134,32 +135,32 @@
             <br>
             <h4>음식</h4>
             <hr class="select_food">
-            @foreach ($seleted as $food)
-                <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get">
-                    <div class="fav_food">
-                        <span>{{$food->food_name}}</span>
-                        <span>{{$food->amount}}</span>
+            {{-- @foreach ($seleted as $food) --}}
+                {{-- <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get"> --}}
+                    <div id="fav_food">
+                        {{-- <span class="fav_fname"></span>
+                        <span class="fav_famount"></span> --}}
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        <button type="submit" class="delete_btn">X</button>
+                        {{-- <button type="submit" class="delete_btn">X</button> --}}
                     </div>
                     <br>
-                </form>
-            @endforeach
+                {{-- </form> --}}
+            {{-- @endforeach --}}
             <br>
             <h4>식단</h4>
             <hr class="select_diet">
-            @foreach ($seleted_diet as $diet)
-            <form action="{{route('diet.delete', ['d_id' => $diet->fav_id])}}" method="get">
-                <div class="fav_diet">
-                    <span>{{$diet->fav_name}}</span>
-                    <input type="hidden" name="date" value="{{$data['date']}}">
-                    <input type="hidden" name="time" value="{{$data['time']}}">
-                    <button type="submit" class="delete_btn">X</button>
-                </div>
-                <br>
-            </form>
-            @endforeach
+            {{-- @foreach ($seleted_diet as $diet) --}}
+                {{-- <form action="{{route('diet.delete', ['d_id' => $diet->fav_id])}}" method="get"> --}}
+                    <div class="fav_diet">
+                        {{-- <span></span> --}}
+                        <input type="hidden" name="date" value="{{$data['date']}}">
+                        <input type="hidden" name="time" value="{{$data['time']}}">
+                        {{-- <button type="submit" class="delete_btn">X</button> --}}
+                    </div>
+                    <br>
+                {{-- </form> --}}
+            {{-- @endforeach --}}
             <br>
             @else
                 <span>선택된 음식 또는 식단이 없습니다.</span>

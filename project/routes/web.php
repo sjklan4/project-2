@@ -132,7 +132,6 @@ Route::get('userfav/favfoodDel/{fav_f_id}',[FavController::class,'favfoodDel'])-
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
-Route::get('/apisearch', [SearchController::class, 'apisearch']);
 Route::post('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
 Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
