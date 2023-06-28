@@ -1,3 +1,4 @@
+<div class="nav-top"></div>
 <section class="navigation">
     <div class="nav-container">
         <div class="brand">

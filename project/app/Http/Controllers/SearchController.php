@@ -337,7 +337,7 @@ class SearchController extends Controller
 
         // ! 식단 입력
         // v00
-        if(empty($arr_cart[0][1])){
+        if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
             if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
                 for($e=0; $e<count($arraydiet); $e++){
                     $insertDF = new DietFood([
