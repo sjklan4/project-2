@@ -30,7 +30,7 @@
             </div>
             <br>
             <div>
-                @if ($todayLog->complete_flg !== '1')
+                {{-- @if ($todayLog->complete_flg !== '1')
                     <span>{{$todayLog->effective_date}} 오늘 퀘스트 완료하기</span>
                     <span id="errorMsg"></span>
                     <input id="log_id" type="hidden" value="{{$todayLog->quest_log_id}}">
@@ -38,7 +38,7 @@
                     <button type="button" class="questUdt">완료</button>
                 @else
                     <div>오늘 퀘스트 완료!</div>
-                @endif
+                @endif --}}
             </div>
         </div>
     @else
