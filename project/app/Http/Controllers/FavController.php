@@ -17,12 +17,15 @@ class FavController extends Controller
     
     public function favdiet($id = '0'){ //유저의 자주찾는 식단 정보를 가져오게 하는 구문
         
-        $user_id = Auth::user()->user_id;
+        $user_id = Auth::user()->user_id; //로그인된 유저 정보를 확인하기 위한 기능
         $favname = FavDiet::select('fav_name','fav_id')
                         ->where('user_id',$user_id)
+                        ->whereNull('fav_diets.deleted_at') //deleted컬럼이 널입 값만 가져오도록 한다.
                         ->get();
 
         // var_dump($favname->count());
+
+
         // exit;
 
         $arr = [];
@@ -46,7 +49,7 @@ class FavController extends Controller
                                     ->whereNull('fav_diet_food.deleted_at')
                                     ->get();
                                     
-            return view('favdiet')->with('favname',$favname)->with('favfood', $arr)->with('foodinfo', $foodinfo);
+            return view('favdiet')->with('favname',$favname)->with('favfood', $arr)->with('foodinfo', $foodinfo)->with('id',$id);
         }
 
         return view('favdiet')->with('favname',$favname)->with('favfood', $arr);
@@ -67,8 +70,15 @@ class FavController extends Controller
         }
 
         public function favdietDel($id){
-            $favtable = FavDietFood::find($id);
-            $favtable->delete();
+            $favdiet = FavDiet::find($id);
+            $favtable = FavDietFood::where('fav_id',$id)->delete();
+            if($favdiet){
+                $favdiet->delete();
+            }
+            // if ($favtable){
+            //     $favtable->delete();
+            // }
+        
             return redirect()->route('fav.favdiet');
         }
 
