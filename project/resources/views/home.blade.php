@@ -20,9 +20,9 @@
             </button>
         </div>
         <div class="dateBox">
-            <form action="{{route('home.post')}}" method="post">
+            <form action="{{route('home.post')}}" method="post" id="dateForm">
                 @csrf
-                <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date'] ?? $data['today']}}">
+                <input name="getDate" id="calendar" type="date" data-placeholder="" required value="{{$data['date'] ?? $data['today']}}" oninput="test();">
                 <button type="submit" class="btnYg">이동</button>
             </form>
         </div>
@@ -610,7 +610,7 @@
             {{-- 저녁 식단이 존재하는 경우 --}}
             @if(isset($data['dietFood']['dietDinner'][0]->d_id))
                 <div class="flgBox text-center" id="dinnerBtn">
-                    아침
+                    저녁
                     <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree" class="me-3">
                         <span class="fc-green downbtn3">▲</span>
                         <span class="fc-green upbtn3">▼</span>

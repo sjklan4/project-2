@@ -21,7 +21,7 @@
                 </div>
                     <div class="img1"></div>
     </div>
-  
+
     <div class = "registpage">
 
                 <form action="{{route('user.registpost')}}" method="post">

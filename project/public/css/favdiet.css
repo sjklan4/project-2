@@ -36,6 +36,10 @@ a{
     color: #195F1C;
 }
 
+.del-button{
+    width: 3vw;
+}
+
 .foodnutri{
     width: auto;
     height: auto;
@@ -118,8 +122,7 @@ input#intake{
     color: red;
     display:inline-block;
     position: absolute;
-    top: 100%;
-    right: -24vw;
+    left: 1vw;
 }
 
 .del-diet{
@@ -145,4 +148,13 @@ h2 {
 th{
     width: 10vw;
     vertical-align: top;
+}
+
+.del-diet{
+    margin-right: 5px;
+    background-color: #538E04;
+    color: #fffff0;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 5px;
 }
