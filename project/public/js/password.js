@@ -49,60 +49,40 @@
     // });
 
 
-
-    // function likeUp() {
-    //     const url = "/api/board/likeup"; =라우트 주소
-    //     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    //     const request = new Request(url, {  
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Accept": "application/json, text-plain, */*",
-    //             "X-Requested-With": "XMLHttpRequest",
-    //             "X-CSRF-TOKEN": token
-    //             },
-    //         method: 'PUT',  =메소드 변경
-    //         credentials: "same-origin",
-    //         body: JSON.stringify({  = input값 위치
-    //             id1: document.getElementById('value1').value,
-    //             id2: document.getElementById('value2').value
-    //         })
-    //     });
-    // fetch : request 
-
-    // const passworderror = document.getElementById()
-    const chkpasswordbutton = document.getElementById('passwordchk');
-    chkpasswordbutton.addEventListener('click', function(event) {
-        // Prevent the form from submitting the default way
-        event.preventDefault();
-    
-        let currentPassword = document.getElementById('bpassword').value;
-    
-        // Create a FormData object
-        let formData = new FormData();
-        formData.append('bpassword', currentPassword);
-    
-        // Send the request to the server
-        fetch("/api/user/userpsedt/", {  // Replace '/password-verification-endpoint' with the actual endpoint in your Laravel app
-            method: 'post',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',  // Necessary to work with Laravel
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')  // CSRF token
+function chkpass(){
+    const url = "/api/user/userpsedt";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
             },
-        }).then(response => response.json())
-        .then(data => {
-            const idspan = document.getElementById('passworderror');
-            if (data.passwordValid) {
-                  // Password was verified successfully, handle it here
-                
-                idspan.innerHTML = '비밀번호 확인 완료';
-            } else {
-                  // The password did not match, handle it here
-                idspan.innerHTML = '비밀번호 불일치';
-            }
+        method: 'POST',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            value1: document.getElementById('bpassword').value
+            ,value2: document.getElementById('id').value
         })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
     });
-    
+
+    fetch(request)
+    .then(data => {
+        if (!data.status) {
+            throw new Error(data.status + ' : API 응답 오류');
+        }
+        return data.json();
+    })
+    .then(data  => {
+        const idspan = document.getElementById('passworderror');
+        if (data["errorcode"] === "0") {
+                // Password was verified successfully, handle it here
+            idspan.innerHTML = '비밀번호 확인 완료';
+            document.getElementById('passwordchg').disabled = false;
+        } else {
+                // The password did not match, handle it here
+            idspan.innerHTML = '비밀번호 불일치';
+        }
+    });
+}
