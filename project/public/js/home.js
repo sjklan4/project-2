@@ -99,11 +99,13 @@ let date = inputDate.value; // input date value 값
 let now = new Date(date);
 let nowString = formatDate(now);
 
+const dateForm = document.getElementById('dateForm');
 // 이전 날짜로 이동하는 함수
 function prev(){
     now.setDate(now.getDate() - 1);
     nowString = formatDate(now);
     inputDate.value = nowString;
+    dateForm.submit();
 }
 
 // 다음 날짜로 이동하는 함수
@@ -111,6 +113,7 @@ function next(){
     now.setDate(now.getDate() + 1);
     nowString = formatDate(now);
     inputDate.value = nowString;
+    dateForm.submit();
 }
 
 // 날짜 형식 변경 함수 (YYYY-MM-DD)
@@ -120,6 +123,12 @@ function formatDate(date){
     var day = String(date.getDate()).padStart(2, '0');
     return year + '-' + month + '-' + day;
 }
+
+
+// function test(){
+//     dateForm.submit();
+// }
+
 
 // function sendDateToServer(date) {
 //     $.ajax({

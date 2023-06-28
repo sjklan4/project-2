@@ -2,7 +2,9 @@
 <section class="navigation">
     <div class="nav-container">
         <div class="brand">
-            <a href="{{route('home')}}">Home</a>
+            <a href="{{route('home')}}">
+                <img src="{{asset('img/logo.png')}}" alt="logo">
+            </a>
         </div>
         <nav>
             <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
