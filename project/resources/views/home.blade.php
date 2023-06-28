@@ -129,37 +129,37 @@
                     
                 {{-- 운동식 : 플래그 1번--}}
                 @elseif(($data['userKcal']->nutrition_ratio)=='1')
-                    <div>
-                        순탄수
-                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress>
+                    <div class="col">
+                        순탄수<br>
+                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
                         <span class="carbSpan">{{$data['total']['carbTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g
                     </div>
-                    <div>
-                        단백질
-                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress>
+                    <div class="col">
+                        단백질<br>
+                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.4)/4)}}"></progress><br>
                         <span class="proteinSpan">{{$data['total']['proteinTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.4)/4)}}g
                     </div>
-                    <div>
-                        지방
-                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress>
+                    <div class="col">
+                        지방<br>
+                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.2)/9)}}"></progress><br>
                         <span class="fatSpan">{{$data['total']['fatTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.2)/9)}}g
                     </div>
                     
                 {{-- 키토식 : 플래그 2번 --}}
                 @elseif(($data['userKcal']->nutrition_ratio)=='2')
-                    <div>
-                        순탄수
-                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.08)/4)}}"></progress>
+                    <div class="col">
+                        순탄수<br>
+                        <progress id="carbPro" value="{{$data['total']['carbTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.08)/4)}}"></progress><br>
                         <span class="carbSpan">{{$data['total']['carbTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.08)/4)}}g
                     </div>
-                    <div>
-                        단백질
-                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.22)/4)}}"></progress>
+                    <div class="col"> 
+                        단백질<br>
+                        <progress id="proteinPro" value="{{$data['total']['proteinTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.22)/4)}}"></progress><br>
                         <span class="proteinSpan">{{$data['total']['proteinTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.22)/4)}}g
                     </div>
-                    <div>
-                        지방
-                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.7)/9)}}"></progress>
+                    <div  class="col">
+                        지방<br>
+                        <progress id="fatPro" value="{{$data['total']['fatTotal']}}" min="0" max="{{round((($data['userKcal']->goal_kcal)*0.7)/9)}}"></progress><br>
                         <span class="fatSpan">{{$data['total']['fatTotal']}}</span> / {{round((($data['userKcal']->goal_kcal)*0.7)/9)}}g
                     </div>
                 @endif
