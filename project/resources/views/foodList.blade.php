@@ -76,6 +76,7 @@
         <div class="fav_diets">
         @if (!empty($dietname))
             <h2>자주먹는 식단</h2>
+            <div class="fav_scroll">
             @foreach ($dietname as $names)
                 <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue({{Auth::user()->user_id}})'>
                 <span class="favname"> {{$names->fav_name}}</span>
@@ -124,6 +125,7 @@
                 @endforeach
                 </div>
             @endforeach
+        </div>
         @else
             <p>asdsdf</p>
         @endif
@@ -135,18 +137,19 @@
             <br>
             <h4>음식</h4>
             <hr class="select_food">
-            {{-- @foreach ($seleted as $food) --}}
+            <div id="fav_food">
+            @foreach ($seleted as $food)
                 {{-- <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get"> --}}
-                    <div id="fav_food">
+                        <p>{{$food->food_name}}</p>
                         {{-- <span class="fav_fname"></span>
                         <span class="fav_famount"></span> --}}
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
                         {{-- <button type="submit" class="delete_btn">X</button> --}}
+                        {{-- <br> --}}
+                        {{-- </form> --}}
+                        @endforeach
                     </div>
-                    <br>
-                {{-- </form> --}}
-            {{-- @endforeach --}}
             <br>
             <h4>식단</h4>
             <hr class="select_diet">
