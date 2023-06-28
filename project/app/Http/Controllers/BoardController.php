@@ -162,11 +162,10 @@ class BoardController extends Controller
         $like_count = DB::table('board_likes')
             ->where('user_id', Auth::user()->user_id)
             ->where('board_id', $id)
-            ->count();
-
+            ->first();
         
         $like_flg = 0;
-        if ($like_count > 0) { // 좋아요가 있을 때
+        if (isset($like_count)) { // 좋아요가 있을 때
             $like_flg = 1;
         }
         

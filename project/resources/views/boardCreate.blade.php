@@ -19,9 +19,9 @@
                     </select>
                 </div>
                 <div>
+                    <div class="errorMsg"></div>
                     <label for="title">제목</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('title', ':message') : ''}}</span>
-                    <br>
                     <br>
                     <input type="text" name="title" id="title"
                         placeholder='제목을 입력해주세요.'
@@ -29,9 +29,9 @@
                     >
                 </div>
                 <div>
+                    <div class="errorMsg"></div>
                     <label for="content">내용</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('content', ':message') : ''}}</span>
-                    <br>
                     <br>
                     <div>
                         <textarea name="content" id="content"
@@ -42,7 +42,6 @@
                 <div>
                     <label for="picture">사진</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('picture', ':message') : ''}}</span>
-                    <br>
                     <br>
                     <span id="pictureSpan">
                         <input type="file" id="picture" name="picture">

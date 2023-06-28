@@ -1,44 +1,156 @@
 h2{
     display: inline-block;
-    margin-left: 50px;
+    padding-left: 30px;
+    margin: 0;
 }
 .contents{
+    padding: 50px;
     background: #fffff0;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    width: 1140px;
+    font-size: 16px;
 }
 .sub1{
     min-width: 200px;
-    min-height: 150px;
+    min-height: 200px;
     margin: 0px auto;
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 1px;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 15%;
 }
+
+.sub1 > div:not(:last-child) {
+    padding-bottom: 20px;
+}
+
+.sub1 div span:nth-child(1) {
+    display: inline-block;
+    width: 70px;
+}
+
 .sub2{
     min-width: 100px;
-    min-height: 150px;
+    min-height: 200px;
     margin: 0px auto;
     background: #ffffff;
-    border-radius: 20px;
+    border-radius: 1px;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10%;
 }
+
+.sub2 > div:first-child {
+    padding-bottom: 10px;
+}
+
+.sub2 > div:nth-child(3) {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between
+}
+
+.sub2 > div:nth-child(4) {
+    padding-top: 10px;
+    text-align: right;
+}
+
 .col-sm-7{
     min-height: 200px;
-    padding: 30px 50px;
+    padding: 15px 30px 15px 15px;
 }
 .col-sm-5{
     min-height: 200px;
-    padding: 30px 50px;
+    padding: 15px 15px 15px 30px;
 }
 .quest{
     min-height: 200px;
-    padding: 30px 50px;
+    padding: 15px 30px 30px 30px;
 }
 .sub3{
     background: #ffffff;
-    min-height: 350px;
-    border-radius: 20px;
+    min-height: 300px;
+    border-radius: 1px;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    padding: 5%;
+    text-align: center;
+}
+
+/* 버튼 */
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #9D9D9D;
+}
+
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+
+#greenBtn {
+    background-color: #538E04;
+}
+
+.imgDiv img {
+    max-width: 50px;
+}
+
+.imgDiv button {
+    background: none;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    padding:0;
+}
+
+/* ! 지울 예정 */
+.black { 
+    -webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+/* ! 지울 예정 */
+
+#comBtn {
+    -webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+#comBtn:hover {
+    -webkit-filter: grayscale(0);
+	filter: grayscale(0);
+}
+
+
+/* 프로그레스 */
+.progress {
+    height: 20px;
+    background-color: #ebeef1;
+    box-shadow: none;
+    width: 100%;
+}
+
+.progress-bar {
+    float: left;
+    height: 100%;
+    background-color: #6799E4;
 }
 
 .cards {

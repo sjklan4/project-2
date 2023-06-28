@@ -52,7 +52,8 @@ use App\Http\Controllers\QuestController;
 Route::get('/quest', [QuestController::class,'index'])->name('quest.index');
 Route::post('/quest', [QuestController::class, 'store'])->name('quest.store');
 Route::get('/quest/log', [QuestController::class,'show'])->name('quest.show');
-// Route::put('/quest/log/{id}', [QuestController::class,'update'])->name('quest.update');
+Route::put('/quest/log/{id}', [QuestController::class,'update'])->name('quest.update');
+Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('quest.destroy');
 
 
 // ---------------------------------------------

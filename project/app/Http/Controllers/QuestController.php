@@ -29,12 +29,12 @@ class QuestController extends Controller
         // 퀘스트 정보 획득
         $result = QuestCate::get();
 
-        // todo 이미 수락된 퀘스트가 있는지 확인
+        // 이미 수락된 퀘스트가 있는지 확인
         $questLog = QuestStatus::where('complete_flg','=', '0')
             ->where('user_id','=', Auth::user()->user_id)
-            ->count();
-        
-        if($questLog < 1) {
+            ->first();
+
+        if(!isset($questLog)) {
             return view('questList')->with('data', $result)->with('flg', 1);
         }
 
@@ -79,37 +79,121 @@ class QuestController extends Controller
             return redirect()->route('user.login');
         }
 
+        // todo 퀘스트 날짜 지났을 때 처리
+
         
-        // todo 어제 꺼 했는지 확인, 안했으면 퀘스트 실패 띄워야 함
-        
-        // 퀘스트 정보 획득, 현재 진행중인 퀘스트
+        // todo 퀘스트 성공 여부 확인
+        $complete = QuestStatus::where('complete_flg','=', '1')
+        ->where('user_id','=', Auth::user()->user_id)
+        ->first();
+
+        if (isset($complete)) {
+            // 플래그 변경
+            $flg = 3;
+            return view('questDetail')->with('id', $complete->quest_status_id)->with('flg', $flg);
+        }
+
+        // 현재 진행중인 퀘스트 정보 획득
         $quest_status = QuestStatus::where('complete_flg','=', '0')
         ->where('user_id','=', Auth::user()->user_id)
         ->first();
+
+        $flg = 0;
         
-        // 진행중인 퀘스트가 없을 때 없다고 안내
+        // 진행중인 퀘스트가 없을 때
         if (!isset($quest_status)) {
-            return view('questDetail');
+            // 플래그 변경
+            $flg = 1;
+            return view('questDetail')->with('flg', $flg);
         }
-
-        // 진행중인 퀘스트 정보
-        $quest_info = QuestCate::find($quest_status->quest_cate_id);
-
+        
+        // 진행중인 퀘스트 정보 획득
+        $questInfo = QuestCate::find($quest_status->quest_cate_id);
             
-        // 전체 로그 정보
+        // 전체 로그 정보 획득
         $questLog = DB::table('quest_logs')
             ->where('quest_status_id', $quest_status->quest_status_id)
             ->get();
+        
+        // 첫날 제외 어제 꺼 했는지 확인, 안했으면 퀘스트 실패 띄워야 함
+        if ($questLog[0]->effective_date !== Carbon::now()->format("Y-m-d")) {
+            $yesterdayLog = DB::table('quest_logs')
+                ->where('quest_status_id', $quest_status->quest_status_id)
+                ->where('effective_date', Carbon::now()->subDays(1)->format("Y-m-d"))
+                ->first();
+    
+            if ($yesterdayLog->complete_flg === '0') {
+                // 플래그 변경
+                $flg = 2;
+    
+                // 퀘스트 실패 처리
+                QuestStatus::destroy($yesterdayLog->quest_status_id);
+            }
+        }
 
-        // 당일 로그 정보
-        $todayLog = DB::table('quest_logs')
-            ->where('quest_status_id', $quest_status->quest_status_id)
-            ->where('effective_date', Carbon::now()->format("Y-m-d"))
+        // 진행도 계산
+        $period = $questInfo->min_period;
+        $nowComplete = 0;
+        foreach ($questLog as $val) {
+            if ($val->complete_flg === '1') {
+                ++$nowComplete;
+            }
+        }
+        $ratio = round($nowComplete / $period * 100, 1);
+
+        $arrRatio = [
+            'period'    => $period,
+            'complete'  => $nowComplete,
+            'ratio'     => $ratio,
+        ];
+
+        // ? 당일 로그 정보 // 필요 없을 수도..?
+        // $todayLog = DB::table('quest_logs')
+        //     ->where('quest_status_id', $quest_status->quest_status_id)
+        //     ->where('effective_date', Carbon::now()->format("Y-m-d"))
+        //     ->first();
+
+        return view('questDetail')->with('info', $questInfo)->with('logs', $questLog)->with('ratio', $arrRatio)->with('questStat', $quest_status)->with('flg', $flg);
+
+
+        // ->with('todayLog', $todayLog)->with('questStat', $quest_status);
+
+    }
+
+    public function update(Request $req, $id) {
+        // todo 유효성, 트랜잭션
+
+        DB::table('quest_logs')
+            ->where('quest_log_id', $id)
+            ->update([
+                'complete_flg' => '1',
+                'updated_at' => Carbon::now(),
+            ]);
+
+        $logs = DB::table('quest_logs')
+            ->where('quest_status_id', $req->statId)
+            ->latest('quest_log_id')
             ->first();
+        
+        $lastLogDate = $logs->effective_date;
 
-            
-        return view('questDetail')->with('info', $quest_info)->with('logs', $questLog)
-        ->with('todayLog', $todayLog)->with('questStat', $quest_status);
+        if ($lastLogDate === Carbon::now()->format("Y-m-d")) {
+            // 퀘스트 성공 처리
+            $questStat->complete_flg = '1';
+            $questStat->save();
+        }
+        
+        // todo 에러 처리
 
+        return redirect()->route('quest.show');
+    }
+    
+
+    public function destroy($id) {
+        QuestStatus::destroy($id);
+
+        // todo flg추가하고 새로 시작일 때 내용 추가
+
+        return redirect()->route('quest.show');
     }
 }
