@@ -8,7 +8,7 @@
 @section('contents')
 <div class="finduser-info">
     <div class="intro_login  d-none d-xl-block">
-        <img src="{{asset('img/logo.png')}}" alt="logo">
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
         {{-- <div class="p-tag">
             <p class="first-line">Wishing You</p>

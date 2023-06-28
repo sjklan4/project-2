@@ -24,6 +24,10 @@
 .margin{
     margin-top: 115px;
 }
+.intro_login > img{
+    width: 150px;
+    height: 50px;
+}
 
 
 .intro_login{
@@ -182,5 +186,6 @@ table{
 }
 
 .exit{
-    text-align: right;
+    margin-top: 20px;
+    text-align: center;
 }

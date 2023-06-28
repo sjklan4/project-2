@@ -11,14 +11,14 @@
 
 <div class="regist-body">
     <div class="intro_login">
-        <img src="{{asset('img/logo.png')}}" alt="logo" id="logo">
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
                 {{-- <div class="p-tag">
                     <p class="first-line">Achieve rewards</p>
                     <p>through healthy</p>
                     <p>missions</p>
                 </div> --}}
-                    <div class="img1"></div>
+                    {{-- <div class="img1"></div> --}}
     </div>
 
     <div class = "registpage">
@@ -45,7 +45,6 @@
                     <td><span id="emailRegexm"></span></td>
                 </tr>    
                 <tr>
-                
                     <td class="write_name">    
                         <label for="user_name">이름</label>
                     </td>

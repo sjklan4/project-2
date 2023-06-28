@@ -12,7 +12,6 @@
     <div class="intro_login d-none d-xl-block">
         <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
         <br>
-        <br>
             {{-- <div class="p-tag">
                 <p class="first-line">Achiev rewards</p>
                 <p>through healthy</p>
