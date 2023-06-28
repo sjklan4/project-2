@@ -9,9 +9,8 @@
 
 @section('contents')
 <div class="page-body">
-
     <div class="intro_login d-none d-xl-block">
-        <img src="{{asset('img/logo.png')}}" alt="logo">
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
         <br>
         <br>
             {{-- <div class="p-tag">
@@ -19,7 +18,7 @@
                 <p>through healthy</p>
                 <p>missions</p>
             </div> --}}
-                <div class="img1"></div>
+            {{-- <div class="img1"></div> --}}
     </div>
 
     <div class="loginpage">
