@@ -60,7 +60,7 @@
                             <td><span>당분 : {{$item->sugar}}</span></td>                                                  
                             <td><span>나트륨 : {{$item->sodium}}</span></td>                   
                                 <label for="intake">
-                            <td><input type="number" name="intake[]" id="intake">인분</label></td>
+                            <td><input type="number" name="intake[]" id="intake" value={{$item->fav_f_intake}} required>인분</label></td>
                             <td><span class="del-food" id="del-food">
                                     <a href="{{route('fav.del', $item->fav_f_id)}}" class="del-food">X</a>
                                 <p class="arrow_box">등록하신 음식이 삭제 됩니다.</p></span>
