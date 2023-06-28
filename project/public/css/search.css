@@ -233,10 +233,20 @@ input[type="checkbox"]:checked::before {
     padding-top:5px;
 }
 /* 자주먹는 식단 div */
-.fav_food, .fav_diet{
+#fav_food, .fav_diet{
     padding:1.5em;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width:600px;
+    height: 300px;
+    background-color: #fff;
 }
-
+/* 선택된 음식 */
+/* .fav_fname, .fav_famount{
+    margin:0;
+    padding:0;
+} */
 button {
     background-color: #c1c1c1;
     border: none;
