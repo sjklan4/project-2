@@ -60,7 +60,7 @@ Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate'])->name('apiQu
 use App\Http\Controllers\ApiUserController;
 
 Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
-Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpassword']);
+Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
 
 // ---------------------------------------------
 // 섹션명       : 카트(Cart)
@@ -68,6 +68,7 @@ Route::get('/user/userpsedt/{password}',[ApiUserController::class, 'chdeckpasswo
 // 관리자       : 채수지
 // 생성일       : 2023-06-22
 // ---------------------------------------------
-// Route::post('/cart', [ApiController::class, 'postFoodCart']);
+Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
+Route::get('/getFood/{user_id}', [ApiController::class, 'getFood']);

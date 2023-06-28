@@ -21,8 +21,8 @@ $(document).ready(function(){
     }
 
     // input file의 값을 첨부파일 input에 출력
-    $("#filebrf").on('change',function(){
-        var fileName = $("#filebrf").val();
+    $("#fileBrf").on('change',function(){
+        var fileName = $("#fileBrf").val();
         $(".fileBrfName").val(fileName);
     });
 
@@ -40,10 +40,6 @@ $(document).ready(function(){
         var fileName = $("#fileSnack").val();
         $(".fileSnackName").val(fileName);
     });
-
-    // $('.imgBox').click(function(){
-    //     $('.filebox').removeClass('d-none');
-    // });
 
     // 드롭다운 버튼
     $("span.downbtn1").on("click",function(){
@@ -82,13 +78,70 @@ $(document).ready(function(){
         $("span.downbtn4").css("display","block");
     });
 
-    $('.imgBox').click(function(){
+    $('.brfImg').click(function(){
         $('#brfArea .filebox').removeClass('d-none');
+    });
+    $('.lunchImg').click(function(){
+        $('#lunchArea .filebox').removeClass('d-none');
+    });
+    $('.dinnerImg').click(function(){
+        $('#dinnerArea .filebox').removeClass('d-none');
+    });
+    $('.snackImg').click(function(){
+        $('#snackArea .filebox').removeClass('d-none');
     });
 });
 
-// const prev = document.getElementById('prevBtn');
+const inputDate = document.getElementById('calendar');
+let date = inputDate.value; // input date value 값
 
-// prev.addEventListener('click',function(){
-//     alert("home");
-// });
+// 기준날짜 가져오기
+let now = new Date(date);
+let nowString = formatDate(now);
+
+const dateForm = document.getElementById('dateForm');
+// 이전 날짜로 이동하는 함수
+function prev(){
+    now.setDate(now.getDate() - 1);
+    nowString = formatDate(now);
+    inputDate.value = nowString;
+    dateForm.submit();
+}
+
+// 다음 날짜로 이동하는 함수
+function next(){
+    now.setDate(now.getDate() + 1);
+    nowString = formatDate(now);
+    inputDate.value = nowString;
+    dateForm.submit();
+}
+
+// 날짜 형식 변경 함수 (YYYY-MM-DD)
+function formatDate(date){
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2,'0');
+    var day = String(date.getDate()).padStart(2, '0');
+    return year + '-' + month + '-' + day;
+}
+
+
+// function test(){
+//     dateForm.submit();
+// }
+
+
+// function sendDateToServer(date) {
+//     $.ajax({
+//         url: '/home', // 실제 요청을 처리할 Laravel 엔드포인트 경로를 입력해야 합니다.
+//         type: 'POST',
+//         data: { date: getDate },
+//         success: function(response) {
+//         // 요청이 성공적으로 처리되었을 때 수행할 작업
+//         console.log(response);
+//         },
+//         error: function(xhr, status, error) {
+//         // 요청이 실패했을 때 수행할 작업
+//         console.log(error);
+//         }
+//     });
+// }

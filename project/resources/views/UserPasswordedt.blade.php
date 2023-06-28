@@ -1,21 +1,25 @@
 @extends('layout.userinfoNav')
 
-@section('title', 'passwordchange')
+@section('title', '비밀번호 찾기')
 
 @section('passwordcontents')
- 
-       
+
         <form action="{{ route('user.userpseditpost') }}" method="post">
             @csrf
     <div class="shadowYellow">
         <div>
-            <h1>비밀번호 변경</h1>
+            <h2>비밀번호 변경</h2>
             <table>
                 <tr>
                     <th class="passth" colspan="2"><label for="password">기존비밀번호  </label></th>
-                    <td colspan="2"><input type="password" name="password" id="password" placeholder="비밀번호를 입력해 주세요"><button type="button" id="passwordchk" class="greenBtn" disabled>확인</button></td>
+                    <td colspan="2">
+                        <input type="password" name="bpassword" id="bpassword" placeholder="비밀번호를 입력해 주세요">
+                        <input type="hidden" id="id" value={{session('user_id')}}>
+                        <button type="button" id="passwordchk" class="greenBtn" onclick="chkpass()">확인</button>
+                    </td>
+                    <span id="passworderror"></span>
                 </tr>
-                <span id="writeerror"></span>
+                
                 <tr>
                     <th class="passth"  colspan="2"><label for="newpassword">새 비밀번호  </label></th>
                     <td><input type="text" name="newpassword" id="newpassword"></td>

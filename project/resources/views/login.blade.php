@@ -9,17 +9,15 @@
 
 @section('contents')
 <div class="page-body">
-
     <div class="intro_login d-none d-xl-block">
-        <h1>Logo??</h1>
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
         <br>
-        <br>
-            <div class="p-tag">
+            {{-- <div class="p-tag">
                 <p class="first-line">Achiev rewards</p>
                 <p>through healthy</p>
                 <p>missions</p>
-            </div>
-                <div class="img1"></div>
+            </div> --}}
+            {{-- <div class="img1"></div> --}}
     </div>
 
     <div class="loginpage">
@@ -50,7 +48,7 @@
                             <br>
                 </div>
                 <div class="linkbutton">
-                    <button type="submti" class="login_button btn-stlye">로그인</button>
+                    <button type="submti" id="greenBtn">로그인</button>
                 </form>
                 <div class="registlink">
                     <a href="{{route('user.userfindE')}}">이메일찾기/비밀번호찾기</a>

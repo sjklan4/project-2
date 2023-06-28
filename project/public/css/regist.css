@@ -1,7 +1,8 @@
 .regist-body{
-    width : 100vw;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
     height: 100vh;
-    display: flex;
 }
 
 @media ( min-width : 768px) {
@@ -12,39 +13,49 @@
 
 @media ( min-width : 992px) {
     .intro_login{
-        width: 30vw;
+        width: 40vw;
     }
 }
 @media ( min-width : 1200px) {
     .intro_login{
-        width: 40vw;
+        width: 50vw;
     }
+}
+.margin{
+    margin-top: 115px;
+}
+.intro_login > img{
+    width: 150px;
+    height: 50px;
 }
 
 
 .intro_login{
-    width:  50vw;
+    height: 100vh;
     border-radius: 3px;
     box-shadow: 2px 2px 8px 2px #999;
     font-size: 50px;
     font-weight: bolder;
     background-image: url(../img/login.png);
     background-repeat: no-repeat;
+    background-position: -212px 409px;
 }
 
 
 .registpage{
     background-color: rgba(255, 255, 240, 1);
-    width: 50vw;
+    height: 100vh;
     border-radius: 3px;
     box-shadow:  2px 2px 15px 2px #999;
-    display: flex;
-    justify-content: center;
+   
+
 }
 
 .registinfo{
-    display: block;
-    margin: 10px;
+
+    width: auto;
+    margin: 0 auto;
+    text-align: center;
     
 }
 
@@ -70,6 +81,7 @@ input{
     border-left: none;
     border-right: none;
     border-bottom: 3px solid rgba(25, 95, 28, 1);
+    outline: none;
 }
 
 label{
@@ -102,64 +114,26 @@ label{
     width: 108px;
 }
 
-
-
-.regist_button {
-    width: 300px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.5s ease;
-
-    display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(0,0,0,.1),
-    4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-    z-index: 2;
-}
-
-.btn-stlye {
+button{
+    background-color: #c1c1c1;
     border: none;
-    background:#195F1C;
-    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
-    color: #fff;
-    overflow: hidden;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
 }
 
-.btn-stlye:hover {
-    text-decoration: none;
-    color: #ffffff;
+button:hover {
+    background-color: #9D9D9D;
 }
-
-/* .btn-stlye:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-} */
-
-.btn-stlye:hover{
-    opacity: .7;
+#greenBtn {
+    background-color: #538E04;
 }
-
-.btn-stlye:active{
-    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-                -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+#greenBtn:hover {
+    background-color: #195F1C;
 }
-
 
 @-webkit-keyframes shiny-btn1 {
     0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
@@ -174,12 +148,9 @@ a{
 }
 a:hover{
     color: #195F1C;
-    font-size: large;
+
 }
 
-a:active{
-    color: rgb(64, 231, 41);
-}
 
 h1{
 
@@ -197,9 +168,24 @@ h1{
     width: 30px;
     height: 30px;
 }
-img{
-    width: 35px;
+
+
+.gen{
+    width: 45px;
     height: 35px;
 }
+#logo{
+    width: 32%;
+    height: 8%;
+}
 
+table{
+    width: auto;
+    margin: 0 auto;
+    margin-top: 65px;
+}
 
+.exit{
+    margin-top: 20px;
+    text-align: center;
+}

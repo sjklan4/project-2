@@ -1,7 +1,7 @@
 .boardCon {
     padding-top: 100px;
     display: grid;
-    grid-template-columns: 1fr minmax(200px, 1.5fr) 1000px 2fr;
+    grid-template-columns: 1.5fr minmax(150px, 1.5fr) 1000px 2fr;
     font-size: 16px;
 }
 h1{
@@ -29,14 +29,14 @@ h2{
     box-shadow: 0px 12px 30px #ECECEC;
     display: flex;
     justify-content: center;
-    padding: 30px;
+    padding: 50px 30px;
     margin-bottom: 30px;
 }
 
 .boardNavDiv > div{
     font-size: 35px;
     font-weight: 900;
-    margin-top: 50px;
+    padding: 5px 0 40px 16px;
 }
 
 .boardNavDiv ul li a, a {
@@ -49,6 +49,7 @@ h2{
     font-weight: 600;
     height: 60px;
 }
+
 /* ****************공용 버튼 모음******************  */
 button {
     background-color: #c1c1c1;
@@ -70,10 +71,8 @@ button:hover {
     background-color: #195F1C;
 }
 
-.nav li {
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
+#passwordchk {
+    margin-left: 15px;
 }
 
 .boardNavDiv ul li a:hover, a:hover {
@@ -89,7 +88,10 @@ input{
     border-bottom: 2px solid #9d9d9d;
     background-color: transparent;
     width: 27vw;
+}
 
+input:focus {
+    outline: none;
 }
 
 /* .diechk-td{
@@ -109,16 +111,16 @@ input{
 
 }
 table{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin: auto;
-    padding: auto;
-    font-size: 20px;
+    padding-top: 10px;
+    border-spacing: 0.2rem;
+    border-collapse: separate;
+    margin: 0;
+    
 }
 td{
     min-width: 9vw;
     height: 5vh;
-    padding-left:10px ;
+    padding-left:15px ;
 }
 
 .table-prevate{

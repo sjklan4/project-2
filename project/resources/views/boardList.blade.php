@@ -42,29 +42,85 @@
             </div>
             @if ($data->hasPages())
                 <ul class="pagination pagination">
-                @if ($data->currentPage() > 1)
-                <li class="active">
-                    <a href="{{ $data->previousPageUrl() }}"><</a>
-                </li>
-                @else
-                    <li><</li>
-                @endif
 
-                @for($i = 1; $i <= $data->lastPage(); $i++)
-                    @if ($i == $data->currentPage())
-                        <li class="active"><span>{{ $i }}</span></li>
+                    @php
+                        $block = 5;
+                        $startPage = max(1, $data->currentPage() - floor($block / 2));
+                        $endPage = min($startPage + $block - 1, $data->lastPage());
+                    @endphp
+
+                    {{-- 첫 페이지 버튼 --}}
+                    @if ($data->onFirstPage())
+                        <li><<</li>
                     @else
-                        <li><a href="{{ $data->url($i) }}">{{ $i }}</a></li>
+                        <li class="active">
+                            <a href="{{ $data->url(1) }}" rel="prev"><<</a>
+                        </li>
                     @endif
-                @endfor
-                
-                @if ($data->currentPage() < $data->lastPage() )
+
+                    {{-- 이전 페이지 버튼 --}}
+                    @if ($data->onFirstPage())
+                        <li><</li>
+                    @else
+                        <li class="active">
+                            <a href="{{ $data->previousPageUrl() }}" rel="prev"><</a>
+                        </li>
+                    @endif
+
+                    {{-- 페이징 --}}
+                    {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                    @foreach(range($startPage, $endPage) as $i)
+                        @if ($i == $data->currentPage())
+                            <li class="active"><span>{{ $i }}</span></li>
+                        @else
+                            <li class="active">
+                                <a href="{{$data->url($i)}}">{{$i}}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- 다음 페이지 버튼 --}}
+                    @if ($data->hasMorePages())
+                        <li class="active">
+                            <a href="{{$data->nextPageUrl()}}">></a>
+                        </li>
+                    @else
+                        <li>></li> 
+                    @endif
+
+                    {{-- 마지막 페이지 --}}
+                    @if ($data->hasMorePages())
+                        <li class="active">
+                            <a href="{{ $data->url($data->lastPage()) }}" rel="next">>></a>
+                        </li>
+                    @else
+                        <li>>></li> 
+                    @endif
+
+
+                    {{-- @if ($data->currentPage() > 1)
                     <li class="active">
-                        <a href="{{$data->nextPageUrl()}}">></a>
+                        <a href="{{ $data->previousPageUrl() }}"><</a>
                     </li>
-                @else
-                    <li>></li>
-                @endif
+                    @else
+                        <li><</li>
+                    @endif
+
+                    @for($i = 1; $i <= $data->lastPage(); $i++)
+                        @if ($i == $data->currentPage())
+                            <li class="active"><span>{{ $i }}</span></li>
+                        @else
+                            <li><a href="{{ $data->url($i) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                    
+                    @if ($data->currentPage() < $data->lastPage() )
+                        <li class="active">
+                            <a href="{{$data->nextPageUrl()}}">></a>
+                        </li>
+                    @else
+                        <li>></li>
+                    @endif --}}
                 </ul>
             @endif
         </div>

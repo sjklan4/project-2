@@ -11,22 +11,20 @@
 
 <div class="regist-body">
     <div class="intro_login">
-            <h1>Logo??</h1>
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
-            <br>
-                <div class="p-tag">
+                {{-- <div class="p-tag">
                     <p class="first-line">Achieve rewards</p>
                     <p>through healthy</p>
                     <p>missions</p>
-                </div>
-                    <div class="img1"></div>
+                </div> --}}
+                    {{-- <div class="img1"></div> --}}
     </div>
-  
-    <div class = "registpage">
 
+    <div class = "registpage">
                 <form action="{{route('user.registpost')}}" method="post">
                     @csrf
-
+        <div class = "margin"></div>
         <div class="registinfo">
             <h1>WELCOME!</h1>
             <h1>PLEASE REGIST!</h1>
@@ -37,7 +35,9 @@
                     </td>
                     <td>        
                         <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
-                        <button type="button" id="chdeckEmail" disabled>중복체크</button>
+                    </td>
+                    <td>
+                        <button type="button" id="greenBtn" disabled>중복체크</button>
                     </td>
                 </tr>
                 <tr>
@@ -45,7 +45,6 @@
                     <td><span id="emailRegexm"></span></td>
                 </tr>    
                 <tr>
-                
                     <td class="write_name">    
                         <label for="user_name">이름</label>
                     </td>
@@ -56,7 +55,7 @@
                 <tr>
                     <td></td>
                     <td> @error('user_name')
-                        <div class="text-danger">{{ $message }}</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
                 </tr>           
@@ -145,17 +144,19 @@
                             <label for="gender">성별</label>
                     </td>
                     <td>   
-                        <input type="radio" name="gender" id="gender" value="0"> 남자 <img src="{{ asset('img/manmark.png') }}">
-                        <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}">
+                        <input type="radio" name="gender" id="gender" value="0" > 남자 <img src="{{ asset('img/manmark.png') }}" class="gen">
+                        <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}"  class="gen">
                     </td>
                 </tr>
             
                 </table>    
-                <button type ="submit" id="signupButton" class="regist_button btn-stlye" disabled>회원가입</button>
+                <button type ="submit" id="greenBtn" class="regist_button btn-stlye" disabled>회원가입</button>
             
             </div>
                 </form>
+            <div class="exit">
                 <a href="{{route('user.login')}}">취소</a>
+            </div>
         </div>
     </div>
 

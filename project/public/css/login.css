@@ -4,6 +4,10 @@
     grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
     height: 100vh;
 }
+.page-body img{
+    width: 150px;
+    height: 50px;
+}
 
 /* @media ( min-width : 768px) {
     .intro_login{
@@ -109,83 +113,36 @@ input{
     font-weight: 600;
     transition: 0.25s;
 } */
-/* .linkbutton{
-    margin: auto;
-} */
-.login_button {
-    width: 300px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    /* position: absolute;
-    top: 24vh;
-    left: 3vw; */
-    display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(0,0,0,.1),
-    4px 4px 5px 0px rgba(0,0,0,.1);
-    outline: none;
-    z-index: 2;
+.linkbutton{
+   text-align: center;
 }
-
-.btn-stlye {
+button{
+    background-color: #c1c1c1;
     border: none;
-    background:#195F1C;
-    background: linear-gradient(0deg,#195F1C 0%, #257a2a 100%);
-    color: #fff;
-    overflow: hidden;
-    margin: 5vh;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
 }
 
-.btn-stlye:hover {
-    text-decoration: none;
-    color: #ffffff;
+button:hover {
+    background-color: #9D9D9D;
 }
-
-/* .btn-stlye:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-} */
-
-.btn-stlye:hover{
-    opacity: 0.7;
+#greenBtn {
+    background-color: #538E04;
 }
-
-.btn-stlye:active{
-    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-                -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+#greenBtn:hover {
+    background-color: #195F1C;
 }
-
-
-/* @-webkit-keyframes shiny-btn1 {
-    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
-    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
-    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
-    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
-}
- */
-
 
 .registlink{
     text-align: center;
     width: 250px;
     height: 30px;
     margin: 0 auto;
+    margin-top: 40px;
 }
 
 a{
@@ -194,11 +151,6 @@ a{
 }
 a:hover{
     color: #195F1C;
-    font-size: large;
-}
-
-a:active{
-    color: rgb(64, 231, 41);
 }
 
 h1{
@@ -220,3 +172,7 @@ p.first-line{
     margin: 0px;
 }
 
+/* img{
+    width: 32%;
+    height: 8%;
+} */
