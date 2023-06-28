@@ -232,14 +232,13 @@ class UserController extends Controller
         return view('UserPasswordedt');
         Log::debug('userpsedit : 비밀번호 확인');
     }
-   
+
     
 
     public function userpseditpost(Request $req){ //변경 비밀번호를 업데이트 하기위한 구문
-       
+
     
         $basepassword = UserInfo::find(Auth::User()->password); //기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
-  
         if(!Hash::check($req->newpassword, $basepassword->password)){ //전달받은 값을 hash화 해서 비교하기 위함
             $newpassword = $req->newpassword; //다르면 작성된 신규비밀번호를 사용
         }

@@ -8,21 +8,20 @@
 @section('contents')
 <div class="finduser-info">
     <div class="intro_login  d-none d-xl-block">
-            <h1>Logo??</h1>
+        <img src="{{asset('img/logo.png')}}" alt="logo">
             <br>
-            <br>
-        <div class="p-tag">
+        {{-- <div class="p-tag">
             <p class="first-line">Wishing You</p>
             <p class="first-line">Good Health!</p>
-        </div>
+        </div> --}}
     </div>
 
     <div class="finduserpage">
         <div class="find-insert">
             <div class="insert-info">
                 <button type="button" class="btn-stlye" id="findEmail">이메일찾기</button>
-                <button type="button"  class="btn-stlye" id="findpassword">비밀번호변경</button>
-                <button type="button" onclick="location.href='{{route('user.login')}}'">로그인</button>
+                {{-- <button type="button"  class="btn-stlye" id="findpassword">비밀번호변경</button> --}}
+                <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">로그인</button>
             </div> 
 
             <div class="info-list">
@@ -48,7 +47,7 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <div class="chk-btn">
-                            <button type="submit">확인</button>
+                            <button type="submit" id="greenBtn">확인</button>
                         </div>
                         </form>
                         <div class="chk-email">Email  {{session('data')}} </div>
