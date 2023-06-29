@@ -262,9 +262,10 @@ class UserController extends Controller
         if ($validator->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        dump($newpassword);
-        exit();
+     
         $basepassword->password = Hash::make($newpassword);
+        dump($basepassword);
+        exit();
         $basepassword->save(); // 비밀번호 저장
         return redirect()->route('user.login');
     }
