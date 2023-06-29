@@ -170,6 +170,7 @@ class QuestController extends Controller
         $lastLogDate = $logs->effective_date;
 
         if ($lastLogDate === Carbon::now()->format("Y-m-d")) {
+            $questStat = QuestStatus::find($req->statId);
             // 퀘스트 성공 처리
             $questStat->complete_flg = '1';
             $questStat->save();
