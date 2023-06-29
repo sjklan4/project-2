@@ -23,7 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/javascript/scripts.js?ver=1670173476"></script>
     <script src="{{asset('js/common.js')}}"></script>
-    <script src="{{asset('js/changeblade.js')}}"></script>
+    {{-- <script src="{{asset('js/changeblade.js')}}"></script> --}}
     @yield('js')
 </body>
 </html>

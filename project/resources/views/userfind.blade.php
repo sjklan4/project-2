@@ -90,8 +90,3 @@
 </div>
 @endsection
 
-@section('js')
-<script src="{{ asset('js/changeblade.js') }}"></script>
-<script src="{{ asset('js/password.js') }}"></script>
-@endsection
-

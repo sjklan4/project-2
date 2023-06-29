@@ -22,11 +22,11 @@
                 
                 <tr>
                     <th class="passth"  colspan="2"><label for="newpassword">새 비밀번호  </label></th>
-                    <td><input type="text" name="newpassword" id="newpassword"></td>
+                    <td><input type="password" name="newpassword" id="newpassword"></td>
                 </tr>
                 <tr>
                     <th class="passth"  colspan="2"><label for="newpasswordchk">새 비밀번호 확인  </label></th>
-                    <td><input type="text" name="newpasswordchk" id="newpasswordchk"></td>
+                    <td><input type="password" name="newpasswordchk" id="newpasswordchk"></td>
                 </tr>
                 <caption class="pscap"><button type = "submit" id="passwordchg" class="greenBtn" disabled>변경</button></caption>
             </table>

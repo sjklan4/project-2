@@ -262,8 +262,7 @@ class UserController extends Controller
         }
 
         $basepassword->password = Hash::make($newpassword);
-        dump($basepassword);
-        exit();
+    
         $basepassword->save(); // 비밀번호 저장
 
         return redirect()->route('user.userpsedit');

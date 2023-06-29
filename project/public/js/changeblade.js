@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var findEmailButton = document.getElementById('findEmail');
-    var findPasswordButton = document.getElementById('findpassword');
-    var findEmailDiv = document.querySelector('.findemail');
-    var findPasswordDiv = document.querySelector('.findpsw');
+    let findEmailButton = document.getElementById('findEmail');
+    let findPasswordButton = document.getElementById('findpassword');
+    let findEmailDiv = document.querySelector('.findemail');
+    let findPasswordDiv = document.querySelector('.findpsw');
 
     findEmailButton.addEventListener('click', function() {
         findEmailDiv.style.display = 'block';
