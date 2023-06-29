@@ -131,6 +131,9 @@ button:hover {
 #greenBtn {
     background-color: #538E04;
 }
+.greenBtn{
+    background-color: #538E04;
+}
 #greenBtn:hover {
     background-color: #195F1C;
 }
