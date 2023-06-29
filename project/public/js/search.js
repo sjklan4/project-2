@@ -100,7 +100,8 @@ tab2.addEventListener('click', () => {
 });
 
 // ---------------------------- input 입력 감지 ----------------------------
-
+// const query2 = 'input[name="userving"]'
+// const selectedInp = document.querySelectorAll(query2);
 $( document ).ready( function() {
     $( '#userving' ).change( function() {
         check.style.display = 'inline'
