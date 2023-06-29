@@ -130,6 +130,8 @@ class FoodController extends Controller
     public function update(Request $req, $id) {
         // todo 유효성 검사
 
+        // todo 수정 된 정보만 수정
+
         // 음식 테이블 정보 수정
         DB::table('food_infos')
             ->where('food_id', $id)
