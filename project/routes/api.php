@@ -71,4 +71,3 @@ Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
 Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
-Route::get('/getFood/{user_id}', [ApiController::class, 'getFood']);

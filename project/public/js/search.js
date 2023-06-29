@@ -1,13 +1,22 @@
+// 메뉴 탭
 const tab1 = document.querySelector('.tab1')
 const tab2 = document.querySelector('.tab2')
+
+// 탭 내용
 const search = document.getElementsByClassName('user_search')
 const fav_diets = document.getElementsByClassName('fav_diets')
 const user_select = document.getElementsByClassName('user_select')
+
+// 탭 세부 내용
 const uselect = document.getElementsByClassName('uselect')
 const nosearch = document.querySelector('.nosearch')
+
+// 유저가 입력한 인분 수
 const userving = document.getElementsByClassName('userving')
-const check = document.querySelector('#usercheck')
+
+// appendChild 용 div 선언
 const fav_food = document.getElementById('fav_food');
+const fav_diet = document.getElementById('fav_diet');
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
@@ -25,11 +34,15 @@ function getFoodValue(userId)  {
         result = el.value;
     });
 
-    var amount = '';
+    let amount = '';
     selectedInp.forEach((el2) => {
         amount += el2.value;
         parseFloat(amount);
     });
+
+    if (amount == 0.0) {
+        amount = 1;
+    }
 
     console.log(result);
     console.log(amount);
@@ -43,13 +56,13 @@ function getFoodValue(userId)  {
             console.log(ele.food_name);
             console.log(ele.amount);
 
-            let dsfsfd = document.createElement('p')
-            dsfsfd.innerHTML = ele.food_name;
-            fav_food.appendChild(dsfsfd);
+            let ffood = document.createElement('p')
+            ffood.innerHTML = ele.food_name;
+            fav_food.appendChild(ffood);
             }
         )}
-    
-)};
+    )
+};
 
 function getDietValue(userId)  {
     // 선택된 목록 가져오기
@@ -67,15 +80,26 @@ function getDietValue(userId)  {
         method: "post"
     })
     .then(res => res.json())
-    .then(data => { console.log(data); console.log(data.error); console.log(data.msg); console.log(data.data); });
+    .then(data => { 
+            data.forEach(ele => {
+            console.log(ele.fav_id);
+            console.log(ele.fav_name);
+            console.log(ele.user_id);
+
+            let fdiet = document.createElement('p')
+            fdiet.innerHTML = ele.fav_name;
+            fav_diet.appendChild(fdiet);
+            }
+        )}
+    ) 
 }
 
 // todo : 저장된 식단, 선택된 음식 클릭 시 '검색 결과가 없습니다' 메세지 없애기
 // ---------------------------- 저장된 식단 ----------------------------
 
 tab1.addEventListener('click', () => {
-    var displaysetting = fav_diets[0].style.display;
-    
+    let displaysetting = fav_diets[0].style.display;
+
     if(displaysetting == 'block'){
         fav_diets[0].style.display = 'none'
     }else{
@@ -88,7 +112,7 @@ tab1.addEventListener('click', () => {
 // ---------------------------- 선택된 음식 ----------------------------
 
 tab2.addEventListener('click', () => {
-    var displaysetting = user_select[0].style.display;
+    let displaysetting = user_select[0].style.display;
 
     if(displaysetting == 'block'){
         user_select[0].style.display = 'none'
@@ -100,11 +124,15 @@ tab2.addEventListener('click', () => {
 });
 
 // ---------------------------- input 입력 감지 ----------------------------
+// todo : 입력 감지 > 첫번째 음식에만 체크박스 활성화됨
 // const query2 = 'input[name="userving"]'
 // const selectedInp = document.querySelectorAll(query2);
-$( document ).ready( function() {
-    $( '#userving' ).change( function() {
-        check.style.display = 'inline'
-    });
-});
+
+// $( document ).ready( function() {
+//     selectedInp.forEach(el => {
+//         $(el).change( function() {
+//             // check.style.display = 'inline'
+//         });
+//     });
+// });
 
