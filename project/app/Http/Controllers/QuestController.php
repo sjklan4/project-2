@@ -78,11 +78,8 @@ class QuestController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
-        // todo 퀘스트 날짜 지났을 때 처리
-
         
-        // todo 퀘스트 성공 여부 확인
+        // 퀘스트 성공 여부 확인
         $complete = QuestStatus::where('complete_flg','=', '1')
         ->where('user_id','=', Auth::user()->user_id)
         ->first();
@@ -177,8 +174,6 @@ class QuestController extends Controller
             $questStat->complete_flg = '1';
             $questStat->save();
         }
-        
-        // todo 에러 처리
 
         return redirect()->route('quest.show');
     }
@@ -186,8 +181,6 @@ class QuestController extends Controller
 
     public function destroy($id) {
         QuestStatus::destroy($id);
-
-        // todo flg추가하고 새로 시작일 때 내용 추가
 
         return redirect()->route('quest.show');
     }

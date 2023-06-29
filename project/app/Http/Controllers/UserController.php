@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : Usercontroller.php
+ * 이력         : v001 0526 SJ.Park new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use App\Models\KcalInfo;
@@ -18,19 +25,15 @@ class UserController extends Controller
 {
     //로그인 페이지 이동, 로그인시 홈으로 이동 아니면 로그인 페이지로
     public function login(){
-        Log::debug('LoginGet : 인증 확인');
         if(Auth::check(true)){
-            Log::debug('LoginGet : 인증 상태 : 홈으로');
             return redirect()->intended(route('home'));
         }
-        Log::debug('LoginGet : 미인증 상태 : 로그인으로');
         return view('login');
     }
     
 
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){
-        Log::debug('LoginPost : 로그인처리 시작', $req->all());
         $rules = [
             'email'    =>  'required|email|max:20'
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
@@ -46,8 +49,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($errors)->withInput();
         }
         
-        // var_dump($req);
-        // exit;
+
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
         
@@ -189,7 +191,6 @@ class UserController extends Controller
 
     //유저 Email찾기 요청하는 구문
     public function userfindEPost(Request $req){
-        Log::debug('메일 찾기: 이메일 확인', $req->all());
         $rules = [
             'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'
@@ -230,27 +231,14 @@ class UserController extends Controller
     //유저 비밀번호 변경출력
     public function userpsedit(){ //비밀전호 변경 페이지로 이동
         return view('UserPasswordedt');
-        Log::debug('userpsedit : 비밀번호 확인');
     }
 
     
 
     public function userpseditpost(Request $req){ // 변경 비밀번호를 업데이트 하기위한 구문
-        // todo 유효성 블레이드 부분 추가
-        // $rules = [    // 유효성 검사 규칙 준비.
-        // 'newpassword' => 'same:newpasswordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/'
-        // ]; // 유효성 검사 조건을 셋팅(신규비밀번호와 신규비밀번호 유효성 및 같은지 확인할 준비)
-
-        // $validator = Validator::make($req->all(), $rules, [
-        //     'newpassword.same' => '비밀번호를 확인해주세요',
-        //     'newpassword.regex' => '숫자영문특부문자 조합으로 해주세요'
-        // ]);
-
-        // if ($validator->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
     
-        $user_id = Auth::user()->user_id;
+        $user_id = Auth::user()->user_id; //로그인된(인증된유저의 user_id(id)를 받아오는 부분) - 로그인된 유저의 pk를 참조해서 데이터를 전부 가져옴
+
         $basepassword = UserInfo::where('user_id', $user_id)->first();// 기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
         
         if(!Hash::check($req->newpassword, $basepassword->password)){ // 전달받은 값을 hash화 해서 비교하기 위함
@@ -294,14 +282,6 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
-
-
-
-
-
-    
-
-
 }
 
 
@@ -310,96 +290,3 @@ class UserController extends Controller
 
 
 
-// ----------------------------------------------쓰레기통(보지마세요)--------------------------------------------
-// $table->char('user_gen',1);
-// $table->date('user_birth');
-
-// 'name'      => 'required|regex:/^[ㄱ-ㅎ가-힣a-zA-Z]*$/|min:2|max:20' 
-// ,'password' => 'required_with:passwordchk|same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/' //두 값을 비교해서 같은지 확인해 주는 구문
-// ,'email'    =>  'required|email|max:100'
-// ,'nkname' => 'required|regex:/^[ㄱ-ㅎ가-힣a-zA-Z0-9]*$/|min:2|max:20' 
-
-// ,'callnum' => 'required|regex:/^01[0-9]{9,11}$/'
-
-
-     // $req->validate([
-        //     'name'      => 'require'
-        //     ,'password' => 'required_with:passwordchk|same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,20}$/'
-        //     ,'email'    => 'require'
-        //     ,'nkname'   => 'require'
-        //     ,'birthdate'    =>  'require'
-        //     ,'callnum'  => 'require'
-        //     ,'gender'   =>  'require'
-        // ]);
-
-
-                // if($req->fails()){
-        //     return redirect('user.regist')
-        //     ->withErrors($req)
-        //     ->withInput();
-        // }
-
-        // $vali = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num'),$rules,[
-        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-        //     'password' => '한영(대소문자)와 숫자, 특수문자로 최소 8자 이상 20자 이내로 해주세요',
-        //     'user_email' => 'email형식에 맞춰주세요',
-        //     'nkname' => '한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-        //     'user_phone_num' => '본문은 최소 :min 글자 이상이 필요합니다.',
-        // ]);
-
-
-
-                // $req->validate([
-        //     'user_name'      => 'required|regex:/^[a-zA-Z가-힣]{2,20}$/'
-        //     ,'password' => 'required_with:passwordchk|same:passwordchk|regex:/^[a-zA-Z!@#$%^*0-9]{8,20}$/'
-        //     ,'user_email'    => 'required|email|max:30'
-        //     ,'nkname'   => 'required|regex:/^(?=.*[a-zA-Z])(?=.*[가-힣])+$.{2,20}$/'
-        //     ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'
-        // ]);
-
-
-        // $data['user_name'] = $req->user_name;
-        // $data['password'] = Hash::make($req->password);
-        // $data['user_email'] = $req->user_email;
-        // $data['nkname'] = $req->nkname;
-        // $data['user_phone_num'] = $req->user_phone_num;
-        // $data['created_at'] = now();
-
-
-
-        // $req->validate([
-        //     'email'    =>  'required|email|max:20'
-        //     ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
-        // ]);
-
-
-
-        // $rules = [  
-        //     'user_email'   => 'required|unique:user_infos'
-        //    ];
-    
-        //    $validatedup = Validator::make($req->only('user_email'),$rules,[
-    
-        //     'user_email' => '가입되어 있는 Email입니다.'
-        // ]);
-    
-        
-    
-        // if ($validatedup->fails()) {
-        //     return response()->json(['exists' => 1]);
-        // }
-        // return response()->json(['exists' => 0]);
-
-
-
-            //이메일 중복체크 - js에서는 브라우져에서만 유효성 검사를 실시 함으로 서버측도 같은 형식의 검사를 진행하도록 유효성체크 : api를 php단에서 직접 사용시 사용하는 구문 blade body에서 직접 라우트를 url로 지정해서 사용해야 아래 구문을 사용할 수 있음
-    // public function chdeckEmail(Request $request) {
-    //     $rules = ['user_email' => 'required|unique:user_infos'];
-    
-    //     $validator = Validator::make($request->only('user_email'), $rules);
-    
-    //     if ($validator->fails()) {
-    //         return response()->json(['exists' => 1]);
-    //     }
-    //     return response()->json(['exists' => 0]);
-    // }

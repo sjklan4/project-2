@@ -49,23 +49,6 @@ class HomeController extends Controller
         // 사용자 목표 칼로리
         $kcal = KcalInfo::find($id);
 
-        // 개인 식단 (사진)
-        // $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date AND d_flg = :d_flg' ,
-        //     ['id' => $id,'d_date' => $date, 'd_flg' => Session::get('d_flg')]);
-
-        // 식단 음식
-        // $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
-        //     ->where('diets.user_id', $id)
-        //     ->where('diets.d_date',$date)
-        //     ->get();
-
-        // 사진 출력 위해 
-        // if(Session::has('d_flg')){
-        //     $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date AND d_flg = :d_flg' ,
-        //     ['id' => $id,'d_date' => $date, 'd_flg' => Session::get('d_flg')]);
-        //     return $diet[0]->d_img_path;
-        // }
-
         $dietBrf = Diet::Diet( $id , $date, "0")->get(); // 아침
         $dietLunch = Diet::Diet( $id , $date, "1")->get(); // 점심
         $dietDinner = Diet::Diet( $id , $date, "2")->get(); // 저녁
@@ -204,9 +187,6 @@ class HomeController extends Controller
         return redirect()->route('home.post');
     }
 
-    /**********************************************
-    * 식단 즐겨찾기 등록
-    **********************************************/
     public function favinsert(Request $req){
 
         // 사용자 인증 작업
@@ -266,24 +246,19 @@ class HomeController extends Controller
         if($req->hasFile('dietImg')){
             $img = $req->file('dietImg');
             $fileName = $req->file('dietImg')->getClientOriginalName();
-            // $path = $req->file('dietImg')->storeAs('/storage/images/food', $fileName);
+
 
             $img->move(public_path('foodImg'), $fileName);
             // 이미지 경로
+
             $imagePath = 'foodImg/' . $fileName;
+
             // 이미지 경로를 image_path칼럼에 insert
             $diet->d_img_path = $imagePath;          
-            // DB::table('diets')
-            //     ->where('user_id', '=', $id)
-            //     ->where('d_date', '=', $req->d_date)
-            //     ->where('d_flg', '=', $req->d_flg)
-            //     ->update(['d_img_path' => $imagePath]);
             $diet->save();
-
         }
         Session::put('d_date',$req->d_date);
 
-        // return redirect()->route('home.post')->with('d_flg',$req->d_flg);
         return redirect()->route('home.post');
     }
 }

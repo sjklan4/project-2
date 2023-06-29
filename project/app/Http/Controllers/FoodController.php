@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : FoodController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -57,6 +64,17 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
+        // 유저 id 획득
+        $id = Auth::user()->user_id;
+
+        // 10개 이상 등록 금지
+        $foods = FoodInfo::where('user_id', $id)
+        ->get();
+
+        if ($foods->count() >= 10) {
+            return redirect()->route('food.index');
+        }
+
         //유효성 검사
         $rules = [
             'foodName'      => 'required|min:2|max:20|regex:/^[가-힣0-9]+$/'
@@ -98,14 +116,8 @@ class FoodController extends Controller
             return back()->withErrors($validator)
                         ->withInput();
         }
-
-        // 유저 id 획득
-        $id = Auth::user()->user_id;
-
+        
         // 유저가 같은 이름으로 등록 불가능
-        $foods = FoodInfo::where('user_id', $id)
-            ->get();
-
         foreach ($foods as $val) {
             if ($val->food_name === $req->foodName) {
                 return back()->withErrors(['foodName' => '이미 등록된 이름입니다.'])
@@ -113,10 +125,6 @@ class FoodController extends Controller
             }
         }
         
-        // 10개 이상 등록 금지
-        if ($foods->count() >= 10) {
-            return redirect()->route('food.index');
-        }
 
         // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
         DB::table('food_infos')

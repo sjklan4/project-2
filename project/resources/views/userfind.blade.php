@@ -10,17 +10,13 @@
     <div class="intro_login  d-none d-xl-block">
         <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
-        {{-- <div class="p-tag">
-            <p class="first-line">Wishing You</p>
-            <p class="first-line">Good Health!</p>
-        </div> --}}
+       
     </div>
 
     <div class="finduserpage">
         <div class="find-insert">
             <div class="insert-info">
-                {{-- <button type="button" class="btn-stlye" id="findEmail">이메일찾기</button> --}}
-                {{-- <button type="button"  class="btn-stlye" id="findpassword">비밀번호변경</button> --}}
+             
                 
             </div> 
 
@@ -33,7 +29,7 @@
                         <div class="write-input">
                             <label for="user_name">회원이름  </label>
                             <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
-                        {{-- validator에서 출력하는 오류 메시지를 출력하기 위해서 추가한 구문 --}}
+                       
                         </div>
                         @error('user_name') 
                         <div class="text-danger">{{ $message }}</div>

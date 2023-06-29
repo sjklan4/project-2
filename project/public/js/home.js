@@ -118,30 +118,10 @@ function next(){
 
 // 날짜 형식 변경 함수 (YYYY-MM-DD)
 function formatDate(date){
-    var year = date.getFullYear();
-    var month = String(date.getMonth() + 1).padStart(2,'0');
-    var day = String(date.getDate()).padStart(2, '0');
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2,'0');
+    let day = String(date.getDate()).padStart(2, '0');
     return year + '-' + month + '-' + day;
 }
 
 
-// function test(){
-//     dateForm.submit();
-// }
-
-
-// function sendDateToServer(date) {
-//     $.ajax({
-//         url: '/home', // 실제 요청을 처리할 Laravel 엔드포인트 경로를 입력해야 합니다.
-//         type: 'POST',
-//         data: { date: getDate },
-//         success: function(response) {
-//         // 요청이 성공적으로 처리되었을 때 수행할 작업
-//         console.log(response);
-//         },
-//         error: function(xhr, status, error) {
-//         // 요청이 실패했을 때 수행할 작업
-//         console.log(error);
-//         }
-//     });
-// }

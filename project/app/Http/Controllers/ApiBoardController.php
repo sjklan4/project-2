@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiBoardController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,8 +21,6 @@ class ApiBoardController extends Controller
             'errorcode' => '0'
             ,'msg'      => ''
         ];
-
-        // todo 유효성
 
         DB::transaction(function () use ($req) {
             // 좋아요 테이블 인서트
@@ -45,8 +50,6 @@ class ApiBoardController extends Controller
             'errorcode' => '0'
             ,'msg'      => ''
         ];
-
-        // todo 유효성
 
         DB::transaction(function () use ($req) {
             // 좋아요 테이블 정보 삭제

@@ -10,11 +10,11 @@
     <div id="wrap">
         @if ($flg === 3)
             <div>퀘스트 완료</div>
-            {{--todo 라우트 추가 <form action="{{route('quest.destroy', ['id' => $id])}}" method="post">
+            <form action="{{route('quest.destroy', ['id' => $id])}}" method="post">
                 @csrf
                 @method('delete')
                 <button id="greenBtn" type="submit">새 퀘스트 시작</button>
-            </form> --}}
+            </form> 
         @elseif ($flg !== 1)
         <div class="container contents mt-5">
             <h2 class="fw-bold">퀘스트 관리</h2>
