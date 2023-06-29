@@ -76,11 +76,3 @@ suggestinsert.addEventListener('click',function(){
 
 
 
-
-// {(10*체중)  + ( 6.25*키)   -( 5*나이 )  + 5}*1.2(활동지수)
-// {(10*체중) + (6.25*키) -(5*나이)-161}*1.2(활동지수)
-
-//남자{(10*weight)+(6.25*tall) - (5*age)+ 5}*(acctivaty) 
-//여자{(10*weight)+(6.25*tall) - (5*age)-161}*(acctivaty)
-
-// 활동지수 : 적음 = 1.2 / 보통 = 1.55 / 많음 = 1.9

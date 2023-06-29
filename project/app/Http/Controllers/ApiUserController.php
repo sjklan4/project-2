@@ -1,4 +1,10 @@
 <?php
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiUsercontroller.php
+ * 이력         : v001 0526 SJ.Park new
+ *****************************************************/
 
 namespace App\Http\Controllers;
 
