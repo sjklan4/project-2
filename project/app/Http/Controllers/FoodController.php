@@ -47,6 +47,11 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
+        $links = session()->has('links') ? session('links') : [];
+        $currentLink = request()->path();
+        array_unshift($links, $currentLink);
+        session(['links' => $links]);
+
         return view('/foodCreate');
     }
 
@@ -101,7 +106,7 @@ class FoodController extends Controller
         // 유저 id 획득
         $id = Auth::user()->user_id;
 
-        // todo 한 회원이 같은 이름으로 정보 등록 못하게 하기
+        // todo 한 회원이 같은 이름으로 정보 등록 x, 10개 이상 등록 금지
 
         // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
         DB::table('food_infos')

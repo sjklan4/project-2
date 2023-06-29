@@ -14,7 +14,7 @@
             <div class="searchdiv">
                 <input type="hidden" name="date" value="{{$data['date']}}">
                 <input type="hidden" name="time" value="{{$data['time']}}">
-                <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요.">
+                <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요." value="{{ old('search_input')}}">
                 <button type="reset" class="resetbtn">X</button>
                 <button type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
             </div>
@@ -29,10 +29,10 @@
                 <i class="fa-solid fa-cart-shopping" style="color: #538e04;"></i>
                 선택된 음식
             </li>
-            {{-- <li class="tab3" onclick="location.href='{{route('food.create')}}'">
+            <li class="tab3" onclick="location.href='{{route('food.index')}}'">
                 <i class="fa-solid fa-mortar-pestle" style="color: #6799e4;"></i>
-                음식등록
-            </li> --}}
+                등록 음식 관리
+            </li>
         </ul>
     </div>
     <div class="searchTabContainer">
