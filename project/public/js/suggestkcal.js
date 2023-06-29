@@ -26,25 +26,43 @@ suggetskcal.addEventListener('click', function(){
     if(gender === "0"){
         let BMR = (10 * weight)+(6.25 * tall)-(5 * age)+5
             if(acctivaty ==="0"){
-                document.getElementById('calcul-kcal').value = BMR * 1.2;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.2;
+                // math.floor(result);
+                let result = BMR * 1.2;
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
             else if(acctivaty ==="1"){
-                document.getElementById('calcul-kcal').value = BMR * 1.55;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.55;
+                // math.floor(result);
+                let result = BMR * 1.55;
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
             else{
-                document.getElementById('calcul-kcal').value = BMR * 1.9;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.9;
+                // math.floor(result);
+                let result = BMR * 1.9
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
         }
     else{
         let BMR = (10 * weight)+(6.25 * tall)-(5 * age)-161
             if(acctivaty ==="0"){
-                document.getElementById('calcul-kcal').value = BMR * 1.2;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.2;
+                // math.floor(result);
+                let result = BMR * 1.2;
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
             else if(acctivaty ==="1"){
-                document.getElementById('calcul-kcal').value = BMR * 1.55;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.55;
+                // math.floor(result);
+                let result = BMR * 1.55;
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
             else{
-                document.getElementById('calcul-kcal').value = BMR * 1.9;
+                // let result = document.getElementById('calcul-kcal').value = BMR * 1.9;
+                // math.floor(result);
+                let result = BMR * 1.9;
+                document.getElementById('calcul-kcal').value = Math.floor(result);
             }
         }
     });

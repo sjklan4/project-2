@@ -238,8 +238,11 @@ class UserController extends Controller
     public function userpseditpost(Request $req){ //변경 비밀번호를 업데이트 하기위한 구문
 
     
-        $basepassword = UserInfo::find(Auth::User()->password); //기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
-        if(!Hash::check($req->newpassword, $basepassword->password)){ //전달받은 값을 hash화 해서 비교하기 위함
+        // $basepassword = UserInfo::find(Auth::User()->password); 
+        $user = Auth::User();
+        $basepassword = UserInfo::where('user_id', $user->id)->first();//기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
+   
+        if(!Hash::check($req->newpassword, Auth::user()->password)){ //전달받은 값을 hash화 해서 비교하기 위함
             $newpassword = $req->newpassword; //다르면 작성된 신규비밀번호를 사용
         }
         else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
@@ -259,7 +262,8 @@ class UserController extends Controller
         if ($validator->fails()){ //유효성 검사 결과에 따른 결과 값 출력 - 유효성검사 불일치 일시 비밀번호 확인 메시지출력
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
+        dump($newpassword);
+        exit();
         $basepassword->password = Hash::make($newpassword);
         $basepassword->save(); // 비밀번호 저장
         return redirect()->route('user.login');

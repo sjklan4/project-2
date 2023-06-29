@@ -51,7 +51,7 @@
                     <button type="submti" id="greenBtn">로그인</button>
                 </form>
                 <div class="registlink">
-                    <a href="{{route('user.userfindE')}}">이메일찾기/비밀번호찾기</a>
+                    <a href="{{route('user.userfindE')}}">이메일찾기 | </a>
                     <a href="{{route('user.regist')}}">회원가입</a>
                 </div>
         </div>
