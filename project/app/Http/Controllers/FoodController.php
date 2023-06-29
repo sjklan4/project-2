@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : FoodController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
