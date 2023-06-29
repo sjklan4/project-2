@@ -51,7 +51,9 @@ class SearchController extends Controller
         //     return back()->withErrors($validator)
         //                 ->withInput();
         // }
+
         $req->flashOnly('search_input');
+        
         // v004, v005
         // 저장된 식단 정보
         $dietnames = DB::table('fav_diets')
@@ -104,7 +106,6 @@ class SearchController extends Controller
                 ->get();
 
                 return view('FoodList')
-                // ->with('uinput', $usersearch)
                 ->with('foods', $foods)
                 ->with('dietname', $dietnames)
                 ->with('dietfood', $dietfoods)
@@ -120,7 +121,6 @@ class SearchController extends Controller
             ->get();
 
             return view('FoodList')
-            // ->with('uinput', $usersearch)
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
@@ -129,7 +129,6 @@ class SearchController extends Controller
             ->with('data', $data);
         }
         return view('FoodList')
-        // ->with('uinput', $usersearch)
         ->with('dietname', $dietnames)
         ->with('dietfood', $dietfoods)
         ->with('seleted', $seleted)
