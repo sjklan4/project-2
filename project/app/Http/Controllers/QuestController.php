@@ -115,7 +115,7 @@ class QuestController extends Controller
             ->where('quest_status_id', $quest_status->quest_status_id)
             ->get();
         
-        // 첫날 제외 어제 꺼 했는지 확인, 안했으면 퀘스트 실패 띄워야 함
+        // 첫날 제외 어제 수행 여부 확인, 안되어있으면 실패
         if ($questLog[0]->effective_date !== Carbon::now()->format("Y-m-d")) {
             $yesterdayLog = DB::table('quest_logs')
                 ->where('quest_status_id', $quest_status->quest_status_id)
@@ -147,17 +147,12 @@ class QuestController extends Controller
             'ratio'     => $ratio,
         ];
 
-        // ? 당일 로그 정보 // 필요 없을 수도..?
-        // $todayLog = DB::table('quest_logs')
-        //     ->where('quest_status_id', $quest_status->quest_status_id)
-        //     ->where('effective_date', Carbon::now()->format("Y-m-d"))
-        //     ->first();
-
-        return view('questDetail')->with('info', $questInfo)->with('logs', $questLog)->with('ratio', $arrRatio)->with('questStat', $quest_status)->with('flg', $flg);
-
-
-        // ->with('todayLog', $todayLog)->with('questStat', $quest_status);
-
+        return view('questDetail')
+            ->with('info', $questInfo)
+            ->with('logs', $questLog)
+            ->with('ratio', $arrRatio)
+            ->with('questStat', $quest_status)
+            ->with('flg', $flg);
     }
 
     public function update(Request $req, $id) {
