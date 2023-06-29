@@ -264,7 +264,7 @@ class UserController extends Controller
         $basepassword->password = Hash::make($newpassword);
         $basepassword->save(); // 비밀번호 저장
 
-        return redirect()->route('user.logout');
+        return redirect()->route('user.userpsedit');
     }
     
     public function userKcalinfo(){//유저의 식단과 목표칼로리 변경 페이지로 이동
