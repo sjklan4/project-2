@@ -63,7 +63,7 @@
             @endforeach
         </div>
         @else
-            <p class="nosearch">검색 결과가 없습니다.</p>
+            <p class="nosearch"></p>
         @endif
         
         <div class="fav_diets">
@@ -72,14 +72,14 @@
             <div class="fav_scroll">
             @foreach ($dietname as $names)
                 <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue({{Auth::user()->user_id}})'>
-                <span class="favname"> {{$names->fav_name}}</span>
+                <span class="favname"> {{$names->fav_name}} </span>
                 <br>
                 <div class="diet_div">
                 @foreach ($dietfood as $foods)
                 @if($foods->fav_id === $names->fav_id)
                     <div class="dietinfo">
                         <span> {{$foods->food_name}}</span>
-                        <br
+                        <br>
                         <strong>영양성분</strong>
                         <span> > </span>
                         <span>칼로리 : {{$foods->kcal}}, </span>
@@ -108,29 +108,27 @@
             <h4>음식</h4>
             <hr class="select_food">
             <div id="fav_food">
-                @foreach ($seleted as $food)
-                    <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get">
-                        <span>{{$food->food_name}}</span>
-                        <button type="submit" class="delete_btn">X</button>
+                {{-- @foreach ($seleted as $food) --}}
+                    {{-- <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get"> --}}
+                        {{-- <span>{{$food->food_name}}</span> --}}
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
                         <br>
-                    </form>
-                @endforeach
+                    {{-- </form> --}}
+                {{-- @endforeach --}}
             </div>
             <br>
             <h4>식단</h4>
             <hr class="select_diet">
-            <div class="fav_diet">
-                @foreach ($seleted_diet as $diet)
-                    <form action="{{route('diet.delete', ['d_id' => $diet->fav_id])}}" method="get">
-                        <span>{{$diet->fav_name}}</span>
-                        <button type="submit" class="delete_btn">X</button>
+            <div id="fav_diet">
+                {{-- @foreach ($seleted_diet as $diet)
+                    <form action="{{route('diet.delete', ['d_id' => $diet->fav_id])}}" method="get"> --}}
+                        {{-- <span>{{$diet->fav_name}}</span> --}}
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
                         <br>
-                    </form>
-                @endforeach
+                    {{-- </form>
+                @endforeach --}}
             </div>
             <br>
             <br>

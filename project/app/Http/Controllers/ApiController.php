@@ -169,6 +169,7 @@ class ApiController extends Controller
         }
         return response()->json($seleted);
     }
+
     public function postFoodCart2($user_id, $fav_id){
         $cart = new FoodCart([
             'user_id' => $user_id,
@@ -177,6 +178,12 @@ class ApiController extends Controller
             'amount' => 0.0
         ]);
         $cart->save();
+
+        $seleted_diet = DB::table('food_carts')
+        ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+        ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
+        ->where('food_carts.user_id', $user_id)
+        ->get();
 
         $arr = [
             'error' => '0'
@@ -189,44 +196,8 @@ class ApiController extends Controller
         }else{
             $arr['error'] = '2';
             $arr['msg'] = 'success';
-            $arr['data'] = $cart->only('fav_id', 'user_id');
+            $arr['data'] = $seleted_diet->only('fav_id', 'fav_name');
         }
-        return $arr;
-    }
-
-    public function getFood($user_id) {
-        $seleted = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
-        ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
-        ->where('food_carts.user_id', $user_id)
-        ->get();
-
-        // $seleted_diet = DB::table('food_carts')
-        // ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
-        // ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
-        // ->where('food_carts.user_id', $user_id)
-        // ->get();
-
-        // $seleted_diet = DB::table('food_carts')
-        // ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
-        // ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
-        // ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
-        // ->where('food_carts.user_id', $user_id)
-        // ->get();
-
-        $arr = [
-            'error' => '0'
-            ,'msg' => ''
-        ];
-
-        if(!$user_id){
-            $arr['error'] = '1';
-            $arr['msg'] = 'fall';
-        }else{
-            $arr['error'] = '2';
-            $arr['msg'] = 'success';
-            $arr['data'] = $seleted->only('food_id', 'food_name', 'amount');
-        }
-        return response()->json($seleted);
+        return response()->json($seleted_diet);
     }
 }

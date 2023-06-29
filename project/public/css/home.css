@@ -16,7 +16,7 @@
     color: #538e04;
 }
 .fc-pink{
-    color: #EE6666;
+    color: #ee6666;
 }
 .fc-yel{
     color: #FFD029;
@@ -53,6 +53,9 @@ form{
     padding: 5px 10px;
     border: none;
     color: #ffffff;
+}
+.btnYg:hover{
+    background-color: #195F1C;
 }
 button{
     background: none;
@@ -358,4 +361,3 @@ th, td{
     display: none;
 }
 
-/* 즐겨찾기 모달팝업 */
