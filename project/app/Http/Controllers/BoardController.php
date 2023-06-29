@@ -156,8 +156,6 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
-
         // 해당 유저의 해당 글 좋아요 확인
         $like_count = DB::table('board_likes')
             ->where('user_id', Auth::user()->user_id)
@@ -225,8 +223,6 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 이미지 수정 기능
-
         $board = Board::find($id);
         $bcate = BoardCate::orderBy('bcate_id')->get();
         
@@ -271,7 +267,6 @@ class BoardController extends Controller
                         ->withInput();
         }
 
-        // todo 트랜잭션 처리
         // 게시글 테이블 정보 수정
         $board = Board::find($id);
         $board->bcate_id = $req->cate;
@@ -308,12 +303,9 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
-
         // 게시글 삭제 처리
         Board::destroy($id);
 
-        // todo 에러처리, 트랜잭션 처리
         return redirect()->route('board.index');
     }
 
@@ -322,8 +314,6 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
-        // todo 유효성 검사
 
         $user_id = session('user_id');
 
@@ -401,8 +391,6 @@ class BoardController extends Controller
             ->where('board_id', '=', $req->board_id)
             ->update(['replies' => $board->replies + 1]);
 
-        // todo 트랜잭션 처리
-
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
     }
@@ -414,12 +402,9 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
-
         // 댓글 삭제 처리
         BoardReply::destroy($id);
 
-        // todo 에러처리, 트랜잭션 처리
         return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
     }
 

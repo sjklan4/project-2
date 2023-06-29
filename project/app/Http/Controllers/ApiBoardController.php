@@ -15,8 +15,6 @@ class ApiBoardController extends Controller
             ,'msg'      => ''
         ];
 
-        // todo 유효성
-
         DB::transaction(function () use ($req) {
             // 좋아요 테이블 인서트
             DB::table('board_likes')->insert([
@@ -45,8 +43,6 @@ class ApiBoardController extends Controller
             'errorcode' => '0'
             ,'msg'      => ''
         ];
-
-        // todo 유효성
 
         DB::transaction(function () use ($req) {
             // 좋아요 테이블 정보 삭제
