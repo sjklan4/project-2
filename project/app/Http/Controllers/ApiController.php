@@ -16,10 +16,10 @@ class ApiController extends Controller
     public function apisearch() {
         $numofrows = 20;
         for ($pagenum=1; $pagenum<20; $pagenum++) {
-            // xml 
+            // ! https://curl.haxx.se/ca/cacert.pem > 에서 인증서(cacert.pem) 다운로드
+            // ! php.ini > 1946행 주석 해제 후 "C:\cacert.pem" 추가 curl.cainfo = "C:\cacert.pem"
+            // ? xml 
             // $foodinfo = Http::get('https://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?serviceKey=bmFaWcRSgAvoTtX4icXz1GOdbD7o%2FMS%2BrX8nxsazgSgkLHja%2Bm7UT3I2BGnyAxapTRLBhq1IUH%2B%2BaykFTHQevg%3D%3D&pageNo='.$pagenum.'&numOfRows='.$numofrows);
-            // https://curl.haxx.se/ca/cacert.pem > 에서 인증서(cacert.pem) 다운로드
-            // php.ini > 1946행 주석 해제 후 "C:\cacert.pem" 추가 curl.cainfo = "C:\cacert.pem"
             // $xml = simplexml_load_string($foodinfo);
             // $json = json_encode($xml);
             // $array = json_decode($json, TRUE);
@@ -54,7 +54,7 @@ class ApiController extends Controller
             //     }
             // } 
             
-            // json
+            // ! json
             $foodinfo = Http::get('https://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?serviceKey=bmFaWcRSgAvoTtX4icXz1GOdbD7o%2FMS%2BrX8nxsazgSgkLHja%2Bm7UT3I2BGnyAxapTRLBhq1IUH%2B%2BaykFTHQevg%3D%3D&pageNo='.$pagenum.'&numOfRows='.$numofrows.'&type=json');
             $array = json_decode($foodinfo, TRUE);
 
@@ -86,55 +86,45 @@ class ApiController extends Controller
             //         $foods->save();
             //     }
             // } 
-                /* print_r -> json
-                Array ( 
-                    [header] => Array 
-                        ( 
-                            [resultCode] => 00 
-                            [resultMsg] => NORMAL SERVICE.
-                        ) 
-                    [body] => Array 
-                        ( 
-                            [pageNo] => 1 
-                            [totalCount] => 22602 
-                            [numOfRows] => 20 
-                            [items] => Array 
+            /* print_r(json)
+            Array ( 
+                [header] => Array 
+                    ( 
+                        [resultCode] => 00 
+                        [resultMsg] => NORMAL SERVICE.
+                    ) 
+                [body] => Array 
+                    ( 
+                        [pageNo] => 1 
+                        [totalCount] => 22602 
+                        [numOfRows] => 20 
+                        [items] => Array 
+                            ( 
+                            [0] => Array 
                                 ( 
-                                [0] => Array 
-                                    ( 
-                                        [DESC_KOR] => 고량미,알곡 
-                                        [SERVING_WT] => 0 
-                                        [NUTR_CONT1] => 0.00 
-                                        [NUTR_CONT2] => 0.00 
-                                        [NUTR_CONT3] => 0.00 
-                                        [NUTR_CONT4] => 0.00 
-                                        [NUTR_CONT5] => N/A 
-                                        [NUTR_CONT6] => 0.00 
-                                        [NUTR_CONT7] => N/A 
-                                        [NUTR_CONT8] => N/A 
-                                        [NUTR_CONT9] => N/A 
-                                        [BGN_YEAR] => 2001 
-                                        [ANIMAL_PLANT] => 
-                                    )
-                */
+                                    [DESC_KOR] => 고량미,알곡 
+                                    [SERVING_WT] => 0 
+                                    [NUTR_CONT1] => 0.00 
+                                    [NUTR_CONT2] => 0.00 
+                                    [NUTR_CONT3] => 0.00 
+                                    [NUTR_CONT4] => 0.00 
+                                    [NUTR_CONT5] => N/A 
+                                    [NUTR_CONT6] => 0.00 
+                                    [NUTR_CONT7] => N/A 
+                                    [NUTR_CONT8] => N/A 
+                                    [NUTR_CONT9] => N/A 
+                                    [BGN_YEAR] => 2001 
+                                    [ANIMAL_PLANT] => 
+                                )
+            */
             }
         exit();
     }
     
     public function postFoodCart($user_id, $food_id, $amount) {
-    // public function postFoodCart($data) {
         Log::debug("시작");
-        // if(Auth::check()) {
-        //     Log::debug("Auth On");
-        // }
-        // if(auth('api')->guest()) {
-        //     $arr['error'] = '1';
-        //     $arr['msg'] = 'guest';
-        //     return $arr;
-        // }
         
         Log::debug("식단 획득");
-        // $data = json_decode($data);
         $cart = new FoodCart([
             'user_id' => $user_id,
             'food_id' => $food_id,
@@ -147,12 +137,6 @@ class ApiController extends Controller
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
         ->where('food_carts.user_id', $user_id)
         ->get();
-
-        // $seleted_diet = DB::table('food_carts')
-        // ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
-        // ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
-        // ->where('food_carts.user_id', $user_id)
-        // ->get();
         
         $arr = [
             'error' => '0'

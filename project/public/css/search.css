@@ -191,7 +191,6 @@ ul{
     background-color: transparent;
 }
 
-
 /* checkbox */
 input[type="checkbox"]{
     -webkit-appearance: none; /* -webkit-appearance : 요소의 자체 구성요소 숨기기 / 사파리 & 크롬 적용 */
