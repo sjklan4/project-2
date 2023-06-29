@@ -182,7 +182,7 @@ class BoardController extends Controller
         $boardImg = DB::table('board_imgs')
             ->where('board_id', $id)
             ->select('bimg_name')
-            ->get();
+            ->first();
 
         // 댓글 관련 정보 획득
         $reply = BoardReply::join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
@@ -202,10 +202,9 @@ class BoardController extends Controller
             ,'created_at' => $board->created_at
             ,'like_flg'   => $like_flg
         ];
-        
 
-        if (isset($boardImg[0])) {
-            $arr['img'] = $boardImg[0]->bimg_name;
+        if (isset($boardImg)) {
+            $arr['img'] = $boardImg->bimg_name;
         }
 
         return view('boardDetail')->with('data', $arr)->with('reply', $reply);
@@ -285,7 +284,6 @@ class BoardController extends Controller
                     'bimg_name'    => $fileName
                     ,'bimg_path'    => $path
                 ]);
-
         }
 
         return redirect()->route('board.show', ['board' => $id]);
