@@ -36,27 +36,27 @@
                             @method('put')
                             <div id="foodNameGrid">
                                 <h5>음식명</h5>
-                                <input type="text" name="foodName" value="{{$food->food_name}}">
+                                <input type="text" name="foodName" value="{{$food->food_name}}" autocomplete="off">
                             </div>
                             <div>
                                 <h5>영양 성분</h5>
                                 <label for="kcal"><i class="bi bi-asterisk"></i> 칼로리(Kcal)</label>
-                                <input type="text" id="kcal" name="kcal" value="{{$food->kcal}}" required>
+                                <input type="text" id="kcal" name="kcal" value="{{$food->kcal}}" required autocomplete="off">
                                 <br>
                                 <label for="kcal"><i class="bi bi-asterisk"></i> 탄수화물(Carbs)</label>
-                                <input type="text" id="carbs" name="carbs" value="{{$food->carbs}}" required>
+                                <input type="text" id="carbs" name="carbs" value="{{$food->carbs}}" required autocomplete="off">
                                 <br>
                                 <label for="kcal"><i class="bi bi-asterisk"></i> 단백질(Protein)</label>
-                                <input type="text" id="protein" name="protein" value="{{$food->protein}}" required>
+                                <input type="text" id="protein" name="protein" value="{{$food->protein}}" required autocomplete="off">
                                 <br>
                                 <label for="kcal"><i class="bi bi-asterisk"></i> 지방(Fat)</label>
-                                <input type="text" id="fat" name="fat" value="{{$food->fat}}" required>
+                                <input type="text" id="fat" name="fat" value="{{$food->fat}}" required autocomplete="off">
                                 <br>
                                 <label for="kcal">　당(Sugar)</label>
-                                <input type="text" id="sugar" name="sugar" value="{{$food->sugar}}">
+                                <input type="text" id="sugar" name="sugar" value="{{$food->sugar}}" autocomplete="off">
                                 <br>
                                 <label for="kcal">　나트륨(Sodium)</label>
-                                <input type="text" id="sodium" name="sodium" value="{{$food->sodium}}">
+                                <input type="text" id="sodium" name="sodium" value="{{$food->sodium}}" autocomplete="off">
                             </div>
                             <div>
                                 <h5>1회 제공량</h5>
