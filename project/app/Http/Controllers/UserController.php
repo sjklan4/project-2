@@ -156,35 +156,36 @@ class UserController extends Controller
         return redirect()->route('user.userinfoedit');
     }
 
-    public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
-        $arrKey = [];
-        $baseUser = KcalInfo::find(Auth::User()->user_id);
+    // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
+    //     $arrKey = [];
+    //     $baseUser = KcalInfo::find(Auth::User()->user_id);
 
-        if($req->user_birth !== $baseUser->user_birth){
-            $arrKey[] = 'user_birth';
-        }
-        //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
-        if($req->user_tall !== $baseUser->user_tall){
-            $arrKey[] = 'user_tall';
-        }
+    //     if($req->user_birth !== $baseUser->user_birth){
+    //         $arrKey[] = 'user_birth';
+    //     }
+    //     //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
+    //     if($req->user_tall !== $baseUser->user_tall){
+    //         $arrKey[] = 'user_tall';
+    //     }
 
-        if($req->user_weight !== $baseUser->user_weight){
-            $arrKey[] = 'user_weight';
-        }
-          // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
-        if($req->user_weight !== $baseUser->user_weight){
-            $arrKey[] = 'user_activity';
-        }
-        foreach($arrKey as $val) {
+    //     if($req->user_weight !== $baseUser->user_weight){
+    //         $arrKey[] = 'user_weight';
+    //     }
+    //       // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
+    //     if($req->user_weight !== $baseUser->user_weight){
+    //         $arrKey[] = 'user_activity';
+    //     }
+    //     foreach($arrKey as $val) {
         
-            $baseUser->$val = $req->$val;
-        }
-        $baseUser->save(); // update
-        return redirect()->route('user.userinfoedit');
+    //         $baseUser->$val = $req->$val;
+    //     }
+    //     $baseUser->save(); // update
+    //     return redirect()->route('user.userinfoedit');
 
-    }
+    // }
 
     //유저 Email찾기 구문
+    // 
     public function userfindE(){
         return view('userfind');
     }
