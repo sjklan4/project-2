@@ -225,6 +225,8 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
+        // todo 이미지 수정 기능
+
         $board = Board::find($id);
         $bcate = BoardCate::orderBy('bcate_id')->get();
         

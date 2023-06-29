@@ -22,7 +22,7 @@
     </div>
 
     <div class = "registpage">
-                <form action="{{route('user.registpost')}}" method="post">
+        <form action="{{route('user.registpost')}}" method="post">
                     @csrf
         <div class = "margin"></div>
         <div class="registinfo">
@@ -149,14 +149,11 @@
                     </td>
                 </tr>
             
-                </table>    
-                <button type ="submit" id="greenBtn" class="regist_button btn-stlye" disabled>회원가입</button>
-            
+                </table>
+                    <button type="button" onclick="location.href='{{route('user.login')}}'" id="exit">취소</button>
+                    <button type ="submit" id="signupButton" class="greenBtn" disabled>회원가입</button>
             </div>
-                </form>
-            <div class="exit">
-                <a href="{{route('user.login')}}">취소</a>
-            </div>
+        </form>
         </div>
     </div>
 

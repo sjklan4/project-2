@@ -18,7 +18,7 @@
                         <label for="goal_kcal">목표칼로리  </label>
                     </th>
                     <td colspan="2" class="goal_kcal_input">
-                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요">Kcal
+                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요" step="1" min="0">Kcal
                     </td>
                     <td>
                         <div class="hover-btn">
@@ -71,7 +71,7 @@
             </tr>
             <tr>
                 <td><label for="calcul-kcal">추천칼로리  </label></td>
-                <td><input type="text" name="calcul-kcal" id="calcul-kcal" placeholder="추천 칼로리">Kcal</td>
+                <td><input type="text" name="calcul-kcal" id="calcul-kcal" placeholder="추천 칼로리" min="0" step="1">Kcal</td>
             </tr>
             <tr>        
                 <td><div><button type="button" id="suggest-cal" class="greenBtn">계산</button></div></td>
