@@ -108,27 +108,17 @@
             <h4>음식</h4>
             <hr class="select_food">
             <div id="fav_food">
-                {{-- @foreach ($seleted as $food) --}}
-                    {{-- <form action="{{route('food.delete', ['f_id' => $food->food_id])}}" method="get"> --}}
-                        {{-- <span>{{$food->food_name}}</span> --}}
-                        <input type="hidden" name="date" value="{{$data['date']}}">
-                        <input type="hidden" name="time" value="{{$data['time']}}">
-                        <br>
-                    {{-- </form> --}}
-                {{-- @endforeach --}}
+                <input type="hidden" name="date" value="{{$data['date']}}">
+                <input type="hidden" name="time" value="{{$data['time']}}">
+                <br>
             </div>
             <br>
             <h4>식단</h4>
             <hr class="select_diet">
             <div id="fav_diet">
-                {{-- @foreach ($seleted_diet as $diet)
-                    <form action="{{route('diet.delete', ['d_id' => $diet->fav_id])}}" method="get"> --}}
-                        {{-- <span>{{$diet->fav_name}}</span> --}}
-                        <input type="hidden" name="date" value="{{$data['date']}}">
-                        <input type="hidden" name="time" value="{{$data['time']}}">
-                        <br>
-                    {{-- </form>
-                @endforeach --}}
+                <input type="hidden" name="date" value="{{$data['date']}}">
+                <input type="hidden" name="time" value="{{$data['time']}}">
+                <br>
             </div>
             <br>
             <br>

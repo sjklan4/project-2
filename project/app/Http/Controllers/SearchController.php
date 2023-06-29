@@ -17,7 +17,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Diet;
 use Illuminate\Http\Request;
-// v001 add
 use Illuminate\Support\Facades\Http;
 use App\Models\FoodInfo;
 use App\Models\FavDiet;
@@ -36,21 +35,6 @@ class SearchController extends Controller
     // v002, v003 add : 음식 검색 기능 추가
     public function searchselect(Request $req, $id) {
         $usersearch = $req->search_input;
-
-        // $rules = [
-        //     'search_input'      => 'regex:^(?=.*[a-zA-Z])|(?=.*[가-힣])|.{2,20}$'
-        // ];
-
-        // $messages = [
-        //     'search_input'     => '한글, 영문 대/소문자, 숫자만 입력 가능합니다.',
-        // ];
-
-        // $validator = Validator::make($req->only('search_input'), $rules, $messages);
-
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)
-        //                 ->withInput();
-        // }
 
         $req->flashOnly('search_input');
         
@@ -136,7 +120,6 @@ class SearchController extends Controller
         ->with('data', $data);
     }
 
-    // ! ===================================================================================
     // ! 선택한 음식 입력
     // v006
     public function searchinsert($date, $time) {
@@ -160,7 +143,8 @@ class SearchController extends Controller
         }
 
         // v007
-        // collection 객체로 반환됨 -> 어떻게 중복 값 찾을 지 몰라서 그냥 일반 배열로 바꿈
+        // * collection 객체로 반환됨 -> foreach를 통해 2차원 배열로 바꿈]
+        // ? 2차원 배열의 이유 : 1차원 배열으로 할 경우 값이 여러 개 담기지 않고 마지막 값만 배열에 담김
         foreach ($cart as $key) {
             $arr_cart[] = [$key->food_id, $key->amount];
         }
@@ -297,34 +281,6 @@ class SearchController extends Controller
         return redirect()->route('home');
     }
 
-    // ! 선택한 음식 탭에서 음식 삭제
-    public function fooddelete(Request $req, $f_id){
-        $id = Auth::user()->user_id;
-
-        $data = [
-            'date' => $req->date,
-            'time' => $req->time
-        ];
-
-        DB::table('food_carts')->where('user_id', $id)->where('food_id', $f_id)->delete();
-        // todo : route('home') -> route('search ... ')
-        return redirect()->route('home');
-    }
-
-    // ! 선택한 음식 탭에서 자주먹는 식단 삭제
-    public function dietdelete(Request $req, $d_id){
-        $id = Auth::user()->user_id;
-
-        $data = [
-            'date' => $req->date,
-            'time' => $req->time
-        ];
-
-        DB::table('food_carts')->where('user_id', $id)->where('fav_id', $d_id)->delete();
-        // todo : route('home') -> route('search ... ')
-        return redirect()->route('home');
-    }
-
     // ! 취소 버튼 누를 시 임시 저장 데이터베이스 내용 삭제
     public function searchdelete() {
         $id = Auth::user()->user_id;
@@ -332,5 +288,4 @@ class SearchController extends Controller
         DB::table('food_carts')->where('user_id', $id)->delete();
         return redirect()->route('home');
     }
-
 }

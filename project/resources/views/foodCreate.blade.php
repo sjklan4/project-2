@@ -21,6 +21,7 @@
                                     <h5>음식명 입력</h5>
                                     <input type="text" id="foodName" name="foodName" value="{{count($errors) > 0 ? old('foodName') : ''}}" autocomplete="off">
                                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('foodName', ':message') : ''}}</div>
+                                    <div class="errorMsg">{{isset($error) ? $error : ''}}</div>
                                 </div>
                                 <div>
                                     <h5>1회 제공량</h5>
@@ -67,7 +68,7 @@
                 </div>
             </div>
             <div class="rigtTwoBtnDiv">
-                <button type="button" onclick="location.href='{{ route('food.index') }}'">취소</button>
+                <button type="button" onclick="location.href='{{ url()->previous() }}'">취소</button>
                 <button type="submit" id="greenBtn">입력</button>
             </div>
         </form>
