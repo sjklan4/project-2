@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : FoodController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,6 +15,7 @@ use Illuminate\Support\Collection;
 use App\Models\FoodInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class FoodController extends Controller
 {
@@ -37,7 +45,6 @@ class FoodController extends Controller
             return view('/foodManage')->with('data', $result)->with('food', $food[0]);
         }
         
-
         return view('/foodManage')->with('data', $result);
     }
 
@@ -47,10 +54,6 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
-        $links = session()->has('links') ? session('links') : [];
-        $currentLink = request()->path();
-        array_unshift($links, $currentLink);
-        session(['links' => $links]);
 
         return view('/foodCreate');
     }
@@ -59,6 +62,17 @@ class FoodController extends Controller
 
         if(auth()->guest()) {
             return redirect()->route('user.login');
+        }
+
+        // 유저 id 획득
+        $id = Auth::user()->user_id;
+
+        // 10개 이상 등록 금지
+        $foods = FoodInfo::where('user_id', $id)
+        ->get();
+
+        if ($foods->count() >= 10) {
+            return redirect()->route('food.index');
         }
 
         //유효성 검사
@@ -102,11 +116,15 @@ class FoodController extends Controller
             return back()->withErrors($validator)
                         ->withInput();
         }
-
-        // 유저 id 획득
-        $id = Auth::user()->user_id;
-
-        // todo 한 회원이 같은 이름으로 정보 등록 x, 10개 이상 등록 금지
+        
+        // 유저가 같은 이름으로 등록 불가능
+        foreach ($foods as $val) {
+            if ($val->food_name === $req->foodName) {
+                return back()->withErrors(['foodName' => '이미 등록된 이름입니다.'])
+                        ->withInput();
+            }
+        }
+        
 
         // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
         DB::table('food_infos')
@@ -124,7 +142,7 @@ class FoodController extends Controller
                 ,'created_at'   => now()
             ]);
 
-        return redirect()->route('food.index');
+        return Redirect::to(url()->previous());
     }
 
     public function update(Request $req, $id) {

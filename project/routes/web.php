@@ -76,7 +76,7 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 기능         : 로그인, 회원가입 등 라우트 설정
 // 관리자       : 박상준
 // 생성일       : 2023-06-15
-// 라우트수      : 총 12개 (진행중 1개)
+// 라우트수      : 총 12개 
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
 
@@ -103,15 +103,11 @@ Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.
 Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
 
 
-//------------------------------------------정리용 라우터---------------------------------------------------------------
-// Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('user.chdeckEmail');
-//---------------------------------------------------------------------------------------------------------------------
-
 //----------------테스트용--------------------------------------
 // use App\Http\Controllers\ButtonController;
 // Route::post('/button-click', [ButtonController::class, 'handleButtonClick']);
 // Route::post('/user/registdup', [UserController::class, 'chdeckEmail'])->name('user.registdup');
-//---------------------------------------------------------------------------------------
+//-------------------------------------------------------------
 
 // ---------------------------------------------
 // 섹션명       : 즐겨찾는 식단(Fav)

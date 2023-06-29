@@ -94,7 +94,6 @@ function getDietValue(userId)  {
     ) 
 }
 
-// todo : 저장된 식단, 선택된 음식 클릭 시 '검색 결과가 없습니다' 메세지 없애기
 // ---------------------------- 저장된 식단 ----------------------------
 
 tab1.addEventListener('click', () => {
@@ -122,17 +121,3 @@ tab2.addEventListener('click', () => {
         search[0].style.display = 'none'
     }
 });
-
-// ---------------------------- input 입력 감지 ----------------------------
-// todo : 입력 감지 > 첫번째 음식에만 체크박스 활성화됨
-// const query2 = 'input[name="userving"]'
-// const selectedInp = document.querySelectorAll(query2);
-
-// $( document ).ready( function() {
-//     selectedInp.forEach(el => {
-//         $(el).change( function() {
-//             // check.style.display = 'inline'
-//         });
-//     });
-// });
-
