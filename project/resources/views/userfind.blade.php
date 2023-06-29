@@ -19,9 +19,9 @@
     <div class="finduserpage">
         <div class="find-insert">
             <div class="insert-info">
-                <button type="button" class="btn-stlye" id="findEmail">이메일찾기</button>
+                {{-- <button type="button" class="btn-stlye" id="findEmail">이메일찾기</button> --}}
                 {{-- <button type="button"  class="btn-stlye" id="findpassword">비밀번호변경</button> --}}
-                <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">로그인</button>
+                
             </div> 
 
             <div class="info-list">
@@ -47,6 +47,7 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                         <div class="chk-btn">
+                            <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
                             <button type="submit" id="greenBtn">확인</button>
                         </div>
                         </form>

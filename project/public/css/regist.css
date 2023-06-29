@@ -133,8 +133,17 @@ button:hover {
 }
 .greenBtn{
     background-color: #538E04;
+
 }
 #greenBtn:hover {
+    background-color: #195F1C;
+}
+#exit{
+    background-color: #538E04;
+    margin-top: 30px;
+    margin-left: 23px;
+}
+#exit:hover{
     background-color: #195F1C;
 }
 

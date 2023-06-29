@@ -28,6 +28,7 @@ use Illuminate\Support\Eloquent\SoftDeletes;
 use App\Models\FoodCart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SearchController extends Controller
 {
@@ -36,6 +37,21 @@ class SearchController extends Controller
     public function searchselect(Request $req, $id) {
         $usersearch = $req->search_input;
 
+        // $rules = [
+        //     'search_input'      => 'regex:^(?=.*[a-zA-Z])|(?=.*[가-힣])|.{2,20}$'
+        // ];
+
+        // $messages = [
+        //     'search_input'     => '한글, 영문 대/소문자, 숫자만 입력 가능합니다.',
+        // ];
+
+        // $validator = Validator::make($req->only('search_input'), $rules, $messages);
+
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)
+        //                 ->withInput();
+        // }
+        $req->flashOnly('search_input');
         // v004, v005
         // 저장된 식단 정보
         $dietnames = DB::table('fav_diets')
@@ -88,7 +104,7 @@ class SearchController extends Controller
                 ->get();
 
                 return view('FoodList')
-                ->with('uinput', $usersearch)
+                // ->with('uinput', $usersearch)
                 ->with('foods', $foods)
                 ->with('dietname', $dietnames)
                 ->with('dietfood', $dietfoods)
@@ -104,7 +120,7 @@ class SearchController extends Controller
             ->get();
 
             return view('FoodList')
-            ->with('uinput', $usersearch)
+            // ->with('uinput', $usersearch)
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
@@ -113,7 +129,7 @@ class SearchController extends Controller
             ->with('data', $data);
         }
         return view('FoodList')
-        ->with('uinput', $usersearch)
+        // ->with('uinput', $usersearch)
         ->with('dietname', $dietnames)
         ->with('dietfood', $dietfoods)
         ->with('seleted', $seleted)

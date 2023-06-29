@@ -32,7 +32,7 @@
 .find-insert{
     width: 50vw;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 153px;
 }
 .insert-info{
     text-align: center;
@@ -87,6 +87,8 @@ button:hover {
 }
 #greenBtn {
     background-color: #538E04;
+    margin: 20px;
+    font-size: 17px;
 }
 #findEmail{
     background-color: #538E04;
