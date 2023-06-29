@@ -37,7 +37,7 @@
                         <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요">
                     </td>
                     <td>
-                        <button type="button" id="greenBtn" disabled>중복체크</button>
+                        <button type="button" id="chdeckEmail" class = "greenBtn" disabled>중복체크</button>
                     </td>
                 </tr>
                 <tr>
