@@ -40,18 +40,11 @@
 
     {{-- 통게 정보 --}}
     <div id="myDiet">
-        {{-- todo 처음가입한경우 --}}
-        {{-- @if((!$data['dietFood']['dietBrf']) && (!$data['dietFood']['dietLunch']) && (!$data['dietFood']['dietDinner']) && (!$data['dietFood']['dietSnack']))
-            <div id="layor">
-                <a href="{{route('user.prevateinfo')}}" class="btnYg" id="layorBtn">식단설정바로가기</a>
-            </div>
-        @endif             --}}
         <div class="diet1">
             <div class="box1 mt-4">
                 <canvas id="doughnut-chart" width="60%" height="40"></canvas>
             </div>
             {{-- 먹은거 없을 때 오류 방지 --}}
-            {{-- todo 토탈칼로리 오류 수정해야함 & isset포함한 조건문 확인하기 !! --}}
             <div class="box2">
                 @if($data['total']['tdgTotal'] == 0)
                     <div class="percent pt-3">
@@ -262,7 +255,6 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 {{-- 식단이 있는지 체크 --}}
-                                {{-- @if(isset($data['dietFood']['dietBrf'][0]->d_id)) --0627del --}}
                                     <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
                                         <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietBrf'][0]->d_id])}}" method="post" enctype="multipart/form-data">
                                             @csrf
@@ -313,39 +305,37 @@
                                                         </th>
                                                         <th>
                                                             {{-- 식단이 존재할 경우에만 즐겨찾기 등록 버튼 출력 --}}
-                                                            {{-- @if(isset($data['dietFood']['dietBrf'][0])) --0627 del --}}
-                                                                <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal0">
-                                                                즐겨찾기
-                                                                </button>
-                                                                <!-- 즐겨찾기 등록 Modal -->
-                                                                <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p class="fw-bold">음식 목록</p>                                     
-                                                                                @foreach($data['dietFood']['dietBrf'] as $val)
-                                                                                    <p>{{$val->food_name}}<p>
-                                                                                @endforeach
-                                                                                <form action="{{route('fav.insert')}}">
-                                                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
-                                                                                    <input type="hidden" name="d_flg" value="0">
-                                                                                    <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
-                                                                                    <button type="submit" class="btnYg">등록하기</button>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
-                                                                            </div>
+                                                            <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal0">
+                                                            즐겨찾기
+                                                            </button>
+                                                            <!-- 즐겨찾기 등록 Modal -->
+                                                            <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
                                                                         </div>
-                                                                    </div>                    
-                                                                </div>
-                                                            {{-- @endif --}}
+                                                                        <div class="modal-body">
+                                                                            <p class="fw-bold">음식 목록</p>                                     
+                                                                            @foreach($data['dietFood']['dietBrf'] as $val)
+                                                                                <p>{{$val->food_name}}<p>
+                                                                            @endforeach
+                                                                            <form action="{{route('fav.insert')}}">
+                                                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                                                <input type="hidden" name="d_flg" value="0">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <button type="submit" class="btnYg">등록하기</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                    
+                                                            </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -449,33 +439,31 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 {{-- 식단이 있는지 체크 --}}
-                                {{-- @if(isset($data['dietFood']['dietLunch'][0]->d_id)) --0627del --}}
-                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
-                                        <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietLunch'][0]->d_id])}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('put')
-                                            {{-- 식단은 있지만 사진이 있는지 체크 --}}
-                                            @if (isset($data['dietFood']['dietLunch'][0]->d_img_path))
-                                                <div class="imgbox lunchImg">
-                                                    <img src="{{asset($data['dietFood']['dietLunch'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="점심식단사진">
-                                                </div>
-                                            @else
-                                                <div class="imgbox lunchImg ms-2 ms-sm-3 my-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                                    </svg>
-                                                </div>
-                                            @endif
-                                            <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                            <div class="filebox my-2 text-center d-none">
-                                                <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
-                                                <label for="fileLunch">파일찾기</label>
-                                                <input type="file" id="fileLunch" name="dietImg">
-                                                <button type="submit" class="btnYg my-2">사진등록</button>
+                                <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
+                                    <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietLunch'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('put')
+                                        {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                        @if (isset($data['dietFood']['dietLunch'][0]->d_img_path))
+                                            <div class="imgbox lunchImg">
+                                                <img src="{{asset($data['dietFood']['dietLunch'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="점심식단사진">
                                             </div>
-                                        </form>                        
-                                    </div>
-                                {{-- @endif --}}
+                                        @else
+                                            <div class="imgbox lunchImg ms-2 ms-sm-3 my-5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                        <div class="filebox my-2 text-center d-none">
+                                            <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
+                                            <label for="fileLunch">파일찾기</label>
+                                            <input type="file" id="fileLunch" name="dietImg">
+                                            <button type="submit" class="btnYg my-2">사진등록</button>
+                                        </div>
+                                    </form>                        
+                                </div>
                                 <div class="col-md-9 mx-auto">
                                     <div class="card-body">
                                         <div class="table-responsive text-center">
@@ -500,39 +488,37 @@
                                                         </th>
                                                         <th>
                                                             {{-- 식단이 존재할 경우에만 즐겨찾기 등록 버튼 출력 --}}
-                                                            {{-- @if(isset($data['dietFood']['dietBrf'][0])) --0627 del --}}
-                                                                <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                                                즐겨찾기
-                                                                </button>
-                                                                <!-- 즐겨찾기 등록 Modal -->
-                                                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p class="fw-bold">음식 목록</p>                                     
-                                                                                @foreach($data['dietFood']['dietLunch'] as $val)
-                                                                                    <p>{{$val->food_name}}<p>
-                                                                                @endforeach
-                                                                                <form action="{{route('fav.insert')}}">
-                                                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
-                                                                                    <input type="hidden" name="d_flg" value="1">
-                                                                                    <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
-                                                                                    <button type="submit" class="btnYg">등록하기</button>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
-                                                                            </div>
+                                                            <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                                            즐겨찾기
+                                                            </button>
+                                                            <!-- 즐겨찾기 등록 Modal -->
+                                                            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
                                                                         </div>
-                                                                    </div>                    
-                                                                </div>
-                                                            {{-- @endif --}}
+                                                                        <div class="modal-body">
+                                                                            <p class="fw-bold">음식 목록</p>                                     
+                                                                            @foreach($data['dietFood']['dietLunch'] as $val)
+                                                                                <p>{{$val->food_name}}<p>
+                                                                            @endforeach
+                                                                            <form action="{{route('fav.insert')}}">
+                                                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                                                <input type="hidden" name="d_flg" value="1">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <button type="submit" class="btnYg">등록하기</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                    
+                                                            </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -636,33 +622,31 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 {{-- 식단이 있는지 체크 --}}
-                                {{-- @if(isset($data['dietFood']['dietDinner'][0]->d_id)) --0627del --}}
-                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
-                                        <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietDinner'][0]->d_id])}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('put')
-                                            {{-- 식단은 있지만 사진이 있는지 체크 --}}
-                                            @if (isset($data['dietFood']['dietDinner'][0]->d_img_path))
-                                                <div class="imgbox dinnerImg">
-                                                    <img src="{{asset($data['dietFood']['dietDinner'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="저녁식단사진">
-                                                </div>
-                                            @else
-                                                <div class="imgbox dinnerImg ms-2 ms-sm-3 my-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                                    </svg>
-                                                </div>
-                                            @endif
-                                            <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                            <div class="filebox my-2 text-center d-none">
-                                                <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
-                                                <label for="fileDinner">파일찾기</label>
-                                                <input type="file" id="fileDinner" name="dietImg">
-                                                <button type="submit" class="btnYg my-2">사진등록</button>
+                                <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
+                                    <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietDinner'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('put')
+                                        {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                        @if (isset($data['dietFood']['dietDinner'][0]->d_img_path))
+                                            <div class="imgbox dinnerImg">
+                                                <img src="{{asset($data['dietFood']['dietDinner'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="저녁식단사진">
                                             </div>
-                                        </form>                        
-                                    </div>
-                                {{-- @endif --}}
+                                        @else
+                                            <div class="imgbox dinnerImg ms-2 ms-sm-3 my-5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                        <div class="filebox my-2 text-center d-none">
+                                            <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
+                                            <label for="fileDinner">파일찾기</label>
+                                            <input type="file" id="fileDinner" name="dietImg">
+                                            <button type="submit" class="btnYg my-2">사진등록</button>
+                                        </div>
+                                    </form>                        
+                                </div>
                                 <div class="col-md-9 mx-auto">
                                     <div class="card-body">
                                         <div class="table-responsive text-center">
@@ -687,39 +671,37 @@
                                                         </th>
                                                         <th>
                                                             {{-- 식단이 존재할 경우에만 즐겨찾기 등록 버튼 출력 --}}
-                                                            {{-- @if(isset($data['dietFood']['dietBrf'][0])) --0627 del --}}
-                                                                <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                                                                즐겨찾기
-                                                                </button>
-                                                                <!-- 즐겨찾기 등록 Modal -->
-                                                                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p class="fw-bold">음식 목록</p>                                     
-                                                                                @foreach($data['dietFood']['dietDinner'] as $val)
-                                                                                    <p>{{$val->food_name}}<p>
-                                                                                @endforeach
-                                                                                <form action="{{route('fav.insert')}}">
-                                                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
-                                                                                    <input type="hidden" name="d_flg" value="2">
-                                                                                    <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
-                                                                                    <button type="submit" class="btnYg">등록하기</button>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
-                                                                            </div>
+                                                            <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                                                            즐겨찾기
+                                                            </button>
+                                                            <!-- 즐겨찾기 등록 Modal -->
+                                                            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
                                                                         </div>
-                                                                    </div>                    
-                                                                </div>
-                                                            {{-- @endif --}}
+                                                                        <div class="modal-body">
+                                                                            <p class="fw-bold">음식 목록</p>                                     
+                                                                            @foreach($data['dietFood']['dietDinner'] as $val)
+                                                                                <p>{{$val->food_name}}<p>
+                                                                            @endforeach
+                                                                            <form action="{{route('fav.insert')}}">
+                                                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                                                <input type="hidden" name="d_flg" value="2">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <button type="submit" class="btnYg">등록하기</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                    
+                                                            </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -823,33 +805,31 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 {{-- 식단이 있는지 체크 --}}
-                                {{-- @if(isset($data['dietFood']['dietBrf'][0]->d_id)) --0627del --}}
-                                    <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
-                                        <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietSnack'][0]->d_id])}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('put')
-                                            {{-- 식단은 있지만 사진이 있는지 체크 --}}
-                                            @if (isset($data['dietFood']['dietSnack'][0]->d_img_path))
-                                                <div class="imgbox snackImg">
-                                                    <img src="{{asset($data['dietFood']['dietSnack'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="간식식단사진">
-                                                </div>
-                                            @else
-                                                <div class="imgbox snackImg ms-2 ms-sm-3 my-5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                                    </svg>
-                                                </div>
-                                            @endif
-                                            <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                            <div class="filebox my-2 text-center d-none">
-                                                <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
-                                                <label for="fileSnack">파일찾기</label>
-                                                <input type="file" id="fileSnack" name="dietImg">
-                                                <button type="submit" class="btnYg my-2">사진등록</button>
+                                <div class="col-md-3 mx-auto mx-md-0 p-1 pb-md-5 text-center" style="max-width:350px;">
+                                    <form action="{{route('img.edit',['d_id' => $data['dietFood']['dietSnack'][0]->d_id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('put')
+                                        {{-- 식단은 있지만 사진이 있는지 체크 --}}
+                                        @if (isset($data['dietFood']['dietSnack'][0]->d_img_path))
+                                            <div class="imgbox snackImg">
+                                                <img src="{{asset($data['dietFood']['dietSnack'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="간식식단사진">
                                             </div>
-                                        </form>                        
-                                    </div>
-                                {{-- @endif --}}
+                                        @else
+                                            <div class="imgbox snackImg ms-2 ms-sm-3 my-5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#195F1C" class="bi bi-plus-circle-fill text-center" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                                </svg>
+                                            </div>
+                                        @endif
+                                        <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
+                                        <div class="filebox my-2 text-center d-none">
+                                            <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
+                                            <label for="fileSnack">파일찾기</label>
+                                            <input type="file" id="fileSnack" name="dietImg">
+                                            <button type="submit" class="btnYg my-2">사진등록</button>
+                                        </div>
+                                    </form>                        
+                                </div>
                                 <div class="col-md-9 mx-auto">
                                     <div class="card-body">
                                         <div class="table-responsive text-center">
@@ -874,39 +854,37 @@
                                                         </th>
                                                         <th>
                                                             {{-- 식단이 존재할 경우에만 즐겨찾기 등록 버튼 출력 --}}
-                                                            {{-- @if(isset($data['dietFood']['dietBrf'][0])) --0627 del --}}
-                                                                <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-                                                                즐겨찾기
-                                                                </button>
-                                                                <!-- 즐겨찾기 등록 Modal -->
-                                                                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p class="fw-bold">음식 목록</p>                                     
-                                                                                @foreach($data['dietFood']['dietSnack'] as $val)
-                                                                                    <p>{{$val->food_name}}<p>
-                                                                                @endforeach
-                                                                                <form action="{{route('fav.insert')}}">
-                                                                                    <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
-                                                                                    <input type="hidden" name="d_flg" value="3">
-                                                                                    <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
-                                                                                    <button type="submit" class="btnYg">등록하기</button>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
-                                                                            </div>
+                                                            <button type="button" class="btnYg" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                                                            즐겨찾기
+                                                            </button>
+                                                            <!-- 즐겨찾기 등록 Modal -->
+                                                            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
                                                                         </div>
-                                                                    </div>                    
-                                                                </div>
-                                                            {{-- @endif --}}
+                                                                        <div class="modal-body">
+                                                                            <p class="fw-bold">음식 목록</p>                                     
+                                                                            @foreach($data['dietFood']['dietSnack'] as $val)
+                                                                                <p>{{$val->food_name}}<p>
+                                                                            @endforeach
+                                                                            <form action="{{route('fav.insert')}}">
+                                                                                <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
+                                                                                <input type="hidden" name="d_flg" value="3">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <button type="submit" class="btnYg">등록하기</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btnYg" data-bs-dismiss="modal">닫기</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>                    
+                                                            </div>
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -986,11 +964,10 @@
 
 
 
-<script src="{{asset('js/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('js/jquery.min.js')}}"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="{{asset('js/home.js')}}"></script>
 <script>
-    var test = document.getElementById('calendar').value;
     
     if({{$data['total']['tdgTotal']}} === 0)
         {
@@ -1039,5 +1016,6 @@
                 }
             });
         }
+
 </script>
 @endsection
