@@ -4,14 +4,6 @@
  * 디렉토리     : Contrllers
  * 파일명       : SearchController.php
  * 이력         : v001 0615 채수지 new
- *                v002 0616 채수지 add (검색 기능 추가)
- *                v003 0619 채수지 add (탭 기능 추가, 식단 정보 불러오기)
- *                v004 0620 채수지 update (sql 수정)
- *                v005 0621 채수지 update (음식 검색 기능 수정)
- *                v006 0622 채수지 update (선택된 음식 불러오기)
- *                v007 0624 채수지 update (음식 입력 추가)
- *                v008 0626 채수지 update ()
- *                v009 0627 채수지 update (식단 입력 추가)
 *****************************/
 namespace App\Http\Controllers;
 

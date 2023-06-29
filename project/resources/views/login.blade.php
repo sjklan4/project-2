@@ -12,14 +12,7 @@
     <div class="intro_login d-none d-xl-block">
         <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
         <br>
-            {{-- <div class="p-tag">
-                <p class="first-line">Achiev rewards</p>
-                <p>through healthy</p>
-                <p>missions</p>
-            </div> --}}
-            {{-- <div class="img1"></div> --}}
     </div>
-
     <div class="loginpage">
         <div class="write">
                 @if(!empty($error))
@@ -32,7 +25,6 @@
                     <div class="email_write">
                             <label for="email">email</label>
                             <input type="text" name="email" id="email" value="{{ $errors->has('email') ? '' : old('email', isset($data) ? $data->user_email : '') }}">
-                    {{-- validator에서 출력하는 오류 메시지를 출력하기 위해서 추가한 구문 --}}
                     </div>
                             @error('email') 
                             <div class="text-danger">{{ $message }}</div>
