@@ -24,6 +24,11 @@
                                 <li class="nav-item">
                                     <a href="{{route('food.show', ['food' => $item->food_id])}}">{{$item->food_name}}</a>
                                 </li>
+                                <li>
+                                    @if (isset($error))
+                                        {{$error}}
+                                    @endif
+                                </li>
                             @empty
                                 <li>등록된 음식이 없습니다.</li>
                             @endforelse
