@@ -71,29 +71,17 @@ class SearchController extends Controller
         // v002 
         // 검색 정보
         if(!empty($usersearch)){
-
-            // v004
-            // 유저가 등록한 음식이 있을 경우
-            if(!empty($id)){
-                $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
-                ->where('food_name', 'like', '%'.$usersearch.'%')
-                ->where('userfood_flg', '0')
-                ->orWhere('user_id', $id)
-                ->get();
-
-                return view('FoodList')
-                ->with('foods', $foods)
-                ->with('dietname', $dietnames)
-                ->with('dietfood', $dietfoods)
-                ->with('seleted', $seleted)
-                ->with('seleted_diet', $seleted_diet)
-                ->with('data', $data);
-            }
-
-            // v005
-            $foods = FoodInfo::select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
+            $foods = DB::table('food_infos')
+            ->select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
             ->where('food_name', 'like', '%'.$usersearch.'%')
-            ->where('userfood_flg', '0')
+            // ->where(function($query2) use($usersearch){
+            //     $query2->where('food_name', 'like', $usersearch)
+            //     ->orwhere('food_name', 'like', '%'.$usersearch.'%');
+            // })
+            ->where(function($query) use($id){
+                $query->where('user_id', $id)
+                ->orWhere('user_id', 0);
+            })
             ->get();
 
             return view('FoodList')
