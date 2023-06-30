@@ -14,11 +14,12 @@ use App\Models\DietFood;
 use App\Models\FavDiet;
 use App\Models\KcalInfo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function PHPUnit\Framework\isNull;
+// use function PHPUnit\Framework\isNull;
 
 class HomeController extends Controller
 {
@@ -34,7 +35,11 @@ class HomeController extends Controller
 
         // 날짜 획득
         $today = Carbon::now()->format('Y-m-d');
-        if(empty($req->getDate)){
+        if(Session::has('d_date')){
+            $date = Session::get('d_date');
+            Session::forget('d_date');
+        }
+        else if(empty($req->getDate)){
             $date = $today;
         }
         else{
@@ -44,19 +49,26 @@ class HomeController extends Controller
         // 사용자 목표 칼로리
         $kcal = KcalInfo::find($id);
 
-        // 개인 식단 (사진)
-        // $diet = DB::select('SELECT * FROM diets WHERE user_id = :id AND d_date = :d_date',['id' => $id,'d_date' => $date]);
-
-        // 식단 음식
-        // $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
-        //     ->where('diets.user_id', $id)
-        //     ->where('diets.d_date',$date)
-        //     ->get();
-
         $dietBrf = Diet::Diet( $id , $date, "0")->get(); // 아침
         $dietLunch = Diet::Diet( $id , $date, "1")->get(); // 점심
         $dietDinner = Diet::Diet( $id , $date, "2")->get(); // 저녁
         $dietSnack = Diet::Diet( $id , $date, "3")->get(); // 간식
+
+        // function MealSums($mealArr) {
+        //     $kcalSum = 0;
+        //     $carbSum = 0;
+        //     $proteinSum = 0;
+        //     $fatSum = 0;
+        
+        //     foreach ($mealArr as $val) {
+        //         $kcalSum += ($val->kcal) * ($val->df_intake);
+        //         $carbSum += ($val->carbs) * ($val->df_intake);
+        //         $proteinSum += ($val->protein) * ($val->df_intake);
+        //         $fatSum += ($val->fat) * ($val->df_intake);
+        //     }
+        
+        //     return [$kcalSum, $carbSum, $proteinSum, $fatSum];
+        // }
 
         // 아침 칼로리, 탄수화물, 단백질, 지방 계산
         $brfKcalSum = 0;
@@ -170,19 +182,25 @@ class HomeController extends Controller
         $dietfood->df_intake = $req->df_intake;
         $dietfood->save();
 
+        // 수정 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
+        Session::put('d_date',$req->d_date);
+
         return redirect()->route('home.post');
     }
 
-    public function homedelete($id){
+    public function homedelete(Request $req, $id){
 
         // 사용자 인증 작업
         if(!Auth::user()) {
             return redirect()->route('user.login');
         }
 
+        // 삭제 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
+        Session::put('d_date',$req->date);
+
         DietFood::destroy($id);
 
-        return redirect()->route('home');
+        return redirect()->route('home.post');
     }
 
     public function favinsert(Request $req){
@@ -191,10 +209,13 @@ class HomeController extends Controller
         if(!Auth::user()) {
             return redirect()->route('user.login');
         }
+
         // 사용자 pk 획득
         $id = Auth::user()->user_id;
+
         $d_date = $req->input('date');
         $d_flg = $req->input('d_flg');
+
 
         $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
                 ->where('diets.user_id','=',$id)
@@ -202,6 +223,7 @@ class HomeController extends Controller
                 ->where('diets.d_flg','=',$d_flg)
                 ->get();
 
+        // 즐겨찾는 식단 insert 후 즐겨찾는 식단의 pk 획득
         $fav_id = DB::table('fav_diets')->insertGetId([
             'user_id'       => $id
             ,'fav_name'     => $req->input('fav_name')
@@ -225,5 +247,34 @@ class HomeController extends Controller
         ->insert($df_arr);
 
         return redirect()->route('fav.favdiet');
+    }
+
+    public function imgEdit(Request $req, $id){
+        
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
+
+        $diet = Diet::find($id);
+
+        // 이미지 수정
+        if($req->hasFile('dietImg')){
+            $img = $req->file('dietImg');
+            $fileName = $req->file('dietImg')->getClientOriginalName();
+
+
+            $img->move(public_path('foodImg'), $fileName);
+            // 이미지 경로
+
+            $imagePath = 'foodImg/' . $fileName;
+
+            // 이미지 경로를 image_path칼럼에 insert
+            $diet->d_img_path = $imagePath;          
+            $diet->save();
+        }
+        Session::put('d_date',$req->d_date);
+
+        return redirect()->route('home.post');
     }
 }

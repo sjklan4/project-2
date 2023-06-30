@@ -27,7 +27,6 @@ use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
 Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 
-
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
 Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
@@ -50,6 +49,12 @@ Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete
 // ---------------------------------------------
 use App\Http\Controllers\QuestController;
 
+Route::get('/quest', [QuestController::class,'index'])->name('quest.index');
+Route::post('/quest', [QuestController::class, 'store'])->name('quest.store');
+Route::get('/quest/log', [QuestController::class,'show'])->name('quest.show');
+Route::put('/quest/log/{id}', [QuestController::class,'update'])->name('quest.update');
+Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('quest.destroy');
+
 
 // ---------------------------------------------
 // 섹션명       : 음식(Food)
@@ -71,14 +76,15 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 기능         : 로그인, 회원가입 등 라우트 설정
 // 관리자       : 박상준
 // 생성일       : 2023-06-15
-// 라우트수      : 총 12개 (진행중 1개)
+// 라우트수      : 총 12개 
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
-Route::get('/user/login', [UserController::class,'login'])->name('user.login');// 로그인 페이지 이동 라우트
-Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');//로그인 작동라우트
 
-
+Route::get('/user/login', [UserController::class,'login'])->name('user.login')->middleware('guest');// 로그인 페이지 이동 라우트
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');//회원가입 페이지 이동 라우트
+
+
+Route::post('/user/loginpost', [UserController::class,'loginpost'])->name('user.loginpost');//로그인 작동라우트
 Route::post('/user/registpost',[UserController::class,'registpost'])->name('user.registpost');//회원가입 진행 라우트
 
 Route::get('/user/userinfoedit',[UserController::class, 'userinfoedit'])->name('user.userinfoedit');//유저 정보 수정 페이지 이동 라우트
@@ -97,15 +103,11 @@ Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.
 Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
 
 
-//------------------------------------------정리용 라우터---------------------------------------------------------------
-// Route::post('/user/chdeckEmail', [UserController::class, 'chdeckEmail'])->name('user.chdeckEmail');
-//---------------------------------------------------------------------------------------------------------------------
-
 //----------------테스트용--------------------------------------
 // use App\Http\Controllers\ButtonController;
 // Route::post('/button-click', [ButtonController::class, 'handleButtonClick']);
 // Route::post('/user/registdup', [UserController::class, 'chdeckEmail'])->name('user.registdup');
-//---------------------------------------------------------------------------------------
+//-------------------------------------------------------------
 
 // ---------------------------------------------
 // 섹션명       : 즐겨찾는 식단(Fav)
@@ -117,7 +119,8 @@ use App\Http\Controllers\FavController;
 Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet'); //즐겨찾는 식단 정보 페이지 이동
 Route::get('/userfav/favfoodinfo/{fav_id}',[FavController::class,'favdiet'])->name('fav.favfoodinfo'); //즐겨 찾는 식단 정보의 식단별 음식들의 영양 정보 확인 하는 구문의 라우터
 Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name('fav.intakeupdate'); // 즐겨 찾는 식단 정보에서 수량조절(인분서 - 먹은양)하는 라우터
-
+Route::get('userfav/favfooddiet/{fav_id}',[FavController::class,'favdietDel'])->name('fav.delete'); //즐겨 찾는 식단을 삭제하는 구문
+Route::get('userfav/favfoodDel/{fav_f_id}',[FavController::class,'favfoodDel'])->name('fav.del'); //즐겨 찾는 식단 정보에서 음식 삭제 기능
 
 // ---------------------------------------------
 // 섹션명       : 검색(Search)
@@ -126,9 +129,12 @@ Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\SearchController;
-Route::get('/apisearch', [SearchController::class, 'apisearch']);
-Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
+Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list');
+Route::post('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
+Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
+Route::post('/search/{f_id}/{c_id}', [SearchController::class, 'fooddelete'])->name('food.delete');
+Route::post('/search/{d_id}/{c_id}', [SearchController::class, 'dietdelete'])->name('diet.delete');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
@@ -142,3 +148,4 @@ Route::post('/home', [HomeController::class, 'homepost'])->name('home.post');
 Route::post('/home/{df_id}', [HomeController::class, 'homeupdate'])->name('home.update');
 Route::delete('/home/{df_id}', [HomeController::class, 'homedelete'])->name('home.delete');
 Route::get('/userfav', [HomeController::class, 'favinsert'])->name('fav.insert');
+Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');

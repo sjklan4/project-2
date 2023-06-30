@@ -1,4 +1,10 @@
 <?php
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiUsercontroller.php
+ * 이력         : v001 0526 SJ.Park new
+ *****************************************************/
 
 namespace App\Http\Controllers;
 
@@ -7,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ApiUserController extends Controller
 {
@@ -16,6 +23,7 @@ class ApiUserController extends Controller
 
         $user = UserInfo::where('user_email', $user_email)->first();
         
+    
 
         // 유저 유무 체크
         if($user !== null) {
@@ -27,13 +35,21 @@ class ApiUserController extends Controller
     }
 
     public function chdeckpassword(Request $req){
-        $arrmsg = ["flg" => "0"];
-        $baseUser = UserInfo::find(Auth::Userinfo()->password); //기존 데이터 획득
-        if(Hash::check($req->bpassword, $baseUser->password)){
-            $arrmsg["flg"]="1";
-            $arrmsg["msg"]="비밀번호를 확인해 주세요";
+        $arr = [
+            'errorcode' => '0'
+            ,'msg'      => ''
+        ];
+
+        $user = UserInfo::find($req->value2);
+
+        if(!Hash::check($req->value1, $user->password)){
+            $arr["errorcode"] = "1";
+            $arr["msg"]="비밀번호 불일치";
         }
-        return $arrmsg;
+        else{
+            $arr["msg"]="비밀번호 일치";
+        }
+        return $arr;
     }
 
 }

@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : FoodController.php
+ * 이력         : v001 0526 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,6 +15,7 @@ use Illuminate\Support\Collection;
 use App\Models\FoodInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class FoodController extends Controller
 {
@@ -37,7 +45,6 @@ class FoodController extends Controller
             return view('/foodManage')->with('data', $result)->with('food', $food[0]);
         }
         
-
         return view('/foodManage')->with('data', $result);
     }
 
@@ -45,6 +52,17 @@ class FoodController extends Controller
     public function create() {
         if(auth()->guest()) {
             return redirect()->route('user.login');
+        }
+
+        // 유저 id 획득
+        $id = Auth::user()->user_id;
+
+        // 10개 이상 등록 금지
+        $foods = FoodInfo::where('user_id', $id)
+        ->get();
+
+        if ($foods->count() >= 10) {
+            return redirect()->route('food.index');
         }
 
         return view('/foodCreate');
@@ -56,7 +74,7 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사, 영양 정보 값이 없으면 0으로 처리
+        //유효성 검사
         $rules = [
             'foodName'      => 'required|min:2|max:20|regex:/^[가-힣0-9]+$/'
             ,'serving'      => 'required|integer|min:1|max:1000'
@@ -101,9 +119,19 @@ class FoodController extends Controller
         // 유저 id 획득
         $id = Auth::user()->user_id;
 
-        // todo 같은 회원이 같은 이름으로 정보 등록 못하게 하기
+        // 유저가 같은 이름으로 등록 불가능
+        $foods = FoodInfo::where('user_id', $id)
+        ->get();
+        
+        foreach ($foods as $val) {
+            if ($val->food_name === $req->foodName) {
+                return back()->withErrors(['foodName' => '이미 등록된 이름입니다.'])
+                        ->withInput();
+            }
+        }
+        
 
-        // 음식 정보 테이블 인서트
+        // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
         DB::table('food_infos')
             ->insert([
                 'user_id'       => $id
@@ -124,6 +152,8 @@ class FoodController extends Controller
 
     public function update(Request $req, $id) {
         // todo 유효성 검사
+
+        // todo 수정 된 정보만 수정
 
         // 음식 테이블 정보 수정
         DB::table('food_infos')

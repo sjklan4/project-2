@@ -1,12 +1,22 @@
+// 메뉴 탭
 const tab1 = document.querySelector('.tab1')
 const tab2 = document.querySelector('.tab2')
 
+// 탭 내용
 const search = document.getElementsByClassName('user_search')
 const fav_diets = document.getElementsByClassName('fav_diets')
 const user_select = document.getElementsByClassName('user_select')
+
+// 탭 세부 내용
 const uselect = document.getElementsByClassName('uselect')
+const nosearch = document.querySelector('.nosearch')
 
+// 유저가 입력한 인분 수
+const userving = document.getElementsByClassName('userving')
 
+// appendChild 용 div 선언
+const fav_food = document.getElementById('fav_food');
+const fav_diet = document.getElementById('fav_diet');
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
@@ -20,70 +30,98 @@ function getFoodValue(userId)  {
     
     // 선택된 목록에서 value 찾기
     let result = '';
-    // let result = [];
     selectedEls.forEach((el) => {
         result = el.value;
-        // el.split('/');
-        // result.push([
-        //     el.value
-        // ]);
     });
 
-    // var amount = [];
-    var amount = '';
+    let amount = '';
     selectedInp.forEach((el2) => {
         amount += el2.value;
         parseFloat(amount);
     });
 
-    // var amount = amount.filter(function(item){
-    //     return item !== null && item !== undefined && item !== '';
-    // })
+    if (amount == 0.0) {
+        amount = 1;
+    }
 
     console.log(result);
     console.log(amount);
 
-    // JSON.parse(data);
     fetch(`/api/cart/${userId}/${result}/${amount}`, {
         method: "post"
     })
     .then(res => res.json())
-    .then(data => { console.log(data); console.log(data.error); console.log(data.msg); console.log(data.data); });
+    .then( data => { 
+        data.forEach(ele => {
+            console.log(ele.food_name);
+            console.log(ele.amount);
+            console.log(ele.cart_id);
 
-    location.reload();
-    // $.ajax({
-    //     type: "post",
-    //     url: `/api/cart/${userId}`,
-    //     data: formData,
-    // }).done(res => {
-    //     console.log(res);
-    //     alert("성공");
-    // }).fail(error => {
-    //     alert("실패");
-    // });
-    // $.ajax({
-    //     type: "post",
-    //     url: `/api/cart/${result}/${amount}`,
-    //     data: JSON.stringify(result),
-    //     contentType: "application/json; charset=utf-8",
-    //     dataType: "json"
-    // }).done(res => {
-    //     alert("성공");
-    // }).fail(error => {
-    //     alert("실패");
-    // });
-}
+            let ffood = document.createElement('span')
+            let brp = document.createElement('span')
+            ffood.innerHTML = ele.food_name+' | '+ele.amount;
+            brp.innerHTML = '<br>';
+            
+            // 삭제 버튼
+            let delfbtn = document.createElement('button')
+            delfbtn.innerHTML = 'X';
+            delfbtn.setAttribute('type', 'button')
+            delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
+            // 삭제 버튼 div에 넣기
+            fav_food.appendChild(ffood);
+            fav_food.appendChild(delfbtn);
+            fav_food.appendChild(brp);
+            // delfbtn.addEventListener('click', function() {
+            //     fav_food.removeChild(ffood);
+            //     fav_food.removeChild(brp);
+            //     fav_food.removeChild(delfbtn);
+            // })
+            }
+        )}
+    )
+};
 
-// todo : 인분 수 겹침 해결하기
-const serving = document.getElementById('userving');
-serving.addEventListener('input', function() {
+// 삭제 함수
+function deletefood(Ids) {
+    console.log('asdfd');
+    console.log(Ids);
+    let ids = Ids.split(',');
+    console.log(ids);
 
-    document.getElementById('resultserving').innerText
-            = serving.value;
-    
-})
+    fetch(`/api/fooddelete/${ids[0]}/${ids[1]}/${ids[2]}`, {
+        method: "delete"
+    })
+    .then(res => res.json())
+    .then( data => {
+        fav_food.replaceChildren()
+        data.forEach(ele => {
+            console.log(ele.food_name);
+            console.log(ele.amount);
+            console.log(ele.cart_id);
 
-function getDietValue()  {
+            let ffood = document.createElement('span')
+            let brp = document.createElement('span')
+            ffood.innerHTML = ele.food_name+' | '+ele.amount;
+            brp.innerHTML = '<br>';
+
+
+            // fav_food.replaceChildren(ffood);
+            
+            // 삭제 버튼
+            // let delfbtn = document.createElement('button')
+            // delfbtn.innerHTML = 'X';
+            // delfbtn.setAttribute('type', 'button')
+            // delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
+            // 삭제 버튼 div에 넣기
+            fav_food.appendChild(ffood);
+            // fav_food.appendsChild(delfbtn);
+            fav_food.appendChild(brp);
+            }
+        )}
+        // console.log(data) )
+)}
+
+function getDietValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="userdiet"]:checked';
     const selectedEls = 
@@ -95,18 +133,35 @@ function getDietValue()  {
         resultdiet += el.value;
     });
 
-    $(document).ready(function() {
-        $('#resultdiet').val(resultdiet);
-    });
+    fetch(`/api/cart2/${userId}/${resultdiet}`, {
+        method: "post"
+    })
+    .then(res => res.json())
+    .then(data => { 
+            data.forEach(ele => {
+            console.log(ele.fav_id);
+            console.log(ele.fav_name);
+            console.log(ele.user_id);
 
-    // document.getElementById('resultdiet').innerText
-    //         = resultdiet;
+            let fdiet = document.createElement('p')
+            fdiet.innerHTML = ele.fav_name;
+            fav_diet.appendChild(fdiet);
+
+            // 삭제 버튼
+            let deldbtn = document.createElement('button')
+            deldbtn.setAttribute('type', 'submit')
+            // deldbtn.setAttribute('type', 'button')
+            // deldbtn.setAttribute('onclick', "location.href='{{route('diet.delete', ['f_id' => ele.fav_id)])}}'")
+            fav_diet.appendChild(deldbtn);
+            }
+        )}
+    ) 
 }
 
 // ---------------------------- 저장된 식단 ----------------------------
 
 tab1.addEventListener('click', () => {
-    var displaysetting = fav_diets[0].style.display;
+    let displaysetting = fav_diets[0].style.display;
 
     if(displaysetting == 'block'){
         fav_diets[0].style.display = 'none'
@@ -120,7 +175,7 @@ tab1.addEventListener('click', () => {
 // ---------------------------- 선택된 음식 ----------------------------
 
 tab2.addEventListener('click', () => {
-    var displaysetting = user_select[0].style.display;
+    let displaysetting = user_select[0].style.display;
 
     if(displaysetting == 'block'){
         user_select[0].style.display = 'none'
@@ -130,3 +185,5 @@ tab2.addEventListener('click', () => {
         search[0].style.display = 'none'
     }
 });
+
+// ---------------------------- 선택된 음식 삭제 ----------------------------

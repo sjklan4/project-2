@@ -1,0 +1,160 @@
+.fav-dietlist{
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1200px 1fr;
+}
+
+.favbox {
+    background: #FFFFF0;
+    box-shadow: 0px 12px 30px #ECECEC;
+    display: block;
+    justify-content: center;
+    padding: 30px;
+    margin-bottom: 30px;
+    margin: 0 auto;
+}
+.box1{
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 20px;
+    width: 70vw;
+}
+.dietname{
+    background-color: white;
+    overflow:auto;
+    width: 66vw;
+    height: 17vh;
+    margin: 0 auto;
+    font-size: x-large;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+}
+
+a{
+    text-decoration: none;
+    color: #195F1C;
+}
+
+.del-button{
+    width: 3vw;
+}
+
+.foodnutri{
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    font-size: large;
+    margin-top: 20px;
+    background-color: #FFFFF0;
+    border-radius: 10px;
+    padding: 15px;
+   
+}
+span{
+    margin-left: 10px;
+    word-spacing: 5px;
+    font-size: 16px;
+}
+
+.submitbtn{
+    text-align: end;
+    margin-top: 20px;
+}
+
+input{
+    width: 6vw;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #195F1C;
+    background-color: #fffff0;
+}
+h1{
+    font-size: xx-large;
+}
+
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+#greenBtn:disabled{
+    background-color: #e2f5e0;
+}
+button:hover {
+    background-color: #9D9D9D;
+}
+#greenBtn {
+    background-color: #538E04;
+}
+/* #greenBtn:hover {
+    background-color: #195F1C;
+} */
+.bi-asterisk {
+    font-size: 3px;
+    color: #EE6666;
+}
+
+label{
+    padding-left: 10px;
+}
+input#intake{
+    text-align: right;
+}
+
+.favdietname{
+    text-decoration-style: none;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.del-food{
+    cursor: pointer;
+    position: relative;
+}
+.del-food:hover .arrow_box{
+    color: red;
+    display:inline-block;
+    position: absolute;
+    left: 1vw;
+}
+
+.del-diet{
+    cursor: pointer;
+    position: relative;
+}
+.del-diet:hover .arrow_box-diet{
+    color: red;
+    display:inline-block;
+ 
+}
+
+.arrow_box{
+    width: 28vw;
+    display: none;
+}
+
+h2 {
+    margin-left: 20px;
+    font-weight: 900;
+}
+
+th{
+    width: 10vw;
+    vertical-align: top;
+}
+
+.del-diet{
+    margin-right: 5px;
+    background-color: #538E04;
+    color: #fffff0;
+    width: 10vw;
+    height: 5vh;
+    border-radius: 5px;
+}

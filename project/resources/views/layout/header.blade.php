@@ -1,7 +1,10 @@
+<div class="nav-top"></div>
 <section class="navigation">
     <div class="nav-container">
-        <div class="brand">
-            <a href="{{route('home')}}">Home</a>
+        <div class="brand ps-3 ps-sm-none">
+            <a href="{{route('home')}}">
+                <img src="{{asset('img/logo.png')}}" alt="logo">
+            </a>
         </div>
         <nav>
             <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
@@ -10,10 +13,10 @@
                     <a id="cursorPointer">My Food</a>
                     <ul class="navbar-dropdown">
                         <li>
-                            <a href="#!">기록</a>
+                            <a href="{{route('home')}}">기록</a>
                         </li>
                         <li>
-                            <a href="#!">자주먹는 식단</a>
+                            <a href="{{route('fav.favdiet')}}">자주먹는 식단</a>
                         </li>
                         <li>
                             <a href="{{route('food.index')}}">등록한 음식</a>
@@ -23,6 +26,9 @@
                 <li>
                     <a id="cursorPointer">Board</a>
                     <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{route('board.index')}}">전체</a>
+                        </li>
                         <li>
                             <a href="{{route('board.indexNum', ['board' => 1])}}">건강관리</a>
                         </li>
@@ -44,13 +50,13 @@
                     <a id="cursorPointer">My Page</a>
                     <ul class="navbar-dropdown">
                         <li>
-                            <a href="{{route('user.prevateinfo')}}">나의정보</a>
+                            <a href="{{route('user.userinfoedit')}}">나의정보</a>
                         </li>
                         <li>
                             <a href="{{route('user.userpsedit')}}">비밀번호 변경</a>
                         </li>
                         <li>
-                            <a href="#!">식단 설정 변경</a>
+                            <a href="{{route('user.prevateinfo')}}">식단 설정 변경</a>
                         </li>
                     </ul>
                 </li>
@@ -58,10 +64,10 @@
                     <a id="cursorPointer">Challenge</a>
                     <ul class="navbar-dropdown">
                         <li>
-                            <a href="#!">퀘스트 수락</a>
+                            <a href="{{route('quest.index')}}">퀘스트 수락</a>
                         </li>
                         <li>
-                            <a href="#!">퀘스트 관리</a>
+                            <a href="{{route('quest.show')}}">퀘스트 관리</a>
                         </li>
                     </ul>
                 </li>

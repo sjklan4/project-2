@@ -5,9 +5,13 @@ body{
 
 /* 추가 */
 section{
-    position: sticky;
+    /* position: sticky; */
     background-color: #ffffff;
-    box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
+    /* box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03); */
+}
+
+.nav-top {
+    height: 4vh;
 }
 
 #logoutBtn img {
@@ -21,11 +25,15 @@ section{
 
 .brand {
     position: absolute;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     float: left;
     line-height: 70px;
     text-transform: uppercase;
     font-size: 1.4em;
+}
+.brand img{
+    width: 40%;
+    height: 40%;
 }
 
 .brand a, .brand a:visited {
@@ -63,7 +71,7 @@ nav ul li a  {
     color: #000000;
     background: #FFFFF0 ;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 #cursorPointer {
@@ -81,6 +89,7 @@ nav ul li a{
 
 .navbar-dropdown li a{
     background: #FFFFF0;
+    font-weight: 500;
 }
 
 nav ul li a:not(:only-child):after, nav ul li a:visited:not(:only-child):after {
@@ -117,6 +126,10 @@ nav ul li ul li a {
 }
 
 @media only screen and (max-width: 800px) {
+    .nav-top {
+        height: 0;
+    }
+
     .nav-mobile {
         display: block;
     }

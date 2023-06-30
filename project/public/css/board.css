@@ -1,6 +1,6 @@
 /* 전체 */
 .boardCon {
-    padding-top: 50px;
+    padding-top: 100px;
     display: grid;
     grid-template-columns: 1.5fr minmax(150px, 1.5fr) 1000px 2fr;
     font-size: 16px;
@@ -24,13 +24,12 @@
 
 .nav-item {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     height: 60px;
 }
 
 .boardNavDiv ul li a:hover, a:hover {
     color: #538E04;
-    font-weight: 600;
 }
 
 .listCon {
@@ -38,31 +37,48 @@
 }
 
 /* 버튼 */
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #9D9D9D;
+}
+
 #greenBtn:hover {
     background-color: #195F1C;
 }
 
-#greenBtn {
-    color: white;
-    height: 2rem;
-    width: 6rem;
-    padding: 1.5em auto;
-    background-color: #538E04;
-    border: none;
-    border-radius: 3px;
-    transition: all 0.2s cubic-bezier(.4,0,.2,1);
-}
-
 .rightBtn {
     text-align: right;
-    padding-right: 8%;
+    padding-right: 85px;
+}
+
+#greenBtn {
+    background-color: #538E04;
+}
+
+#deleteBtn {
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
 }
 
 /* 게시판 콘텐츠 */
-.shadow {
+.shadowWhite {
     background: #FFFFFF;
-    box-shadow: 0px 10px 30px rgba(25, 95, 28, 0.1);
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
     border-radius: 1px;
+    padding: 50px;
 }
 
 .shadowYellow {
@@ -70,51 +86,73 @@
     box-shadow: 0px 12px 30px #ECECEC;
     display: flex;
     justify-content: center;
+    padding: 30px;
+    margin-bottom: 30px;
 }
 
 .shadowYellow > div {
     padding: 50px 0;
+    min-width: 900px;
 }
 
 .boardDetailTitle {
-    display: flex;
+    display: grid;
+    grid-template-columns: 4fr 0.7fr 1fr 1.5fr 0.7fr;
+    justify-content: space-around;
+    font-weight: 600;
+    padding-bottom: 40px;
 }
 
-.boardDetailTitle div {
-    margin-right: 2rem;
+.boardDetailTitle div:not(:nth-child(1)) {
+    text-align: center;
+}
+
+.boardDetailTitle div:nth-child(1) {
+    padding: 0 10px;
+}
+
+.boardDetailContet {
+    padding: 0 10px;
+    text-align: center;
+}
+
+.likeDiv {
+    padding-top: 40px; 
+}
+
+.rigtTwoBtnDiv {
+    text-align: right;
+    padding-top: 20px;
+}
+
+.rigtTwoBtnDiv > button {
+    margin-right: 10px;
 }
 
 /* 이미지 */
 .imgDiv {
-    max-width: 350px;
+    padding-bottom: 20px;
 }
 
 table {
-    /* width: 800px; */
-    /* border-spacing: 1rem; */
     border-collapse: separate;
-    margin: 0 30px 0px 10px;
+    margin: 0 30px 0 40px;
 }
 
 .trBasic {
     height: 60px;
 }
 
-tr td:not(:nth-child(2)) {text-align: center;}
-.trBasic td:nth-child(1) { width: 150px;}
-.trBasic td:nth-child(2) { width: 350px; padding-left: 5px;}
-.trBasic td:nth-child(3) { width: 60px;}
-.trBasic td:nth-child(4) { width: 60px;}
-.trBasic td:nth-child(5) { width: 60px;}
-.trBasic td:nth-child(6) { width: 180px;}
+/* tr td:not(:nth-child(2)) { text-align: center; } */
+.trBasic td:nth-child(1) { width: 100px; }
+.trBasic td:nth-child(2) { width: 350px; padding-right: 20px; }
+.trBasic td:nth-child(3) { width: 75px; }
+.trBasic td:nth-child(4) { width: 75px; }
+.trBasic td:nth-child(5) { width: 75px; }
+.trBasic td:nth-child(6) { width: 130px; }
 
 .trMobileMargin {
     border-bottom: 100px solid transparent;
-}
-
-td {
-    /* font-size: 16px; */
-    font-weight: 500;
 }
 
 .pagination {
@@ -122,22 +160,8 @@ td {
     font: 2rem;
 }
 
-.trMobile {
+.trMobile, .trMobileMargin {
     display: none;
-}
-
-.foodInsertGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.foodInsertTitleGrid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.inputRadioBtnDiv{
-    display: flex;
 }
 
 /* 리스트 페이지 아이콘 */
@@ -145,7 +169,7 @@ td {
     color: #FFD029;
 }
 
-.bi-heart-fill {
+.bi-heart-fill{
     color: #EE6666;
 }
 
@@ -175,18 +199,202 @@ td {
     font-weight: 700;
 }
 
+/* 댓글 */
+#yellowMargin {
+    margin-top: 40px;
+}
 
+#yellowMargin > div {
+    padding: 30px;
+    width: 90%;
+}
+
+.replyDiv {
+    display: grid;
+    row-gap: 10px;
+}
+
+.replyDiv > div:nth-child(2) > span{
+    display: inline-block;
+    margin-right: 10px;
+    height: 30px;
+    padding: auto 0;
+}
+
+/* textarea */
+textarea {
+    border: none;
+    resize: none;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+}
+
+#replyInsertDiv {
+    display: grid;
+    grid-row-gap: 10px;
+}
+
+#replyInsertDiv > div:nth-child(4) {
+    text-align: right;
+}
+
+/* 게시글 수정&작성 */
+#boardInserDiv label {
+    font-weight: 600;
+    width: 80px;
+}
+
+#boardInserDiv {
+    display: grid;
+    grid-row-gap: 30px;
+    border: none;
+    width: 90%;
+}
+
+select {
+    border: none;
+    border-radius: 0;
+    width: 200px;
+    height: 35px;
+    padding: 0 10px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+}
+
+input {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: 35px;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
+    padding: 0 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+#content {
+    scroll-behavior: smooth;
+    height: 350px;
+}
+
+#picture {
+    box-shadow: none;
+    padding: 0;
+}
+
+#pictureSpan {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+}
+
+#pictureSpan > div {
+    text-align: right;
+}
+
+.errorMsg {
+    color: #538E04;
+    font-weight: 600;
+}
+
+/* 등록 음식 관리 */
+.foodShadow {
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1200px 1fr;
+}
+
+.foodInsertGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 100px;
+}
+
+.foodInsertTitleGrid{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding-bottom: 30px;
+}
+
+.foodInsertTitleGrid > div {
+    text-align: right;
+}
+
+h2 {
+    font-weight: 900;
+}
+
+.foodUpdateForm {
+    padding: 10px 0;
+    width: 400px;
+}
+
+.foodCreateForm {
+    padding-top: 20px;
+}
+
+#foodNameGrid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-column-gap: 10px;
+}
+
+.foodUpdateForm form, .foodCreateForm form {
+    display: grid;
+    grid-row-gap: 30px;
+}
+
+.foodUpdateForm input, .foodCreateForm input {
+    width: 200px;
+    box-shadow: none;
+    background-color: transparent;
+    border-bottom: 1px solid #000000;
+}
+
+.foodUpdateForm label, .foodCreateForm label {
+    width: 150px;
+    margin-bottom: 20px;
+    line-height: 10px;
+}
+
+.foodInsertGrid > div:nth-child(1) {
+    display: grid;
+    align-content: space-between;
+}
+
+h5 {
+    font-weight: 700;
+}
+
+.bi-asterisk {
+    font-size: 3px;
+    color: #EE6666;
+}
 
 /* 라디오 버튼 */
+.inputRadioBtnDiv{
+    display: flex;
+    justify-content: space-between;
+}
+
 .form_radio_btn {
     width: 45px;
     height : 45px;
     margin-right: 1rem;
 }
+
 .form_radio_btn input[type=radio] {
     display: none;
 }
+
 .form_radio_btn label {
+    width: 45px;
+    height: 45px;
     display: block;
     border-radius: 50%;
     margin: 0 auto;
@@ -205,6 +413,11 @@ td {
 .form_radio_btn input[type=radio] + label {
     background: #C4C4C4;
     color: #fff;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+.form_radio_btn input[type=radio] + label:hover {
+    background-color: #538E04;
 }
 
 /* 모바일 */
@@ -214,25 +427,81 @@ td {
         display: inline-block;
         padding: 0;
         margin: 0;
-        font-size: 14px;
+        font-size: 15px;
+    }
+
+    .shadowWhite {
+        padding: 0px;
+    }
+
+    .divUnderShadow {
+        padding: 30px;
+        width: 100vw;
     }
 
     .shadowYellow {
         width: 100vw;
         display: inline-block;
-        
+        padding: 10px;
+        margin-bottom: 0;
     }
 
     .shadowYellow > div {
-        padding: 10px 20px;
+        padding: 10px;
+        min-width: 100px;
+    }
+
+    #boardInserDiv {
+        width: 100%;
+    }
+
+    #yellowMargin {
+        margin-top: 0px;
     }
 
     .listCon {
-        padding: 0 0 10px 0;
+        padding: 10px;
     }
 
     .dis-left, .dis-right, .boardNavDiv {
         display: none;
+    }
+
+    .boardDetailTitle {
+        display: grid;
+        grid-template-columns: 1fr 2fr 3fr 1fr;
+        grid-template-rows: none;
+        grid-row-gap: 5px;
+    }
+
+    .boardDetailTitle > div:nth-child(1) {
+        grid-column: 1/5;
+        grid-row: 1/2;
+        padding: 0;
+    }
+    
+    .boardDetailTitle > div:nth-child(2) {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(3) {
+        grid-column: 2/3;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(4) {
+        grid-column: 3/4;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    
+    .boardDetailTitle > div:nth-child(5) {
+        grid-column: 4/5;
+        grid-row: 2/3;
+        font-size: 12px;
     }
 
     /* 페이징 */
@@ -255,8 +524,8 @@ td {
     }
 
     .rightBtn {
-        text-align: right;
-        padding-right: 0;
+        padding-top: 10px;
+        padding-right: 20px;
     }
 
     .mNav {
@@ -268,32 +537,38 @@ td {
     .mNav a {
         margin: 0 5px;
         font-weight: 600;
+        font-size: 12px;
     }
 
     table {
         padding-top: 10px;
         border-spacing: 0.2rem;
         border-collapse: separate;
+        margin: 0;
     }
-
+    
+    .trBasic {
+        display: none;
+    }
+    
     .trMobile {
         display: block;
     }
 
-    .trBasic {
-        display: none;
+    tr td:not(:nth-child(2)) {
+        text-align: left;
     }
 
     .trMobileMargin {
-        border-bottom: 30px solid transparent;
+        display: block;
+        border-bottom: 35px solid transparent;
     }
 
-    .trMobileMargin td:nth-child(1){width: 40px;}
-    .trMobileMargin td:nth-child(2){width: 40px;}
-    .trMobileMargin td:nth-child(3){width: 40px;}
-    .trMobileMargin td:nth-child(4){width: 100px;}
+    .trMobileMargin td{
+        padding-right: 8px;
+    }
 
-    #greenBtn {
+    button {
         height: 30px;
         width: 70px;
         padding: 1.5em auto;
@@ -301,7 +576,83 @@ td {
         font-size: 14px;
     }
 
-    tr td:not(:nth-child(2)) {
-        text-align: left;
+    /* 댓글 */
+    #yellowMargin > div {
+        width: 100%;
+    }
+
+    #reply {
+        width: 100%;
+    }
+
+    /* 음식 */
+    .foodUpdateForm {
+        padding-top: 50px;
+        width: 100%;
+    }
+
+    .foodShadow {
+        display: block;
+        padding: 0;
+    }
+
+    .foodInsertGrid {
+        display: block;
+    }
+
+    .foodInsertGrid .shadowWhite {
+        padding: 20px;
+        overflow:scroll;
+    }
+
+    .foodCreateTitle > div {
+        margin-bottom: 20px;
+    }
+
+    .shadowYellow .foodManage {
+        padding: 20px;
+    }
+
+    .nav li {
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+    }
+
+    h2, h5 {
+        font-size: 20px;
+    }
+
+    #foodNameGrid {
+        grid-template-columns: 130px 150px;
+        grid-column-gap: 5px;
+    }
+
+    .foodUpdateForm input, .foodCreateForm input {
+        width: 150px;
+        font-size: 14px;
+    }
+    
+    .foodUpdateForm label, .foodCreateForm label {
+        width: 130px;
+        font-size: 14px;
+    }
+
+    /* 라디오 */
+    .form_radio_btn label {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .form_radio_btn {
+        width: 40px;
+        height : 40px;
+        margin-right: 1rem;
+    }
+
+    .errorMsg {
+        font-size: 12px;
+        font-weight: 500;
     }
 }

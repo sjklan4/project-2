@@ -96,7 +96,7 @@ class BoardController extends Controller
             'cate'      => 'required'
             ,'title'    => 'required|max:50'
             ,'content'  => 'required|max:4000'
-            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+            ,'picture'  => 'max:5242880|mimes:jpg,png,gif'
         ];
 
         $messages = [
@@ -106,7 +106,7 @@ class BoardController extends Controller
             'content.required'  => '본문은 필수 입력 항목입니다.',
             'content.max'       => ':max자까지 입력 가능합니다.',
             'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
-            'picture'           => '5mb까지 업로드 가능합니다.',
+            'picture.max'       => '5mb까지 업로드 가능합니다.',
         ];
 
         $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
@@ -156,7 +156,16 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
+        // 해당 유저의 해당 글 좋아요 확인
+        $like_count = DB::table('board_likes')
+            ->where('user_id', Auth::user()->user_id)
+            ->where('board_id', $id)
+            ->first();
+        
+        $like_flg = 0;
+        if (isset($like_count)) { // 좋아요가 있을 때
+            $like_flg = 1;
+        }
         
         $board = Board::find($id);
         // 조회수 증가
@@ -173,7 +182,7 @@ class BoardController extends Controller
         $boardImg = DB::table('board_imgs')
             ->where('board_id', $id)
             ->select('bimg_name')
-            ->get();
+            ->first();
 
         // 댓글 관련 정보 획득
         $reply = BoardReply::join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
@@ -185,16 +194,17 @@ class BoardController extends Controller
             'cate'        => $bcate->bcate_name
             ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
-            ,'content'    => $board->bcontent
+            ,'content'    => nl2br($board->bcontent)
             ,'hits'       => $board->hits
             ,'id'         => $board->board_id
             ,'like'       => $board->likes
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
+            ,'like_flg'   => $like_flg
         ];
 
-        if (isset($boardImg[0])) {
-            $arr['img'] = $boardImg[0]->bimg_name;
+        if (isset($boardImg)) {
+            $arr['img'] = $boardImg->bimg_name;
         }
 
         return view('boardDetail')->with('data', $arr)->with('reply', $reply);
@@ -230,13 +240,13 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
+        // $size = 5 * 1024 * 1024;
         // 유효성 검사
         $rules = [
             'cate'      => 'required'
             ,'title'    => 'required|max:50'
             ,'content'  => 'required|max:4000'
-            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+            ,'picture'  => 'max:5242880|mimes:jpg,png,gif'
         ];
 
         $messages = [
@@ -246,7 +256,7 @@ class BoardController extends Controller
             'content.required'  => '본문은 필수 입력 항목입니다.',
             'content.max'       => ':max자까지 입력 가능합니다.',
             'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
-            'picture'           => '5mb까지 업로드 가능합니다.',
+            'picture.max'       => '5mb까지 업로드 가능합니다.',
         ];
 
         $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
@@ -256,7 +266,6 @@ class BoardController extends Controller
                         ->withInput();
         }
 
-        // todo 트랜잭션 처리
         // 게시글 테이블 정보 수정
         $board = Board::find($id);
         $board->bcate_id = $req->cate;
@@ -266,16 +275,30 @@ class BoardController extends Controller
 
         // 이미지 테이블 정보 수정
         if($req->hasFile('picture')){
+            // 기존 이미지가 있는지 확인
+            $img = DB::table('board_imgs')
+            ->where('board_id', $id)
+            ->first();
+
             $fileName = time().'_'.$req->file('picture')->getClientOriginalName();
             $path = $req->file('picture')->storeAs('public/images/board', $fileName);
-
-            DB::table('board_imgs')
-                ->where('board_id', $id)
-                ->update([
-                    'bimg_name'    => $fileName
+            
+            if(isset($img)) {
+                DB::table('board_imgs')
+                    ->where('board_id', $id)
+                    ->update([
+                        'bimg_name'     => $fileName
+                        ,'bimg_path'    => $path
+                    ]);
+            } else {
+                DB::table('board_imgs')
+                ->insert([
+                    'board_id'      => $id
+                    ,'bimg_name'    => $fileName
                     ,'bimg_path'    => $path
                 ]);
-
+            }
+            
         }
 
         return redirect()->route('board.show', ['board' => $id]);
@@ -293,12 +316,9 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
-
         // 게시글 삭제 처리
         Board::destroy($id);
 
-        // todo 에러처리, 트랜잭션 처리
         return redirect()->route('board.index');
     }
 
@@ -307,8 +327,6 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
-        // todo 유효성 검사
 
         $user_id = session('user_id');
 
@@ -386,8 +404,6 @@ class BoardController extends Controller
             ->where('board_id', '=', $req->board_id)
             ->update(['replies' => $board->replies + 1]);
 
-        // todo 트랜잭션 처리
-
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
     }
@@ -399,12 +415,9 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
-        // todo 유효성 검사
-
         // 댓글 삭제 처리
         BoardReply::destroy($id);
 
-        // todo 에러처리, 트랜잭션 처리
         return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
     }
 

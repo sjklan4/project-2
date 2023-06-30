@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('quest_logs', function (Blueprint $table) {
             $table->integer('quest_log_id')->autoIncrement();
-            $table->integer('user_id');
-            $table->integer('quest_cate_id');
-            $table->timestamps();
+            $table->integer('quest_status_id');
+            $table->date('effective_date');
             $table->char('complete_flg', 1)->default('0');
+            $table->timestamps();
         });
     }
 

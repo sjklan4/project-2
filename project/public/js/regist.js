@@ -5,7 +5,7 @@ const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\
 
 const chdeckEmailbutton = document.getElementById('chdeckEmail');
 userEmailField.addEventListener('input', function() {
-  
+
 
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
@@ -42,8 +42,7 @@ userEmailField.addEventListener('input', function() {
             });
         });
     });
-//동작 구조 문제점 : 이메일 형식이 @까지만 작성시는 정상적이나 완전한 형식을 작성후 다시 삭제시 @앞자리 까지 완전히 삭제하지 않으면 가입 버튼이 활서오하 되있음.
-// ex : ddd@ddd.com 에서 -> ddd@까지 삭제하지 않으면 그전까지는 활성화됨 
+
 
 
 

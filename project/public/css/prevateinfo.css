@@ -1,0 +1,334 @@
+.boardCon {
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: 1.5fr minmax(150px, 1.5fr) 1000px 2fr;
+    font-size: 16px;
+}
+h1{
+    font-weight: bolder;
+}
+
+h2{
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.mNav {
+    display: none;
+}
+.shadowWhite {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    border-radius: 1px;
+    padding: 50px;
+}
+.shadowYellow {
+    background: #FFFFF0;
+    box-shadow: 0px 12px 30px #ECECEC;
+    display: flex;
+    justify-content: center;
+    padding: 50px 30px;
+    margin-bottom: 30px;
+}
+
+.boardNavDiv > div{
+    font-size: 35px;
+    font-weight: 900;
+    padding: 5px 0 40px 16px;
+}
+
+.boardNavDiv ul li a, a {
+    text-decoration: none;
+    color: #000
+}
+
+.nav-item {
+    font-size: 18px;
+    font-weight: 600;
+    height: 60px;
+}
+
+/* ****************공용 버튼 모음******************  */
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+button:hover {
+    background-color: #9D9D9D;
+}
+#greenBtn {
+    background-color: #538E04;
+}
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+
+#passwordchk {
+    margin-left: 15px;
+}
+
+.boardNavDiv ul li a:hover, a:hover {
+    color: #538E04;
+}
+
+.prvateinfo {
+    padding: 0 0 50px 0;
+    
+}
+input{
+    border:none;
+    border-bottom: 2px solid #9d9d9d;
+    background-color: transparent;
+    width: 27vw;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* .diechk-td{
+    width: 15vw;
+    vertical-align: top;
+    padding-top: 8px;
+} */
+
+.table-diet{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    width: 50vw;
+
+}
+table{
+    padding-top: 10px;
+    border-spacing: 0.2rem;
+    border-collapse: separate;
+    margin: 0;
+    
+}
+td{
+    min-width: 9vw;
+    height: 5vh;
+    padding-left:15px ;
+}
+
+.table-prevate{
+    padding: 20px;
+    margin: auto;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    width: 50vw;
+    text-align: center;
+}
+.line{
+    border: 2px solid #ccc;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 53vw;
+}
+li.info-list{
+    list-style: none;
+    text-align: center;
+    margin: 10px;
+}
+
+.hover-btn{
+    position: relative;
+}
+
+.arrow_box{
+    position: absolute;
+    top: 35px; /* 말풍선의 상단 위치 조정 */
+    left: 0; /* 말풍선의 왼쪽 위치 조정 */
+    display: none; /* 초기에 숨김 처리 */
+    color:black;
+    padding: 5px;
+    width: 28vw;
+}
+.hover-btn:hover .arrow_box{
+    display: inline-block;
+}
+
+
+#exit{
+    text-align: end;
+}
+
+input#tall{
+    border-radius: 7px;
+    border: 2px #ccc solid;
+    width: 100px;
+    
+}
+input#weight{
+    border-radius: 7px;
+    border: 2px #ccc solid;
+    width: 100px;
+}
+input#acctivaty0{
+    margin-left: 15px;
+}
+input#acctivaty1{
+    margin-left: 15px;
+}
+input#acctivaty2{
+    margin-left: 15px;
+}
+input#goal_kcal{
+    width: 20vw;
+}
+input#user_birth{
+    width: 10vw;
+}
+input#calcul-kcal{
+    width: 10vw;
+}
+
+
+/* 레디오 버튼 디자인 */
+[type="radio"]{
+    vertical-align: middle;
+    appearance: none;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    transition: border 0.3s ease-in-out;
+}
+
+[type="radio"]:checked{
+    border: 0.4em solid  rgba(25, 95, 28, 1);
+}
+
+[type="radio"]:focus-visible{
+    outline-offset: max(2px,00.1em);
+    outline: max(2px, 00.1em) dotted rgb(12, 48, 14);
+}
+
+[type="radio"]:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) rgb(202, 233, 206);
+    cursor: pointer;
+}
+.genman{
+    padding-left: 5px;
+    background-image: url(../img/manmark.png);
+    width: 20px;
+    height: 20px;
+}
+.genwoman{
+    padding-left: 5px;
+    background-image: url(../img/womanmark.png);
+    width: 20px;
+    height: 20px;
+}
+img{
+    width: 35px;
+    height: 35px;
+}
+
+/**************************** 유저정보 변경 페이지 **************************/
+/* 유저 기본정보 변경 부분 */
+
+.info-tablemenu{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    width: 50vw;
+    
+}
+.info-t{
+    width: auto;
+    margin: 0 auto;
+}
+td.info-table{
+    width: 5vw;
+    font-size: 16px;
+}
+
+.greenBtn{
+    background-color: #538E04;
+    color: #fff;
+}
+table {
+        padding-top: 10px;
+        border-spacing: 0.2rem;
+        border-collapse: separate;
+        margin: 0;
+}
+/* ************************************************************************** */
+
+.Physical-table{
+    margin: auto;
+    padding: 35px;
+    font-size: 20px;
+    background-color:rgba(255, 255, 240, 1);
+    border-radius: 10px;
+    box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
+    width: 50vw;
+}
+
+/* table.info-t{
+    border-radius: 10px;
+    background-color: #fff;
+} */
+caption{
+    margin: 10px;
+    display: table-caption;
+    text-align: center;
+    caption-side: bottom;
+}
+/* .info-boxt{
+    border-radius: 10px;
+    width: 45vw;
+    height: 33vh;
+    background-color: white;
+    box-shadow: 0px 12px 30px #ECECEC;
+} */
+
+
+
+/* 비밀번호 변경 부분 */
+.findps-body{
+    padding-top: 55px;
+    width: 50vw;
+    margin: 0 auto;
+
+}
+
+
+.findps-table{
+    width: 44vw;
+    margin: 0 auto;
+}
+.btn{
+    display: inline-block;
+    width: 75vw;
+    margin: 0 auto;
+}
+
+/* 모달부분 css */
+.modal_wrap{
+    display: none;
+}
+
+.exit:hover{
+    display: inline-block;
+    cursor: pointer;
+}

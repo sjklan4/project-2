@@ -1,0 +1,148 @@
+.finduser-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+.findpsw {
+    display: none;
+}
+.intro_login{
+    height: 100vh;
+    border-radius: 3px;
+    box-shadow: 2px 2px 8px 2px #999;
+    font-size: 50px;
+    font-weight: bolder;
+    background-image: url(../img/login.png);
+    background-repeat: no-repeat;
+    background-position: -212px 409px;
+    
+}
+.finduserpage{
+
+    background-color: rgba(255, 255, 240, 1);
+    height: 100vh;
+    border-radius: 3px;
+    box-shadow:  2px 2px 15px 2px #999;
+
+}
+.find-insert{
+    width: 50vw;
+    margin: 0 auto;
+    margin-top: 153px;
+}
+.insert-info{
+    text-align: center;
+    width: 48vw;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    background-color: rgba(255, 255, 240, 1);
+}
+
+.info-list{
+    margin: 33vw;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 240, 1);
+    border-radius: 10px;
+}
+
+.findemail{
+    border-radius: 10px;
+    margin: auto;
+    width: 38vw;
+    text-align: center;
+    height: 55vh;
+}
+.findemail-insert{
+    padding-top: 38px;
+}
+.findpsw{
+    width: 40vw;
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
+    height: 55vh;
+}
+.changpassword-insert{
+    padding-top: 38px;
+}
+
+button{
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #9D9D9D;
+}
+#greenBtn {
+    background-color: #538E04;
+    margin: 20px;
+    font-size: 17px;
+}
+#findEmail{
+    background-color: #538E04;
+}
+#greenBtn:hover {
+    background-color: #195F1C;
+}
+
+
+input{
+    margin-bottom: 20px;
+    width: 20vw;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.chk-btn{
+    font-size: x-large;
+    text-align: center;
+    margin: 35px;
+}
+
+.chk-email{
+    font-size: x-large;
+    margin: 111px;
+    text-align: left;
+}
+
+.write-input{
+    width: 30vw;
+    height: 47px;
+    margin: 0 auto;
+    border-bottom: 2px solid #195F1C;
+    text-align: left;
+    margin-top: 35px;
+}
+/* .write-input#password{
+    margin: 0;
+} */
+
+h1{
+    text-align: center;
+}
+p.first-line{
+    color: #195F1C;
+    margin: 0px;
+}
+
+.p-tag{
+
+}
+
+.finduser-info img{
+    width: 150px;
+    height: 50px;
+}

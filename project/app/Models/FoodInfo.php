@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FoodInfo extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     // use Searchable; // v002 add
 
     protected $table = 'food_infos';
