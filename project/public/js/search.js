@@ -92,7 +92,8 @@ function deletefood(Ids) {
         method: "delete"
     })
     .then(res => res.json())
-    .then( data => 
+    .then( data => {
+        fav_food.replaceChildren()
         data.forEach(ele => {
             console.log(ele.food_name);
             console.log(ele.amount);
@@ -102,6 +103,9 @@ function deletefood(Ids) {
             let brp = document.createElement('span')
             ffood.innerHTML = ele.food_name+' | '+ele.amount;
             brp.innerHTML = '<br>';
+
+
+            // fav_food.replaceChildren(ffood);
             
             // 삭제 버튼
             // let delfbtn = document.createElement('button')
@@ -110,10 +114,10 @@ function deletefood(Ids) {
             // delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
             // 삭제 버튼 div에 넣기
             fav_food.appendChild(ffood);
-            // fav_food.appendChild(delfbtn);
+            // fav_food.appendsChild(delfbtn);
             fav_food.appendChild(brp);
             }
-        )
+        )}
         // console.log(data) )
 )}
 

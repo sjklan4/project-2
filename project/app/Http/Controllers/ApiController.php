@@ -206,7 +206,7 @@ class ApiController extends Controller
             ->delete();
 
             $seleted = DB::table('food_carts')
-            ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+            ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
             ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
             ->where('food_carts.user_id', $user_id)
             ->get();
