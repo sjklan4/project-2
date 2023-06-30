@@ -34,7 +34,7 @@
             </table>
         </div>
     </div>
-    <div class="btn"><button type ="submit" id="modal" class="greenBtn">입  력</button></div>  
+    <div class="btn"><button type ="submit" id="modal" class="greenBtn">설정완료</button></div>  
 </div>
 <div class="modal_wrap">
     <div class="shadowYellow">
@@ -48,7 +48,10 @@
             </tr>
             <tr>
                 <td><label for="user_birth">나이</label></td>
-                <td><input type="date" name="user_birth" id="user_birth"></td>
+                <td><input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}"></td>
+                <div>
+                    <span id="maxdate"></span>
+                </div>
             </tr>
             <tr>
                 <td><label for="tall">키(cm)</label></td>
@@ -75,7 +78,7 @@
             </tr>
             <tr>        
                 <td><div><button type="button" id="suggest-cal" class="greenBtn">계산</button></div></td>
-                <td><div><button type="button" id="suggest-insert" class="greenBtn">입력</button></div></td>
+                <td><div><button type="button" id="suggest-insert" class="greenBtn">적용</button></div></td>
             </tr>    
         </table>
         <div class="exit">X</div>

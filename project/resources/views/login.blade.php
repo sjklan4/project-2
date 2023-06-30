@@ -42,8 +42,6 @@
                             {{-- <div>{{$error}}</div> --}}
                             @enderror
                             
-
-
                             <br>
                 </div>
                 <div class="linkbutton">
