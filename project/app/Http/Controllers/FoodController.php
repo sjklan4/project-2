@@ -54,16 +54,6 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
-
-        return view('/foodCreate');
-    }
-
-    public function store(Request $req) {
-
-        if(auth()->guest()) {
-            return redirect()->route('user.login');
-        }
-
         // 유저 id 획득
         $id = Auth::user()->user_id;
 
@@ -73,6 +63,15 @@ class FoodController extends Controller
 
         if ($foods->count() >= 10) {
             return redirect()->route('food.index');
+        }
+
+        return view('/foodCreate');
+    }
+
+    public function store(Request $req) {
+
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
         }
 
         //유효성 검사
@@ -116,8 +115,14 @@ class FoodController extends Controller
             return back()->withErrors($validator)
                         ->withInput();
         }
-        
+
+        // 유저 id 획득
+        $id = Auth::user()->user_id;
+
         // 유저가 같은 이름으로 등록 불가능
+        $foods = FoodInfo::where('user_id', $id)
+        ->get();
+        
         foreach ($foods as $val) {
             if ($val->food_name === $req->foodName) {
                 return back()->withErrors(['foodName' => '이미 등록된 이름입니다.'])

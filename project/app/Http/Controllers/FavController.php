@@ -25,10 +25,10 @@ class FavController extends Controller
     public function favdiet($id = '0'){ //유저의 자주찾는 식단 정보를 가져오게 하는 구문
         
         $user_id = Auth::user()->user_id; //로그인된 유저 정보를 확인하기 위한 기능
-        $favname = FavDiet::select('fav_name','fav_id')
-                        ->where('user_id',$user_id)
-                        ->whereNull('fav_diets.deleted_at') //deleted컬럼이 널입 값만 가져오도록 한다.
-                        ->get();
+        $favname = FavDiet::select('fav_name','fav_id') // fav_diets테이블의 fav_name, fav_id 컬럼 값을 select
+                        ->where('user_id',$user_id) // $user_id(로그인된 유저)의 user_id값과 같은 값을 찾도록 조건을 준다.
+                        ->whereNull('fav_diets.deleted_at') //deleted컬럼이 널입 값만 가져오도록 한다. - softdelete된 값을 제외 시키기 위한 구문
+                        ->get();//조회한 데이터를 get으로 가져온다(전부 가져오기)
 
         // var_dump($favname->count());
 
@@ -97,5 +97,3 @@ class FavController extends Controller
             return redirect()->route('fav.favdiet');
         }
     }
-
-   

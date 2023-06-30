@@ -156,50 +156,53 @@ class UserController extends Controller
         return redirect()->route('user.userinfoedit');
     }
 
-    public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
-        $arrKey = [];
-        $baseUser = KcalInfo::find(Auth::User()->user_id);
+    // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
+    //     $arrKey = [];
+    //     $baseUser = KcalInfo::find(Auth::User()->user_id);
 
-        if($req->user_birth !== $baseUser->user_birth){
-            $arrKey[] = 'user_birth';
-        }
-        //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
-        if($req->user_tall !== $baseUser->user_tall){
-            $arrKey[] = 'user_tall';
-        }
+    //     if($req->user_birth !== $baseUser->user_birth){
+    //         $arrKey[] = 'user_birth';
+    //     }
+    //     //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
+    //     if($req->user_tall !== $baseUser->user_tall){
+    //         $arrKey[] = 'user_tall';
+    //     }
 
-        if($req->user_weight !== $baseUser->user_weight){
-            $arrKey[] = 'user_weight';
-        }
-          // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
-        if($req->user_weight !== $baseUser->user_weight){
-            $arrKey[] = 'user_activity';
-        }
-        foreach($arrKey as $val) {
+    //     if($req->user_weight !== $baseUser->user_weight){
+    //         $arrKey[] = 'user_weight';
+    //     }
+    //       // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
+    //     if($req->user_weight !== $baseUser->user_weight){
+    //         $arrKey[] = 'user_activity';
+    //     }
+    //     foreach($arrKey as $val) {
         
-            $baseUser->$val = $req->$val;
-        }
-        $baseUser->save(); // update
-        return redirect()->route('user.userinfoedit');
+    //         $baseUser->$val = $req->$val;
+    //     }
+    //     $baseUser->save(); // update
+    //     return redirect()->route('user.userinfoedit');
 
-    }
+    // }
 
     //유저 Email찾기 구문
+    
     public function userfindE(){
         return view('userfind');
     }
 
     //유저 Email찾기 요청하는 구문
+    // post방식으로 받아온 회원의 정보(이름, 폰번호)를 받아온다.
     public function userfindEPost(Request $req){
-        $rules = [
+        $rules = [ //유효성 검사 룰을 배열로 준비
             'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'
         ];
+    //유효성 검사 실시 하는 구문
         $validate = Validator::make($req->only('user_name','user_phone_num'),$rules,[
             'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
             'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
         ]);
-
+    // 유효성 검사진행후 bool값이 fail면 오류 값을 리턴시킨다.
         if ($validate->fails()) {
             $errors = $validate->errors();
             return redirect()->back()->withErrors($errors)->withInput();
@@ -209,12 +212,12 @@ class UserController extends Controller
         //     'user_name' => $req->user_name
         //     ,'user_phone_num' => $req->user_phone_num
         // ];
-
+    // 유효성 검사를 통과하면 userinfos테이블에서 사용자의 이름과 전화번호가 같은 email을 찾아서 값을 반환
         $findemail = DB::table('user_infos')
         ->where('user_name', $req->user_name)
         ->where('user_phone_num', $req->user_phone_num)
         ->value('user_email');
-
+    //email이 있으면 그 값(data)를 반환하고 없으면 error메시지 출력
         if ($findemail) {
             return redirect()->route('user.userfindE')->with('data', $findemail);
         } else {
@@ -245,10 +248,10 @@ class UserController extends Controller
             $newpassword = $req->newpassword; // 다르면 작성된 신규비밀번호를 사용
         }
         else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
-            $error = '기존 비밀번호와 다른 비밀번호로 해주세요';
+            $error = '기존 비밀번호와 다른 비밀번호로 해주세요'; 
             return redirect()->back()->with('error',$error);
         }
-
+    // 변경된 신규 비밀번호를 hash화 해서 저장 하는 구문
         $basepassword->password = Hash::make($newpassword);
     
         $basepassword->save(); // 비밀번호 저장
@@ -257,17 +260,17 @@ class UserController extends Controller
     }
     
     public function userKcalinfo(){//유저의 식단과 목표칼로리 변경 페이지로 이동
-        $id = session('user_id');
-        $userdinfo = KcalInfo::FindOrFail($id);
+        $id = session('user_id'); //session에 있는 유저 정보를 id에 담는다.
+        $userdinfo = KcalInfo::FindOrFail($id); // user_id값을 kcalinfo테이블에있는 레코드 정보를 전부 찾아온다.
         return view('prevateinfo')->with('data',$userdinfo);
     }
     
     
     public function userKcaledit(Request $req){  //유저가 입력한 식단과 목표 칼로리를 적용 시키는 기능 - 오류 출력이 안됨.
     $KcalInfo = KcalInfo::find(Auth::user()->user_id); //로그인 된 유저id를 kcaliinfo테이블에서 찾아서 그 번호를 반환한다.
-    $KcalInfo->goal_kcal = $req->goal_kcal;
+    $KcalInfo->goal_kcal = $req->goal_kcal;//kcalinfo테이블에 goal_kcal의 값에 input에 입력된 goal_kcal을 입력
 
-        if($req->nutrition_ratio === ""){
+        if($req->nutrition_ratio === ""){ //선택한 식단을 입력 하는 구문 - 선택값이 빈값이면 아래 오류 출력 값이 있으면 선택 값의 value를 반환 
             return redirect()->route('user.prevateinfo')->withErrors(['error' => '식단을 선택해주세요']);
         } else {
             $KcalInfo->nutrition_ratio = $req->nutrition_ratio;
