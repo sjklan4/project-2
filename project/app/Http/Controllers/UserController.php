@@ -56,7 +56,8 @@ class UserController extends Controller
         
         if(!$user || !(Hash::check($req->password,$user->password))){
             $error = '아이디와 비밀번호를 확인해 주세요.';
-            return view('login')->with('error',$error);
+            return back()->withErrors(['idpw' => $error])
+                ->withInput();;
 
         }
 

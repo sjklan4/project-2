@@ -15,9 +15,9 @@
     </div>
     <div class="loginpage">
         <div class="write">
-                {{-- @if(!empty($error))
-                    <span>{{$error}}</span>
-                @endif --}}
+                @if(isset($errors))
+                    <span>{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
+                @endif
         
                 <form action="{{route('user.loginpost')}}"  method="post">
                     @csrf
@@ -36,7 +36,7 @@
                     </div>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
-                            <div>{{$error}}</div>
+                            {{-- <div>{{$error}}</div> --}}
                             @enderror
                             
 
