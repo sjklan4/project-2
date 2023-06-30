@@ -83,6 +83,13 @@ class QuestController extends Controller
         // 진행 혹은 성공한 퀘스트 정보 획득
         $quest_status = QuestStatus::where('user_id', Auth::user()->user_id)
             ->first();
+        
+        // 진행중인 퀘스트가 없을 때
+        if (!isset($quest_status)) {
+            // 플래그 변경
+            $flg = 1;
+            return view('questDetail')->with('flg', $flg);
+        }
 
         // 성공했을 때
         if ($quest_status->complete_flg === 1) {
@@ -91,13 +98,6 @@ class QuestController extends Controller
             return view('questDetail')->with('id', $quest_status->quest_status_id)->with('flg', $flg);
         }
 
-        // 진행중인 퀘스트가 없을 때
-        if (!isset($quest_status)) {
-            // 플래그 변경
-            $flg = 1;
-            return view('questDetail')->with('flg', $flg);
-        }
-            
         // 전체 로그 정보 획득
         $questLog = DB::table('quest_logs')
             ->where('quest_status_id', $quest_status->quest_status_id)

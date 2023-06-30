@@ -96,7 +96,7 @@ class BoardController extends Controller
             'cate'      => 'required'
             ,'title'    => 'required|max:50'
             ,'content'  => 'required|max:4000'
-            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+            ,'picture'  => 'max:5242880|mimes:jpg,png,gif'
         ];
 
         $messages = [
@@ -106,7 +106,7 @@ class BoardController extends Controller
             'content.required'  => '본문은 필수 입력 항목입니다.',
             'content.max'       => ':max자까지 입력 가능합니다.',
             'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
-            'picture'           => '5mb까지 업로드 가능합니다.',
+            'picture.max'       => '5mb까지 업로드 가능합니다.',
         ];
 
         $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
@@ -240,13 +240,13 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
+        // $size = 5 * 1024 * 1024;
         // 유효성 검사
         $rules = [
             'cate'      => 'required'
             ,'title'    => 'required|max:50'
             ,'content'  => 'required|max:4000'
-            ,'picture'  => 'file|mimes:jpg,png,gif|max:5120'
+            ,'picture'  => 'max:5242880|mimes:jpg,png,gif'
         ];
 
         $messages = [
@@ -256,7 +256,7 @@ class BoardController extends Controller
             'content.required'  => '본문은 필수 입력 항목입니다.',
             'content.max'       => ':max자까지 입력 가능합니다.',
             'picture.mimes'     => 'jpg, png, gif 파일만 업로드 가능합니다.',
-            'picture'           => '5mb까지 업로드 가능합니다.',
+            'picture.max'       => '5mb까지 업로드 가능합니다.',
         ];
 
         $validator = Validator::make($req->only('cate', 'title', 'content', 'picture'), $rules, $messages);
@@ -275,15 +275,30 @@ class BoardController extends Controller
 
         // 이미지 테이블 정보 수정
         if($req->hasFile('picture')){
+            // 기존 이미지가 있는지 확인
+            $img = DB::table('board_imgs')
+            ->where('board_id', $id)
+            ->first();
+
             $fileName = time().'_'.$req->file('picture')->getClientOriginalName();
             $path = $req->file('picture')->storeAs('public/images/board', $fileName);
-
-            DB::table('board_imgs')
-                ->where('board_id', $id)
-                ->update([
-                    'bimg_name'    => $fileName
+            
+            if(isset($img)) {
+                DB::table('board_imgs')
+                    ->where('board_id', $id)
+                    ->update([
+                        'bimg_name'     => $fileName
+                        ,'bimg_path'    => $path
+                    ]);
+            } else {
+                DB::table('board_imgs')
+                ->insert([
+                    'board_id'      => $id
+                    ,'bimg_name'    => $fileName
                     ,'bimg_path'    => $path
                 ]);
+            }
+            
         }
 
         return redirect()->route('board.show', ['board' => $id]);
