@@ -110,7 +110,7 @@ class QuestController extends Controller
         if ($questLog[0]->effective_date !== Carbon::now()->format("Y-m-d")) {
             $count = 0;
             foreach ($questLog as $key => $val) {
-                if ($val->effetive_date === Carbon::now()->subDays(1)->format("Y-m-d")) {
+                if ($val->effective_date === Carbon::now()->subDays(1)->format("Y-m-d")) {
                     if ($val->complete_flg === 0) {
                         ++$count;
                     }
