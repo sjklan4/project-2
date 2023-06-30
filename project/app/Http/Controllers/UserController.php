@@ -40,6 +40,7 @@ class UserController extends Controller
         ];
 
         $validate = Validator::make($req->only('email','password'),$rules,[
+            'email.required' => '이메일을 입력해주세요',
             'email' => 'email형식에 맞춰주세요',
             'password' => '비밀번호를 확인해주세요'
         ]);
@@ -52,7 +53,7 @@ class UserController extends Controller
 
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
-        
+
         if(!$user || !(Hash::check($req->password,$user->password))){
             $error = '아이디와 비밀번호를 확인해 주세요.';
             return redirect()->back()->with('error',$error);

@@ -37,6 +37,12 @@
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
+
+                            @if(isset($error)){
+                                {{$error}}
+                            }
+                            
+                            @endif
                             <br>
                 </div>
                 <div class="linkbutton">
