@@ -47,13 +47,13 @@ class SearchController extends Controller
 
         // 선택된 음식
         $seleted = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
         ->where('food_carts.user_id', $id)
         ->get();
 
         $seleted_diet = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
         ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
         ->where('food_carts.user_id', $id)
         ->get();
@@ -74,10 +74,6 @@ class SearchController extends Controller
             $foods = DB::table('food_infos')
             ->select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
             ->where('food_name', 'like', '%'.$usersearch.'%')
-            // ->where(function($query2) use($usersearch){
-            //     $query2->where('food_name', 'like', $usersearch)
-            //     ->orwhere('food_name', 'like', '%'.$usersearch.'%');
-            // })
             ->where(function($query) use($id){
                 $query->where('user_id', $id)
                 ->orWhere('user_id', 0);
@@ -89,8 +85,8 @@ class SearchController extends Controller
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
-            ->with('seleted', $seleted)
-            ->with('seleted_diet', $seleted_diet)
+            // ->with('seleted', $seleted)
+            // ->with('seleted_diet', $seleted_diet)
             ->with('data', $data);
         }
         return view('FoodList')
@@ -144,15 +140,17 @@ class SearchController extends Controller
 
         // ! 식단 입력
         // v00
-        if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
-            if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
-                for($e=0; $e<count($arraydiet); $e++){
-                    $insertDF = new DietFood([
-                        'food_id' => $arraydiet[$e][1],
-                        'd_id' => $arrayd[0],
-                        'df_intake' => $arraydiet[$e][2]
-                    ]);
-                    $insertDF->save();
+        if(!empty($arrayd)){
+            if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
+                if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
+                    for($e=0; $e<count($arraydiet); $e++){
+                        $insertDF = new DietFood([
+                            'food_id' => $arraydiet[$e][1],
+                            'd_id' => $arrayd[0],
+                            'df_intake' => $arraydiet[$e][2]
+                        ]);
+                        $insertDF->save();
+                    }
                 }
             }else{
                 $insertD = new Diet([
@@ -181,35 +179,37 @@ class SearchController extends Controller
             }
         }else{
         // ! 음식 입력
-        if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
-            $sum = $arr_cart[0][1];
-            for ($i=0; $i < count($arr_cart); $i++) { 
-                for ($z=1; $z <= $i; $z++) {
-                    if($arr_cart[$i] == $arr_cart[$z]){
-                        $sum += $arr_cart[$i][1];
-                        if($arr_cart[$i] !== $arr_cart[$z]){
+        if(!empty($arrayd)){
+            if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
+                $sum = $arr_cart[0][1];
+                for ($i=0; $i < count($arr_cart); $i++) { 
+                    for ($z=1; $z <= $i; $z++) {
+                        if($arr_cart[$i] == $arr_cart[$z]){
                             $sum += $arr_cart[$i][1];
+                            if($arr_cart[$i] !== $arr_cart[$z]){
+                                $sum += $arr_cart[$i][1];
+                            }
+                        }else{
+                            if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
+                                $insertDF = new DietFood([
+                                    'food_id' => $arr_cart[$i][0],
+                                    'd_id' => $arrayd[0],
+                                    'df_intake' => $sum
+                                ]);
+                                $insertDF->save();
+                            }
+                            $sum = 0;
                         }
-                    }else{
-                        if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
-                            $insertDF = new DietFood([
-                                'food_id' => $arr_cart[$i][0],
-                                'd_id' => $arrayd[0],
-                                'df_intake' => $sum
-                            ]);
-                            $insertDF->save();
-                        }
-                        $sum = 0;
                     }
+                    $insertDF = new DietFood([
+                        'food_id' => $arr_cart[$i][0],
+                        'd_id' => $arrayd[0],
+                        'df_intake' => $sum
+                    ]);
+                    $insertDF->save();
                 }
-                $insertDF = new DietFood([
-                    'food_id' => $arr_cart[$i][0],
-                    'd_id' => $arrayd[0],
-                    'df_intake' => $sum
-                ]);
-                $insertDF->save();
             }
-        }else{
+    }else if(empty($arrayd)){
             $insertD = new Diet([
                 'user_id' => $id,
                 'd_date' => $date,
@@ -260,6 +260,34 @@ class SearchController extends Controller
         
         DB::table('food_carts')->where('user_id', $id)->delete();
         return redirect()->route('home');
+    }
+
+    // ! 선택한 음식 탭에서 음식 삭제
+    public function fooddelete(Request $req, $f_id, $c_id){
+        $id = Auth::user()->user_id;
+
+        $data = [
+            'date' => $req->date,
+            'time' => $req->time
+        ];
+
+        DB::table('food_carts')->where('user_id', $id)->where('food_id', $f_id)->where('cart_id', $c_id)->delete();
+        return redirect()->route('home');
+        // return redirect()->route('search.list.get' , ['id', $id])->with($data);
+    }
+
+    // ! 선택한 음식 탭에서 자주먹는 식단 삭제
+    public function dietdelete(Request $req, $d_id, $c_id){
+        $id = Auth::user()->user_id;
+
+        $data = [
+            'date' => $req->date,
+            'time' => $req->time
+        ];
+
+        DB::table('food_carts')->where('user_id', $id)->where('fav_id', $d_id)->where('cart_id', $c_id)->delete();
+        return redirect()->route('home');
+        // return redirect()->route('search.list.get', ['id' => $id])->with($data);
     }
 
     // ! 취소 버튼 누를 시 임시 저장 데이터베이스 내용 삭제

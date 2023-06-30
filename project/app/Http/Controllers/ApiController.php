@@ -133,7 +133,7 @@ class ApiController extends Controller
         $cart->save();
 
         $seleted = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
         ->where('food_carts.user_id', $user_id)
         ->get();
@@ -149,8 +149,9 @@ class ApiController extends Controller
         }else{
             $arr['error'] = '2';
             $arr['msg'] = 'success';
-            $arr['data'] = $seleted->only('food_id', 'food_name', 'amount');
+            $arr['data'] = $seleted->only('food_id', 'food_name', 'amount', 'cart_id');
         }
+        // return $arr;
         return response()->json($seleted);
     }
 
@@ -164,7 +165,7 @@ class ApiController extends Controller
         $cart->save();
 
         $seleted_diet = DB::table('food_carts')
-        ->select('food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
         ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
         ->where('food_carts.user_id', $user_id)
         ->get();
@@ -183,5 +184,33 @@ class ApiController extends Controller
             $arr['data'] = $seleted_diet->only('fav_id', 'fav_name');
         }
         return response()->json($seleted_diet);
+    }
+
+    public function foodDelete($user_id, $food_id, $cart_id) {
+        $arr = [
+            'error' => '0'
+            ,'msg' => ''
+        ];
+
+        if(!$food_id){
+            $arr['error'] = '1';
+            $arr['msg'] = 'fall';
+        }else{
+            $arr['error'] = '2';
+            $arr['msg'] = 'success';
+
+            DB::table('food_carts')
+            ->where('user_id', $user_id)
+            ->where('food_id', $food_id)
+            ->where('cart_id', $cart_id)
+            ->delete();
+
+            $seleted = DB::table('food_carts')
+            ->select('food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+            ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
+            ->where('food_carts.user_id', $user_id)
+            ->get();
+        }
+        return response()->json($seleted);
     }
 }
