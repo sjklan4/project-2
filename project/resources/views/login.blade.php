@@ -15,9 +15,9 @@
     </div>
     <div class="loginpage">
         <div class="write">
-                @if(!empty($error))
+                {{-- @if(!empty($error))
                     <span>{{$error}}</span>
-                @endif
+                @endif --}}
         
                 <form action="{{route('user.loginpost')}}"  method="post">
                     @csrf
@@ -36,13 +36,11 @@
                     </div>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
+                            <div>{{$error}}</div>
                             @enderror
-
-                            @if(isset($error)){
-                                {{$error}}
-                            }
                             
-                            @endif
+
+
                             <br>
                 </div>
                 <div class="linkbutton">
