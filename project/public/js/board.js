@@ -81,3 +81,72 @@ function likeDown() {
         }
     });
 }
+
+const boardTitle = document.getElementById('title');
+
+function boardFormChk() {
+    const boardTitle = document.getElementById('title');
+    const boardContent = document.getElementById('content');
+    const img = document.getElementById('picture').files[0];
+
+    // 빈값 확인
+    if(boardTitle.value === "") {
+        boardTitle.focus();
+        return false
+    }
+
+    if(boardContent.value === "") {
+        boardContent.focus();
+        return false
+    }
+
+    // 유효성 체크
+    if(!baordTitleChk(boardTitle.value)) {
+        alert("50자 이하로 입력해주세요.");
+        boardTitle.focus();
+        return false
+    }
+
+    if(!boardContentChk(boardContent.value)) {
+        alert("4000자 이하로 입력해주세요.");
+        boardContent.focus();
+        return false
+    }
+    
+    if(img) {
+        if(!imgExtensionChk(img)) {
+            alert("jpg, png, gif 확장자만 업로드 가능합니다.");
+            return false
+        }
+        
+        if(!imgSizeChk(img)) {
+            alert("5mb이하 이미지만 업로드 가능합니다.");
+            return false
+        }
+    }
+    document.boardForm.submit();
+}
+
+
+// ? --------------------------------
+// ? 유효성 관련 함수
+function baordTitleChk(boardTitle) {
+    let reg = /^.{1,50}$/;
+    return reg.test(boardTitle);
+}
+
+function boardContentChk(boardContent) {
+    let reg = /^.{1,4000}$/;
+    return reg.test(boardContent);
+}
+
+function imgExtensionChk(img) {
+    let reg = /(.*?)\.(jpg|gif|png)$/;
+    return reg.test(img.name);
+}
+
+function imgSizeChk(img) {
+    return img.size <= 5 * 1024 * 1024;
+}
+// ? --------------------------------
+
