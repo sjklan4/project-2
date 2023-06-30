@@ -18,7 +18,7 @@
                         <label for="goal_kcal">목표칼로리  </label>
                     </th>
                     <td colspan="2" class="goal_kcal_input">
-                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요" step="1" min="0" required>Kcal
+                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요" step="1" min="0" max="99999" required>Kcal
                     </td>
                     <td>
                         <div class="hover-btn">
