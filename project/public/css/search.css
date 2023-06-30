@@ -116,7 +116,7 @@ ul{
 }
 
 /* 자주먹는 식단 div */
-#fav_food, #fav_diet{
+#fav_food, .fav_food, #fav_diet, .fav_diet{
     /* padding:1.5em; */
     margin:0;
     overflow: scroll;
@@ -179,15 +179,15 @@ ul{
     height: 750px;
     position:relative;
 }
-.user_search::-webkit-scrollbar, .fav_scroll::-webkit-scrollbar, #fav_food::-webkit-scrollbar, #fav_diet::-webkit-scrollbar {
+.user_search::-webkit-scrollbar, .fav_scroll::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_food::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_diet::-webkit-scrollbar {
     width:9px;
     background-color: transparent;
 }
-.user_search::-webkit-scrollbar-thumb, .fav_scroll::-webkit-scrollbar-thumb, #fav_food::-webkit-scrollbar-thumb, #fav_diet::-webkit-scrollbar-thumb {
+.user_search::-webkit-scrollbar-thumb, .fav_scroll::-webkit-scrollbar-thumb, #fav_food::-webkit-scrollbar-thumb, .fav_food::-webkit-scrollbar-thumb, #fav_diet::-webkit-scrollbar-thumb, .fav_diet::-webkit-scrollbar-thumb {
     background-color: #538E04;
     border-radius: 20px;
 }
-.user_search::-webkit-scrollbar-track, .fav_scroll::-webkit-scrollbar-track, #fav_food::-webkit-scrollbar-track, #fav_diet::-webkit-scrollbar-track {
+.user_search::-webkit-scrollbar-track, .fav_scroll::-webkit-scrollbar-track, #fav_food::-webkit-scrollbar-track, .fav_food::-webkit-scrollbar-track, #fav_diet::-webkit-scrollbar-track, .fav_diet::-webkit-scrollbar-track {
     background-color: transparent;
 }
 

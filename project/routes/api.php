@@ -71,3 +71,5 @@ Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
 Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
+Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class, 'foodDelete']);
