@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function PHPUnit\Framework\isNull;
+// use function PHPUnit\Framework\isNull;
 
 class HomeController extends Controller
 {
@@ -53,6 +53,22 @@ class HomeController extends Controller
         $dietLunch = Diet::Diet( $id , $date, "1")->get(); // 점심
         $dietDinner = Diet::Diet( $id , $date, "2")->get(); // 저녁
         $dietSnack = Diet::Diet( $id , $date, "3")->get(); // 간식
+
+        // function MealSums($mealArr) {
+        //     $kcalSum = 0;
+        //     $carbSum = 0;
+        //     $proteinSum = 0;
+        //     $fatSum = 0;
+        
+        //     foreach ($mealArr as $val) {
+        //         $kcalSum += ($val->kcal) * ($val->df_intake);
+        //         $carbSum += ($val->carbs) * ($val->df_intake);
+        //         $proteinSum += ($val->protein) * ($val->df_intake);
+        //         $fatSum += ($val->fat) * ($val->df_intake);
+        //     }
+        
+        //     return [$kcalSum, $carbSum, $proteinSum, $fatSum];
+        // }
 
         // 아침 칼로리, 탄수화물, 단백질, 지방 계산
         $brfKcalSum = 0;
