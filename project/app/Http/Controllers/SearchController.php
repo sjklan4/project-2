@@ -82,6 +82,7 @@ class SearchController extends Controller
                 $query->where('user_id', $id)
                 ->orWhere('user_id', 0);
             })
+            ->whereNull('deleted_at')
             ->get();
 
             return view('FoodList')
