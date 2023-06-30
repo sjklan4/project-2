@@ -1,21 +1,21 @@
 $(document).ready(function(){
-    var carbVal = $('#carbPro').val();
-    var carbMax = $('#carbPro').attr("max");
-    var proVal = $('#proteinPro').val();
-    var proMax = $('#proteinPro').attr("max");
-    var fatVal = $('#fatPro').val();
-    var fatMax = $('#fatPro').attr("max");
+    var carbVal = Number($('#carbPro').attr('value'));
+    var carbMax = Number($('#carbPro').attr("max"));
+    var proVal = Number($('#proteinPro').attr('value'));
+    var proMax = Number($('#proteinPro').attr("max"));
+    var fatVal = Number($('#fatPro').attr('value'));
+    var fatMax = Number($('#fatPro').attr("max"));
 
     // 섭취량이 목표보다 초과할 경우 붉은글씨로 출력
     fcRed();
     function fcRed(){
-        if(carbVal >= carbMax){
+        if(carbVal > carbMax){
             $('span.carbSpan').addClass('fc-red');
         }
-        if(proVal >= proMax){
+        if(proVal > proMax){
             $('span.proteinSpan').addClass('fc-red');
         }
-        if(fatVal >= fatMax){
+        if(fatVal > fatMax){
             $('span.fatSpan').addClass('fc-red');
         }
     }

@@ -5,6 +5,9 @@
 @section('css')
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
 @endsection
+@section('js')
+<script src="{{ asset('js/login.js') }}"></script>
+@endsection
 
 
 @section('contents')
@@ -39,8 +42,6 @@
                             {{-- <div>{{$error}}</div> --}}
                             @enderror
                             
-
-
                             <br>
                 </div>
                 <div class="linkbutton">

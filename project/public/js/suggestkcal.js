@@ -21,7 +21,16 @@ suggetskcal.addEventListener('click', function(){
     const acctivaty = document.querySelector('input[name="acctivaty"]:checked').value; //입력된 값안에서 이름이 name으로 된 부분에서 체크된 부분의 value를 반환시킨다. 
     const today = new Date();
     // const suggest_kcal = document.getElementById('goal_kcal');
-    let age = today.getFullYear() - birthDate.getFullYear() + 1;
+    const maxdate = document.getElementById('')
+
+    if(birthDate > today){
+        maxdate.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
+        birthDate = "";
+    }
+    else{
+        let age = today.getFullYear() - birthDate.getFullYear() + 1;
+        return age;
+    }
 
     if(gender === "0"){
         let BMR = (10 * weight)+(6.25 * tall)-(5 * age)+5
@@ -74,5 +83,7 @@ suggestinsert.addEventListener('click',function(){
     document.querySelector('.modal_wrap').style.display ='none';
 });
 
-
-
+let now_utc = Date.now()
+let timeOff = new Date().getTimezoneOffset()*60000;
+let today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+document.getElementById("user_birth").setAttribute("max", today);
