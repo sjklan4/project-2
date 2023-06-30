@@ -9,7 +9,7 @@
 
 
 <div class="fav-dietlist">
-    
+
     <div></div>
     <div class="favbox">
         <h2>식단음식 상세정보</h2>

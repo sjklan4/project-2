@@ -3,7 +3,7 @@
 @section('title', '게시글 작성')
 
 @section('boardContent')
-    <form action="{{route('board.store')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('board.store')}}" method="post" enctype="multipart/form-data" name="boardForm">
         @csrf
         <div class="shadowYellow">
             <div id="boardInserDiv">
@@ -44,7 +44,7 @@
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('picture', ':message') : ''}}</span>
                     <br>
                     <span id="pictureSpan">
-                        <input type="file" id="picture" name="picture">
+                        <input type="file" id="picture" name="picture" accept="image/*">
                         <div>
                             <button type="button" onclick="resetImg();" id="greenBtn">사진 초기화</button>
                         </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="rigtTwoBtnDiv">
             <button type="button" onclick="location.href='{{ route('board.index') }}'">취소</button>
-            <button type="submit" id="greenBtn">작성</button>
+            <button type="button" id="greenBtn" onclick="boardFormChk()">작성</button>
         </div>
     </form>
 @endsection

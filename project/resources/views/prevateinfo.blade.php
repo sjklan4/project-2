@@ -10,15 +10,15 @@
             <div><h2>식단 설정</h2>
             <table>
                 <tr><th class="diechk-td" rowspan="5"><label for="nutrition_ratio">식단 설정 </label></th></tr>
-                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="0"> 일반식단(탄수화물 50, 단백질 30, 지방 20)</td></tr>
-                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="1"> 운동식단(탄수화물 40, 단백질 40, 지방 20)</td></tr>
-                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="2"> 키토식단(탄수화물 8, 단백질 22, 지방 70)</td></tr>
-                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="3"> 비건식단(탄수화물 50, 단백질 30, 지방 20)</td></tr>
+                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="0" required> 일반식단(탄수화물 50, 단백질 30, 지방 20)</td></tr>
+                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="1" required> 운동식단(탄수화물 40, 단백질 40, 지방 20)</td></tr>
+                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="2" required> 키토식단(탄수화물 8, 단백질 22, 지방 70)</td></tr>
+                <tr><td colspan="2"><input type="radio" name="nutrition_ratio" id="nutrition_ratio" value="3" required> 비건식단(탄수화물 50, 단백질 30, 지방 20)</td></tr>
                     <th class="diechk-td">
                         <label for="goal_kcal">목표칼로리  </label>
                     </th>
                     <td colspan="2" class="goal_kcal_input">
-                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요" step="1" min="0">Kcal
+                        <input type="number" name="goal_kcal" id="goal_kcal" placeholder="목표칼로리를 입력해 주세요" step="1" min="0" required>Kcal
                     </td>
                     <td>
                         <div class="hover-btn">

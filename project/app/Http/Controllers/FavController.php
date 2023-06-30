@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
+use function Psy\debug;
+
 class FavController extends Controller
 {
     
@@ -50,39 +52,44 @@ class FavController extends Controller
             
         }
     
-    //
+        // $id는 fav_diets테이블의 fav_id 번호를 가져온다. $id번호에 맞는 food_info를 가져오기 위한 구문
         if($id > 0){
+
+            // Log::debug('id확인', ['id' => $id]);
+            // fav_diet_food 의 fav_f_id(id)값을 지정해서 삭제 수정을 진행하기 위해서 조회 조건에 추가, 음식 데이터들을 가져오기 위해서 food_infos의 값들을 지정 인증된 유저의 식단 번호에 맞는 정보를 받기 위해서 join, where조건 작성
             $foodinfo = FoodInfo::select('fav_diet_food.fav_f_id','food_infos.food_id','fav_diet_food.fav_f_intake','food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
                                     ->join('fav_diet_food','fav_diet_food.food_id','food_infos.food_id')
                                     ->join('fav_diets','fav_diet_food.fav_id', 'fav_diets.fav_id')
                                     ->where('fav_diets.fav_id',$id)
                                     ->whereNull('fav_diet_food.deleted_at')
                                     ->get();
-                                    
+        //위에서 주어진 값들을 조회 하기 위해서 with구문 3개를 체이닝 : 각식단의 음식이름 영양정보 를 인증된 유저의 식단에서 조회할 수 있도록 데이터를 보내줌         
             return view('favdiet')->with('favname',$favname)->with('favfood', $arr)->with('foodinfo', $foodinfo)->with('id',$id);
         }
-
+        // 식단이름과 음식 이름들을 같이 보내주기 위한 구문
         return view('favdiet')->with('favname',$favname)->with('favfood', $arr);
         }   
             
+        // 인분수(섭취량)을 수정하기 위한 구문
         public function intakeupdate(Request $req){
-            
+            // blade부분에 있는 hidden된 input값의 데이터를 가져와서 req로 받는다.
             $food_id = $req->input('food_id'); //input에 있는 food_id를 받아온다.
             $intake = $req->input('intake'); //input에 있는 intake값을 받아온다.
 
-            foreach($food_id as $key => $food_id){ //food_id 에 있는 키값($index)에 food_id를 포함해서 가져온다.
+            foreach($food_id as $key => $food_id){ //food_id 에 있는 키값($index)에 food_id를 포함해서 가져온다. - food_id에 값들이 배열로 들어 있어서 전부 가져 와야 된다.
                 DB::table('fav_diet_food') // 테이블을 지정
-                ->where('food_id', $food_id) //조건은 food_id갑을 받아 온다.
+                ->where('food_id', $food_id) //조건은 food_id값을 받아 온다.
                 ->update(['fav_f_intake' => $intake[$key]]); //intake에 있는 input값을 fav_f_intake 컬럼에 업데이트 시킨다.
             }
 
             return redirect()->route('fav.favdiet');
         }
 
+        // 식단 삭제 구문
         public function favdietDel($id){
-            $favdiet = FavDiet::find($id);
-            $favtable = FavDietFood::where('fav_id',$id)->delete();
-            if($favdiet){
+            $favdiet = FavDiet::find($id); //fav_diets테이블의 인증유저 정보를 가져온다.
+            // $favtable = FavDietFood::where('fav_id',$id)->delete();
+            if($favdiet){ //변수 값을 삭제 하는 구문
                 $favdiet->delete();
             }
             // if ($favtable){
@@ -93,7 +100,7 @@ class FavController extends Controller
         }
 
         
-        
+        // 식단안에 있는 음식 삭제 기능 
         public function favfoodDel($id){
             $favtable = FavDietFood::find($id);
             $favtable->delete();

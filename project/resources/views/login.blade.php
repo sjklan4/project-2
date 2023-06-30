@@ -15,8 +15,8 @@
     </div>
     <div class="loginpage">
         <div class="write">
-                @if(!empty($error))
-                    <span>{{$error}}</span>
+                @if(isset($errors))
+                    <span>{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
                 @endif
         
                 <form action="{{route('user.loginpost')}}"  method="post">
@@ -36,7 +36,11 @@
                     </div>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
+                            {{-- <div>{{$error}}</div> --}}
                             @enderror
+                            
+
+
                             <br>
                 </div>
                 <div class="linkbutton">
