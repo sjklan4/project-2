@@ -125,15 +125,12 @@
                 <hr class="select_diet">
                 <div class="fav_diet">
                     @foreach ($seleted_diet as $diet)
-                    {{-- <form action="{{route('diet.delete', ['user_id' => Auth::user()->user_id, 'd_id' => $diet->fav_id, 'c_id' => $food->cart_id])}}" method="post"> --}}
                         @csrf
                         <span>{{$diet->fav_name}}</span>
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        {{-- <button type="submit">X</button> --}}
                         <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$food->cart_id}})">X</button>
                         <br>
-                    {{-- </form> --}}
                     @endforeach
                 </div>
                 <br>
@@ -143,21 +140,13 @@
                     <br>
                     <h4>음식</h4>
                     <hr class="select_food">
-                    {{-- @foreach ($seleted as $food) --}}
-                    {{-- <form action="{{route('food.delete', ['f_id' => $food->food_id, 'c_id' => $food->cart_id])}}" method="post"> --}}
                         <div id="fav_food">
                         </div>
-                    {{-- </form> --}}
-                    {{-- @endforeach --}}
                     <br>
                     <h4>식단</h4>
                     <hr class="select_diet">
-                    {{-- @foreach ($seleted_diet as $diet) --}}
-                    {{-- <form action="{{route('diet.delete', ['d_id' => $diet->fav_id, 'c_id' => $food->cart_id])}}" method="post"> --}}
                         <div id="fav_diet">
                         </div>
-                    {{-- </form> --}}
-                    {{-- @endforeach --}}
                 @endif
             <br>
             <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
