@@ -7,91 +7,68 @@ $(document).ready(function(){
     var fatMax = Number($('#fatPro').attr("max"));
 
     // 섭취량이 목표보다 초과할 경우 붉은글씨로 출력
-    fcRed();
-    function fcRed(){
-        if(carbVal > carbMax){
-            $('span.carbSpan').addClass('fc-red');
-        }
-        if(proVal > proMax){
-            $('span.proteinSpan').addClass('fc-red');
-        }
-        if(fatVal > fatMax){
-            $('span.fatSpan').addClass('fc-red');
+    fcRed(carbVal, carbMax, 'span.carbSpan');
+    fcRed(proVal, proMax, 'span.proteinSpan');
+    fcRed(fatVal, fatMax, 'span.fatSpan');
+
+    function fcRed(val,max,span){
+        if (val > max) {
+            $(span).addClass('fc-red')
         }
     }
 
     // input file의 값을 첨부파일 input에 출력
-    $("#fileBrf").on('change',function(){
-        var fileName = $("#fileBrf").val();
-        $(".fileBrfName").val(fileName);
-    });
+    printFile('#fileBrf','.fileBrfName');
+    printFile('#fileLunch','.fileLunchName');
+    printFile('#fileDinner','.fileDinnerName');
+    printFile('#fileSnack','.fileSnackName');
 
-    $("#fileLunch").on('change',function(){
-        var fileName = $("#fileLunch").val();
-        $(".fileLunchName").val(fileName);
-    });
+    function printFile(file,name){
+        $(file).on('change',function(){
+            var fileName = $(file).val();
+            $(name).val(fileName);
+        })
+    }
 
-    $("#fileDinner").on('change',function(){
-        var fileName = $("#fileDinner").val();
-        $(".fileDinnerName").val(fileName);
+    // 목표설정 아이콘 hover
+    $('.test').mouseenter(function(){
+        $(this).children("svg").toggle();
+        $(this).children("span").toggle();
     });
-
-    $("#fileSnack").on('change',function(){
-        var fileName = $("#fileSnack").val();
-        $(".fileSnackName").val(fileName);
+    $('.test').mouseleave(function(){
+        $(this).children("span").toggle();
+        $(this).children("svg").toggle();
     });
 
     // 드롭다운 버튼
-    $("span.downbtn1").on("click",function(){
-        $("span.upbtn1").css("display","block");
-        $("span.downbtn1").css("display","none");
-    });
-    $("span.upbtn1").on("click",function(){
-        $("span.upbtn1").css("display","none");
-        $("span.downbtn1").css("display","block");
-    });
+    dropBtn("#brfBtn");
+    dropBtn("#lunchBtn");
+    dropBtn("#dinnerBtn");
+    dropBtn("#snackBtn");
 
-    $("span.downbtn2").on("click",function(){
-        $("span.upbtn2").css("display","block");
-        $("span.downbtn2").css("display","none");
-    });
-    $("span.upbtn2").on("click",function(){
-        $("span.upbtn2").css("display","none");
-        $("span.downbtn2").css("display","block");
-    });
+    function dropBtn(btn){
+        $(btn).on("click",function(){
+            if($(btn).attr("aria-expanded")){
+                $(this).children("span").toggle();
+            }   
+        });
+    }
 
-    $("span.downbtn3").on("click",function(){
-        $("span.upbtn3").css("display","block");
-        $("span.downbtn3").css("display","none");
-    });
-    $("span.upbtn3").on("click",function(){
-        $("span.upbtn3").css("display","none");
-        $("span.downbtn3").css("display","block");
-    });
+    // 이미지수정 박스 출력
+    printImgEdit('.brfImg','#brfArea .filebox');
+    printImgEdit('.lunchImg','#lunchArea .filebox');
+    printImgEdit('.dinnerImg','#dinnerArea .filebox');
+    printImgEdit('.snackImg','#snackArea .filebox');
 
-    $("span.downbtn4").on("click",function(){
-        $("span.upbtn4").css("display","block");
-        $("span.downbtn4").css("display","none");
-    });
-    $("span.upbtn4").on("click",function(){
-        $("span.upbtn4").css("display","none");
-        $("span.downbtn4").css("display","block");
-    });
+    function printImgEdit(img,fileBox){
+        $(img).off('click').on('click',function(){
+            $(fileBox).removeClass('d-none');
+        });
+    }
 
-    $('.brfImg').click(function(){
-        $('#brfArea .filebox').removeClass('d-none');
-    });
-    $('.lunchImg').click(function(){
-        $('#lunchArea .filebox').removeClass('d-none');
-    });
-    $('.dinnerImg').click(function(){
-        $('#dinnerArea .filebox').removeClass('d-none');
-    });
-    $('.snackImg').click(function(){
-        $('#snackArea .filebox').removeClass('d-none');
-    });
 });
 
+// 날짜이동 버튼
 const inputDate = document.getElementById('calendar');
 let date = inputDate.value; // input date value 값
 
@@ -100,6 +77,7 @@ let now = new Date(date);
 let nowString = formatDate(now);
 
 const dateForm = document.getElementById('dateForm');
+
 // 이전 날짜로 이동하는 함수
 function prev(){
     now.setDate(now.getDate() - 1);

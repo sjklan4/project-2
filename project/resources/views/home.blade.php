@@ -9,6 +9,7 @@
 @endsection
 
 @section('contents')
+{{$data['brfSum']['kcalSum']}}
 <div id="wrap">
     <div id="dateArea">
         <div>
@@ -204,8 +205,9 @@
                     <div class="goalKcal col pt-3">
                         <p>
                             <span class="fw-bold">목표 칼로리</span> {{$data['userKcal']->goal_kcal}} Kcal
-                            <a href="{{route('user.prevateinfo')}}">&nbsp;&nbsp;
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 576 512" fill="#ee6666"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M240 144A96 96 0 1 0 48 144a96 96 0 1 0 192 0zm44.4 32C269.9 240.1 212.5 288 144 288C64.5 288 0 223.5 0 144S64.5 0 144 0c68.5 0 125.9 47.9 140.4 112h71.8c8.8-9.8 21.6-16 35.8-16H496c26.5 0 48 21.5 48 48s-21.5 48-48 48H392c-14.2 0-27-6.2-35.8-16H284.4zM144 80a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM400 240c13.3 0 24 10.7 24 24v8h96c13.3 0 24 10.7 24 24s-10.7 24-24 24H280c-13.3 0-24-10.7-24-24s10.7-24 24-24h96v-8c0-13.3 10.7-24 24-24zM288 464V352H512V464c0 26.5-21.5 48-48 48H336c-26.5 0-48-21.5-48-48zM48 320h80 16 32c26.5 0 48 21.5 48 48s-21.5 48-48 48H160c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V336c0-8.8 7.2-16 16-16zm128 64c8.8 0 16-7.2 16-16s-7.2-16-16-16H160v32h16zM24 464H200c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>
+                            <a href="{{route('user.prevateinfo')}}" class="test">
+                                <svg id="goalIcon" xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 576 512" fill="#ee6666"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M240 144A96 96 0 1 0 48 144a96 96 0 1 0 192 0zm44.4 32C269.9 240.1 212.5 288 144 288C64.5 288 0 223.5 0 144S64.5 0 144 0c68.5 0 125.9 47.9 140.4 112h71.8c8.8-9.8 21.6-16 35.8-16H496c26.5 0 48 21.5 48 48s-21.5 48-48 48H392c-14.2 0-27-6.2-35.8-16H284.4zM144 80a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM400 240c13.3 0 24 10.7 24 24v8h96c13.3 0 24 10.7 24 24s-10.7 24-24 24H280c-13.3 0-24-10.7-24-24s10.7-24 24-24h96v-8c0-13.3 10.7-24 24-24zM288 464V352H512V464c0 26.5-21.5 48-48 48H336c-26.5 0-48-21.5-48-48zM48 320h80 16 32c26.5 0 48 21.5 48 48s-21.5 48-48 48H160c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V336c0-8.8 7.2-16 16-16zm128 64c8.8 0 16-7.2 16-16s-7.2-16-16-16H160v32h16zM24 464H200c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>
+                                <span class="iconText">목표설정하러가기</span>
                             </a>
                         </p>
                         @if(($data['userKcal']->nutrition_ratio) == '0')
@@ -233,20 +235,18 @@
         {{-- 아침 식단 --}}
             {{-- 아침 식단이 존재하는 경우 --}}
             @if(isset($data['dietFood']['dietBrf'][0]->d_id))
-                <div class="flgBox text-center" id="brfBtn">
+                <div class="flgBox text-center" id="brfBtn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     아침
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" class="me-3">
-                        <span class="fc-green downbtn1">▲</span>
-                        <span class="fc-green upbtn1">▼</span>
-                    </button>
+                    <span class="fc-green frBtn">▼</span>
+                    <span class="fc-green frBtn off">▲</span>
                 </div>
                 <div class="diet">
                     <div class="food container pb-3">
                         <div class="row row-cols-2 row-cols-md-4 mx-auto p-3 p-xl-4 text-md-center">
-                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['brfSum']['brfKcalSum']}} Kcal</div>
-                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['brfSum']['brfCarbSum']}} g</div>
-                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['brfProteinSum']}} g</div>
-                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['brfFatSum']}} g</div>
+                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['brfSum']['kcalSum']}} Kcal</div>
+                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['brfSum']['carbSum']}} g</div>
+                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['brfSum']['proteinSum']}} g</div>
+                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['brfSum']['fatSum']}} g</div>
                         </div>
                     </div>
                 </div>
@@ -417,20 +417,18 @@
         {{-- 점심 식단 --}}
             {{-- 점심 식단이 존재하는 경우 --}}
             @if(isset($data['dietFood']['dietLunch'][0]->d_id))
-                <div class="flgBox text-center" id="lunchBtn">
+                <div class="flgBox text-center" id="lunchBtn" data-bs-toggle="collapse" data-bs-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">
                     점심
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo" class="me-3">
-                        <span class="fc-green downbtn2">▲</span>
-                        <span class="fc-green upbtn2">▼</span>
-                    </button>
+                    <span class="fc-green frBtn">▼</span>
+                    <span class="fc-green frBtn off">▲</span>
                 </div>
                 <div class="diet">
                     <div class="food container pb-3">
                         <div class="row row-cols-2 row-cols-md-4 mx-auto p-3 p-xl-4 text-md-center">
-                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['lunchSum']['lunchKcalSum']}} Kcal</div>
-                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['lunchSum']['lunchCarbSum']}} g</div>
-                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['lunchSum']['lunchProteinSum']}} g</div>
-                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['lunchSum']['lunchFatSum']}} g</div>
+                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['lunchSum']['kcalSum']}} Kcal</div>
+                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['lunchSum']['carbSum']}} g</div>
+                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['lunchSum']['proteinSum']}} g</div>
+                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['lunchSum']['fatSum']}} g</div>
                         </div>
                     </div>
                 </div>
@@ -600,20 +598,18 @@
         {{-- 저녁 식단 --}}
             {{-- 저녁 식단이 존재하는 경우 --}}
             @if(isset($data['dietFood']['dietDinner'][0]->d_id))
-                <div class="flgBox text-center" id="dinnerBtn">
+                <div class="flgBox text-center" id="dinnerBtn" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree">
                     저녁
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleThree" aria-expanded="false" aria-controls="collapseExampleThree" class="me-3">
-                        <span class="fc-green downbtn3">▲</span>
-                        <span class="fc-green upbtn3">▼</span>
-                    </button>
+                    <span class="fc-green frBtn">▼</span>
+                    <span class="fc-green frBtn off">▲</span>
                 </div>
                 <div class="diet">
                     <div class="food container pb-3">
                         <div class="row row-cols-2 row-cols-md-4 mx-auto p-3 p-xl-4 text-md-center">
-                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['dinnerSum']['dinnerKcalSum']}} Kcal</div>
-                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['dinnerSum']['dinnerCarbSum']}} g</div>
-                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['dinnerSum']['dinnerProteinSum']}} g</div>
-                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['dinnerSum']['dinnerFatSum']}} g</div>
+                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['dinnerSum']['kcalSum']}} Kcal</div>
+                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['dinnerSum']['carbSum']}} g</div>
+                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['dinnerSum']['proteinSum']}} g</div>
+                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['dinnerSum']['fatSum']}} g</div>
                         </div>
                     </div>
                 </div>
@@ -783,20 +779,18 @@
         {{-- 간식 식단 --}}
             {{-- 간식 식단이 존재하는 경우 --}}
             @if(isset($data['dietFood']['dietSnack'][0]->d_id))
-                <div class="flgBox text-center" id="snackBtn">
+                <div class="flgBox text-center" id="snackBtn" data-bs-toggle="collapse" data-bs-target="#collapseExampleFour" aria-expanded="false" aria-controls="collapseExampleFour">
                     간식
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleFour" aria-expanded="false" aria-controls="collapseExampleFour" class="me-3">
-                        <span class="fc-green downbtn4">▲</span>
-                        <span class="fc-green upbtn4">▼</span>
-                    </button>
+                    <span class="fc-green frBtn">▼</span>
+                    <span class="fc-green frBtn off">▲</span>
                 </div>
                 <div class="diet">
                     <div class="food container pb-3">
                         <div class="row row-cols-2 row-cols-md-4 mx-auto p-3 p-xl-4 text-md-center">
-                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['snackSum']['snackKcalSum']}} Kcal</div>
-                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['snackSum']['snackCarbSum']}} g</div>
-                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['snackSum']['snackProteinSum']}} g</div>
-                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['snackSum']['snackFatSum']}} g</div>
+                            <div class="col"><span class="fc-green">■</span>칼로리 {{$data['snackSum']['kcalSum']}} Kcal</div>
+                            <div class="col"><span class="fc-pink">■</span>탄수화물 {{$data['snackSum']['carbSum']}} g</div>
+                            <div class="col"><span class="fc-yel">■</span>단백질 {{$data['snackSum']['proteinSum']}} g</div>
+                            <div class="col"><span class="fc-blue">■</span>지방 {{$data['snackSum']['fatSum']}} g</div>
                         </div>
                     </div>
                 </div>
