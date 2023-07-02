@@ -7,12 +7,12 @@
 
 @section('contents')
 <div class="finduser-info">
-    <div class="intro_login  d-none d-xl-block">
-        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
-            <br>
-       
-    </div>
-
+    <a href="{{route('user.login')}}">
+        <div class="intro_login  d-none d-xl-block">
+            <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
+                <br>
+        </div>
+    </a>  
     <div class="finduserpage">
         <div class="find-insert">
             <div class="insert-info">
@@ -31,17 +31,17 @@
                             <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
                        
                         </div>
-                        @error('user_name') 
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                            @error('user_name') 
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         <br>
                         <div class="write-input">
                             <label for="user_phone_num">전화번호  </label>
                             <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
                         </div>
                             @error('user_phone_num')
-                        <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         <div class="chk-btn">
                             <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
                             <button type="submit" id="greenBtn">확인</button>
