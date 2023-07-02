@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('food_carts', function (Blueprint $table) {
             $table->integer('cart_id')->autoIncrement();
             $table->integer('food_id');
+            $table->integer('fav_id');
             $table->integer('user_id');
             $table->decimal('amount', 4, 1);
             $table->timestamps();

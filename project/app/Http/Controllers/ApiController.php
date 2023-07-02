@@ -213,4 +213,32 @@ class ApiController extends Controller
         }
         return response()->json($seleted);
     }
+
+    public function dietDelete($user_id, $fav_id, $cart_id) {
+        $arr = [
+            'error' => '0'
+            ,'msg' => ''
+        ];
+
+        if(!$fav_id){
+            $arr['error'] = '1';
+            $arr['msg'] = 'fall';
+        }else{
+            $arr['error'] = '2';
+            $arr['msg'] = 'success';
+
+            DB::table('food_carts')
+            ->where('user_id', $user_id)
+            ->where('fav_id', $fav_id)
+            ->where('cart_id', $cart_id)
+            ->delete();
+
+            $seleted_diet = DB::table('food_carts')
+            ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+            ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
+            ->where('food_carts.user_id', $user_id)
+            ->get();
+        }
+        return response()->json($seleted_diet);
+    }
 }
