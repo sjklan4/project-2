@@ -15,7 +15,6 @@
                 <input type="hidden" name="date" value="{{$data['date']}}">
                 <input type="hidden" name="time" value="{{$data['time']}}">
                 <input type="text" name="search_input" class="searchip" placeholder="검색할 단어를 입력하세요." value="{{ old('search_input')}}">
-                <button type="reset" class="resetbtn">X</button>
                 <button type="submit" class="searchbtn"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
             </div>
         </form>
