@@ -148,9 +148,8 @@ class SearchController extends Controller
         // 하루가 지난 날의 데이터 삭제
         DB::table('food_carts')->where('created_at', '>', 'now()')->delete();
 
-        if(empty($arraydiet)){
+        if(empty($arraydiet) && !empty($arrayd)){
         // ! 음식 입력
-            if(!empty($arrayd)){
                 if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
                     $sum = $arr_cart[0][1];
                     for ($i=0; $i < count($arr_cart); $i++) { 
@@ -179,7 +178,7 @@ class SearchController extends Controller
                         ]);
                         $insertDF->save();
                     }
-            }}else{
+            }else{
                 $insertD = new Diet([
                     'user_id' => $id,
                     'd_date' => $date,
