@@ -139,8 +139,6 @@ class QuestController extends Controller
             }
         }
 
-        
-
         // 진행중인 퀘스트 정보 획득
         $questInfo = QuestCate::find($quest_status->quest_cate_id);
 
