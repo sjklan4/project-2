@@ -274,7 +274,7 @@
                                             <div class="filebox my-2 text-center">
                                                 <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
                                                 <label for="fileBrf">파일찾기</label>
-                                                <input type="file" id="fileBrf" name="dietImg">
+                                                <input type="file" id="fileBrf" name="dietImg" accept="image/*">
                                                 <button type="submit" class="btnYg my-2">사진등록</button>
                                             </div>
                                         </form>                        
@@ -325,7 +325,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="0">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -456,7 +456,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileLunch">파일찾기</label>
-                                            <input type="file" id="fileLunch" name="dietImg">
+                                            <input type="file" id="fileLunch" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -506,7 +506,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="1">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -637,7 +637,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileDinner">파일찾기</label>
-                                            <input type="file" id="fileDinner" name="dietImg">
+                                            <input type="file" id="fileDinner" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -687,7 +687,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="2">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -818,7 +818,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileSnack">파일찾기</label>
-                                            <input type="file" id="fileSnack" name="dietImg">
+                                            <input type="file" id="fileSnack" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -868,7 +868,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="3">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>

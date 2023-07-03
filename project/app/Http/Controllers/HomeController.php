@@ -169,10 +169,10 @@ class HomeController extends Controller
         $rules = [
             'date'      => 'required'
             ,'d_flg'    => 'required'
-            ,'fav_name' => 'required|max:20'
+            ,'fav_name' => 'required|max:10'
         ];
         $messages = [
-            'fav_name.required'     => '20자 까지 입력 가능합니다.'
+            'fav_name.required'     => '10자 까지 입력 가능합니다.'
         ];
 
         $validator = Validator::make($req->only('date','d_flg','fav_name'),$rules, $messages);
