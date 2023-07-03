@@ -129,7 +129,7 @@
                         <span>{{$diet->fav_name}}</span>
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$food->cart_id}})">X</button>
+                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$diet->cart_id}})">X</button>
                         <br>
                     @endforeach
                 </div>

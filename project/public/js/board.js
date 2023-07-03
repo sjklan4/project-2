@@ -4,19 +4,7 @@ function resetImg() {
     img.value = "";
 }
 
-function throttling(fnc) {
-    // let timer;
-    // document.querySelector('.likeUpDown').addEventListener('click', function (e) {
-    //     if (!timer) {
-    //         timer = setTimeout(function() {
-    //             timer = null;
-    //             fnc;
-    //         }, 1000);
-    //     }
-    // });
-}
-
-// 좋아요 증가
+// 좋아요 증가/감소
 function likeUp() {
     const url = "/api/board/likeup";
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -43,58 +31,18 @@ function likeUp() {
         return data.json();
     })
     .then(apiData  => {
+        let likeUpDown = document.querySelector('.likeUpDown');
         if (apiData["errorcode"] === "0") {
-            let likeUpDown = document.querySelector('.likeUpDown');
+            console.log('좋아요업');
             likeUpDown.id = 'greenBtn';
-            likeUpDown.removeAttribute('onclick');
-            likeUpDown.setAttribute('onclick', 'likeDown()');
-
-            let likes = document.getElementById('likes');
-            likes.innerHTML = apiData['data']['likes'];
-        }
-    });
-}
-
-// 좋아요 감소
-function likeDown() {
-    const url = "/api/board/likedown";
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const request = new Request(url, {
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json, text-plain, */*",
-            "X-Requested-With": "XMLHttpRequest",
-            "X-CSRF-TOKEN": token
-            },
-        method: 'PUT',
-        credentials: "same-origin",
-        body: JSON.stringify({
-            id1: document.getElementById('value1').value,
-            id2: document.getElementById('value2').value
-        })
-    });
-
-    fetch(request)
-    .then(data => {
-        if (!data.status) {
-            throw new Error(data.status + ' : API 응답 오류');
-        }
-        return data.json();
-    })
-    .then(apiData  => {
-        if (apiData["errorcode"] === "0") {
-            let likeUpDown = document.querySelector('.likeUpDown');
+        } else if (apiData["errorcode"] === "1") {
+            console.log('좋아요다운');
             likeUpDown.removeAttribute( 'id' );
-            likeUpDown.removeAttribute( 'onclick' );
-            likeUpDown.setAttribute('onclick', 'likeUp()');
-
-            let likes = document.getElementById('likes');
-            likes.innerHTML = apiData['data']['likes'];
         }
+        let likes = document.getElementById('likes');
+        likes.innerHTML = apiData['data']['likes'];
     });
 }
-
-const boardTitle = document.getElementById('title');
 
 function boardFormChk() {
     const boardTitle = document.getElementById('title');

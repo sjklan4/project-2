@@ -30,8 +30,7 @@ class SearchController extends Controller
 
         $req->flashOnly('search_input');
         
-        // v004, v005
-        // 저장된 식단 정보
+        // * 저장된 식단 정보
         $dietnames = DB::table('fav_diets')
         ->select('fav_id', 'fav_name', 'user_id')
         ->where('user_id', $id)
@@ -45,7 +44,7 @@ class SearchController extends Controller
         ->where('fav_diets.user_id', $id)
         ->get();
 
-        // 선택된 음식
+        // * 선택된 음식
         $seleted = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
@@ -68,7 +67,6 @@ class SearchController extends Controller
             'time' => $req->time
         ]);
 
-        // v002 
         // 검색 정보
         if(!empty($usersearch)){
             $foods = DB::table('food_infos')
@@ -85,8 +83,6 @@ class SearchController extends Controller
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
-            // ->with('seleted', $seleted)
-            // ->with('seleted_diet', $seleted_diet)
             ->with('data', $data);
         }
         return view('FoodList')
@@ -97,7 +93,7 @@ class SearchController extends Controller
         ->with('data', $data);
     }
 
-    // ! 선택한 음식 입력
+    // ! 선택한 음식/식단 입력
     // v006
     public function searchinsert($date, $time) {
         $id = Auth::user()->user_id;
@@ -109,8 +105,17 @@ class SearchController extends Controller
         ->get()
         ->toArray();
 
-        $diet_food = DB::select('SELECT food_infos.food_id, food_carts.fav_id, fav_diet_food.fav_f_intake FROM food_carts INNER JOIN fav_diet_food ON fav_diet_food.fav_id = food_carts.fav_id INNER JOIN food_infos ON fav_diet_food.food_id = food_infos.food_id WHERE fav_diet_food.food_id = food_infos.food_id AND food_carts.user_id = ?', [$id]);
+        $diet_food = DB::select(
+            'SELECT food_infos.food_id, food_carts.fav_id, fav_diet_food.fav_f_intake 
+            FROM food_carts 
+            INNER JOIN fav_diet_food 
+            ON fav_diet_food.fav_id = food_carts.fav_id 
+            INNER JOIN food_infos 
+            ON fav_diet_food.food_id = food_infos.food_id 
+            WHERE fav_diet_food.food_id = food_infos.food_id 
+            AND food_carts.user_id = ?', [$id]);
 
+        $arraydiet = [];
         foreach ($diet_food as $key) {
             $arraydiet[] = [
                 $key->fav_id,
@@ -119,11 +124,13 @@ class SearchController extends Controller
             ];
         }
 
-        // v007
         // * collection 객체로 반환됨 -> foreach를 통해 2차원 배열로 바꿈]
         // ? 2차원 배열의 이유 : 1차원 배열으로 할 경우 값이 여러 개 담기지 않고 마지막 값만 배열에 담김
         foreach ($cart as $key) {
-            $arr_cart[] = [$key->food_id, $key->amount];
+            $arr_cart[] = [
+                $key->food_id, 
+                $key->amount
+            ];
         }
         $selectD = Diet::select('d_id', 'user_id', 'd_flg', 'd_date')
         ->where('user_id', $id)
@@ -141,48 +148,8 @@ class SearchController extends Controller
         // 하루가 지난 날의 데이터 삭제
         DB::table('food_carts')->where('created_at', '>', 'now()')->delete();
 
-        // ! 식단 입력
-        // v00
-        if(!empty($arrayd)){
-            if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
-                if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
-                    for($e=0; $e<count($arraydiet); $e++){
-                        $insertDF = new DietFood([
-                            'food_id' => $arraydiet[$e][1],
-                            'd_id' => $arrayd[0],
-                            'df_intake' => $arraydiet[$e][2]
-                        ]);
-                        $insertDF->save();
-                    }
-                }
-            }else{
-                $insertD = new Diet([
-                    'user_id' => $id,
-                    'd_date' => $date,
-                    'd_flg' => $time
-                ]);
-                $insertD->save();
-        
-                $selectD = Diet::select('d_id')
-                ->where('user_id', $id)
-                ->get();
-        
-                foreach ($selectD as $key) {
-                    $selete_d_id = $key->d_id;
-                }
-
-                for($e=0; $e<count($arraydiet); $e++){
-                    $insertDF = new DietFood([
-                        'food_id' => $arraydiet[$e][1],
-                        'd_id' => $selete_d_id,
-                        'df_intake' => $arraydiet[$e][2]
-                    ]);
-                    $insertDF->save();
-                }
-            }
-        }else{
+        if(empty($arraydiet)){
         // ! 음식 입력
-        if(!empty($arrayd)){
             if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
                 $sum = $arr_cart[0][1];
                 for ($i=0; $i < count($arr_cart); $i++) { 
@@ -211,45 +178,44 @@ class SearchController extends Controller
                     ]);
                     $insertDF->save();
                 }
-            }
-    }else if(empty($arrayd)){
-            $insertD = new Diet([
-                'user_id' => $id,
-                'd_date' => $date,
-                'd_flg' => $time
-            ]);
-            $insertD->save();
-    
-            $selectD = Diet::select('d_id')
-            ->where('user_id', $id)
-            ->get();
-    
-            foreach ($selectD as $key) {
-                $selete_d_id = $key->d_id;
-            }
-    
-            $sum = $arr_cart[0][1];
-            // ? 인분 수 계산식
-            for ($i=0; $i < count($arr_cart); $i++) { 
-                for ($z=1; $z <= $i; $z++) {
-                    if($arr_cart[$i] == $arr_cart[$z]){
-                        $sum += $arr_cart[$i][1];
-                        if($arr_cart[$i] !== $arr_cart[$z]){
+            }else{
+                $insertD = new Diet([
+                    'user_id' => $id,
+                    'd_date' => $date,
+                    'd_flg' => $time
+                ]);
+                $insertD->save();
+
+                $selectD = Diet::select('d_id')
+                ->where('user_id', $id)
+                ->get();
+
+                foreach ($selectD as $key) {
+                    $selete_d_id = $key->d_id;
+                }
+
+                $sum = $arr_cart[0][1];
+                // ? 인분 수 계산식
+                for ($i=0; $i < count($arr_cart); $i++) { 
+                    for ($z=1; $z <= $i; $z++) {
+                        if($arr_cart[$i] == $arr_cart[$z]){
                             $sum += $arr_cart[$i][1];
-                        }
-                    }else{
-                        if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
+                            if($arr_cart[$i] !== $arr_cart[$z]){
+                                $sum += $arr_cart[$i][1];
+                            }
+                        }else{
+                            if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
                             $insertDF = new DietFood([
                                 'food_id' => $arr_cart[$i][0],
                                 'd_id' => $selete_d_id,
                                 'df_intake' => $sum
                             ]);
                             $insertDF->save();
+                            }
+                            $sum = 0;
                         }
-                        $sum = 0;
                     }
-                }
-    
+
                 // ? 데이터베이스 입력
                 $insertDF = new DietFood([
                     'food_id' => $arr_cart[$i][0],
@@ -257,10 +223,49 @@ class SearchController extends Controller
                     'df_intake' => $sum
                 ]);
                 $insertDF->save();
+                }
+            }
+        }else{
+        // ! 식단 입력
+            if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
+                if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
+                    for($e=0; $e<count($arraydiet); $e++){
+                        $insertDF = new DietFood([
+                            'food_id' => $arraydiet[$e][1],
+                            'd_id' => $arrayd[0],
+                            'df_intake' => $arraydiet[$e][2]
+                        ]);
+                        $insertDF->save();
+                    }
+                }else{
+                    $insertD = new Diet([
+                        'user_id' => $id,
+                        'd_date' => $date,
+                        'd_flg' => $time
+                    ]);
+                    $insertD->save();
+
+                    $selectD = Diet::select('d_id')
+                        ->where('user_id', $id)
+                        ->where('d_date', $date)
+                        ->where('d_flg', $time)
+                    ->get();
+
+                    foreach ($selectD as $key) {
+                        $selete_d_id = $key->d_id;
+                    }
+
+                    for($e=0; $e<count($arraydiet); $e++){
+                        $insertDF = new DietFood([
+                            'food_id' => $arraydiet[$e][1],
+                            'd_id' => $selete_d_id,
+                            'df_intake' => $arraydiet[$e][2]
+                        ]);
+                        $insertDF->save();
+                    }
+                }
             }
         }
-    }
-        
         DB::table('food_carts')->where('user_id', $id)->delete();
         return redirect()->route('home');
     }
