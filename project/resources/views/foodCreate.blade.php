@@ -19,7 +19,7 @@
                             <div class="foodCreateTitle">
                                 <div>
                                     <h5>음식명 입력</h5>
-                                    <input type="text" id="foodName" name="foodName" value="{{count($errors) > 0 ? old('foodName') : ''}}" autocomplete="off">
+                                    <input type="text" id="foodName" name="foodName" value="{{count($errors) > 0 ? old('foodName') : ''}}" autocomplete="off" autofocus>
                                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('foodName', ':message') : ''}}</div>
                                     <div class="errorMsg">{{isset($error) ? $error : ''}}</div>
                                 </div>

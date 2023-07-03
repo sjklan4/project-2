@@ -61,6 +61,16 @@ button{
     background: none;
     border: none;
 }
+.swal2-confirm{
+    background: #538E04 !important;
+}
+.swal2-title{
+    font-size: 1.5em !important;
+}
+.swal2-modal{
+    width: 400px !important;
+    height: 320px !important;
+}
 
 /* 날짜 변경 박스 */
 #dateArea{
@@ -319,9 +329,11 @@ th, td{
 .img-fluid{
     width: 450px !important;
     height: 250px !important;
+    border-radius: 5px;
+    cursor: pointer;
     box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03);
 }
-.imgBox{
+/* .imgbox{
     min-width: 220px;
     max-width: 350px;
     min-height: 200px;
@@ -329,9 +341,13 @@ th, td{
     font-size: 1.2rem;
     text-align: center;
     cursor: pointer;
-}
-.imgBox > svg{
+} */
+.imgbox > svg{
     cursor: pointer;
+}
+
+.filebox{
+    display: none;
 }
 
 .filebox .upload-name {

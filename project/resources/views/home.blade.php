@@ -9,7 +9,6 @@
 @endsection
 
 @section('contents')
-{{$data['brfSum']['kcalSum']}}
 <div id="wrap">
     <div id="dateArea">
         <div>
@@ -261,7 +260,7 @@
                                             @method('put')
                                             {{-- 식단은 있지만 사진이 있는지 체크 --}}
                                             @if (isset($data['dietFood']['dietBrf'][0]->d_img_path))
-                                                <div class="imgbox brfImg">
+                                                <div class="imgbox brfImg" style="position: relative">
                                                     <img src="{{asset($data['dietFood']['dietBrf'][0]->d_img_path)}}" class="img-fluid rounded-start" alt="...">
                                                 </div>
                                             @else
@@ -272,7 +271,7 @@
                                                 </div>
                                             @endif
                                             <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                            <div class="filebox my-2 text-center d-none">
+                                            <div class="filebox my-2 text-center">
                                                 <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
                                                 <label for="fileBrf">파일찾기</label>
                                                 <input type="file" id="fileBrf" name="dietImg">
@@ -296,11 +295,11 @@
                                                         <th>나트륨</th>
                                                         <th>섭취량</th>
                                                         <th>
-                                                            <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post">
+                                                            <form action="{{route('search.list.get',['id' => Auth::user()->user_id])}}" method="post" class="favInsert">
                                                                 @csrf
                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <input type="hidden" name="time" value="0">
-                                                                <button type="submit" class="btnYg">음식추가</button>
+                                                                <button type="submit" class="btnYg favInsertBtn">음식추가</button>
                                                             </form>
                                                         </th>
                                                         <th>
@@ -326,7 +325,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="0">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -351,7 +350,7 @@
                                                                 <td>{{$val->fat}}</td>
                                                                 <td>{{$val->sugar}}</td>
                                                                 <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" required></td>
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <td>
                                                                     <button type="submit" class="editBtn">
@@ -454,7 +453,7 @@
                                             </div>
                                         @endif
                                         <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                        <div class="filebox my-2 text-center d-none">
+                                        <div class="filebox my-2 text-center">
                                             <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileLunch">파일찾기</label>
                                             <input type="file" id="fileLunch" name="dietImg">
@@ -507,7 +506,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="1">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -532,7 +531,7 @@
                                                                 <td>{{$val->fat}}</td>
                                                                 <td>{{$val->sugar}}</td>
                                                                 <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" required></td>
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <td>
                                                                     <button type="submit" class="editBtn">
@@ -635,7 +634,7 @@
                                             </div>
                                         @endif
                                         <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                        <div class="filebox my-2 text-center d-none">
+                                        <div class="filebox my-2 text-center">
                                             <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileDinner">파일찾기</label>
                                             <input type="file" id="fileDinner" name="dietImg">
@@ -688,7 +687,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="2">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -713,7 +712,7 @@
                                                                 <td>{{$val->fat}}</td>
                                                                 <td>{{$val->sugar}}</td>
                                                                 <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" required></td>
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <td>
                                                                     <button type="submit" class="editBtn">
@@ -816,7 +815,7 @@
                                             </div>
                                         @endif
                                         <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
-                                        <div class="filebox my-2 text-center d-none">
+                                        <div class="filebox my-2 text-center">
                                             <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileSnack">파일찾기</label>
                                             <input type="file" id="fileSnack" name="dietImg">
@@ -869,7 +868,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="3">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -894,7 +893,7 @@
                                                                 <td>{{$val->fat}}</td>
                                                                 <td>{{$val->sugar}}</td>
                                                                 <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5"></td>
+                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" required></td>
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <td>
                                                                     <button type="submit" class="editBtn">

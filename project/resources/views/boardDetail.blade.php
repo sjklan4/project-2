@@ -20,24 +20,17 @@
                 @endif
                 <span>{!! $data['content']!!}</span>
                 <div class="likeDiv">
-                    <input type="hidden" id="value1" value="{{$data['user_id']}}">
+                    <input type="hidden" id="value1" value="{{session('user_id')}}">
                     <input type="hidden" id="value2" value="{{$data['id']}}">
+                    <button
+                        class="likeUpDown"
                     @if ($data['like_flg'] === 1)
-                        <button
-                            class="likeUpDown"
-                            id="greenBtn"
-                            type="button"
-                            onclick="likeDown()"
-                            >좋아요 <span id="likes">{{$data['like']}}</span>
-                        </button>
-                    @else
-                        <button
-                            class="likeUpDown"
-                            type="button"
-                            onclick="likeUp()"
-                            >좋아요 <span id="likes">{{$data['like']}}</span>
-                        </button>
+                        id="greenBtn"
                     @endif
+                        type="button"
+                        onclick="likeUp()"
+                        >좋아요 <span id="likes">{{$data['like']}}</span>
+                    </button>
                 </div>
     
                 {{-- todo @can 방법 : https://laracasts.com/series/laravel-6-from-scratch/episodes/50 --}}

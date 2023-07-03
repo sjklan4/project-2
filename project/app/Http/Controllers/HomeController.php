@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 // use function PHPUnit\Framework\isNull;
 
@@ -128,6 +130,8 @@ class HomeController extends Controller
         // 수정 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
         Session::put('d_date',$req->d_date);
 
+        Alert::success('수정완료', '');
+
         return redirect()->route('home.post');
     }
 
@@ -142,6 +146,8 @@ class HomeController extends Controller
         Session::put('d_date',$req->date);
 
         DietFood::destroy($id);
+
+        Alert::success('삭제완료', '');
 
         return redirect()->route('home.post');
     }
@@ -158,6 +164,25 @@ class HomeController extends Controller
 
         $d_date = $req->input('date');
         $d_flg = $req->input('d_flg');
+
+        // 유효성 검사
+        $rules = [
+            'date'      => 'required'
+            ,'d_flg'    => 'required'
+            ,'fav_name' => 'required|max:10'
+        ];
+        $messages = [
+            'fav_name.required'     => '10자 까지 입력 가능합니다.'
+        ];
+
+        $validator = Validator::make($req->only('date','d_flg','fav_name'),$rules, $messages);
+
+        if($validator->fails()){
+            
+            Alert::error($messages['fav_name.required'],'');
+
+            return back()->withErrors($validator)->withInput();
+        }
 
 
         $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')

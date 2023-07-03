@@ -9,12 +9,17 @@
 @section('contents')
     <div id="wrap">
         @if ($flg === 3)
-            <div>퀘스트 완료</div>
-            <form action="{{route('quest.destroy', ['id' => $id])}}" method="post">
-                @csrf
-                @method('delete')
-                <button id="greenBtn" type="submit">새 퀘스트 시작</button>
-            </form> 
+            <div class="fail">
+                <span>
+                퀘스트 완료
+                <i class="fa-solid fa-face-smile"></i>
+                </span>
+                <form action="{{route('quest.destroy', ['id' => $id])}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button id="greenBtn" type="submit">퀘스트 시작</button>
+                </form> 
+            </div>
         @elseif ($flg !== 1)
         <div class="container contents mt-5">
             <h2 class="fw-bold">퀘스트 관리</h2>
@@ -48,11 +53,13 @@
                             <div><span class="fw-bold">{{$ratio['ratio']}}%</span></div>
                         </div>
                         <div class="giveUp">
+                            @if ($flg === 0)
                             <form action="{{route('quest.destroy', ['id' => $questStat->quest_status_id])}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button id="greenBtn" type="submit">퀘스트 포기</button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -95,7 +102,13 @@
                 </div>
             </div>
         @else
-            <div>진행중인 퀘스트가 없습니다.</div>
+            <div class="fail">
+                <span>
+                진행중인 퀘스트가 없습니다.
+                <i class="fa-solid fa-face-sad-tear"></i>
+                </span>
+                <button id="greenBtn" onclick="location.href='{{route('quest.index')}}'">시작하기</button>
+            </div>
         @endif
         </div>
     </div>
