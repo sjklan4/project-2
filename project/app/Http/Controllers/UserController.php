@@ -87,7 +87,7 @@ class UserController extends Controller
         $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
             ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/' //영문대소, 특수문자, 숫자포함 8자리 이상 30자리까지 허용
             ,'user_email'    => 'required|email|max:20' //email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
-            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:30' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
             ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
@@ -97,6 +97,7 @@ class UserController extends Controller
                 'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
                 'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
             ]);
+
         if ($validate->fails()) {
             $errors = $validate->errors();
             return redirect()->back()->withErrors($errors)->withInput();
@@ -135,6 +136,23 @@ class UserController extends Controller
     
     // 유저 정보 변경post
     public function userinfoeditPost(Request $req){
+
+        $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
+        ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
+
+        $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
+            'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+            'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+            'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
+        ]);
+
+
+        if ($validate->fails()) {
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
+
         $arrKey = [];
         $baseUser = UserInfo::find(Auth::User()->user_id);
 

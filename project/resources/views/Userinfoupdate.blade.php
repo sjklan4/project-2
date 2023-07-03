@@ -20,7 +20,9 @@
                 </tr>
                 <tr>
                     <th class="info-table"><label for="nkname">닉네임  </label></th>
-                    <td class="info-table"><input type="text" name="nkname" id="nkname" value= "{{old('nkname') !== null ? old('nkname') : $data->nkname}}"></td>
+                    <td class="info-table"><input type="text" name="nkname" id="nkname" value= "{{old('nkname') !== null ? old('nkname') : $data->nkname}}">
+                        <span id="nkRegexm"></span>
+                    </td>
                 </tr>
                 <tr>
                     <th class="info-table"><label for="user_phone_num">전화번호  </label></th>
