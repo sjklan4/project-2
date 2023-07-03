@@ -10,12 +10,12 @@
 @section('contents')
 
 <div class="regist-body">
-    <div class="intro_login">
-        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
-            <br>
-             
-    </div>
-
+    <a href="{{route('user.login')}}">
+        <div class="intro_login">
+            <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
+                <br>
+        </div>
+    </a>
     <div class = "registpage">
         <form action="{{route('user.registpost')}}" method="post">
                     @csrf
