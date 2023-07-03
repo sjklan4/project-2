@@ -54,38 +54,75 @@ class HomeController extends Controller
         $dietDinner = Diet::Diet( $id , $date, "2")->get(); // 저녁
         $dietSnack = Diet::Diet( $id , $date, "3")->get(); // 간식
 
-        // $test = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
-        //     ->join('food_infos','diet_food.food_id','=','food_infos.food_id')
-        //     ->where('diets.user_id','=',$id)
-        //     ->where('diets.d_date','=', $date)
-        //     ->get();
+        // function MealSums($mealArr) {
+        //     $kcalSum = 0;
+        //     $carbSum = 0;
+        //     $proteinSum = 0;
+        //     $fatSum = 0;
+        
+        //     foreach ($mealArr as $val) {
+        //         $kcalSum += ($val->kcal) * ($val->df_intake);
+        //         $carbSum += ($val->carbs) * ($val->df_intake);
+        //         $proteinSum += ($val->protein) * ($val->df_intake);
+        //         $fatSum += ($val->fat) * ($val->df_intake);
+        //     }
+        
+        //     return [$kcalSum, $carbSum, $proteinSum, $fatSum];
+        // }
 
-        // 칼로리, 탄수화물, 단백질, 지방 총합 계산
-        function MealSums($mealArr) {
-            $kcalSum = 0;
-            $carbSum = 0;
-            $proteinSum = 0;
-            $fatSum = 0;
-        
-            foreach ($mealArr as $val) {
-                $kcalSum += ($val->kcal) * ($val->df_intake);
-                $carbSum += ($val->carbs) * ($val->df_intake);
-                $proteinSum += ($val->protein) * ($val->df_intake);
-                $fatSum += ($val->fat) * ($val->df_intake);
-            }
-        
-            return ['kcalSum' => $kcalSum, 'carbSum' => $carbSum, 'proteinSum' => $proteinSum, 'fatSum' => $fatSum];
+        // 아침 칼로리, 탄수화물, 단백질, 지방 계산
+        $brfKcalSum = 0;
+        $brfCarbSum = 0;
+        $brfProteinSum = 0;
+        $brfFatSum = 0;
+        foreach ($dietBrf as $val) {
+            $brfKcalSum += (($val->kcal)*($val->df_intake));
+            $brfCarbSum += (($val->carbs)*($val->df_intake));
+            $brfProteinSum += (($val->protein)*($val->df_intake));
+            $brfFatSum += (($val->fat)*($val->df_intake));
         }
-        $brfSum = MealSums($dietBrf);
-        $lunchSum = MealSums($dietLunch);
-        $dinnerSum = MealSums($dietDinner);
-        $snackSum = MealSums($dietSnack);
 
-        // 하루 전체 
-        $kcalTotal = $brfSum['kcalSum'] + $lunchSum['kcalSum'] + $dinnerSum['kcalSum'] + $snackSum['kcalSum'] ;
-        $carbTotal = $brfSum['carbSum'] + $lunchSum['carbSum'] + $dinnerSum['carbSum'] +$snackSum['carbSum'] ;
-        $proteinTotal = $brfSum['proteinSum'] + $lunchSum['proteinSum'] + $dinnerSum['proteinSum'] + $snackSum['proteinSum'];
-        $fatTotal = $brfSum['fatSum'] + $lunchSum['fatSum'] + $dinnerSum['fatSum'] + $snackSum['fatSum'];
+        // 점심 칼로리, 탄수화물, 단백질, 지방 계산
+        $lunchKcalSum = 0;
+        $lunchCarbSum = 0;
+        $lunchProteinSum = 0;
+        $lunchFatSum = 0;
+        foreach ($dietLunch as $val) {
+            $lunchKcalSum += (($val->kcal)*($val->df_intake));
+            $lunchCarbSum += (($val->carbs)*($val->df_intake));
+            $lunchProteinSum += (($val->protein)*($val->df_intake));
+            $lunchFatSum += (($val->fat)*($val->df_intake));
+        }
+
+        // 저녁 칼로리, 탄수화물, 단백질, 지방 계산
+        $dinnerKcalSum = 0;
+        $dinnerCarbSum = 0;
+        $dinnerProteinSum = 0;
+        $dinnerFatSum = 0;
+        foreach ($dietDinner as $val) {
+            $dinnerKcalSum += (($val->kcal)*($val->df_intake));
+            $dinnerCarbSum += (($val->carbs)*($val->df_intake));
+            $dinnerProteinSum += (($val->protein)*($val->df_intake));
+            $dinnerFatSum += (($val->fat)*($val->df_intake));
+        }
+
+        // 간식 칼로리, 탄수화물, 단백질, 지방 계산
+        $snackKcalSum = 0;
+        $snackCarbSum = 0;
+        $snackProteinSum = 0;
+        $snackFatSum = 0;
+        foreach ($dietSnack as $val) {
+            $snackKcalSum += (($val->kcal)*($val->df_intake));
+            $snackCarbSum += (($val->carbs)*($val->df_intake));
+            $snackProteinSum += (($val->protein)*($val->df_intake));
+            $snackFatSum += (($val->fat)*($val->df_intake));
+        }
+
+        // 하루 전체
+        $kcalTotal = $brfKcalSum + $lunchKcalSum + $dinnerKcalSum + $snackKcalSum ;
+        $carbTotal = $brfCarbSum + $lunchCarbSum + $dinnerCarbSum + $snackCarbSum ;
+        $proteinTotal = $brfProteinSum + $lunchProteinSum + $dinnerProteinSum + $snackProteinSum;
+        $fatTotal = $brfFatSum + $lunchFatSum + $dinnerFatSum + $snackFatSum;
         $tdgTotal = $carbTotal + $proteinTotal + $fatTotal ;
 
         $arrData = [
@@ -98,10 +135,30 @@ class HomeController extends Controller
                     ,'dietDinner'   => $dietDinner
                     ,'dietSnack'    => $dietSnack
             ]
-            ,'brfSum'   => $brfSum
-            ,'lunchSum' => $lunchSum
-            ,'dinnerSum'=> $dinnerSum
-            ,'snackSum' => $snackSum
+            ,'brfSum'   => [
+                    'brfKcalSum'    => $brfKcalSum
+                    ,'brfCarbSum'   => $brfCarbSum
+                    ,'brfProteinSum'=> $brfProteinSum
+                    ,'brfFatSum'    => $brfFatSum
+            ]
+            ,'lunchSum'   => [
+                'lunchKcalSum'    => $lunchKcalSum
+                ,'lunchCarbSum'   => $lunchCarbSum
+                ,'lunchProteinSum'=> $lunchProteinSum
+                ,'lunchFatSum'    => $lunchFatSum
+            ]
+            ,'dinnerSum'   => [
+                'dinnerKcalSum'    => $dinnerKcalSum
+                ,'dinnerCarbSum'   => $dinnerCarbSum
+                ,'dinnerProteinSum'=> $dinnerProteinSum
+                ,'dinnerFatSum'    => $dinnerFatSum
+            ]
+            ,'snackSum'   => [
+                'snackKcalSum'    => $snackKcalSum
+                ,'snackCarbSum'   => $snackCarbSum
+                ,'snackProteinSum'=> $snackProteinSum
+                ,'snackFatSum'    => $snackFatSum
+            ]
             ,'total'   => [
                 'kcalTotal'     => $kcalTotal
                 ,'carbTotal'    => $carbTotal

@@ -10,12 +10,12 @@
 @section('contents')
 
 <div class="regist-body">
-    <a href="{{route('user.login')}}">
-        <div class="intro_login">
-            <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
+    <div class="intro_login">
+        <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
-        </div>
-    </a>
+             
+    </div>
+
     <div class = "registpage">
         <form action="{{route('user.registpost')}}" method="post">
                     @csrf
@@ -36,8 +36,10 @@
                     </td>
                 </tr>
                 <tr>
+                    
+                    <td colspan="3"><span id="emailRegexm"></span></td>
                     <td></td>
-                    <td><span id="emailRegexm"></span></td>
+                    <td></td>
                 </tr>    
                 <tr>
                     <td class="write_name">    
@@ -48,11 +50,13 @@
                     </td>    
                 </tr>
                 <tr>
-                    <td></td>
-                    <td> @error('user_name')
+                  
+                    <td colspan="3"> @error('user_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
+                    <td></td>
+                    <td></td>
                 </tr>           
                 <tr>
             
@@ -64,12 +68,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>   
+                 
+                    <td colspan="3">   
                         @error('password')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
+                    <td></td>
+                    <td></td>
                 </tr> 
                 <tr> 
                 
@@ -81,12 +87,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>   
+                    <td colspan="3">   
                         @error('passwordchk')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
+                    <td></td>
+                    <td></td>
                 </tr>   
                 <tr>
                 
@@ -99,12 +106,13 @@
                     </td>    
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>   
+                    <td colspan="3">   
                         @error('nkname')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td> 
+                    <td></td>
+                    <td></td>
                 </tr>     
                 <tr>
                     <td class="write_name">        
@@ -112,8 +120,7 @@
                         <label for="user_birth">생년월일</label>
                     </td>
                     <td>   
-                        <input type="date" name="user_birth" id="user_birth">
-                
+                        <input type="date" name="user_birth" id="user_birth"  max="{{ now()->toDateString() }}">
                     </td>
                 </tr>    
                 <tr>
@@ -122,16 +129,16 @@
                     </td>
                     <td>   
                             <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
-                    
                     </td>      
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>   
+                    <td colspan="3">   
                         @error('user_phone_num')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td> 
+                    <td></td>
+                    <td></td>
                 </tr>     
                 <tr>
                 
@@ -157,3 +164,7 @@
 @section('js')
     <script src="{{ asset('js/regist.js') }}"></script>
 @endsection
+
+
+
+

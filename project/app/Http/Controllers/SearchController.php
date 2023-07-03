@@ -138,9 +138,6 @@ class SearchController extends Controller
             ];
         }
 
-        // 하루가 지난 날의 데이터 삭제
-        DB::table('food_carts')->where('created_at', '>', 'now()')->delete();
-
         // ! 식단 입력
         // v00
         if(!empty($arrayd)){

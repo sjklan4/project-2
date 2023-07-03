@@ -114,7 +114,6 @@ input{
     transition: 0.25s;
 } */
 .linkbutton{
-    margin-top: 10px;
    text-align: center;
 }
 button{
@@ -177,7 +176,3 @@ p.first-line{
     width: 32%;
     height: 8%;
 } */
-
-.error_msg{
-    color: red;
-}

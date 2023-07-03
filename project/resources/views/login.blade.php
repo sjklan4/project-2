@@ -18,7 +18,10 @@
     </div>
     <div class="loginpage">
         <div class="write">
-            
+                @if(isset($errors))
+                    <span>{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
+                @endif
+        
                 <form action="{{route('user.loginpost')}}"  method="post">
                     @csrf
                 <div class="writein">
@@ -41,10 +44,6 @@
                             
                             <br>
                 </div>
-                @if(isset($errors))
-                <span class="error_msg">{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
-                @endif
-    
                 <div class="linkbutton">
                     <button type="submti" id="greenBtn">로그인</button>
                 </form>

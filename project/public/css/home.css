@@ -274,13 +274,6 @@ div.flgBox > button::after{
     content: '';
     clear: both;
 }
-#goalIcon:hover{
-    fill: #6799E4;
-}
-span.iconText{
-    display: none;
-    color: #EE6666;
-}
 
 /* 아코디언 본문 */
 div.dietDetail{
@@ -364,13 +357,7 @@ th, td{
     overflow: hidden;
     border: 0;
 }
-.off{
+.upbtn1, .upbtn2, .upbtn3, .upbtn4{
     display: none;
 }
-.frBtn{
-    float: right;
-    margin-right: 20px;
-}
-#brfBtn, #lunchBtn, #dinnerBtn, #snackBtn{
-    cursor: pointer;
-}
+
