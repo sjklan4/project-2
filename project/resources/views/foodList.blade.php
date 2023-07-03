@@ -122,7 +122,7 @@
                 <br>
                 <h4>식단</h4>
                 <hr class="select_diet">
-                <div class="fav_diet">
+                <div class="fav_diet" id="fav_diet">
                     @foreach ($seleted_diet as $diet)
                         @csrf
                         <span>{{$diet->fav_name}}</span>

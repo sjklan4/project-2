@@ -131,11 +131,10 @@ class FoodController extends Controller
                     ->withInput();
             }
         }
-        
 
         // 음식 정보 테이블 인서트, 영양 정보 값이 없으면 0으로 처리
-        DB::table('food_infos')
-            ->insert([
+        $food_id = DB::table('food_infos')
+            ->insertGetId([
                 'user_id'       => $id
                 ,'food_name'    => $req->foodName
                 ,'kcal'         => $req->kcal
@@ -147,10 +146,9 @@ class FoodController extends Controller
                 ,'serving'      => $req->serving
                 ,'ser_unit'     => $req->ser_unit
                 ,'created_at'   => now()
-            ]);
+            ], 'food_id');
         
-        // Alert::success('저장', '저장이 완료 되었습니다.');
-        return redirect()->route('food.index')->with('flg', 3);
+        return redirect()->route('food.show', ['food' => $food_id])->with('flg', 3);
     }
 
     public function update(Request $req, $id) {
