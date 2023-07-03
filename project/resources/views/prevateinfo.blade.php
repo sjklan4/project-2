@@ -43,15 +43,14 @@
                 <td><label for="gender">성별</label></td>
                 <td>
                     <input type="radio" name="gender" id="gender" value="0" class="genman"  readonly>남자<img src="{{ asset('img/manmark.png') }}">
-                    <input type="radio" name="gender" id="gender" value="1" class="genwoman" readonly>여자<img src="   {{asset('img/womanmark.png')}}">
+                    <input type="radio" name="gender" id="gender" value="1" class="genwoman" readonly>여자<img src="{{asset('img/womanmark.png')}}">
                 </td>
             </tr>
             <tr>
                 <td><label for="user_birth">나이</label></td>
-                <td><input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}"></td>
-                <div>
+                <td><input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}">
                     <span id="maxdate"></span>
-                </div>
+                </td>
             </tr>
             <tr>
                 <td><label for="tall">키(cm)</label></td>

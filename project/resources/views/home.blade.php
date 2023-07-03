@@ -274,7 +274,7 @@
                                             <div class="filebox my-2 text-center">
                                                 <input class="upload-name fileBrfName" value="첨부파일" placeholder="첨부파일" readonly>
                                                 <label for="fileBrf">파일찾기</label>
-                                                <input type="file" id="fileBrf" name="dietImg">
+                                                <input type="file" id="fileBrf" name="dietImg" accept="image/*">
                                                 <button type="submit" class="btnYg my-2">사진등록</button>
                                             </div>
                                         </form>                        
@@ -299,7 +299,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <input type="hidden" name="time" value="0">
-                                                                <button type="submit" class="btnYg favInsertBtn">음식추가</button>
+                                                                <button type="submit" class="btnYg">음식추가</button>
                                                             </form>
                                                         </th>
                                                         <th>
@@ -456,7 +456,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileLunchName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileLunch">파일찾기</label>
-                                            <input type="file" id="fileLunch" name="dietImg">
+                                            <input type="file" id="fileLunch" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -637,7 +637,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileDinnerName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileDinner">파일찾기</label>
-                                            <input type="file" id="fileDinner" name="dietImg">
+                                            <input type="file" id="fileDinner" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -818,7 +818,7 @@
                                         <div class="filebox my-2 text-center">
                                             <input class="upload-name fileSnackName" value="첨부파일" placeholder="첨부파일" readonly>
                                             <label for="fileSnack">파일찾기</label>
-                                            <input type="file" id="fileSnack" name="dietImg">
+                                            <input type="file" id="fileSnack" name="dietImg" accept="image/*">
                                             <button type="submit" class="btnYg my-2">사진등록</button>
                                         </div>
                                     </form>                        
@@ -842,7 +842,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <input type="hidden" name="time" value="3">
-                                                                <button type="submit" class="btnYg">음식추가</button>
+                                                                <button type="button" class="btnYg">음식추가</button>
                                                             </form>
                                                         </th>
                                                         <th>
