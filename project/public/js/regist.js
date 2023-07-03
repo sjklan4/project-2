@@ -48,7 +48,6 @@ userEmailField.addEventListener('input', function() {
         nknamechk.addEventListener('change', function(){
             const nk = document.getElementById('nkname');
             const url = "/api/user/usernkchk/" + nk.value;
-    
             fetch(url)
             .then(data => {
                 if (!data.status) {
@@ -70,7 +69,6 @@ userEmailField.addEventListener('input', function() {
     }
 });
 
-   
 
 
 
