@@ -172,8 +172,8 @@ class UserController extends Controller
             $baseUser->$val = $req->$val;
         }
         $baseUser->save(); // update
-
-        return redirect()->route('user.userinfoedit');
+        $changemsg = "변경 완료되었습니다.";
+        return redirect()->route('user.userinfoedit')->with($changemsg);
     }
 
     // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문

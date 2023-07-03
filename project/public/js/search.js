@@ -36,7 +36,7 @@ function getFoodValue(userId)  {
 
     let amount = '';
     selectedInp.forEach((el2) => {
-        amount += el2.value;
+        amount = el2.value;
         parseFloat(amount);
     });
 
