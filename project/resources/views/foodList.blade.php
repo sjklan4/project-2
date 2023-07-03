@@ -129,7 +129,7 @@
                         <span>{{$diet->fav_name}}</span>
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$food->cart_id}})">X</button>
+                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$diet->cart_id}})">X</button>
                         <br>
                     @endforeach
                 </div>
@@ -150,13 +150,13 @@
                 @endif
             <br>
             <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
-            @if(!isset($data))
+            {{-- @if(!isset($data)) --}}
                 <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
                 ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
-            @else
+            {{-- @else
                 <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
                 ['date' => session('date'), 'time' => session('time')])}}'">입력</button>
-            @endif
+            @endif --}}
         </div>
     </div>
 </div>

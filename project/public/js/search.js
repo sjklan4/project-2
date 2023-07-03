@@ -139,12 +139,12 @@ function getDietValue(userId)  {
                 // https://homzzang.com/b/js-1776
                 // https://velog.io/@hyeon930/%EC%83%88%EB%A1%9C%EA%B3%A0%EC%B9%A8-%ED%9B%84%EC%97%90%EB%8F%84-%EA%B2%B0%EA%B3%BC-%ED%99%94%EB%A9%B4-%EC%9C%A0%EC%A7%80%ED%95%98%EA%B8%B0-Web-Storage-API
 
-                setItem('fav_name', ele.fav_name)
-                let dietitem = getItem('fav_name')
+                // setItem('fav_name', ele.fav_name)
+                // let dietitem = getItem('fav_name')
 
-                let fdiet = document.createElement('p')
-                fdiet.innerHTML = dietitem;
-                // fdiet.innerHTML = ele.fav_name;
+                let fdiet = document.createElement('span')
+                // fdiet.innerHTML = dietitem;
+                fdiet.innerHTML = ele.fav_name;
                 fav_diet.appendChild(fdiet);
 
                 // 삭제 버튼

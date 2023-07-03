@@ -109,7 +109,15 @@ class SearchController extends Controller
         ->get()
         ->toArray();
 
-        $diet_food = DB::select('SELECT food_infos.food_id, food_carts.fav_id, fav_diet_food.fav_f_intake FROM food_carts INNER JOIN fav_diet_food ON fav_diet_food.fav_id = food_carts.fav_id INNER JOIN food_infos ON fav_diet_food.food_id = food_infos.food_id WHERE fav_diet_food.food_id = food_infos.food_id AND food_carts.user_id = ?', [$id]);
+        $diet_food = DB::select(
+            'SELECT food_infos.food_id, food_carts.fav_id, fav_diet_food.fav_f_intake 
+            FROM food_carts 
+            INNER JOIN fav_diet_food 
+            ON fav_diet_food.fav_id = food_carts.fav_id 
+            INNER JOIN food_infos 
+            ON fav_diet_food.food_id = food_infos.food_id 
+            WHERE fav_diet_food.food_id = food_infos.food_id 
+            AND food_carts.user_id = ?', [$id]);
 
         foreach ($diet_food as $key) {
             $arraydiet[] = [
@@ -119,7 +127,7 @@ class SearchController extends Controller
             ];
         }
 
-        // v007
+        // v007 as
         // * collection 객체로 반환됨 -> foreach를 통해 2차원 배열로 바꿈]
         // ? 2차원 배열의 이유 : 1차원 배열으로 할 경우 값이 여러 개 담기지 않고 마지막 값만 배열에 담김
         foreach ($cart as $key) {
@@ -144,6 +152,7 @@ class SearchController extends Controller
         // ! 식단 입력
         // v00
         if(!empty($arrayd)){
+            // if(!empty($arraydiet)){
             if($arr_cart[0][0] === 0 && $arr_cart[0][1] === '0.0'){
                 if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
                     for($e=0; $e<count($arraydiet); $e++){
@@ -170,6 +179,7 @@ class SearchController extends Controller
                 foreach ($selectD as $key) {
                     $selete_d_id = $key->d_id;
                 }
+
 
                 for($e=0; $e<count($arraydiet); $e++){
                     $insertDF = new DietFood([
