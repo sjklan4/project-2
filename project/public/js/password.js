@@ -27,9 +27,11 @@ function chkpass(){
         const idspan = document.getElementById('passworderror');
         if (data["errorcode"] === "0") {
             idspan.innerHTML = '비밀번호 확인 완료';
-            document.getElementById('passwordchg').disabled = false;
+            // document.getElementById('passwordchg').disabled = false;
         } else {
             idspan.innerHTML = '비밀번호 불일치';
+            return;
         }
     });
 }
+

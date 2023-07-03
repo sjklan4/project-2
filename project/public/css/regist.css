@@ -133,11 +133,14 @@ button:hover {
 }
 .greenBtn{
     background-color: #538E04;
-
 }
 #greenBtn:hover {
     background-color: #195F1C;
 }
+#greenBtn:disabled{
+    background-color: #c1c1c1;
+}
+
 #exit{
     background-color: #538E04;
     margin-top: 30px;
@@ -200,4 +203,8 @@ table{
 .exit{
     margin-top: 20px;
     text-align: center;
+}
+
+span{
+    color: #dc3545;
 }
