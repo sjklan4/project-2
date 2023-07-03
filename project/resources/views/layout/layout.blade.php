@@ -27,5 +27,7 @@
     <script src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/javascript/scripts.js?ver=1670173476"></script>
     <script src="{{asset('js/common.js')}}"></script>
     @yield('js')
+
+    @include('sweetalert::alert')
 </body>
 </html>
