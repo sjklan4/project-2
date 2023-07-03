@@ -4,6 +4,9 @@ const emailRegexm = document.getElementById('emailRegexm');
 const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
 
 const chdeckEmailbutton = document.getElementById('chdeckEmail');
+const nknamechk = document.getElementById('nkname');
+
+
 userEmailField.addEventListener('input', function() {
 
 
@@ -17,7 +20,7 @@ userEmailField.addEventListener('input', function() {
             chdeckEmail.disabled = false;
             signupButton.disabled = true;
         }
-
+        else{
         
         chdeckEmailbutton.addEventListener('click',function(){
             
@@ -41,7 +44,33 @@ userEmailField.addEventListener('input', function() {
                     }
             });
         });
-    });
+
+        nknamechk.addEventListener('change', function(){
+            const nk = document.getElementById('nkname');
+            const url = "/api/user/usernkchk/" + nk.value;
+    
+            fetch(url)
+            .then(data => {
+                if (!data.status) {
+                    throw new Error(data.status + ' : API Response Error' );
+                }
+                return data.json();
+            })
+            .then(apiData  => {
+                const idspan = document.getElementById('nkRegexm');
+                    if(apiData["flg"] === "1") {
+                        idspan.innerHTML = apiData["msg"];
+                        signupButton.disabled = true;
+                    } else {
+                        idspan.innerHTML = "사용가능한 닉네임 입니다. "
+                        signupButton.disabled = false;
+                    }
+            });
+        });
+    }
+});
+
+   
 
 
 

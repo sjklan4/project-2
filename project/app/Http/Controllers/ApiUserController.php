@@ -23,8 +23,6 @@ class ApiUserController extends Controller
 
         $user = UserInfo::where('user_email', $user_email)->first();
         
-    
-
         // 유저 유무 체크
         if($user !== null) {
             $arrData["flg"] = "1";
@@ -33,6 +31,23 @@ class ApiUserController extends Controller
         // return response()->json($arrData);
         return $arrData;
     }
+
+    public function chdecknkname($nkname){
+        $arrData = [ "flg" => "0"];
+
+        $usernk = UserInfo::where('nkname', $nkname)->first();
+
+        if($usernk !== null){
+            $arrData["flg"] = "1";
+            $arrData["msg"] = "사용중인 닉네임 입니다.";
+        }
+        return $arrData;
+    }
+
+
+
+
+
 
     public function chdeckpassword(Request $req){
         $arr = [
