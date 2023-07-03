@@ -325,7 +325,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="0">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -506,7 +506,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="1">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -687,7 +687,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="2">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
@@ -868,7 +868,7 @@
                                                                             <form action="{{route('fav.insert')}}">
                                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}" >
                                                                                 <input type="hidden" name="d_flg" value="3">
-                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off">
+                                                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
                                                                                 <button type="submit" class="btnYg">등록하기</button>
                                                                             </form>
                                                                         </div>
