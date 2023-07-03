@@ -147,7 +147,7 @@ class FoodController extends Controller
                 ,'created_at'   => now()
             ]);
 
-        return Redirect::to(url()->previous());
+        return redirect()->route('food.index');
     }
 
     public function update(Request $req, $id) {

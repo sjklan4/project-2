@@ -203,7 +203,7 @@ class UserController extends Controller
     //유효성 검사 실시 하는 구문
         $validate = Validator::make($req->only('user_name','user_phone_num'),$rules,[
             'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-            'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
+            'user_phone_num' => '전화번호 형식에 맞춰서 숫자 0~9까지 숫자만 입력해주세요',
         ]);
     // 유효성 검사진행후 bool값이 fail면 오류 값을 리턴시킨다.
         if ($validate->fails()) {
