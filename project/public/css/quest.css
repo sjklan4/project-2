@@ -138,6 +138,10 @@ button:hover {
 	filter: grayscale(0);
 }
 
+#questSet {
+    margin-top: 20px;
+}
+
 
 /* 프로그레스 */
 .progress {
@@ -153,6 +157,21 @@ button:hover {
     background-color: #6799E4;
 }
 
+.fail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    font-size: 3rem;
+}
+
+.fail button {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* ------------------------------------- */
 .cards {
     display: flex;
     flex-direction: column;

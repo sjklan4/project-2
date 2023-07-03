@@ -16,6 +16,7 @@ use App\Models\FoodInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FoodController extends Controller
 {
@@ -62,7 +63,7 @@ class FoodController extends Controller
         ->get();
 
         if ($foods->count() >= 10) {
-            return redirect()->route('food.index');
+            return redirect()->route('food.index')->with('flg', 2);
         }
 
         return view('/foodCreate');
@@ -125,8 +126,9 @@ class FoodController extends Controller
         
         foreach ($foods as $val) {
             if ($val->food_name === $req->foodName) {
-                return back()->withErrors(['foodName' => '이미 등록된 이름입니다.'])
-                        ->withInput();
+                return back()
+                    ->withErrors(['foodName' => '이미 등록된 이름입니다.'])
+                    ->withInput();
             }
         }
         
@@ -146,12 +148,28 @@ class FoodController extends Controller
                 ,'ser_unit'     => $req->ser_unit
                 ,'created_at'   => now()
             ]);
-
-        return redirect()->route('food.index');
+        
+        // Alert::success('저장', '저장이 완료 되었습니다.');
+        return redirect()->route('food.index')->with('flg', 3);
     }
 
     public function update(Request $req, $id) {
         // todo 유효성 검사
+
+        // 유저 id 획득
+        $user_id = Auth::user()->user_id;
+
+        // 유저가 같은 이름으로 등록 불가능
+        $foods = FoodInfo::where('user_id', $user_id)
+        ->get();
+        
+        foreach ($foods as $val) {
+            if ($val->food_name === $req->foodName) {
+                return back()
+                    ->withErrors(['foodName' => '이미 등록된 이름입니다.'])
+                    ->withInput();
+            }
+        }
 
         // todo 수정 된 정보만 수정
 
@@ -171,7 +189,7 @@ class FoodController extends Controller
                 ,'updated_at'   => now()
             ]);
 
-        return redirect()->route('food.show', ['food' => $id]);
+        return redirect()->route('food.show', ['food' => $id])->with('flg', 1);
     }
 
     public function destroy($id) {

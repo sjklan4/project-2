@@ -108,20 +108,32 @@ class QuestController extends Controller
         
         // 첫날 제외 어제 수행 여부 확인, 안되어있으면 실패
         if ($questLog[0]->effective_date !== Carbon::now()->format("Y-m-d")) {
-            $count = 0;
-            foreach ($questLog as $key => $val) {
-                if ($val->effective_date === Carbon::now()->subDays(1)->format("Y-m-d")) {
-                    if ($val->complete_flg === 0) {
-                        ++$count;
-                    }
-                    break;
-                }
-            }
+            // $count = 0;
+            // foreach ($questLog as $val) {
+            //     if ($val->effective_date <= Carbon::now()->subDays(1)->format("Y-m-d")) {
+            //         if ($val->complete_flg === 0) {
+            //             ++$count;
+            //         }
+            //     }
+            // }
 
-            if ($count > 0) {
+            // if ($count > 0) {
+            //     // 플래그 변경
+            //     $flg = 2;
+    
+            //     // 퀘스트 실패 처리
+            //     QuestStatus::destroy($yesterdayLog->quest_status_id);
+            // }
+
+            $yesterdayLog = DB::table('quest_logs')
+                ->where('quest_status_id', $quest_status->quest_status_id)
+                ->where('effective_date', Carbon::now()->subDays(1)->format("Y-m-d"))
+                ->first();
+
+            if ($yesterdayLog->complete_flg === '0') {
                 // 플래그 변경
                 $flg = 2;
-    
+
                 // 퀘스트 실패 처리
                 QuestStatus::destroy($yesterdayLog->quest_status_id);
             }

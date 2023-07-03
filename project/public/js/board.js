@@ -4,6 +4,18 @@ function resetImg() {
     img.value = "";
 }
 
+function throttling(fnc) {
+    // let timer;
+    // document.querySelector('.likeUpDown').addEventListener('click', function (e) {
+    //     if (!timer) {
+    //         timer = setTimeout(function() {
+    //             timer = null;
+    //             fnc;
+    //         }, 1000);
+    //     }
+    // });
+}
+
 // 좋아요 증가
 function likeUp() {
     const url = "/api/board/likeup";

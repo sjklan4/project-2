@@ -24,6 +24,17 @@
                     </ul>
                 </li>
                 <li>
+                    <a id="cursorPointer">Challenge</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{route('quest.index')}}">퀘스트 수락</a>
+                        </li>
+                        <li>
+                            <a href="{{route('quest.show')}}">퀘스트 관리</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a id="cursorPointer">Board</a>
                     <ul class="navbar-dropdown">
                         <li>
@@ -61,20 +72,9 @@
                     </ul>
                 </li>
                 <li>
-                    <a id="cursorPointer">Challenge</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{route('quest.index')}}">퀘스트 수락</a>
-                        </li>
-                        <li>
-                            <a href="{{route('quest.show')}}">퀘스트 관리</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
                     {{-- 로그인 상태 --}}
                     @auth
-                    <a href='{{route('user.logout')}}' id="logoutBtn">
+                    <a href='{{route('user.logout')}}' id="logoutBtn" title="로그아웃">
                         <img src="{{asset('img/logoutBtn.png')}}">
                     </a>
                     @endauth
