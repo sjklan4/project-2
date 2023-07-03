@@ -150,35 +150,36 @@ class SearchController extends Controller
 
         if(empty($arraydiet)){
         // ! 음식 입력
-            if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
-                $sum = $arr_cart[0][1];
-                for ($i=0; $i < count($arr_cart); $i++) { 
-                    for ($z=1; $z <= $i; $z++) {
-                        if($arr_cart[$i] == $arr_cart[$z]){
-                            $sum += $arr_cart[$i][1];
-                            if($arr_cart[$i] !== $arr_cart[$z]){
+            if(!empty($arrayd)){
+                if($arrayd[1] === $id && $arrayd[2] === $date && $arrayd[3] === $time){
+                    $sum = $arr_cart[0][1];
+                    for ($i=0; $i < count($arr_cart); $i++) { 
+                        for ($z=1; $z <= $i; $z++) {
+                            if($arr_cart[$i] == $arr_cart[$z]){
                                 $sum += $arr_cart[$i][1];
+                                if($arr_cart[$i] !== $arr_cart[$z]){
+                                    $sum += $arr_cart[$i][1];
+                                }
+                            }else{
+                                if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
+                                    $insertDF = new DietFood([
+                                        'food_id' => $arr_cart[$i][0],
+                                        'd_id' => $arrayd[0],
+                                        'df_intake' => $sum
+                                    ]);
+                                    $insertDF->save();
+                                }
+                                $sum = 0;
                             }
-                        }else{
-                            if($arr_cart[$i][0] !== $arr_cart[$z][0] && empty($arr_cart[$i][0])){
-                                $insertDF = new DietFood([
-                                    'food_id' => $arr_cart[$i][0],
-                                    'd_id' => $arrayd[0],
-                                    'df_intake' => $sum
-                                ]);
-                                $insertDF->save();
-                            }
-                            $sum = 0;
                         }
+                        $insertDF = new DietFood([
+                            'food_id' => $arr_cart[$i][0],
+                            'd_id' => $arrayd[0],
+                            'df_intake' => $sum
+                        ]);
+                        $insertDF->save();
                     }
-                    $insertDF = new DietFood([
-                        'food_id' => $arr_cart[$i][0],
-                        'd_id' => $arrayd[0],
-                        'df_intake' => $sum
-                    ]);
-                    $insertDF->save();
-                }
-            }else{
+            }}else{
                 $insertD = new Diet([
                     'user_id' => $id,
                     'd_date' => $date,
