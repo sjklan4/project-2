@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/board.css') }}">  
 @endsection
 
-@section('title', '사용자 등록 음식 관리')
+@section('title', '등록한 음식')
 
 @section('contents')
     <div class="foodShadow">
@@ -12,7 +12,7 @@
         <div class="shadowYellow">
             <div class="foodManage">
                 <div class="foodInsertTitleGrid">
-                    <h2>사용자 등록 음식 관리</h2>
+                    <h2>등록한 음식</h2>
                     <div>
                         <button type="button" id="greenBtn" onclick="location.href='{{route('food.create')}}'">음식 추가</button>
                     </div>
@@ -41,7 +41,8 @@
                             @method('put')
                             <div id="foodNameGrid">
                                 <h5>음식명</h5>
-                                <input type="text" name="foodName" value="{{$food->food_name}}" autocomplete="off">
+                                <input type="text" name="foodName" value="{{$food->food_name}}" autocomplete="off" autofocus>
+                                <div class="errorMsg">{{count($errors) > 0 ? $errors->first('foodName', ':message') : ''}}</div>
                             </div>
                             <div>
                                 <h5>영양 성분</h5>
@@ -167,8 +168,16 @@
                 </div>
             </div>
         </div>
-        <div></div>
     </div>
+    <script>
+        @if (session('flg') === 1)
+            alert('수정 완료')
+        @elseif (session('flg') === 2)
+            alert('10개 이상 등록 불가')
+        @elseif (session('flg') === 3)
+            alert('저장 완료')
+        @endif
+    </script>
 @endsection
 
 @section('js')
