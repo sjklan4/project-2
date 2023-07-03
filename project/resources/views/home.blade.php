@@ -198,7 +198,7 @@
                 @if($data['userKcal']->goal_kcal === 0)
                     <div class="goalKcal col pt-3">
                         <p>정확한 식단 관리를 위해 목표칼로리와 식단을 설정해주세요.</p>
-                        <p><a href="{{route('user.prevateinfo')}}">목표칼로리 & 식단설정 바로가기</a></p>
+                        <p><a href="{{route('user.prevateinfo')}}" class="hoverG">목표칼로리 & 식단설정 바로가기</a></p>
                     </div>
                 @else
                     <div class="goalKcal col pt-3">
