@@ -97,7 +97,6 @@ class UserController extends Controller
                 'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
                 'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
             ]);
-    
         if ($validate->fails()) {
             $errors = $validate->errors();
             return redirect()->back()->withErrors($errors)->withInput();
@@ -253,7 +252,7 @@ class UserController extends Controller
         else{
             if(!Hash::check($req->newpassword, $basepassword->password)){ // 전달받은 값을 hash화 해서 비교하기 위함
                 $newpassword = $req->newpassword; // 다르면 작성된 신규비밀번호를 사용
-              
+
             }
             else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
                 $error = '기존 비밀번호와 다른 비밀번호로 해주세요'; 
@@ -264,7 +263,7 @@ class UserController extends Controller
         
         $basepassword->save(); // 비밀번호 저장
         $success = '비밀번호가 변경 되었습니다.';
-        return redirect()->with('success',$success);
+        return redirect()->route('user.userpsedit')->with('success',$success);
         }
     }
 
