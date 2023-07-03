@@ -150,13 +150,13 @@
                 @endif
             <br>
             <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
-            {{-- @if(!isset($data)) --}}
+            @if(!isset($data))
                 <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
                 ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
-            {{-- @else
+            @else
                 <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
                 ['date' => session('date'), 'time' => session('time')])}}'">입력</button>
-            @endif --}}
+            @endif
         </div>
     </div>
 </div>
