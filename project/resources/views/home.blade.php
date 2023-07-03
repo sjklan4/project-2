@@ -299,7 +299,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <input type="hidden" name="time" value="0">
-                                                                <button type="submit" class="btnYg favInsertBtn">음식추가</button>
+                                                                <button type="submit" class="btnYg">음식추가</button>
                                                             </form>
                                                         </th>
                                                         <th>
@@ -842,7 +842,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="date" value="{{$data['date'] ?? $data['today']}}">
                                                                 <input type="hidden" name="time" value="3">
-                                                                <button type="submit" class="btnYg">음식추가</button>
+                                                                <button type="button" class="btnYg">음식추가</button>
                                                             </form>
                                                         </th>
                                                         <th>

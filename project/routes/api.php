@@ -60,7 +60,9 @@ Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate'])->name('apiQu
 use App\Http\Controllers\ApiUserController;
 
 Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
+Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'chdecknkname']);
 Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
+
 
 // ---------------------------------------------
 // 섹션명       : 카트(Cart)

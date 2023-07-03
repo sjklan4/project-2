@@ -107,6 +107,7 @@
                         @error('nkname')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                    <span id="nkRegexm"></span>
                     </td> 
                     <td></td>
                     <td></td>
