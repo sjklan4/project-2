@@ -36,15 +36,15 @@
                     </div>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
-                            {{-- <div>{{$error}}</div> --}}
                             @enderror
                             
                             <br>
                 </div>
-                @if(isset($errors))
-                <span class="error_msg">{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
-                @endif
-    
+                <div class="error_msg">
+                    @if(isset($errors))
+                        <span class="error_msg">{{count($errors) > 0 ? $errors->first('idpw', ':message') : ''}}</span>
+                    @endif
+                </div>
                 <div class="linkbutton">
                     <button type="submti" id="greenBtn">로그인</button>
                 </form>

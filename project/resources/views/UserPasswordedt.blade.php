@@ -15,9 +15,9 @@
                     <td colspan="2">
                         <input type="password" name="bpassword" id="bpassword" placeholder="비밀번호를 입력해 주세요">
                         <input type="hidden" id="id" value={{session('user_id')}}>
-                        <button type="button" id="passwordchk" class="greenBtn" onclick="chkpass()">확인</button>
+                        {{-- <button type="button" id="passwordchk" class="greenBtn" onclick="chkpass()">확인</button> --}}
                     </td>
-                    <span id="passworderror"></span>
+                    <span id="passworderror" class="passworderror"></span>
                 </tr>
                 
                 <tr>
@@ -28,8 +28,15 @@
                     <th class="passth"  colspan="2"><label for="newpasswordchk">새 비밀번호 확인  </label></th>
                     <td><input type="password" name="newpasswordchk" id="newpasswordchk"></td>
                 </tr>
-                <caption class="pscap"><button type = "submit" id="passwordchg" class="greenBtn" disabled>변경</button></caption>
+                <caption class="pscap"><button type = "submit" id="passwordchg" class="greenBtn">변경</button></caption>
             </table>
+            <div class="changemsg">
+                @if(session('error_chk'))
+                    {{session('error_chk')}}
+                @elseif(session('success'))
+                    {{session('success')}}
+                @endif
+            </div>
             </form>
         </div>
     </div>

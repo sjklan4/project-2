@@ -332,3 +332,16 @@ caption{
     display: inline-block;
     cursor: pointer;
 }
+
+span.maxdate{
+    color: #dc3545;
+}
+
+span.passworderror{
+    color: #dc3545;
+}
+
+.changemsg{
+    text-align: center;
+    color: #dc3545;
+}
