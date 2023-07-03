@@ -61,8 +61,8 @@ $(document).ready(function(){
     printImgEdit('.snackImg','#snackArea .filebox');
 
     function printImgEdit(img,fileBox){
-        $(img).off('click').on('click',function(){
-            $(fileBox).removeClass('d-none');
+        $(img).on('click',function(){
+            $(fileBox).toggle();
         });
     }
 
@@ -101,5 +101,4 @@ function formatDate(date){
     let day = String(date.getDate()).padStart(2, '0');
     return year + '-' + month + '-' + day;
 }
-
 
