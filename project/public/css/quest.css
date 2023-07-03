@@ -138,6 +138,10 @@ button:hover {
 	filter: grayscale(0);
 }
 
+#questSet {
+    margin-top: 20px;
+}
+
 
 /* 프로그레스 */
 .progress {
