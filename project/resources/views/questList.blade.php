@@ -44,6 +44,11 @@
             </div>
         @endforeach
     </div>
+    <h6 id="questSet">
+        @if (!isset($flg))
+            이미 진행중인 퀘스트가 있습니다.
+        @endif
+    </h6>
 </div>
 @endsection
 
