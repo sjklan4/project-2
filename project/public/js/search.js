@@ -36,7 +36,7 @@ function getFoodValue(userId)  {
 
     let amount = '';
     selectedInp.forEach((el2) => {
-        amount += el2.value;
+        amount = el2.value;
         parseFloat(amount);
     });
 
@@ -64,12 +64,13 @@ function getFoodValue(userId)  {
 
             let ffood = document.createElement('span')
             let brp = document.createElement('br')
-            ffood.innerHTML = ele.food_name+' | '+ele.amount;
+            ffood.innerHTML = ele.food_name+' | '+ele.amount+'인분';
             
             // 삭제 버튼
             let delfbtn = document.createElement('button')
             delfbtn.innerHTML = 'X';
             delfbtn.setAttribute('type', 'button')
+            delfbtn.setAttribute('id', 'delete_btn')
             delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
             // 삭제 버튼 div에 넣기
             fav_food.appendChild(ffood);
@@ -99,11 +100,12 @@ function deletefood(Ids) {
 
             let ffood = document.createElement('span');
             let brp = document.createElement('br');
-            ffood.innerHTML = ele.food_name+' | '+ele.amount;
+            ffood.innerHTML = ele.food_name+' | '+ele.amount+'인분';
             // 삭제 버튼
             let delfbtn = document.createElement('button');
             delfbtn.innerHTML = 'X';
             delfbtn.setAttribute('type', 'button');
+            delfbtn.setAttribute('id', 'delete_btn')
             delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')");
 
             fav_food.appendChild(ffood);
