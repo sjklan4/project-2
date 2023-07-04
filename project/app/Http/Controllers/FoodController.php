@@ -161,13 +161,13 @@ class FoodController extends Controller
         $foods = FoodInfo::where('user_id', $user_id)
         ->get();
         
-        foreach ($foods as $val) {
-            if ($val->food_name === $req->foodName) {
-                return back()
-                    ->withErrors(['foodName' => '이미 등록된 이름입니다.'])
-                    ->withInput();
-            }
-        }
+        // foreach ($foods as $val) {
+        //     if ($val->food_name === $req->foodName) {
+        //         return back()
+        //             ->withErrors(['foodName' => '이미 등록된 이름입니다.'])
+        //             ->withInput();
+        //     }
+        // }
 
         // todo 수정 된 정보만 수정
 
