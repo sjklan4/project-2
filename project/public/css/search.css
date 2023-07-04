@@ -119,6 +119,7 @@ ul{
 #fav_food, .fav_food, #fav_diet, .fav_diet{
     /* padding:1.5em; */
     margin:0;
+    padding:1em;
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: auto;
@@ -152,13 +153,16 @@ ul{
     background-color: transparent;
 }
 /* 선택된 음식/식단 정보 삭제 버튼 */
-.delete_btn{ 
+#delete_btn{ 
+    position:relative;
+    left:520px;
     width:20px;
     height:20px;
-    border: none;
+    border: 1px solid #000;
     border-radius: 50px;
-    background-color: #acacac;
+    background-color: transparent;
     color:#000;
+    font-size: small;
 }
 
 /* hr */
