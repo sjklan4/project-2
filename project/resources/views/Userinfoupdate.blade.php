@@ -29,6 +29,9 @@
                     <td class="info-table"><input type="text" name="user_phone_num" id="user_phone_num" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
                 </tr>
                     <caption><button type = "submit" id="greenBtn">정보수정</button></caption>
+                    @if(session('changemsg'))
+                        {{session('changemsg')}}
+                    @endif
                 </form>
             </table>
         </div>    
