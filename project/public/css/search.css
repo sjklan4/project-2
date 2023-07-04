@@ -118,6 +118,7 @@ ul{
 /* 자주먹는 식단 div */
 #fav_food, .fav_food, #fav_diet, .fav_diet{
     /* padding:1.5em; */
+    position:relative;
     margin:0;
     padding:1em;
     overflow: scroll;
@@ -154,8 +155,8 @@ ul{
 }
 /* 선택된 음식/식단 정보 삭제 버튼 */
 #delete_btn{ 
-    position:relative;
-    left:520px;
+    position:absolute;
+    left:650px;
     width:20px;
     height:20px;
     border: 1px solid #000;
