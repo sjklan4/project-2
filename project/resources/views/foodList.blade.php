@@ -114,7 +114,7 @@
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
                         {{-- <button type="submit">X</button> --}}
-                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$food->food_id.','.$food->cart_id}})">X</button>
+                        <button type="button" id="delete_btn" onclick="deletefood({{Auth::user()->user_id.','.$food->food_id.','.$food->cart_id}})">X</button>
                         <br>
                     </form>
                     @endforeach
@@ -122,7 +122,7 @@
                 <br>
                 <h4>식단</h4>
                 <hr class="select_diet">
-                <div class="fav_diet">
+                <div class="fav_diet" id="fav_diet">
                     @foreach ($seleted_diet as $diet)
                         @csrf
                         <span>{{$diet->fav_name}}</span>

@@ -71,6 +71,9 @@ button{
     width: 400px !important;
     height: 320px !important;
 }
+a.hoverG:hover{
+    color: #195F1C;
+}
 
 /* 날짜 변경 박스 */
 #dateArea{

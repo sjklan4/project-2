@@ -181,7 +181,7 @@ class HomeController extends Controller
             
         //     Alert::error($messages['fav_name.required'],'');
 
-        //     return back()->withErrors($validator)->withInput();
+        //     return back();
         // }
 
 

@@ -99,7 +99,6 @@
                     </td>
                     <td>   
                         <input type="text" name="nkname" id="nkname"  value="{{ $errors->has('nkname') ? '' : old('nkname', isset($data) ? $data->nkname : '') }}" required>
-
                     </td>    
                 </tr>
                 <tr>

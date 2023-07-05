@@ -9,7 +9,6 @@ const nknamechk = document.getElementById('nkname');
 
 userEmailField.addEventListener('input', function() {
 
-
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
             chdeckEmail.disabled = true;
@@ -48,7 +47,6 @@ userEmailField.addEventListener('input', function() {
         nknamechk.addEventListener('change', function(){
             const nk = document.getElementById('nkname');
             const url = "/api/user/usernkchk/" + nk.value;
-    
             fetch(url)
             .then(data => {
                 if (!data.status) {
@@ -70,7 +68,6 @@ userEmailField.addEventListener('input', function() {
     }
 });
 
-   
 
 
 

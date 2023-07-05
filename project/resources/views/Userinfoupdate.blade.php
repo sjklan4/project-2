@@ -20,13 +20,18 @@
                 </tr>
                 <tr>
                     <th class="info-table"><label for="nkname">닉네임  </label></th>
-                    <td class="info-table"><input type="text" name="nkname" id="nkname" value= "{{old('nkname') !== null ? old('nkname') : $data->nkname}}"></td>
+                    <td class="info-table"><input type="text" name="nkname" id="nkname" value= "{{old('nkname') !== null ? old('nkname') : $data->nkname}}">
+                        <span id="nkRegexm"></span>
+                    </td>
                 </tr>
                 <tr>
                     <th class="info-table"><label for="user_phone_num">전화번호  </label></th>
                     <td class="info-table"><input type="text" name="user_phone_num" id="user_phone_num" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
                 </tr>
                     <caption><button type = "submit" id="greenBtn">정보수정</button></caption>
+                    @if(session('changemsg'))
+                        {{session('changemsg')}}
+                    @endif
                 </form>
             </table>
         </div>    

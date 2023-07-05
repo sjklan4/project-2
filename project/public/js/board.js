@@ -33,10 +33,8 @@ function likeUp() {
     .then(apiData  => {
         let likeUpDown = document.querySelector('.likeUpDown');
         if (apiData["errorcode"] === "0") {
-            console.log('좋아요업');
             likeUpDown.id = 'greenBtn';
         } else if (apiData["errorcode"] === "1") {
-            console.log('좋아요다운');
             likeUpDown.removeAttribute( 'id' );
         }
         let likes = document.getElementById('likes');
@@ -67,11 +65,11 @@ function boardFormChk() {
         return false
     }
 
-    if(!boardContentChk(boardContent.value)) {
-        alert("4000자 이하로 입력해주세요.");
-        boardContent.focus();
-        return false
-    }
+    // if(!boardContentChk(boardContent.value)) {
+    //     alert("4000자 이하로 입력해주세요.");
+    //     boardContent.focus();
+    //     return false
+    // }
     
     if(img) {
         if(!imgExtensionChk(img)) {

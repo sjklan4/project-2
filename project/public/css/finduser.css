@@ -98,6 +98,8 @@ button:hover {
 
 
 input{
+    font-size: x-large;
+    margin-left: 20px;
     margin-bottom: 20px;
     width: 20vw;
     height: 40px;

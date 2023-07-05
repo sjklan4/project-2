@@ -102,3 +102,19 @@ function formatDate(date){
     return year + '-' + month + '-' + day;
 }
 
+// throttle
+// const favInsertBtn = document.querySelectorAll('.favInsertBtn')[0];
+
+// throttle(favInsertBtn);
+
+// function throttle(btn){
+//     let timer;
+//     btn.addEventListener('click',function(){
+//         if (!timer) {
+//             timer = setTimeout(function(){
+//                 timer = null;
+//             },1500);
+//             console.log('1');
+//         }
+//     });
+// }
