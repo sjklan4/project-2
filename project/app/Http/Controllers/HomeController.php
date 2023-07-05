@@ -166,23 +166,23 @@ class HomeController extends Controller
         $d_flg = $req->input('d_flg');
 
         // 유효성 검사
-        $rules = [
-            'date'      => 'required'
-            ,'d_flg'    => 'required'
-            ,'fav_name' => 'required|max:10'
-        ];
-        $messages = [
-            'fav_name.required'     => '10자 까지 입력 가능합니다.'
-        ];
+        // $rules = [
+        //     'date'      => 'required'
+        //     ,'d_flg'    => 'required'
+        //     ,'fav_name' => 'required|max:10'
+        // ];
+        // $messages = [
+        //     'fav_name.required'     => '10자 까지 입력 가능합니다.'
+        // ];
 
-        $validator = Validator::make($req->only('date','d_flg','fav_name'),$rules, $messages);
+        // $validator = Validator::make($req->only('date','d_flg','fav_name'),$rules, $messages);
 
-        if($validator->fails()){
+        // if($validator->fails()){
             
-            Alert::error($messages['fav_name.required'],'');
+        //     Alert::error($messages['fav_name.required'],'');
 
-            return back()->withErrors($validator)->withInput();
-        }
+        //     return back()->withErrors($validator)->withInput();
+        // }
 
 
         $dietFood = DietFood::join('diets','diet_food.d_id','=','diets.d_id')
