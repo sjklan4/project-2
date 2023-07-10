@@ -44,6 +44,17 @@ class ApiUserController extends Controller
         return $arrData;
     }
 
+    public function chdeckphone($user_phone_num){
+        $arrData = [ "flg" => "0"];
+
+        $userphon = UserInfo::where('user_phone_num', $user_phone_num)->first();
+
+        if($userphon !== null){
+            $arrData["flg"] = "1";
+            $arrData["msg"] = "사용중인 전화번호 입니다.";
+        }
+        return $arrData;
+    }
 
 
 

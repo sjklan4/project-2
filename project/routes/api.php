@@ -61,6 +61,7 @@ use App\Http\Controllers\ApiUserController;
 
 Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
 Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'chdecknkname']);
+Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'chdeckphone']);
 Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
 
 

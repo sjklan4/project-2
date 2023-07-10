@@ -36,7 +36,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3"><span id="emailRegexm"></span></td>
+                    <td colspan="3">
+                        <span id="emailRegexm"></span>
+                        <span id="okemail"></span>
+                    </td>
                     <td></td>
                     <td></td>
                 </tr>    
@@ -125,8 +128,7 @@
                             <label for="user_phone_num">전화번호</label>
                     </td>
                     <td>   
-                            <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required>
-                    
+                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required>
                     </td>      
                 </tr>
                 <tr>
@@ -134,6 +136,7 @@
                         @error('user_phone_num')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                        <span id="phRegexm"></span>
                     </td> 
                     <td></td>
                     <td></td>

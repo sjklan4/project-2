@@ -2,10 +2,9 @@
 const userEmailField = document.getElementById('user_email');
 const emailRegexm = document.getElementById('emailRegexm');
 const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
-
 const chdeckEmailbutton = document.getElementById('chdeckEmail');
 const nknamechk = document.getElementById('nkname');
-
+const userphonechk = document.getElementById('user_phone_num');
 
 userEmailField.addEventListener('input', function() {
 
@@ -20,9 +19,8 @@ userEmailField.addEventListener('input', function() {
             signupButton.disabled = true;
         }
         else{
-        
+        emailRegexm.innerHTML ='';
         chdeckEmailbutton.addEventListener('click',function(){
-            
             const id = document.getElementById('user_email');
             const url = "/api/user/useremailedt/" + id.value; //빈값의 경우 처리 과정 추가
 
@@ -34,11 +32,13 @@ userEmailField.addEventListener('input', function() {
                 return data.json();
             })
             .then(apiData  => {
-                const idspan = document.getElementById('emailRegexm');
+                const idspan = document.getElementById('okemail');
                     if(apiData["flg"] === "1") {
                         idspan.innerHTML = apiData["msg"];
+                        idspan.style.color = 'red'
                     } else {
                         idspan.innerHTML = "사용가능한 Email입니다. "
+                        idspan.style.color = 'blue'
                         signupButton.disabled = false;
                     }
             });
@@ -58,9 +58,35 @@ userEmailField.addEventListener('input', function() {
                 const idspan = document.getElementById('nkRegexm');
                     if(apiData["flg"] === "1") {
                         idspan.innerHTML = apiData["msg"];
+                        idspan.style.color = 'red'
                         signupButton.disabled = true;
                     } else {
                         idspan.innerHTML = "사용가능한 닉네임 입니다. "
+                        idspan.style.color = 'blue'
+                        signupButton.disabled = false;
+                    }
+            });
+        });
+
+        userphonechk.addEventListener('change', function(){
+            const ph = document.getElementById('user_phone_num');
+            const url = "/api/user/userphchk/" + ph.value;
+            fetch(url)
+            .then(data => {
+                if (!data.status) {
+                    throw new Error(data.status + ' : API Response Error' );
+                }
+                return data.json();
+            })
+            .then(apiData  => {
+                const idspan = document.getElementById('phRegexm');
+                    if(apiData["flg"] === "1") {
+                        idspan.innerHTML = apiData["msg"];
+                        idspan.style.color = 'red'
+                        signupButton.disabled = true;
+                    } else {
+                        idspan.innerHTML = "사용가능한 전화번호 입니다. "
+                        idspan.style.color = "blue"
                         signupButton.disabled = false;
                     }
             });
