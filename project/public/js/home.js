@@ -118,3 +118,10 @@ function formatDate(date){
 //         }
 //     });
 // }
+
+
+const editchk = document.getElementById('editBtn');
+    editchk.addEventListener(onclick, function(){
+        confirm("섭취량을 변경하시겠습니까?");
+
+    });
