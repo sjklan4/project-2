@@ -16,7 +16,7 @@ use App\Models\Board;
 
 class ApiBoardController extends Controller
 {
-    public function likeUp(Request $req) {
+    public function likeUpDown(Request $req) {
         $arr = [
             'errorcode' => '0'
             ,'msg'      => ''
