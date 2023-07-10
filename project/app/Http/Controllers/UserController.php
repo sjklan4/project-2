@@ -73,58 +73,104 @@ class UserController extends Controller
         
     }
 
-    //회원가입 화면 이동
+    // 회원가입 화면 이동
     public function regist(){
         return view('regist');
     }
 
 
 
-
     // 회원 가입 부분
     public function registpost(Request $req){
 
-        $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
-            ,'password' => 'same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/' //영문대소, 특수문자, 숫자포함 8자리 이상 30자리까지 허용
-            ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20' //email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
-            ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        // 유효성 검사
+        $rules = [
+            // 영문대소, 한글만 허용, 최소 2자 최대 30자 까지
+            'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
+
+            // 영문대소, 특수문자, 숫자포함 8자리 이상 30자리까지 허용
+            ,'password' => 'required|same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+
+            // email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
+            ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20'
+
+            // 영문대소문자, 한글, 숫자로 최소1자 최대20자
+            ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
             ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
+            ,'user_id'    => 'required|regex:/^[0-9]+$'
+            ,'user_gen'   => 'required|regex:/^[01]{0,1}$'
             ];
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
-                'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-                'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
-                'user_email' => 'email형식에 맞춰주세요',
-                'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-                'user_phone_num' => '연락처를 확인해주세요',
-            ]);
+        $messages = [
+            'user_name.required'    => '이름은 필수 입력 사항입니다.',
+            'user_name.regex'       => '한글과 영문만 허용합니다.',
+            'user_name.max'         => ':max자까지 입력 가능합니다.',
+            'user_name.min'         => ':min자 이상 입력 가능합니다.',
+            'password.same'         => '비밀번호 확인과 일치하지 않습니다.',
+            'password.required'     => '비밀번호는 필수 입력 사항입니다.',
+            'password.regex'        => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
+            'user_email'            => 'email형식에 맞춰주세요.',
+            'user_email.unique'     => '이미 사용중인 email 입니다.',
+            'nkname.required'       => '닉네임은 필수 입력 사항입니다.',
+            'nkname.unique'         => '이미 사용중인 닉네임 입니다.',
+            'nkname.regex'          => '영문 대소문자, 한글, 숫자로 구성하여 입력해주세요.',
+            'nkname.max'            => ':max자까지 입력 가능합니다.',
+            'user_phone_num.required'=> '전화번호는 필수입력사항 입니다.',
+            'user_phone_num.unique'  => '입력하신 연락처로 가입한 이메일이 존재합니다.',
+            'user_phone_num.regex'  => '전화번호 형식에 맞추어 입력해주세요.'
+        ];
+
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,$messages);
+
+        // $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
+        //         'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+        //         'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
+        //         'user_email' => 'email형식에 맞춰주세요',
+        //         'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+        //         'user_phone_num' => '입력하신 연락처로 가입한 이메일이 존재합니다.',
+        //     ]);
 
         if ($validate->fails()) {
-            $errors = $validate->errors();
-            return redirect()->back()->withErrors($errors)->withInput();
+            // $errors = $validate->errors();
+            return redirect()->back()->withErrors($validate)->withInput();
         }
 
-            $data = [
-                'user_email' => $req->user_email
-                ,'user_name' => $req->user_name
-                ,'password' => Hash::make($req->password)
-                ,'nkname' => $req->nkname
-                ,'user_phone_num' => $req->user_phone_num
-                ,'created_at' => now()
-            ];
+        $data = [
+            'user_email' => $req->user_email
+            ,'user_name' => $req->user_name
+            ,'password' => Hash::make($req->password)
+            ,'nkname' => $req->nkname
+            ,'user_phone_num' => $req->user_phone_num
+            ,'created_at' => now()
+        ];
         
-        $userid = DB::table('user_infos')->insertGetId($data); //user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
+        //user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
+        // todo 트랜잭션
+        $user_id = DB::table('user_infos')->insertGetId($data,'user_id');
+
+        if($user_id < 0 || $user_id > 1){
+            $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
+            return redirect()->route('user.regist')->with('error', $error);
+        }
     
         $data1 = [
             'user_birth' => $req->user_birth
             ,'user_gen' => $req->gender
-            ,'user_id'  =>  $userid   //insertGetId를 통해서 가져온 ID를 지정해서 일자와, 성별을 넣을 수 있다.
+            ,'user_id'  =>  $user_id
         ];
         
-        KcalInfo::create($data1);
+        // insert
+        $kcalInfo = KcalInfo::create($data1);
+
+        // $kcalInfo = false; // 에러 확인용
+
+        if(!$kcalInfo){
+            $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
+            return redirect()->route('user.regist')->with('error', $error);
+        }
         
-        return view('login');
-        
+        // return view('login');
+        return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
     }
 
     //유저 기존데이터 출력

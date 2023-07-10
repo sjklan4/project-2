@@ -16,8 +16,6 @@
     <div class="finduserpage">
         <div class="find-insert">
             <div class="insert-info">
-             
-                
             </div> 
 
             <div class="info-list">
@@ -29,7 +27,6 @@
                         <div class="write-input">
                             <label for="user_name">회원이름  </label>
                             <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
-                       
                         </div>
                             @error('user_name') 
                                 <div class="text-danger">{{ $message }}</div>

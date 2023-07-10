@@ -10,18 +10,17 @@
 @section('contents')
 
 <div class="regist-body">
-    <a href="{{route('user.login')}}">
-        <div class="intro_login">
+    <div class="intro_login d-none d-lg-block">
+        <a href="{{route('user.login')}}">
             <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
             <br>
-        </div>
-    </a>
+        </a>
+    </div>
     <div class = "registpage">
         <form action="{{route('user.registpost')}}" method="post">
                     @csrf
-        <div class = "margin"></div>
         <div class="registinfo">
-            <h1>WELCOME!</h1>
+            <h1 class="mt-5">WELCOME!</h1>
             <h1>PLEASE REGIST!</h1>
             <table>
                 <tr>
@@ -32,13 +31,16 @@
                         <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요" autocomplete="off" required>
                     </td>
                     <td>
-                        <button type="button" id="chdeckEmail" class = "greenBtn" disabled>중복체크</button>
+                        <button type="button" id="chdeckEmail" class = "greenBtn ms-1 ms-sm-4" disabled>중복체크</button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <span id="emailRegexm"></span>
+                        <span id="emailRegexm">인증을 진행할 이메일로 입력해주세요.</span>
                         <span id="okemail"></span>
+                        @error('user_email')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </td>
                     <td></td>
                     <td></td>
@@ -52,7 +54,8 @@
                     </td>    
                 </tr>
                 <tr>
-                    <td colspan="3"> @error('user_name')
+                    <td colspan="3">
+                        @error('user_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
@@ -128,7 +131,7 @@
                             <label for="user_phone_num">전화번호</label>
                     </td>
                     <td>   
-                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required>
+                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                     </td>      
                 </tr>
                 <tr>
@@ -143,13 +146,14 @@
 
                 </tr>     
                 <tr>
-                
                     <td class="write_name">    
                             <label for="gender">성별</label>
                     </td>
                     <td>   
-                        <input type="radio" name="gender" id="gender" value="0" > 남자 <img src="{{ asset('img/manmark.png') }}" class="gen" required>
-                        <input type="radio" name="gender" id="gender" value="1"> 여자 <img src="{{asset('img/womanmark.png')}}"  class="gen" required>
+                        <input type="radio" name="gender" id="gender" value="0" > 남자
+                        {{-- <img src="{{ asset('img/manmark.png') }}" class="gen" required> --}}
+                        <input type="radio" name="gender" id="gender" value="1" class="ms-5"> 여자
+                        {{-- <img src="{{asset('img/womanmark.png')}}"  class="gen" required> --}}
                     </td>
                 </tr>
             
