@@ -25,7 +25,6 @@ Route::get('/', function () {
 // ---------------------------------------------
 use App\Http\Controllers\BoardController;
 Route::resource('/board', BoardController::class);
-Route::get('/board/{board}/like', [BoardController::class, 'like'])->name('board.like');
 
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');

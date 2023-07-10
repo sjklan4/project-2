@@ -222,9 +222,16 @@ class BoardController extends Controller
             return redirect()->route('user.login');
         }
 
+        $user_id = Auth::user()->user_id;
+
         $board = Board::find($id);
         $bcate = BoardCate::orderBy('bcate_id')->get();
         
+        // 사용자 id가 다른 글 수정 방지
+        if ($board->user_id !== $user_id) {
+            return redirect()->back();
+        }
+
         return view('boardEdit')->with('data', $board)->with('cate', $bcate);
     }
 

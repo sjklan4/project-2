@@ -5,8 +5,8 @@ function resetImg() {
 }
 
 // 좋아요 증가/감소
-function likeUp() {
-    const url = "/api/board/likeup";
+function likeUpDown() {
+    const url = "/api/board/likeupdown";
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const request = new Request(url, {
         headers: {

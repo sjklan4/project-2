@@ -27,8 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ---------------------------------------------
 use App\Http\Controllers\ApiBoardController;
 
-Route::put('/board/likeup', [ApiBoardController::class, 'likeUp']);
-Route::put('/board/likedown', [ApiBoardController::class, 'likeDown']);
+Route::put('/board/likeupdown', [ApiBoardController::class, 'likeUpDown']);
 
 // ---------------------------------------------
 // 섹션명       : 음식(Food)
