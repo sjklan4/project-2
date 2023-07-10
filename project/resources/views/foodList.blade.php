@@ -57,8 +57,8 @@
                     <span>지방 : {{$item->fat}}, </span>
                     <span>당 : {{$item->sugar}}, </span>
                     <span>나트륨 : {{$item->sodium}}</span>
+                    <hr class="search_hr">
                 </div>
-                <hr class="search_hr">
             @endforeach
         </div>
         @else
