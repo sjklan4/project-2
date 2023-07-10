@@ -56,10 +56,6 @@ class ApiUserController extends Controller
         return $arrData;
     }
 
-
-
-
-
     public function chdeckpassword(Request $req){
         $arr = [
             'errorcode' => '0'

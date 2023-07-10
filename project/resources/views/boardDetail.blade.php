@@ -28,7 +28,7 @@
                         id="greenBtn"
                     @endif
                         type="button"
-                        onclick="likeUp()"
+                        onclick="likeUpDown()"
                         >좋아요 <span id="likes">{{$data['like']}}</span>
                     </button>
                 </div>

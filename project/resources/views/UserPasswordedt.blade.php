@@ -4,7 +4,7 @@
 
 @section('passwordcontents')
 
-        <form action="{{ route('user.userpseditpost') }}" method="post">
+        <form action="{{ route('user.userpseditpost') }}" method="post" id="pwForm">
             @csrf
     <div class="shadowYellow">
         <div>
@@ -28,7 +28,9 @@
                     <th class="passth"  colspan="2"><label for="newpasswordchk">새 비밀번호 확인  </label></th>
                     <td><input type="password" name="newpasswordchk" id="newpasswordchk"></td>
                 </tr>
-                <caption class="pscap"><button type = "submit" id="passwordchg" class="greenBtn">변경</button></caption>
+                <caption class="pscap">
+                    <button type = "button" id="passwordchg" class="greenBtn" onclick="chkpass();">변경</button>
+                </caption>
             </table>
             <div class="changemsg">
                 @if(session('error_chk'))

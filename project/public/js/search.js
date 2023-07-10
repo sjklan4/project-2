@@ -23,8 +23,7 @@ const fav_diet = document.getElementById('fav_diet');
 function getFoodValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="usercheck"]:checked';
-    const selectedEls = 
-        document.querySelectorAll(query);
+    const selectedEls = document.querySelectorAll(query);
     const query2 = 'input[name="userving"]'
     const selectedInp = document.querySelectorAll(query2);
     
@@ -44,12 +43,9 @@ function getFoodValue(userId)  {
         amount = 1;
     }
 
-    // if(amount !== 0.5){
-    //     return false;
-    // }
+    // console.log(result);
+    // console.log(amount);
 
-    console.log(result);
-    console.log(amount);
 
     fetch(`/api/cart/${userId}/${result}/${amount}`, {
         method: "post"
@@ -62,6 +58,7 @@ function getFoodValue(userId)  {
             console.log(ele.amount);
             console.log(ele.cart_id);
 
+            // 선택된 음식 탭에 추가
             let ffood = document.createElement('span')
             let brp = document.createElement('br')
             ffood.innerHTML = ele.food_name+' | '+ele.amount+'인분';
