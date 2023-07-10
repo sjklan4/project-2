@@ -261,6 +261,8 @@ class UserController extends Controller
 
     public function userpseditpost(Request $req){ // 변경 비밀번호를 업데이트 하기위한 구문
     
+        // todo 유효성검사
+
         $user_id = Auth::user()->user_id; //로그인된(인증된유저의 user_id(id)를 받아오는 부분) - 로그인된 유저의 pk를 참조해서 데이터를 전부 가져옴
 
         $basepassword = UserInfo::where('user_id', $user_id)->first();// 기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
