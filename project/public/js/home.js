@@ -118,3 +118,21 @@ function formatDate(date){
 //         }
 //     });
 // }
+
+
+const editchk = document.getElementById('editBtn');
+    editchk.addEventListener('click', function(){
+        confirm("섭취량을 변경하시겠습니까?");
+
+    });
+
+    // const editchk = document.getElementById('editBtn');
+    // editchk.addEventListener('click', function(event) {
+    //     event.preventDefault(); // Prevent the form from submitting immediately.
+    
+    //     const confirmation = confirm("Are you sure you want to change your intake?");
+    //     if (confirmation) {
+    //         // If the user clicks "OK", submit the form.
+    //         this.closest('form').submit();
+    //     }
+    // });

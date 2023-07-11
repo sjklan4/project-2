@@ -1,37 +1,29 @@
+/* 공통 */
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    color: #195F1C;
+
+}
 .regist-body{
     width: 100vw;
+    height: 100vh;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(490px, 1fr));
-    height: 100vh;
 }
 
-@media ( min-width : 768px) {
-    .intro_login{
-        width: 0vw;
-    }
+/* 왼쪽 영역 */
+.intro_login{
+    height: 100%;
 }
-
-@media ( min-width : 992px) {
-    .intro_login{
-        width: 40vw;
-    }
-}
-@media ( min-width : 1200px) {
-    .intro_login{
-        width: 50vw;
-    }
-}
-.margin{
-    margin-top: 115px;
-}
-.intro_login > img{
+.intro_login img{
     width: 150px;
     height: 50px;
 }
 
-
 .intro_login{
-    height: 100vh;
     border-radius: 3px;
     box-shadow: 2px 2px 8px 2px #999;
     font-size: 50px;
@@ -41,40 +33,21 @@
     background-position: -212px 409px;
 }
 
-
+/* 오른쪽 영역 */
 .registpage{
     background-color: rgba(255, 255, 240, 1);
-    height: 100vh;
     border-radius: 3px;
     box-shadow:  2px 2px 15px 2px #999;
-   
-
 }
 
 .registinfo{
-
     width: auto;
     margin: 0 auto;
     text-align: center;
-    
 }
-
-.p-tag{
-
-}
-
-p{
-    color: #7c7c7c;
-}
-
-p.first-line{
-    color: #195F1C;
-
-}
-
 
 input{
-    width: 300px;
+    width: 280px;
     height: 40px;
     background-color: rgba(255, 255, 240, 1);
     border-top: none;
@@ -82,9 +55,6 @@ input{
     border-right: none;
     border-bottom: 3px solid rgba(25, 95, 28, 1);
     outline: none;
-}
-
-label{
 }
 
 [type="radio"]{
@@ -112,6 +82,7 @@ label{
 }
 .write_name{
     width: 108px;
+    height: 40px;
 }
 
 button{
@@ -150,26 +121,12 @@ button:hover {
     background-color: #195F1C;
 }
 
-@-webkit-keyframes shiny-btn1 {
+/* @-webkit-keyframes shiny-btn1 {
     0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
     80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
     81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
     100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
-}
-
-a{
-    color: black;
-    text-decoration: none;
-}
-a:hover{
-    color: #195F1C;
-
-}
-
-
-h1{
-
-}
+} */
 
 .genman{
     padding-left: 5px;

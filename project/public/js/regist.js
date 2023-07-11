@@ -1,13 +1,19 @@
 // const isEmailChecked = false;
-const userEmailField = document.getElementById('user_email');
 const emailRegexm = document.getElementById('emailRegexm');
-const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])"); //RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
+
+// RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
+const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+
+// 중복 확인 버튼
 const chdeckEmailbutton = document.getElementById('chdeckEmail');
-const nknamechk = document.getElementById('nkname');
-const userphonechk = document.getElementById('user_phone_num');
+
+// 이메일 input
+const userEmailField = document.getElementById('user_email');
+// 닉네임 input
+const nkname = document.getElementById('nkname');
+const userphone = document.getElementById('user_phone_num');
 
 userEmailField.addEventListener('input', function() {
-
         if (userEmailField.value.trim()==="") {
             emailRegexm.innerHTML = '이메일을 입력해 주세요(공백없이 입력해주세요)';
             chdeckEmail.disabled = true;
@@ -44,7 +50,7 @@ userEmailField.addEventListener('input', function() {
             });
         });
 
-        nknamechk.addEventListener('change', function(){
+        nknamechk.addEventListener('input', function(){
             const nk = document.getElementById('nkname');
             const url = "/api/user/usernkchk/" + nk.value;
             fetch(url)
@@ -68,7 +74,7 @@ userEmailField.addEventListener('input', function() {
             });
         });
 
-        userphonechk.addEventListener('change', function(){
+        userphonechk.addEventListener('input', function(){
             const ph = document.getElementById('user_phone_num');
             const url = "/api/user/userphchk/" + ph.value;
             fetch(url)

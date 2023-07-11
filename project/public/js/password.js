@@ -1,12 +1,13 @@
 function chkpass(){
     const url = "/api/user/userpsedt";
+    const pwForm = document.getElementById('pwForm');
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const request = new Request(url, {
         headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json, text-plain, */*",
-            "X-Requested-With": "XMLHttpRequest",
             "X-CSRF-TOKEN": token
+            // "Accept": "application/json, text-plain, */*",
+            // "X-Requested-With": "XMLHttpRequest",
             },
         method: 'POST',
         credentials: "same-origin",
@@ -26,7 +27,7 @@ function chkpass(){
     .then(data  => {
         const idspan = document.getElementById('passworderror');
         if (data["errorcode"] === "0") {
-            idspan.innerHTML = '비밀번호 확인 완료';
+            pwForm.submit();
             // document.getElementById('passwordchg').disabled = false;
         } else {
             idspan.innerHTML = '비밀번호 불일치';
