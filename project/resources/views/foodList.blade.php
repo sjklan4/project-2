@@ -47,7 +47,8 @@
                     <br>
                     <span>인분 수 : </span>
                     <input type="number" name="userving" id="userving" min="0.5" step="0.5" max="100">
-                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue({{Auth::user()->user_id}})'>
+                    <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='test(event)'>
+                    {{-- <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue({{Auth::user()->user_id}})'> --}}
                     <br>
                     <strong>영양성분</strong>
                     <span> > </span>

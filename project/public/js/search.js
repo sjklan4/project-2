@@ -20,6 +20,20 @@ const fav_diet = document.getElementById('fav_diet');
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
+function test(event) {
+    let result1 = '';
+    let result2 = '';
+    if(event.target.checked)  {
+        result1 = event.target;
+        result2 = result1.parentNode.childNodes[7].value;
+    }else {
+        result1 = '';
+    }
+
+    console.log(result1);
+    console.log(result2);
+}
+
 function getFoodValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="usercheck"]:checked';
@@ -42,10 +56,6 @@ function getFoodValue(userId)  {
     if (amount == 0.0) {
         amount = 1;
     }
-
-    // console.log(result);
-    // console.log(amount);
-
 
     fetch(`/api/cart/${userId}/${result}/${amount}`, {
         method: "post"
