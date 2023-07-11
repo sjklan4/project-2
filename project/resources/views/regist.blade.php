@@ -28,16 +28,16 @@
                         <label for="user_email">이메일</label>
                     </td>
                     <td>        
-                        <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="이메일을 입력해주세요" autocomplete="off" required>
+                        <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
                     </td>
                     <td>
-                        <button type="button" id="chdeckEmail" class = "greenBtn ms-1 ms-sm-4" disabled>중복체크</button>
+                        {{-- <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" disabled>중복체크</button> --}}
+                        <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <span id="emailRegexm">인증을 진행할 이메일로 입력해주세요.</span>
-                        <span id="okemail"></span>
+                        <span id="mailMsg"></span>
                         @error('user_email')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -68,7 +68,7 @@
                         <label for="password">비밀번호</label>
                     </td>
                     <td>   
-                        <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}" required>
+                        <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}" required oninput="pwCheck();">
                     </td>
                 </tr>
                 <tr>
@@ -81,16 +81,16 @@
                     <td></td>
                 </tr> 
                 <tr> 
-                
                     <td class="write_name">
                         <label for="passwordchk">비밀번호 확인</label>
                     </td>
                     <td>   
-                        <input type="password" name="passwordchk" id="passwordchk" value="{{ $errors->has('passwordchk') ? '' : old('passwordchk', isset($data) ? $data->passwordchk : '') }}" required>
+                        <input type="password" name="passwordchk" id="passwordchk" value="{{ $errors->has('passwordchk') ? '' : old('passwordchk', isset($data) ? $data->passwordchk : '') }}" required oninput="pwCheck();">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">   
+                    <td colspan="3">
+                        <span id="pwMsg"></span>   
                         @error('passwordchk')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -108,7 +108,7 @@
                     </td>    
                 </tr>
                 <tr>
-                    <td colspan="3">   
+                    <td colspan="3">
                         @error('nkname')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -118,7 +118,7 @@
                     <td></td>
                 </tr>     
                 <tr>
-                    <td class="write_name">        
+                    <td class="write_name">       
                         <div class="user_birth_write">
                         <label for="user_birth">생년월일</label>
                     </td>
