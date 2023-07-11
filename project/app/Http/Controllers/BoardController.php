@@ -41,7 +41,6 @@ class BoardController extends Controller
             ->paginate(10)
             ;
 
-
         return view('boardList')->with('data', $result);
     }
 
@@ -247,7 +246,6 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-        // $size = 5 * 1024 * 1024;
         // 유효성 검사
         $rules = [
             'cate'      => 'required'
@@ -327,54 +325,6 @@ class BoardController extends Controller
         Board::destroy($id);
 
         return redirect()->route('board.index');
-    }
-
-    public function like($id)
-    {
-        if(auth()->guest()) {
-            return redirect()->route('user.login');
-        }
-
-        $user_id = session('user_id');
-
-        // 좋아요 테이블 정보 확인
-        $count = DB::table('board_likes')
-            ->where('user_id', $user_id)
-            ->where('board_id', $id)
-            ->count();
-
-        if ($count === 0) {
-            DB::transaction(function () use ($id, $user_id) {
-                // 좋아요 테이블 인서트
-                DB::table('board_likes')->insert([
-                    'board_id'    => $id
-                    ,'user_id'    => $user_id
-                ]);
-
-                // 게시판 테이블 좋아요 수 증가
-                $board = Board::find($id);
-                DB::table('boards')
-                ->where('board_id', '=', $id)
-                ->update(['likes' => $board->likes + 1]);
-            });
-        } else {
-            DB::transaction(function () use ($id, $user_id) {
-                // 좋아요 테이블 정보 삭제
-                DB::table('board_likes')
-                    ->where('user_id', $user_id)
-                    ->where('board_id', $id)
-                    ->delete();
-
-                // 게시판 테이블 좋아요 수 감소
-                $board = Board::find($id);
-                DB::table('boards')
-                ->where('board_id', '=', $id)
-                // ->update(['likes' => $board->likes - 1]);
-                ->decrement('likes');
-            });
-        }
-
-        return redirect()->route('board.shows', ['board' => $id, 'flg' => '1']);
     }
 
     public function replyPost(Request $req) {
