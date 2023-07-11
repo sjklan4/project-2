@@ -68,7 +68,10 @@ function getFoodValue(event, userId)  {
         })
     });
 
-    fetch(request)
+    fetch(`/api/cart/${userId}/${foodId}/${foodAmout}`, {
+        method: "post"
+    })
+    // fetch(request)
     .then(res => res.json())
     .then( data => { 
         fav_food.replaceChildren()
@@ -88,6 +91,7 @@ function getFoodValue(event, userId)  {
             delfbtn.setAttribute('type', 'button')
             delfbtn.setAttribute('id', 'delete_btn')
             delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
+
             // 삭제 버튼 div에 넣기
             fav_food.appendChild(ffood);
             fav_food.appendChild(delfbtn)
