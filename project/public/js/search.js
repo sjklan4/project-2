@@ -20,20 +20,6 @@ const fav_diet = document.getElementById('fav_diet');
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
-function test(event) {
-    let result1 = '';
-    let result2 = '';
-    if(event.target.checked)  {
-        result1 = event.target;
-        result2 = result1.parentNode.childNodes[7].value;
-    }else {
-        result1 = '';
-    }
-
-    console.log(result1);
-    console.log(result2);
-}
-
 function getFoodValue(event, userId)  {    
     // 선택된 목록에서 value 찾기
     let foodId = '';
@@ -43,30 +29,32 @@ function getFoodValue(event, userId)  {
         let food = event.target;
         foodId = event.target.value;
         foodAmout = parseFloat(food.parentNode.childNodes[7].value);
+        food.parentNode.style.display = "none";
     }
 
     if (isNaN(foodAmout) === true) {
         foodAmout = 1.0;
     }
     
+
     // api 통신
-    const url = "/api/cart";
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const request = new Request(url, {
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json, text-plain, */*",
-            "X-Requested-With": "XMLHttpRequest",
-            "X-CSRF-TOKEN": token
-            },
-        method: 'POST',
-        credentials: "same-origin",
-        body: JSON.stringify({
-            value1: userId,
-            value2: foodId,
-            value3: foodAmout
-        })
-    });
+    // const url = "/api/cart";
+    // const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    // const request = new Request(url, {
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Accept": "application/json, text-plain, */*",
+    //         "X-Requested-With": "XMLHttpRequest",
+    //         "X-CSRF-TOKEN": token
+    //         },
+    //     method: 'POST',
+    //     credentials: "same-origin",
+    //     body: JSON.stringify({
+    //         value1: userId,
+    //         value2: foodId,
+    //         value3: foodAmout
+    //     })
+    // });
 
     fetch(`/api/cart/${userId}/${foodId}/${foodAmout}`, {
         method: "post"
@@ -74,7 +62,7 @@ function getFoodValue(event, userId)  {
     // fetch(request)
     .then(res => res.json())
     .then( data => { 
-        fav_food.replaceChildren()
+        fav_food.replaceChildren();
         data.forEach(ele => {
             console.log(ele.food_name);
             console.log(ele.amount);
@@ -96,8 +84,10 @@ function getFoodValue(event, userId)  {
             fav_food.appendChild(ffood);
             fav_food.appendChild(delfbtn)
             fav_food.appendChild(brp);
-        }
-    )})
+        })
+    })
+
+    
 }
 
 // 선택 음식 삭제 함수

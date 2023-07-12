@@ -37,6 +37,7 @@ class SearchController extends Controller
         ->whereNull('deleted_at')
         ->get();
 
+        // * 저장된 식단에 포함된 개별 음식
         $dietfoods = DB::table('food_infos')
         ->select('fav_diet_food.fav_id', 'fav_diet_food.fav_f_intake', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
         ->join('fav_diet_food', 'food_infos.food_id', '=', 'fav_diet_food.food_id')
@@ -51,6 +52,7 @@ class SearchController extends Controller
         ->where('food_carts.user_id', $id)
         ->get();
 
+        // * 선택된 식단
         $seleted_diet = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
         ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
@@ -62,29 +64,39 @@ class SearchController extends Controller
             'time' => $req->time
         ];
 
-        session([
-            'date' => $req->date,
-            'time' => $req->time
-        ]);
-
-        // 검색 정보
+        // session([
+        //     'date' => $req->date,
+        //     'time' => $req->time
+        // ]);
+        // var_dump($seleted);
+        // exit;
+        
+        // * 음식 검색 결과
         if(!empty($usersearch)){
             $foods = DB::table('food_infos')
-            ->select('food_id', 'user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium')
+            ->select('food_infos.food_id', 'food_infos.user_id', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
+            ->leftJoin('food_carts', function($join) {
+                $join->on('food_infos.food_id', 'food_carts.food_id');
+            })
+            ->whereNull('food_carts.food_id')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where(function($query) use($id){
-                $query->where('user_id', $id)
-                ->orWhere('user_id', 0);
+                $query->where('food_infos.user_id', $id)
+                ->orWhere('food_infos.user_id', 0);
             })
-            ->whereNull('deleted_at')
+            ->whereNull('food_infos.deleted_at')
             ->get();
+
 
             return view('FoodList')
             ->with('foods', $foods)
             ->with('dietname', $dietnames)
             ->with('dietfood', $dietfoods)
+            ->with('seleted', $seleted)
+            ->with('seleted_diet', $seleted_diet)
             ->with('data', $data);
         }
+
         return view('FoodList')
         ->with('dietname', $dietnames)
         ->with('dietfood', $dietfoods)
