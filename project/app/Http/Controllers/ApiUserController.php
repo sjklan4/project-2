@@ -17,46 +17,58 @@ use Illuminate\Support\Facades\Log;
 
 class ApiUserController extends Controller
 {
-    public function chdeckEmail($user_email){
+    public function checkEmail($user_email){
 
-        $arrData = [ "flg" => "0"];
+        $arrData = [
+            "errorcode" => "0"
+            ,"msg"      => ""
+        ];
 
         $user = UserInfo::where('user_email', $user_email)->first();
         
         // 유저 유무 체크
         if($user !== null) {
-            $arrData["flg"] = "1";
-            $arrData["msg"] = "입력하신 Email이 사용중입니다."; 
+            $arrData["errorcode"] = "1";
+            $arrData["msg"] = "사용중인 Email입니다."; 
         }
+        
         // return response()->json($arrData);
         return $arrData;
     }
 
-    public function chdecknkname($nkname){
-        $arrData = [ "flg" => "0"];
+    public function checkNkname($nkname){
 
-        $usernk = UserInfo::where('nkname', $nkname)->first();
+        $arrData = [
+            "errorcode" => "0"
+            ,"msg"      => ""
+        ];
 
-        if($usernk !== null){
-            $arrData["flg"] = "1";
+        $user = UserInfo::where('nkname', $nkname)->first();
+
+        if($user !== null){
+            $arrData["errcode"] = "1";
             $arrData["msg"] = "사용중인 닉네임 입니다.";
         }
         return $arrData;
     }
 
-    public function chdeckphone($user_phone_num){
-        $arrData = [ "flg" => "0"];
+    public function checkPhone($user_phone_num){
 
-        $userphon = UserInfo::where('user_phone_num', $user_phone_num)->first();
+        $arrData = [
+            "errorcode" => "0"
+            ,"msg"      => ""
+        ];
 
-        if($userphon !== null){
-            $arrData["flg"] = "1";
+        $user = UserInfo::where('user_phone_num', $user_phone_num)->first();
+
+        if($user !== null){
+            $arrData["errcode"] = "1";
             $arrData["msg"] = "사용중인 전화번호 입니다.";
         }
         return $arrData;
     }
 
-    public function chdeckpassword(Request $req){
+    public function checkPassword(Request $req){
         $arr = [
             'errorcode' => '0'
             ,'msg'      => ''

@@ -52,17 +52,20 @@ Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate'])->name('apiQu
 // ---------------------------------------------
 // 섹션명       : 회원(User)
 // 기능         : 회원 관리 api 라우트 설정
-// 관리자       : 박상준
-// 생성일       : 2023-06-19
+// 관리자       : 박상준 / 권봉정
+// 생성일       : 2023-06-19 / 2023-07-11 edit
 // ---------------------------------------------
 
 use App\Http\Controllers\ApiUserController;
 
-Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
-Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'chdecknkname']);
-Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'chdeckphone']);
-Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
-
+// Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'chdeckEmail']);
+// Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'chdecknkname']);
+// Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'chdeckphone']);
+// Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
+Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'checkEmail']);
+Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'checkNkname']);
+Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'checkPhone']);
+Route::post('/user/userpsedt', [ApiUserController::class, 'checkPassword']);
 
 // ---------------------------------------------
 // 섹션명       : 카트(Cart)

@@ -124,7 +124,11 @@ class ApiController extends Controller
     public function postFoodCart($user_id, $food_id, $amount) {
         Log::debug("시작");
         
-        Log::debug("식단 획득");
+        $arr = [
+            'errorcode' => '0'
+            ,'msg' => ''
+        ];
+
         $cart = new FoodCart([
             'user_id' => $user_id,
             'food_id' => $food_id,
@@ -132,26 +136,25 @@ class ApiController extends Controller
         ]);
         $cart->save();
 
+        Log::debug("장바구니 입력");
+
+        // 현재 음식 장바구니 정보 획득
         $seleted = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
         ->where('food_carts.user_id', $user_id)
         ->get();
-        
-        $arr = [
-            'error' => '0'
-            ,'msg' => ''
-        ];
 
-        if(!$food_id){
-            $arr['error'] = '1';
-            $arr['msg'] = 'fall';
-        }else{
-            $arr['error'] = '2';
-            $arr['msg'] = 'success';
-            $arr['data'] = $seleted->only('food_id', 'food_name', 'amount', 'cart_id');
-        }
-        // return $arr;
+        Log::debug("값 : ".$user_id );
+        
+        // if(!isset($seleted)){
+        //     $arr['errorcode'] = '1';
+        //     $arr['msg'] = '검색 실패';
+        // }else{
+        //     $arr['msg'] = '검색 성공';
+        //     $arr['data'] = $seleted->only('food_id', 'food_name', 'amount', 'cart_id');
+        // }
+        
         return response()->json($seleted);
     }
 

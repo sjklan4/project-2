@@ -156,7 +156,7 @@ class FoodController extends Controller
             return redirect()->route('user.login');
         }
 
-        //유효성 검사
+        // 유효성 검사
         $rules = [
             'foodName'      => 'required|min:2|max:20|regex:/^[가-힣0-9]+$/'
             ,'serving'      => 'required|integer|min:1|max:1000'
@@ -200,18 +200,6 @@ class FoodController extends Controller
 
         // 유저 id 획득
         $user_id = Auth::user()->user_id;
-
-        // 유저가 같은 이름으로 등록 불가능
-        $foods = FoodInfo::where('user_id', $user_id)
-        ->get();
-        
-        // foreach ($foods as $val) {
-        //     if ($val->food_name === $req->foodName) {
-        //         return back()
-        //             ->withErrors(['foodName' => '이미 등록된 이름입니다.'])
-        //             ->withInput();
-        //     }
-        // }
 
         // todo 수정 된 정보만 수정
 

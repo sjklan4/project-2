@@ -20,36 +20,58 @@ const fav_diet = document.getElementById('fav_diet');
 
 // ---------------------------- 체크박스 및 input ----------------------------
 
-function getFoodValue(userId)  {
-    // 선택된 목록 가져오기
-    const query = 'input[name="usercheck"]:checked';
-    const selectedEls = document.querySelectorAll(query);
-    const query2 = 'input[name="userving"]'
-    const selectedInp = document.querySelectorAll(query2);
-    
-    // 선택된 목록에서 value 찾기
-    let result = '';
-    selectedEls.forEach((el) => {
-        result = el.value;
-    });
-
-    let amount = '';
-    selectedInp.forEach((el2) => {
-        amount = el2.value;
-        parseFloat(amount);
-    });
-
-    if (amount == 0.0) {
-        amount = 1;
+function test(event) {
+    let result1 = '';
+    let result2 = '';
+    if(event.target.checked)  {
+        result1 = event.target;
+        result2 = result1.parentNode.childNodes[7].value;
+    }else {
+        result1 = '';
     }
 
-    // console.log(result);
-    // console.log(amount);
+    console.log(result1);
+    console.log(result2);
+}
 
+function getFoodValue(event, userId)  {    
+    // 선택된 목록에서 value 찾기
+    let foodId = '';
+    let foodAmout = '';
 
-    fetch(`/api/cart/${userId}/${result}/${amount}`, {
+    if(event.target.checked)  {
+        let food = event.target;
+        foodId = event.target.value;
+        foodAmout = parseFloat(food.parentNode.childNodes[7].value);
+    }
+
+    if (isNaN(foodAmout) === true) {
+        foodAmout = 1.0;
+    }
+    
+    // api 통신
+    const url = "/api/cart";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
+            },
+        method: 'POST',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            value1: userId,
+            value2: foodId,
+            value3: foodAmout
+        })
+    });
+
+    fetch(`/api/cart/${userId}/${foodId}/${foodAmout}`, {
         method: "post"
     })
+    // fetch(request)
     .then(res => res.json())
     .then( data => { 
         fav_food.replaceChildren()
@@ -69,13 +91,14 @@ function getFoodValue(userId)  {
             delfbtn.setAttribute('type', 'button')
             delfbtn.setAttribute('id', 'delete_btn')
             delfbtn.setAttribute('onclick', "deletefood('"+ele.user_id+','+ele.food_id+','+ele.cart_id+"')")
+
             // 삭제 버튼 div에 넣기
             fav_food.appendChild(ffood);
             fav_food.appendChild(delfbtn)
             fav_food.appendChild(brp);
         }
     )})
-};
+}
 
 // 선택 음식 삭제 함수
 function deletefood(Ids) {
@@ -108,15 +131,14 @@ function deletefood(Ids) {
             fav_food.appendChild(ffood);
             fav_food.appendChild(delfbtn);
             fav_food.appendChild(brp);
-            }
-        )}
-)}
+        })
+    })
+}
 
 function getDietValue(userId)  {
     // 선택된 목록 가져오기
     const query = 'input[name="userdiet"]:checked';
-    const selectedEls = 
-        document.querySelectorAll(query);
+    const selectedEls = document.querySelectorAll(query);
     
     // 선택된 목록에서 value 찾기
     // let resultdiet = '';
