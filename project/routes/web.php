@@ -148,3 +148,12 @@ Route::post('/home/{df_id}', [HomeController::class, 'homeupdate'])->name('home.
 Route::delete('/home/{df_id}', [HomeController::class, 'homedelete'])->name('home.delete');
 Route::get('/userfav', [HomeController::class, 'favinsert'])->name('fav.insert');
 Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');
+
+// ---------------------------------------------
+// 섹션명       : 추천(Recommend)
+// 기능         : 식단 추천 관련 라우트 설정
+// 관리자       : 채수지
+// 생성일       : 2023-07-12
+// ---------------------------------------------
+use App\Http\Controllers\RecommendController;
+Route::get('/recom', [RecommendController::class, 'pview'])->name('recom.get');

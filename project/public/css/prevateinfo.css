@@ -345,3 +345,10 @@ span.passworderror{
     text-align: center;
     color: #dc3545;
 }
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #195F1C;
+    border-color: #195F1C;
+}
