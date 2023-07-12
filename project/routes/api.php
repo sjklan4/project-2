@@ -78,3 +78,13 @@ Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFo
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
 Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
 Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+
+
+// ---------------------------------------------
+// 섹션명       : 홈(Home)
+// 기능         : 홈 섭취량, 음식수정 Api 라우트 설정
+// 관리자       : 박상준 / 권봉정
+// 생성일       : 2023-07-12 
+// ---------------------------------------------
+
+Route::post('/home/intakeupdate/{df_intake}',[ApiHomeController::class, 'intakeupdate']);

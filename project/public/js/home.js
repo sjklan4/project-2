@@ -131,7 +131,11 @@ function formatDate(date){
             editchk[i].addEventListener('click', function() {
                 const confirmation = confirm("섭취량을 변경하시겠습니까?");
                 if (confirmation) {
-                    this.closest('form').submit();
+                    
+                
                 }
             });
         }
+
+
+   
