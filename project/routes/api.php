@@ -87,4 +87,4 @@ Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class,
 // 생성일       : 2023-07-12 
 // ---------------------------------------------
 
-Route::post('/home/intakeupdate/{df_intake}',[ApiHomeController::class, 'intakeupdate']);
+Route::post('/home/intakeupdate/{id}',[ApiHomeController::class, 'intakeupdate']);

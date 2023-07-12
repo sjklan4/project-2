@@ -25,6 +25,7 @@ class ApiHomeController extends Controller
 
         // Alert::success('수정완료', '');
 
-        return redirect()->route('home.post');
+        return response()->json(['message' => '수정 완료', 'dietfood' => $dietfood]);
     }
+    
 }
