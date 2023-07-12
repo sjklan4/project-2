@@ -131,7 +131,6 @@ function formatDate(date){
 //         if (confirmation) {
 
 //             let df_intake = this.parentElement.querySelector('input[name="df_intake"]').getAttribute('value');
-//             let id = this.dataset.id; 
 //             fetch(`/home/intakeupdate/${id}`, {
 //                 method: 'POST',
 //                 headers: {
@@ -215,3 +214,34 @@ function updateIntake(clickedButton) {
 }
 
 
+function updateIntake() {
+    const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+
+    if (confirmation) {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const intakeValue = document.querySelector('input[name="df_intake"]').value;
+
+        const request = new Request(`/home/intakeupdate/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                'X-CSRF-TOKEN': token
+            },
+            method: 'POST',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                value1: intakeValue
+            })
+        });
+
+        fetch(request)
+        .then(response => {
+            if (!response.status) {
+                throw new Error(response.status + ' : API 응답 오류');
+            }
+            return response.json();
+        })
+        .then(data => console.log(data));
+    }
+}
