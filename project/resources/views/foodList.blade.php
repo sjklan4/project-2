@@ -106,17 +106,13 @@
                 <br>
                 <h4>음식</h4>
                 <hr class="select_food">
-                <div class="fav_food">
+                <div id="fav_food">
                     @foreach ($seleted as $food)
-                    <form action="{{route('food.delete', ['user_id' => Auth::user()->user_id, 'f_id' => $food->food_id, 'c_id' => $food->cart_id])}}" method="post">
-                        @csrf
                         <span>{{$food->food_name}} | {{$food->amount}}</span>
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        {{-- <button type="submit">X</button> --}}
                         <button type="button" id="delete_btn" onclick="deletefood({{Auth::user()->user_id.','.$food->food_id.','.$food->cart_id}})">X</button>
                         <br>
-                    </form>
                     @endforeach
                 </div>
                 <br>
@@ -149,13 +145,8 @@
                 @endif
             <br>
             <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
-            @if(!isset($data))
-                <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
-                ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
-            @else
-                <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
-                ['date' => session('date'), 'time' => session('time')])}}'">입력</button>
-            @endif
+            <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
+            ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
         </div>
     </div>
 </div>
