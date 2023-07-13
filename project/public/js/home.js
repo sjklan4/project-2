@@ -102,22 +102,8 @@ function formatDate(date){
     return year + '-' + month + '-' + day;
 }
 
-// throttle
-// const favInsertBtn = document.querySelectorAll('.favInsertBtn')[0];
+// 섭취량 변경 부분
 
-// throttle(favInsertBtn);
-
-// function throttle(btn){
-//     let timer;
-//     btn.addEventListener('click',function(){
-//         if (!timer) {
-//             timer = setTimeout(function(){
-//                 timer = null;
-//             },1500);
-//             console.log('1');
-//         }
-//     });
-// }
 
 
 // const editchk = document.getElementById('editBtn');
@@ -126,12 +112,136 @@ function formatDate(date){
 
 //     });
 
-    const editchk = document.getElementsByClassName('editBtn');
-        for (let i = 0; i < editchk.length; i++) {
-            editchk[i].addEventListener('click', function() {
-                const confirmation = confirm("섭취량을 변경하시겠습니까?");
-                if (confirmation) {
-                    this.closest('form').submit();
-                }
-            });
-        }
+    // const editchk = document.getElementsByClassName('editBtn');
+    //     for (let i = 0; i < editchk.length; i++) {
+    //         editchk[i].addEventListener('click', function() {
+    //             const confirmation = confirm("섭취량을 변경하시겠습니까?");
+    //             if (confirmation) {
+
+                
+    //             }
+    //         });
+    //     }
+
+// const editchk = document.getElementsByClassName('editBtn');
+// for (let i = 0; i < editchk.length; i++) {
+//     editchk[i].addEventListener('click', function() {
+
+//         const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+//         if (confirmation) {
+
+//             let df_intake = this.parentElement.querySelector('input[name="df_intake"]').getAttribute('value');
+//             fetch(`/home/intakeupdate/${id}`, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-CSRF-TOKEN': df_intake
+//                 },
+//                 body: JSON.stringify({ df_intake: df_intake })
+//             })
+//             .then(response => response.json())
+//             .then(data => console.log(data));
+//         }
+//     });
+// }
+
+
+// function updateIntake() {
+//     const editButtons = document.getElementsByClassName('editBtn');
+
+//     for (let i = 0; i < editButtons.length; i++) {
+//         editButtons[i].addEventListener('click', function() {
+//             const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+            
+//             if (confirmation) {
+//                 // let id = this.dataset.id;
+//                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//                 const request = new Request(`/home/intakeupdate/${id}`, {
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                         'X-CSRF-TOKEN': token
+//                     },
+//                     method: 'POST',
+//                     credentials: "same-origin",
+//                     body: JSON.stringify({ value: document.getElementById('intakval').value })
+//                 });
+
+//                 fetch(request)
+//                 .then(response => {
+//                     if (!response.status) {
+//                         throw new Error(response.status + ' : API 응답 오류');
+//                     }
+//                     return response.json();
+//                 })
+//                 .then(data => console.log(data));
+//             }
+//         });
+//     }
+// }
+// updateIntake();
+
+// function updateIntake(clickedButton) {
+//     const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+
+//     if (confirmation) {
+//         let id = clickedButton.dataset.id;
+//         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+//         // debug here
+//         const closestForm = clickedButton.closest('form');
+//         console.log('Closest form: ', closestForm);
+
+//         const intakeValue = closestForm.querySelector('input[name="df_intake"]').value;
+//         const request = new Request(`/home/intakeupdate/${id}`, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'X-CSRF-TOKEN': token
+//             },
+//             method: 'POST',
+//             credentials: "same-origin",
+//             body: JSON.stringify({ value: intakeValue })
+//         });
+
+//         fetch(request)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(response.status + ' : API 응답 오류');
+//             }
+//             return response.json();
+//         })
+//         .then(data => console.log(data));
+//     }
+// }
+
+
+function updateIntake() {
+    const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+
+    if (confirmation) {
+        const editintake = document.getElementById('editForm');
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        const request = new Request(`/home/intakeupdate/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                'X-CSRF-TOKEN': token
+            },
+            method: 'POST',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                value: document.getElementsByClassName('editBtn').value
+            })
+        });
+
+        fetch(request)
+        .then(response => {
+            if (!response.status) {
+                throw new Error(response.status + ' : API 응답 오류');
+            }
+            return response.json();
+        })
+        .then(data => console.log(data));
+    }
+}

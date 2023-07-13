@@ -18,6 +18,7 @@ nknamechk.addEventListener('change', function(){
         }
         return data.json();
         })
+        
         .then(apiData  => {
         const idspan = document.getElementById('nkRegexm');
                 if(apiData["flg"] === "1") {
