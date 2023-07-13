@@ -341,7 +341,7 @@
                                                 <tbody>                                          
                                                     @forelse($data['dietFood']['dietBrf'] as $val)
                                                         <tr>
-                                                            <form class="editForm" method="POST" style="display:inline-block">
+                                                            <form class="editForm" method="POST" style="display:inline-block" id="editForm">
             
                                                             {{-- <form action="{{route('home.update', ['df_id' => $val->df_id])}}" method="POST" style="display:inline-block"> --}}
                                                                 @csrf
