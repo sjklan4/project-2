@@ -121,7 +121,7 @@ class ApiController extends Controller
         exit();
     }
     
-    public function postFoodCart($user_id, $food_id, $amount) {
+    public function postFoodCart(Request $req) {
         Log::debug("시작");
         
         $arr = [
@@ -130,9 +130,9 @@ class ApiController extends Controller
         ];
 
         $cart = new FoodCart([
-            'user_id' => $user_id,
-            'food_id' => $food_id,
-            'amount' => $amount
+            'user_id' => $req->value1,
+            'food_id' => $req->value2,
+            'amount'  => $req->value3
         ]);
         $cart->save();
 
@@ -142,10 +142,10 @@ class ApiController extends Controller
         $seleted = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
-        ->where('food_carts.user_id', $user_id)
+        ->where('food_carts.user_id', $req->value1)
         ->get();
 
-        Log::debug("값 : ".$user_id );
+        // Log::debug("값 : ".$user_id );
         
         // if(!isset($seleted)){
         //     $arr['errorcode'] = '1';
