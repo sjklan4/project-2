@@ -352,7 +352,7 @@
                                                                 <td>{{$val->fat}}</td>
                                                                 <td>{{$val->sugar}}</td>
                                                                 <td>{{$val->sodium}}</td>
-                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" class="editBtn" required ></td>
+                                                                <td><input name="df_intake" value="{{$val->df_intake}}" type="number" min="0.5" max="100" step="0.5" required ></td>
                                                                 <input type="hidden" name="d_date" value="{{$data['date'] ?? $data['today']}}" class ="intakdate">
                                                                 <td>
                                                                     <button type="button" class="editBtn" onclick="updateIntake(this)"  data-id="{{$val->df_id}}">

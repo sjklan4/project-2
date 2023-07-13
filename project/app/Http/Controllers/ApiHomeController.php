@@ -11,21 +11,21 @@ class ApiHomeController extends Controller
 {
     public function intakeupdate(Request $req, $id){
 
-        // 사용자 인증 작업
-        if(!Auth::user()) {
+        // user authentication task
+        if(!Auth::user() && !$req->expectsJson()) {
             return redirect()->route('user.login');
         }
-
+    
         $dietfood = DietFood::find($id);
         $dietfood->df_intake = $req->df_intake;
         $dietfood->save();
-
-        // 수정 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
+    
+        // After editing, put the date in the session to output the menu corresponding to that date
         Session::put('d_date',$req->d_date);
-
-        // Alert::success('수정완료', '');
-
-        return response()->json(['message' => '수정 완료', 'dietfood' => $dietfood]);
+    
+        // Alert::success('Modification complete', '');
+    
+        return response()->json(['message' => 'Edited', 'dietfood' => $dietfood]);
     }
     
 }

@@ -214,13 +214,48 @@ function formatDate(date){
 // }
 
 
-function updateIntake() {
+// function updateIntake() {
+//     const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+
+//     if (confirmation) {
+//         const editintake = document.getElementById('editForm');
+//         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+//         const request = new Request(`/home/intakeupdate/${id}`, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 "Accept": "application/json, text-plain, */*",
+//                 "X-Requested-With": "XMLHttpRequest",
+//                 'X-CSRF-TOKEN': token
+//             },
+//             method: 'POST',
+//             credentials: "same-origin",
+//             body: JSON.stringify({
+//                 value: document.getElementsByClassName('editBtn').value
+//             })
+//         });
+
+//         fetch(request)
+//         .then(response => {
+//             if (!response.status) {
+//                 throw new Error(response.status + ' : API 응답 오류');
+//             }
+//             return response.json();
+//         })
+//         .then(data => console.log(data));
+//     }
+// }
+
+function updateIntake(element) {
     const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
 
     if (confirmation) {
-        const editintake = document.getElementById('editForm');
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+        const id = element.dataset.id;
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+        const formElement = element.closest('form');
+        const df_intake = formElement.querySelector('input[name="df_intake"]').value;
+        const d_date = formElement.querySelector('input[name="d_date"]').value;
+
         const request = new Request(`/home/intakeupdate/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -231,17 +266,23 @@ function updateIntake() {
             method: 'POST',
             credentials: "same-origin",
             body: JSON.stringify({
-                value: document.getElementsByClassName('editBtn').value
+                df_intake: df_intake,
+                d_date: d_date
             })
         });
 
         fetch(request)
         .then(response => {
-            if (!response.status) {
+            if (!response.ok) {
                 throw new Error(response.status + ' : API 응답 오류');
             }
             return response.json();
         })
-        .then(data => console.log(data));
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 }
+
+
