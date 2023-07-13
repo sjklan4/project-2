@@ -157,3 +157,4 @@ Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');
 // ---------------------------------------------
 use App\Http\Controllers\RecommendController;
 Route::get('/recom', [RecommendController::class, 'pview'])->name('recom.get');
+Route::get('/recomd', [RecommendController::class, 'recommned'])->name('recommend');
