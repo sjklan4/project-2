@@ -3,7 +3,41 @@
 @section('title', 'inforupdate')
 
 @section('userinfocontents')
-<div class="shadowYellow">
+<!-- 상세 정보 영역 (오른쪽) 영역 -->
+<div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0">
+    <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
+        <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
+        <h2 class="h5 text-primary mb-4">기본정보</h2>
+        <form class="needs-validation border-bottom pb-3 pb-lg-4" novalidate>
+            <div class="row pb-2">
+                <div class="col-sm-6 mb-4">
+                    <label for="fn" class="form-label fs-base">First Name</label>
+                    <input type="text" id="fn" class="form-control form-control-lg" value="봉정" required readonly>
+                    <div class="invalid-feedback">Please enter your first name</div>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="sn" class="form-label fs-base">Last Name</label>
+                    <input type="text" id="sn" class="form-control form-control-lg" value="권" required readonly>
+                    <div class="invalid-feedback">Please enter your Last name</div>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="email" class="form-label fs-base">Email Address</label>
+                    <input type="email" id="email" class="form-control form-control-lg" value="qhdwjd4302@naver.com" required readonly>
+                    <div class="invalid-feedback">Please enter your emailAddress</div>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="tel" class="form-label fs-base">Phone</label>
+                    <input type="tel" class="form-control form-control-lg" data-format='{"numbericOnly":true,"delimiters":["+82"," "," "],"blocks":[0,3,4,4]}' placeholder="+82 ___ ___ ____" id="tel">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{{-- <div class="shadowYellow">
     <div>
         <h2>나의 정보</h2>
         <div class="listCon">
@@ -36,7 +70,7 @@
             </table>
         </div>    
     </div>
-</div>
+</div> --}}
 
 @endsection
 

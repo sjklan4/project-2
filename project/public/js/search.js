@@ -35,31 +35,31 @@ function getFoodValue(event, userId)  {
     if (isNaN(foodAmout) === true) {
         foodAmout = 1.0;
     }
+
+    console.log(userId);
+    console.log(foodId);
+    console.log(foodAmout);
     
-
     // api 통신
-    // const url = "/api/cart";
-    // const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    // const request = new Request(url, {
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "Accept": "application/json, text-plain, */*",
-    //         "X-Requested-With": "XMLHttpRequest",
-    //         "X-CSRF-TOKEN": token
-    //         },
-    //     method: 'POST',
-    //     credentials: "same-origin",
-    //     body: JSON.stringify({
-    //         value1: userId,
-    //         value2: foodId,
-    //         value3: foodAmout
-    //     })
-    // });
-
-    fetch(`/api/cart/${userId}/${foodId}/${foodAmout}`, {
-        method: "post"
-    })
-    // fetch(request)
+    const url = "/api/cart";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
+            },
+        method: 'POST',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            value1: userId,
+            value2: foodId,
+            value3: foodAmout
+        })
+    });
+    
+    fetch(request)
     .then(res => res.json())
     .then( data => { 
         fav_food.replaceChildren();

@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ---------------------------------------------
 use App\Http\Controllers\ApiBoardController;
 
-Route::put('/board/likeupdown', [ApiBoardController::class, 'likeUpDown']);
+Route::put('/boards/likes', [ApiBoardController::class, 'likeUpDown']);
 
 // ---------------------------------------------
 // 섹션명       : 음식(Food)
@@ -37,7 +37,6 @@ Route::put('/board/likeupdown', [ApiBoardController::class, 'likeUpDown']);
 // ---------------------------------------------
 use App\Http\Controllers\ApiFoodController;
 
-Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
 
 // ---------------------------------------------
 // 섹션명       : 퀘스트(Quest)
@@ -46,8 +45,6 @@ Route::get('/foods/{id}', [ApiFoodController::class, 'getFoodList']);
 // 생성일       : 2023-06-26
 // ---------------------------------------------
 use App\Http\Controllers\ApiQuestController;
-
-Route::put('/quest', [ApiQuestController::class, 'questFlgUpdate'])->name('apiQuest.update');
 
 // ---------------------------------------------
 // 섹션명       : 회원(User)
@@ -74,7 +71,7 @@ Route::post('/user/userpsedt', [ApiUserController::class, 'checkPassword']);
 // 생성일       : 2023-06-22
 // ---------------------------------------------
 Route::get('/apisearch', [ApiController::class, 'apisearch']);
-Route::post('/cart/{user_id}/{food_id}/{amount}', [ApiController::class, 'postFoodCart']);
+Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
 Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
 Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class, 'foodDelete']);
@@ -87,4 +84,4 @@ Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class,
 // 생성일       : 2023-07-12 
 // ---------------------------------------------
 
-Route::post('/home/intakeupdate/{df_intake}',[ApiHomeController::class, 'intakeupdate']);
+Route::post('/home/intakeupdate/{id}',[ApiHomeController::class, 'intakeupdate']);
