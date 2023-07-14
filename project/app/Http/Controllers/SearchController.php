@@ -33,9 +33,13 @@ class SearchController extends Controller
         
         // * 즐겨찾는 식단 정보
         $dietnames = DB::table('fav_diets')
-        ->select('fav_id', 'fav_name', 'user_id')
-        ->where('user_id', $id)
-        ->whereNull('deleted_at')
+        ->select('fav_diets.fav_id', 'fav_diets.fav_name', 'fav_diets.user_id')
+        ->leftJoin('food_carts', function($join) {
+            $join->on('food_carts.fav_id', 'fav_diets.fav_id');
+        })
+        ->whereNull('food_carts.fav_id')
+        ->where('fav_diets.user_id', $id)
+        ->whereNull('fav_diets.deleted_at')
         ->get();
 
         // * 즐겨찾는 식단에 포함된 개별 음식 정보 획득
