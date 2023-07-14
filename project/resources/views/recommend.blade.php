@@ -9,7 +9,7 @@
 @section('contents')
     <div>
         <h1>식단 추천</h1>
-        @if (!$userkcal)
+        {{-- @if (!$userkcal) --}}
             <form action="{{route('recom.post')}}" method="post">
                 @csrf
                 <span>식단 유형 > </span>
@@ -20,7 +20,7 @@
                 <input type="radio" name="dietcate" id="health" value="2">
                 <label for="health">일반</label>
                 <br>
-                <span>성별</span>
+                {{-- <span>성별</span>
                 <input type="radio" name="gender" id="male" value="0">
                 <label for="male">남자</label>
                 <input type="radio" name="gender" id="female" value="1">
@@ -42,10 +42,10 @@
                 <label for="nomalact">보통</label>
                 <input type="radio" name="activity" id="moeract" value="2">
                 <label for="moeract">많음</label></label>
-                <br>
+                <br> --}}
                 <button type="submit">추천받기</button>
             </form>
-        @else
+        {{-- @else
         <form action="{{route('recom.post')}}" method="post">
             @csrf
             <span>식단 유형 > </span>
@@ -58,7 +58,7 @@
             <br>
             <button type="submit">추천받기</button>
         </form>
-        @endif
+        @endif --}}
         
         {{-- <hr>
         <div>
