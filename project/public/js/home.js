@@ -1,3 +1,5 @@
+// const { extendWith } = require("lodash");
+
 $(document).ready(function(){
     var carbVal = Number($('#carbPro').attr('value'));
     var carbMax = Number($('#carbPro').attr("max"));
@@ -103,15 +105,14 @@ function formatDate(date){
 }
 
 // 섭취 음식 삭제 부분
-function delintake() {
+
+function delintake(df_id) {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
     if (confirmDelete) {
-        const intakeid = document.getElementById('deldintakeid');
-        const Url = "/home/intakedel/"+ intakeid;
-        // const delintake = document.getElementById('delintakeform');
+        const url = "/api/home/intakedel";
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const request = new Request(Url, {
+        const request = new Request(url, {
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": token
@@ -119,21 +120,20 @@ function delintake() {
             method: 'DELETE',
             credentials: "same-origin",
             body: JSON.stringify({
-                date: document.getElementById('deldate').value
-                ,data2: document.getElementById('df_id').value
+                df_id: df_id
             })  
         });
 
         fetch(request)
         .then(response => {
-            if (!response.status) {
+            if (!response.ok) {
                 throw new Error(response.status + ' : API 응답 오류');
             }
             return response.json();
         })
         .then(data => {
             console.log(data);
-            // delintake.submit();
+            document.getElementById('foodlist'+ df_id).style.display ="none"
         })
         .catch(error => console.error('Error:', error));
     }
@@ -141,28 +141,40 @@ function delintake() {
 
 
 
-
-
 // 섭취량 변경 부분
 
-
-
-// const editchk = document.getElementById('editBtn');
-//     editchk.addEventListener('click', function(){
-//         confirm("섭취량을 변경하시겠습니까?");
-
-//     });
-
-    // const editchk = document.getElementsByClassName('editBtn');
-    //     for (let i = 0; i < editchk.length; i++) {
-    //         editchk[i].addEventListener('click', function() {
-    //             const confirmation = confirm("섭취량을 변경하시겠습니까?");
-    //             if (confirmation) {
-
+function updateIntake(df_id) {
+    const df_intake = document.getElementById('df_intake' + df_id);
+    const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+        
+            if (confirmation) {
                 
-    //             }
-    //         });
-    //     }
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const url = "api/home/intakeupdate/"+ df_id;
+                const request = new Request(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token
+                    },
+                    method: 'POST',
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        df_id: df_id,
+                        df_intake: df_intake.value
+                    })
+                });
+
+                fetch(request)
+                .then(response => {
+                    if (!response.status) {
+                        throw new Error(response.status + ' : API 응답 오류');
+                    }
+                    return response.json();
+                })
+                .then(data => console.log(data));
+            }
+    }
+
 
 // const editchk = document.getElementsByClassName('editBtn');
 // for (let i = 0; i < editchk.length; i++) {
@@ -172,7 +184,7 @@ function delintake() {
 //         if (confirmation) {
 
 //             let df_intake = this.parentElement.querySelector('input[name="df_intake"]').getAttribute('value');
-//             fetch(`/home/intakeupdate/${id}`, {
+//             fetch(`api/home/intakeupdate/${id}`, {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -187,39 +199,7 @@ function delintake() {
 // }
 
 
-// function updateIntake() {
-//     const editButtons = document.getElementsByClassName('editBtn');
 
-//     for (let i = 0; i < editButtons.length; i++) {
-//         editButtons[i].addEventListener('click', function() {
-//             const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
-            
-//             if (confirmation) {
-//                 // let id = this.dataset.id;
-//                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-//                 const request = new Request(`/home/intakeupdate/${id}`, {
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'X-CSRF-TOKEN': token
-//                     },
-//                     method: 'POST',
-//                     credentials: "same-origin",
-//                     body: JSON.stringify({ value: document.getElementById('intakval').value })
-//                 });
-
-//                 fetch(request)
-//                 .then(response => {
-//                     if (!response.status) {
-//                         throw new Error(response.status + ' : API 응답 오류');
-//                     }
-//                     return response.json();
-//                 })
-//                 .then(data => console.log(data));
-//             }
-//         });
-//     }
-// }
-// updateIntake();
 
 // function updateIntake(clickedButton) {
 //     const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
@@ -287,43 +267,40 @@ function delintake() {
 //     }
 // }
 
-function updateIntake(element) {
-    const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
-
-    if (confirmation) {
-        const id = element.dataset.id;
-        const token = document.querySelector('meta[name="csrf-token"]').content;
-        const formElement = element.closest('form');
-        const df_intake = formElement.querySelector('input[name="df_intake"]').value;
-        const d_date = formElement.querySelector('input[name="d_date"]').value;
-
-        const request = new Request(`/home/intakeupdate/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                "Accept": "application/json, text-plain, */*",
-                "X-Requested-With": "XMLHttpRequest",
-                'X-CSRF-TOKEN': token
-            },
-            method: 'POST',
-            credentials: "same-origin",
-            body: JSON.stringify({
-                df_intake: df_intake,
-                d_date: d_date
-            })
-        });
-
-        fetch(request)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status + ' : API 응답 오류');
-            }
-            return response.json();
-        })
-        .then(data => console.log(data))
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-}
 
 
+// function updateIntake() {
+//     const confirmation = confirm("정말로 섭취량을 변경하시겠습니까?");
+
+//     if (confirmation) {
+//         const intake = document.getElementsByClassName('intakedata').value;
+//         const url = "api/home/intakeupdate";
+
+//         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//         const request = new Request(url, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 "Accept": "application/json, text-plain, */*",
+//                 "X-Requested-With": "XMLHttpRequest",
+//                 'X-CSRF-TOKEN': token
+//             },
+//             method: 'POST',
+//             credentials: "same-origin",
+//             body: JSON.stringify({
+//                 df_intake: intake
+//             })
+//         });
+
+//         fetch(request)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(response.status + ' : API 응답 오류');
+//             }
+//             return response.json();
+//         })
+//         .then(data => console.log(data))
+//         .catch((error) => {
+//             console.error('Error:', error);
+//         });
+//     }
+// }
