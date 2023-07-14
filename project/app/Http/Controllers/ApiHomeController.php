@@ -27,5 +27,19 @@ class ApiHomeController extends Controller
     
         return response()->json(['message' => 'Edited', 'dietfood' => $dietfood]);
     }
+
+    public function intadelet(Request $req, $id){
+         // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
+        }
+
+        // 삭제 후 해당 날짜에 해당하는 식단을 출력하기 위해 세션에 날짜를 담음
+        Session::put('d_date',$req->date);
+
+        DietFood::destroy($id);
+
+        return response()->json(['status' => 'success']);
+    }
     
 }

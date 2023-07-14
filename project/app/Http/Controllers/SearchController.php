@@ -79,11 +79,13 @@ class SearchController extends Controller
                 $join->on('food_infos.food_id', 'food_carts.food_id');
             })
             ->whereNull('food_carts.food_id')
-            ->leftJoin('diet_food', function($join) use ($diet){
-                $join->on('food_infos.food_id', 'diet_food.food_id')
-                ->where('diet_food.d_id', $diet->d_id);
+            ->when(isset($diet), function($query) use($diet){
+                $query->leftJoin('diet_food', function($join) use ($diet){
+                    $join->on('food_infos.food_id', 'diet_food.food_id')
+                    ->where('diet_food.d_id', $diet->d_id);
+                })
+                ->whereNull('diet_food.food_id');
             })
-            ->whereNull('diet_food.food_id')
             ->where('food_name', 'like', '%'.$usersearch.'%')
             ->where(function($query) use($id){
                 $query->where('food_infos.user_id', $id)
@@ -158,12 +160,13 @@ class SearchController extends Controller
             $insertDietId = $selectDiet->d_id;
         }
         
-        // todo 한 유저가 한 식단에 음식 10개 이상 입력 안되게 
+        // 한 유저가 한 식단에 음식 10개 이상 입력 안되게 처리
         $foodCount = DietFood::select('df_if')
         ->where('d_id', $insertDietId)
         ->count();
         
         if( $foodCount + $foodCart->count() + $favCart->count() > 10 ) {
+            // 장바구니 삭제 후 홈으로 리턴
             DB::table('food_carts')->where('user_id', $id)->delete();
 
             Alert::error('10개 초과로 입력할 수 없습니다.', '');
