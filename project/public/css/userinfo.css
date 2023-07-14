@@ -352,3 +352,7 @@ span.passworderror{
     background-color: #195F1C;
     border-color: #195F1C;
 }
+
+.invalid-feedback{
+    display: block !important;
+}

@@ -78,8 +78,6 @@ class UserController extends Controller
         return view('regist');
     }
 
-
-
     // 회원 가입 부분
     public function registpost(Request $req){
 
@@ -93,8 +91,6 @@ class UserController extends Controller
 
             // email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
             ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20'
-
-            // 영문대소문자, 한글, 숫자로 최소1자 최대20자
             ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
             ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
             ,'user_id'    => 'required|regex:/^[0-9]+$'
@@ -120,7 +116,7 @@ class UserController extends Controller
             'user_phone_num.regex'  => '전화번호 형식에 맞추어 입력해주세요.'
         ];
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,$messages);
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules, $messages);
 
         // $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
         //         'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
@@ -173,34 +169,73 @@ class UserController extends Controller
         return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
     }
 
-    //유저 기존데이터 출력
+    // 회원 정보 기존데이터 출력
     public function userinfoedit(){
-        $id = session('user_id');
-        $userinfo = UserInfo::FindOrFail($id);
-
-        return view('Userinfoupdate')->with('data',$userinfo);
-    }
-    
-    // 유저 정보 변경post
-    public function userinfoeditPost(Request $req){
-
-        $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
-        ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
-        ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
-
-        $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
-            'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-            'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-            'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
-        ]);
-
-
-        if ($validate->fails()) {
-            $errors = $validate->errors();
-            return redirect()->back()->withErrors($errors)->withInput();
+        // 사용자 인증 작업
+        if(!Auth::user()) {
+            return redirect()->route('user.login');
         }
 
+        $id = session('user_id');
+
+        $userinfo = UserInfo::FindOrFail($id);
+        $userkcalinfo = KcalInfo::FindOrFail($id);
+
+        return view('Userinfoupdate')->with('data',$userinfo)->with('userKcal',$userkcalinfo);
+    }
+    
+    // 회원 정보 변경 post
+    public function userinfoeditPost(Request $req){
+        // 유효성 검사
+        $rules = [
+            'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
+            // ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20'
+            ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
+            ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
+            // ,'user_tall'    => 'regex:/^[0-9]+$|max:5'
+            // ,'user_weight'   => 'regex:/^[0-9]+$|max:5'
+            ];
+
+        $messages = [
+            'user_name.required'    => '이름은 필수 입력 사항입니다.',
+            'user_name.regex'       => '한글과 영문만 허용합니다.',
+            'user_name.max'         => ':max자까지 입력 가능합니다.',
+            'user_name.min'         => ':min자 이상 입력 가능합니다.',
+            // 'user_email'            => 'email형식에 맞춰주세요.',
+            // 'user_email.unique'     => '이미 사용중인 email 입니다.',
+            'nkname.required'       => '닉네임은 필수 입력 사항입니다.',
+            'nkname.unique'         => '이미 사용중인 닉네임 입니다.',
+            'nkname.regex'          => '영문 대소문자, 한글, 숫자로 구성하여 입력해주세요.',
+            'nkname.max'            => ':max자까지 입력 가능합니다.',
+            'user_phone_num.required'=> '전화번호는 필수입력사항 입니다.',
+            'user_phone_num.unique'  => '입력하신 연락처로 가입한 이메일이 존재합니다.',
+            'user_phone_num.regex'  => '전화번호 형식에 맞추어 입력해주세요.',
+            // 'user_tall'             => '입력하신 키를 다시 확인해주세요.',
+            // 'user_weight'           => '입력하신 몸무게를 다시 확인해주세요.',
+        ];
+
+        $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules, $messages);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
+        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
+
+        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
+        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+        //     'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+        //     'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
+        // ]);
+        // if ($validate->fails()) {
+        //     $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($errors)->withInput();
+        // }
+
         $arrKey = [];
+
         $baseUser = UserInfo::find(Auth::User()->user_id);
 
         if($req->user_name !== $baseUser->user_name){
@@ -215,11 +250,13 @@ class UserController extends Controller
 
          // 수정할 데이터 셋팅
         foreach($arrKey as $val) {
-        
             $baseUser->$val = $req->$val;
         }
+
         $baseUser->save(); // update
+
         $changemsg = "변경 완료되었습니다.";
+
         return redirect()->route('user.userinfoedit')->with('changemsg',$changemsg);
     }
 
@@ -251,8 +288,8 @@ class UserController extends Controller
 
     // }
 
+
     //유저 Email찾기 구문
-    
     public function userfindE(){
         return view('userfind');
     }
@@ -279,11 +316,13 @@ class UserController extends Controller
         //     'user_name' => $req->user_name
         //     ,'user_phone_num' => $req->user_phone_num
         // ];
+
     // 유효성 검사를 통과하면 userinfos테이블에서 사용자의 이름과 전화번호가 같은 email을 찾아서 값을 반환
         $findemail = DB::table('user_infos')
         ->where('user_name', $req->user_name)
         ->where('user_phone_num', $req->user_phone_num)
         ->value('user_email');
+
     //email이 있으면 그 값(data)를 반환하고 없으면 error메시지 출력
         if ($findemail) {
             return redirect()->route('user.userfindE')->with('data', $findemail);
