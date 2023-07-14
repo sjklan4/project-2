@@ -6,12 +6,14 @@
 
 @section('userinfocontents')
 <!-- 상세 정보 영역 (오른쪽) 영역 -->
-<div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0" action="{{ route('user.userinfoeditPost') }}" method="post" >
-    @csrf
+{{-- @if(count($errors) > 0)
+    {{var_dump($errors)}}
+@endif --}}
+<div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0">
     <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
         <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
-        {{-- <h2 class="h5 text-primary mb-4">기본정보</h2> --}}
-        <form class="needs-validation border-bottom pb-3 pb-lg-4">
+        <form class="needs-validation border-bottom pb-3 pb-lg-4" action="{{ route('user.userinfoeditPost') }}" method="post">
+            @csrf
             <div class="row pb-2">
                 <div class="col-sm-12 mb-4">
                     <label for="user_email" class="form-label fs-base">Email</label>
@@ -20,32 +22,40 @@
                 <div class="col-sm-6 mb-4">
                     <label for="user_name" class="form-label fs-base">Name</label>
                     <input type="text" id="user_name" name="user_name" class="form-control form-control-lg" value="{{old('user_name') !== null ? old('user_name') : $data->user_name}}" required>
-                    <div class="invalid-feedback">Please enter your name</div>
+                    <div>{{ count($errors) > 0 ? $errors->first('user_name', ':message') : '' }}</div>
                 </div>
                 <div class="col-sm-6 mb-4">
                     <label for="nkname" class="form-label fs-base">Nick Name</label>
                     <input type="text" id="nkname" name="nkname" class="form-control form-control-lg" value="{{old('nkname') !== null ? old('nkname') : $data->nkname}}" required >
-                    <div class="invalid-feedback">Please enter your Nick Name</div>
+                    @error('nkname')
+                        <div>{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="col-sm-6 mb-4">
+                {{-- <div class="col-sm-6 mb-4">
                     <label for="user_birth" class="form-label fs-base">생년월일</label>
-                    <input type="date" id="user_birth" name="nkname" class="form-control form-control-lg" required >
-                    <div class="invalid-feedback">Please enter your Nick Name</div>
-                </div>
+                    <input type="date" id="user_birth" name="nkname" class="form-control form-control-lg" required value="{{$userKcal->user_birth}}" readonly max="{{ now()->toDateString() }}">
+                </div> --}}
                 <div class="col-sm-6 mb-4">
                     <label for="user_phone_num" class="form-label fs-base">Phone</label>
                     <input type="tel" id="user_phone_num" name="user_phone_num" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" >
+                    @error('user_phone_num')
+                        <div>{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="col-sm-6 mb-4">
+                {{-- <div class="col-sm-6 mb-4">
                     <label for="user_tall" class="form-label fs-base">Tall</label>
-                    <input type="number" id="user_tall" class="form-control form-control-lg">
-                    <div class="invalid-feedback">Please enter your Tall</div>
-                </div>
-                <div class="col-sm-6 mb-4">
+                    <input type="number" id="user_tall" class="form-control form-control-lg" value="{{ $errors->has('user_tall') ? old('user_tall') : $userKcal->user_tall}}">
+                    @error('user_tall')
+                        <div class="invalid-feedback">{{ $user_tall }}</div>
+                    @enderror
+                </div> --}}
+                {{-- <div class="col-sm-6 mb-4">
                     <label for="user_weight" class="form-label fs-base">Weight</label>
-                    <input type="number" id="user_weight" class="form-control form-control-lg">
-                    <div class="invalid-feedback">Please enter your </div>
-                </div>
+                    <input type="number" id="user_weight" class="form-control form-control-lg" value="{{$userKcal->user_weight}}">
+                    @error('user_weight')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div> --}}
             </div>
             <button type = "submit" id="greenBtn">정보수정</button>
         </form>
@@ -89,9 +99,9 @@
 
 @endsection
 
-@section('js')
+{{-- @section('js')
     <script src="{{ asset('js/userinfo.js') }}"></script>
-@endsection
+@endsection --}}
 
 
 
