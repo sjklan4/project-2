@@ -28,7 +28,7 @@ class ApiHomeController extends Controller
         return response()->json(['message' => 'Edited', 'dietfood' => $dietfood]);
     }
 
-    public function intadelet(Request $req, $id){
+    public function intakedel(Request $req, $id){
          // 사용자 인증 작업
         if(!Auth::user()) {
             return redirect()->route('user.login');

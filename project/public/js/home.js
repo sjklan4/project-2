@@ -103,38 +103,43 @@ function formatDate(date){
 }
 
 // 섭취 음식 삭제 부분
-function delintake(event){
-    event.preventDefault();
-
+function delintake() {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
-    if(confirmDelete) {
-        const url = "/home/intakedel/" + document.getElementById('delintakeform').getAttribute('df_id');
+    if (confirmDelete) {
+        const intakeid = document.getElementById('deldintakeid');
+        const Url = "/home/intakedel/"+ intakeid;
+        // const delintake = document.getElementById('delintakeform');
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const request = new Request(url,{
+        const request = new Request(Url, {
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": token
-                },
-            method:'DELETE',
+            },
+            method: 'DELETE',
             credentials: "same-origin",
             body: JSON.stringify({
-                value1: document.getElementById('delintakeform').getAttribute('df_id'),
-                value2: document.getElementById('deldate').value
+                date: document.getElementById('deldate').value
+                ,data2: document.getElementById('df_id').value
             })  
         });
 
         fetch(request)
         .then(response => {
-            if (!response.ok) {
+            if (!response.status) {
                 throw new Error(response.status + ' : API 응답 오류');
             }
             return response.json();
         })
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            // delintake.submit();
+        })
         .catch(error => console.error('Error:', error));
     }
 }
+
+
 
 
 
