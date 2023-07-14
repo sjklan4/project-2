@@ -102,6 +102,42 @@ function formatDate(date){
     return year + '-' + month + '-' + day;
 }
 
+// 섭취 음식 삭제 부분
+function delintake(event){
+    event.preventDefault();
+
+    let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
+
+    if(confirmDelete) {
+        const url = "/home/intakedel/" + document.getElementById('delintakeform').getAttribute('df_id');
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const request = new Request(url,{
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+                },
+            method:'DELETE',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                value1: document.getElementById('delintakeform').getAttribute('df_id'),
+                value2: document.getElementById('deldate').value
+            })  
+        });
+
+        fetch(request)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.status + ' : API 응답 오류');
+            }
+            return response.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    }
+}
+
+
+
 // 섭취량 변경 부분
 
 
