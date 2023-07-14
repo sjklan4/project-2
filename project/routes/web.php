@@ -156,5 +156,5 @@ Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');
 // 생성일       : 2023-07-12
 // ---------------------------------------------
 use App\Http\Controllers\RecommendController;
-Route::get('/recom', [RecommendController::class, 'pview'])->name('recom.get');
-Route::get('/recomd', [RecommendController::class, 'recommned'])->name('recommend');
+Route::get('/recom', [RecommendController::class, 'rview'])->name('recom.get');
+Route::post('/recom', [RecommendController::class, 'recommned'])->name('recom.post');
