@@ -46,7 +46,7 @@
                     @endif
                     <br>
                     <span>인분 수 : </span>
-                    <input type="number" name="userving" id="userving" min="0.5" step="0.5" max="100">
+                    <input type="number" name="userving" id="userving" min="0.5" step="0.5" max="100" value="1">
                     <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue(event, {{Auth::user()->user_id}})'>
                     <br>
                     <strong>영양성분</strong>
@@ -124,7 +124,7 @@
                         <span>{{$diet->fav_name}}</span>
                         <input type="hidden" name="date" value="{{$data['date']}}">
                         <input type="hidden" name="time" value="{{$data['time']}}">
-                        <button type="button" onclick="deletefood({{Auth::user()->user_id.','.$diet->fav_id.','.$diet->cart_id}})">X</button>
+                        <button type="button" onclick="deletediet({{Auth::user()->user_id .','. $diet->cart_id}})">X</button>
                         <br>
                     @endforeach
                 </div>
