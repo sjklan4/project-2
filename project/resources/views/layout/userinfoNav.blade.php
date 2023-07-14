@@ -1,7 +1,8 @@
 @extends('layout.layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/prevateinfo.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/userinfo.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 @endsection
 
 
@@ -21,9 +22,9 @@
                     Account menu
                     <i class="bx bx-chevron-down fs-lg ms-1"></i>
                     </button>
-                    <div id="account-menu" class="list-group list-group-flush d-md-block collapse" style="">
-                    <a href="{{route('user.userinfoedit')}}" class="list-group-item list-group-item-action d-flex align-items-center active">
-                        <i class="bx bx-cog fs-xl opacity-60 me-2"></i>
+                    <div id="account-menu" class="list-group list-group-flush d-md-block collapse">
+                    <a href="{{route('user.userinfoedit')}}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="bx bx-user fs-xl opacity-60 me-2"></i>
                         회원정보
                     </a>
                     <a href="{{route('user.userpsedit')}}" class="list-group-item list-group-item-action d-flex align-items-center">
@@ -31,11 +32,11 @@
                         비밀번호변경
                     </a>
                     <a href="{{route('user.prevateinfo')}}" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="bx bx-bell fs-xl opacity-60 me-2"></i>
+                        <i class="bx bx-bowl-rice fs-xl opacity-60 me-2"></i>
                         식단설정
                     </a>
                     <a href="" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="bx bx-chat fs-xl opacity-60 me-2"></i>
+                        <i class="bx bx-user-minus fs-xl opacity-60 me-2"></i>
                         회원탈퇴
                     </a>
                     <a href="" class="list-group-item list-group-item-action d-flex align-items-center">
@@ -47,8 +48,8 @@
                 </div>
             </aside>
             <!-- 상세 정보 영역 (오른쪽) 영역 -->
-            @yield('prevateinfocontents')
             @yield('userinfocontents')
+            @yield('prevateinfocontents')
             @yield('passwordcontents')
         </div>
     </section>
@@ -76,4 +77,8 @@
         </div>
         <div class="dis-right"></div>
     </div> --}}
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/userinfo.js') }}"></script>
 @endsection
