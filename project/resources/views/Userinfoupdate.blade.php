@@ -1,41 +1,56 @@
 @extends('layout.userinfoNav')
 
-@section('title', 'inforupdate')
+@section('title')
+{{Auth::user()->user_name}}'s Profile
+@endsection
 
 @section('userinfocontents')
 <!-- 상세 정보 영역 (오른쪽) 영역 -->
-<div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0">
+<div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0" action="{{ route('user.userinfoeditPost') }}" method="post" >
+    @csrf
     <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
         <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
-        <h2 class="h5 text-primary mb-4">기본정보</h2>
-        <form class="needs-validation border-bottom pb-3 pb-lg-4" novalidate>
+        {{-- <h2 class="h5 text-primary mb-4">기본정보</h2> --}}
+        <form class="needs-validation border-bottom pb-3 pb-lg-4">
             <div class="row pb-2">
-                <div class="col-sm-6 mb-4">
-                    <label for="fn" class="form-label fs-base">First Name</label>
-                    <input type="text" id="fn" class="form-control form-control-lg" value="봉정" required readonly>
-                    <div class="invalid-feedback">Please enter your first name</div>
+                <div class="col-sm-12 mb-4">
+                    <label for="user_email" class="form-label fs-base">Email</label>
+                    <input type="email" id="user_email" class="form-control form-control-lg" value="{{ $data->user_email }}" required readonly>
                 </div>
                 <div class="col-sm-6 mb-4">
-                    <label for="sn" class="form-label fs-base">Last Name</label>
-                    <input type="text" id="sn" class="form-control form-control-lg" value="권" required readonly>
-                    <div class="invalid-feedback">Please enter your Last name</div>
+                    <label for="user_name" class="form-label fs-base">Name</label>
+                    <input type="text" id="user_name" name="user_name" class="form-control form-control-lg" value="{{old('user_name') !== null ? old('user_name') : $data->user_name}}" required>
+                    <div class="invalid-feedback">Please enter your name</div>
                 </div>
                 <div class="col-sm-6 mb-4">
-                    <label for="email" class="form-label fs-base">Email Address</label>
-                    <input type="email" id="email" class="form-control form-control-lg" value="qhdwjd4302@naver.com" required readonly>
-                    <div class="invalid-feedback">Please enter your emailAddress</div>
+                    <label for="nkname" class="form-label fs-base">Nick Name</label>
+                    <input type="text" id="nkname" name="nkname" class="form-control form-control-lg" value="{{old('nkname') !== null ? old('nkname') : $data->nkname}}" required >
+                    <div class="invalid-feedback">Please enter your Nick Name</div>
                 </div>
                 <div class="col-sm-6 mb-4">
-                    <label for="tel" class="form-label fs-base">Phone</label>
-                    <input type="tel" class="form-control form-control-lg" data-format='{"numbericOnly":true,"delimiters":["+82"," "," "],"blocks":[0,3,4,4]}' placeholder="+82 ___ ___ ____" id="tel">
+                    <label for="user_birth" class="form-label fs-base">생년월일</label>
+                    <input type="date" id="user_birth" name="nkname" class="form-control form-control-lg" required >
+                    <div class="invalid-feedback">Please enter your Nick Name</div>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="user_phone_num" class="form-label fs-base">Phone</label>
+                    <input type="tel" id="user_phone_num" name="user_phone_num" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" >
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="user_tall" class="form-label fs-base">Tall</label>
+                    <input type="number" id="user_tall" class="form-control form-control-lg">
+                    <div class="invalid-feedback">Please enter your Tall</div>
+                </div>
+                <div class="col-sm-6 mb-4">
+                    <label for="user_weight" class="form-label fs-base">Weight</label>
+                    <input type="number" id="user_weight" class="form-control form-control-lg">
+                    <div class="invalid-feedback">Please enter your </div>
                 </div>
             </div>
+            <button type = "submit" id="greenBtn">정보수정</button>
         </form>
     </div>
 </div>
-
-
-
 
 {{-- <div class="shadowYellow">
     <div>

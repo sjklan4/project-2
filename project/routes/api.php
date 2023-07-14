@@ -74,7 +74,7 @@ Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
 Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
-Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'foodDelete']);
 
 
 // ---------------------------------------------
@@ -83,6 +83,7 @@ Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class,
 // 관리자       : 박상준 / 권봉정
 // 생성일       : 2023-07-12 
 // ---------------------------------------------
+use App\Http\Controllers\ApiHomeController;
 
 Route::post('/home/intakeupdate/{id}',[ApiHomeController::class, 'intakeupdate']);
 Route::delete('/home/intakedel/{df_id}',[ApiHomeController::class, 'intakedel']);

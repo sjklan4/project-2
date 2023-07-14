@@ -9,32 +9,14 @@
     <section class="container pt-5">
         <div class="row">
             <!-- 프로필 이미지 (왼쪽) 영역 -->
-            {{-- <aside class="col-lg-3 col-md-4 border-end pb-5 mt-n5">
-                <div class="position-sticky top-0">
-                    <div class="text-center pt-5">
-                        <h2 class="h3 mb-1">회원정보</h2>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.userinfoedit')}}">나의 정보</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.userpsedit')}}">비밀번호 변경</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.prevateinfo')}}">식단 설정 변경</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> 
-            </aside> --}}
             <aside class="col-lg-3 col-md-4 border-end pb-5 mt-n5">
                 <div class="position-sticky top-0">
                 <div class="text-center pt-5">
-                    <div class="d-table position-relative mx-auto mt-2 mt-lg-4 pt-5 mb-3">
-                    </div>
+                    {{-- <div class="d-table position-relative mx-auto mt-2 mt-lg-4 pt-5 mb-3">
+                    </div> --}}
                     <h2 class="h5 mb-1">{{Auth::user()->user_name}}</h2>
-                    <p class="mb-3 pb-3">jonny@email.com</p>
-                    <button type="button" class="btn btn-secondary w-100 d-md-none mt-n2 mb-3 collapsed" data-bs-toggle="collapse" data-bs-target="#account-menu" aria-expanded="false">
+                    <p class="mb-3 pb-3">{{Auth::user()->user_email}}</p>
+                    <button type="button" class="btn btn-success w-100 d-md-none mt-n2 mb-3 collapsed" data-bs-toggle="collapse" data-bs-target="#account-menu" aria-expanded="false">
                     <i class="bx bxs-user-detail fs-xl me-2"></i>
                     Account menu
                     <i class="bx bx-chevron-down fs-lg ms-1"></i>
@@ -70,6 +52,7 @@
             @yield('passwordcontents')
         </div>
     </section>
+
     {{-- <div class="boardCon">
         <div class="dis-left"></div>
         <div class="boardNavDiv">
