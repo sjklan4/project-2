@@ -70,7 +70,7 @@
             <h2>자주먹는 식단</h2>
             <div class="fav_scroll">
             @foreach ($dietname as $names)
-                <input type="checkbox" name="userdiet" id="userdiet" value="{{$names->fav_id}}" onclick='getDietValue({{Auth::user()->user_id}})'>
+                <input type="checkbox" name="userdiet" id="userdiet" onclick='getDietValue(event, {{Auth::user()->user_id}}, {{$names->fav_id}})'>
                 <span class="favname"> {{$names->fav_name}} </span>
                 <br>
                 <div class="diet_div">
@@ -92,7 +92,7 @@
                     <br>
                 @endif
                 @endforeach
-                </div>
+            </div>
             @endforeach
         </div>
         @else

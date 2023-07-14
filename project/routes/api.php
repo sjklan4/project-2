@@ -74,7 +74,7 @@ Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
 Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
-Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'dietDelete']);
 
 
 // ---------------------------------------------
@@ -85,5 +85,6 @@ Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'foodDel
 // ---------------------------------------------
 use App\Http\Controllers\ApiHomeController;
 
-Route::post('/home/intakeupdate/{id}',[ApiHomeController::class, 'intakeupdate']);
-Route::delete('/home/intakedel/{df_id}',[ApiHomeController::class, 'intakedel']);
+Route::post('/home/intakeupdate/{df_id}',[ApiHomeController::class, 'intakeupdate'])->name('home.intakeupdate');
+
+Route::delete('/home/intakedel',[ApiHomeController::class, 'intakedel'])->name('home.intakedel');

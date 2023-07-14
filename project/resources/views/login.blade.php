@@ -46,7 +46,7 @@
                     @endif
                 </div>
                 <div class="linkbutton">
-                    <button type="submti" id="greenBtn">로그인</button>
+                    <button type="submit" id="greenBtn">로그인</button>
                 </form>
                 <div class="registlink">
                     <a href="{{route('user.userfindE')}}">이메일찾기 | </a>
