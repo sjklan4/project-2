@@ -85,3 +85,4 @@ Route::delete('/dietdelete/{user_id}/{fav_id}/{cart_id}', [ApiController::class,
 // ---------------------------------------------
 
 Route::post('/home/intakeupdate/{id}',[ApiHomeController::class, 'intakeupdate']);
+Route::delete('/home/intakedel/{df_id}',[ApiHomeController::class, 'intadelet']);
