@@ -9,19 +9,14 @@
         <form action="{{route('user.registpost')}}" method="post">
             @csrf
             <div class="registinfo">
-                <h1 class="mt-5">WELCOME!</h1>
+                <h1>WELCOME!</h1>
                 <h1>PLEASE REGIST!</h1>
-                <tr>
-                    <td class="write_name">
-                        <label for="user_email">이메일</label>
-                    </td>
-                    <td>        
-                        <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
-                    </td>
-                    <td>
-                        <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
-                    </td>
-                </tr>
+                <div>
+                    <label for="user_email">이메일</label>
+                    <br>
+                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
+                    <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
+                </div>
                 <tr>
                     <td colspan="3">
                         <span id="mailMsg"></span>

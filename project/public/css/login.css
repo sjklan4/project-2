@@ -34,6 +34,7 @@
 .intro > div {
     width: 80%;
     font-size: 1rem;
+    padding-bottom: 20px;
 }
 
 #movingMsg {
@@ -47,15 +48,17 @@
     font-weight: 800;
     transform: translate(100%);
     margin-left: auto;
-    animation: move 40s linear infinite;
+    animation: move 35s linear infinite;
     animation-iteration-count: infinite;
     white-space: nowrap
 }
 
 @keyframes move {
-    to {
-        right: 100%;
-        transform: translate(0);
+    from{
+        right:20vw;
+    }
+    to{
+        right:100vw;
     }
 }
 

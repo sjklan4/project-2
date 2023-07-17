@@ -16,7 +16,6 @@
 </head>
 <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <div class="con">
         <div class="background">
             <div id="movingMsg">Make Yourself Healthy!</div>
@@ -27,7 +26,7 @@
             </div>
             <div class="information">
                 <div>매일의 식단 기록,<br>
-                    RE:bron과 함께하세요!
+                    RE:born과 함께하세요!
                 </div>
                 <div class="info-box">
                     <div class="info">
@@ -55,7 +54,9 @@
             </div>
         </div>
         <div class="write">
+            <div class="write-box">
             @yield('contents')
+            </div>
         </div>
     </div>
 
