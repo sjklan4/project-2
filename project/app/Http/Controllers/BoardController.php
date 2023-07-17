@@ -128,6 +128,7 @@ class BoardController extends Controller
                 ,'bcate_id'   => $req->cate
                 ,'btitle'     => $req->title
                 ,'bcontent'   => $req->content
+                ,'fav_id'     => $req->favdiet
                 ,'created_at' => now()
             ]
             ,'board_id'
@@ -195,8 +196,12 @@ class BoardController extends Controller
                 ->where('board_replies.board_id', $board->board_id)
                 ->paginate(5);
 
+        // 식단 관련 정보 획득
+        
+
         $arr = [
             'cate'        => $bcate->bcate_name
+            // ,'favid'      => $board->fav_id
             ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
             ,'content'    => nl2br($board->bcontent)

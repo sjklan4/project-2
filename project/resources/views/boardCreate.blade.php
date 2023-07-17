@@ -52,7 +52,6 @@
                         <br>
                         <label for="diet">식단</label>
                         <div id="favDiet">
-                            
                         </div>
                     </div>
                 @else
