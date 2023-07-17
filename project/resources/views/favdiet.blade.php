@@ -13,6 +13,7 @@
     <div></div>
     <div class="favbox">
         <h2>식단음식 상세정보</h2>
+        <button type="button" onclick="location.href='{{route('recom.get')}}'">식단 추천</button>
         <div class="box1">
             <div class="dietname">
                 <table>

@@ -17,6 +17,7 @@ use App\Models\BoardLike;
 use App\Models\UserInfo;
 use App\Models\BoardImg;
 use App\Models\BoardReply;
+use App\Models\FavDiet;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,8 +74,13 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
-        return view('boardCreate');
+        // v002 add
+        $id = Auth::user()->user_id;
+        $favDiet = DB::table('fav_diets')
+                ->where('user_id', $id)
+                ->whereNull('deleted_at')
+                ->get();
+        return view('boardCreate')->with('favDiet', $favDiet);
     }
 
     /**
@@ -122,6 +128,7 @@ class BoardController extends Controller
                 ,'bcate_id'   => $req->cate
                 ,'btitle'     => $req->title
                 ,'bcontent'   => $req->content
+                ,'fav_id'     => $req->favdiet
                 ,'created_at' => now()
             ]
             ,'board_id'
@@ -189,8 +196,12 @@ class BoardController extends Controller
                 ->where('board_replies.board_id', $board->board_id)
                 ->paginate(5);
 
+        // 식단 관련 정보 획득
+        
+
         $arr = [
             'cate'        => $bcate->bcate_name
+            // ,'favid'      => $board->fav_id
             ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
             ,'content'    => nl2br($board->bcontent)
@@ -231,7 +242,12 @@ class BoardController extends Controller
             return redirect()->back();
         }
 
-        return view('boardEdit')->with('data', $board)->with('cate', $bcate);
+        $favDiet = DB::table('fav_diets')
+                ->where('user_id', $id)
+                ->whereNull('deleted_at')
+                ->get();
+
+        return view('boardEdit')->with('data', $board)->with('cate', $bcate)->with('favDiet', $favDiet);
     }
 
     /**

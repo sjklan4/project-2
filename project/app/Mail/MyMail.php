@@ -26,37 +26,44 @@ class MyMail extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'My Mail',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: 'My Mail',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
+    // public function attachments()
+    // {
+    //     return [];
+    // }
+    public function build()
     {
-        return [];
+        return $this->from(env('MAIL_USERNAME'), 'GameMatching')
+        ->subject("Welcome to GameMatching!")
+        ->view('mail.emailverify', ['email_data' => $this->email_data]);
     }
+    
 }

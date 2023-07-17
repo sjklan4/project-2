@@ -78,6 +78,7 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 라우트수      : 총 12개 
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
+use Database\Factories\UserFactory;
 
 Route::get('/user/login', [UserController::class,'login'])->name('user.login')->middleware('guest');// 로그인 페이지 이동 라우트
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');//회원가입 페이지 이동 라우트
@@ -100,6 +101,10 @@ Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logou
 
 Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo'); // 유저의 식단변경과 목표 칼로리 변경 페이지로 이동
 Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
+
+Route::get('/user/userwithdraw',[UserController::class, 'userwithdraw'])->name('user.userwithdraw'); // 회원 탈퇴 페이지 이동
+Route::post('user/userdraw',[UserController::class, 'userdraw'])->name('user.userdraw'); //회원 탈퇴 진행
+
 
 
 //----------------테스트용--------------------------------------
@@ -158,3 +163,4 @@ Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');
 use App\Http\Controllers\RecommendController;
 Route::get('/recom', [RecommendController::class, 'rview'])->name('recom.get');
 Route::post('/recom', [RecommendController::class, 'recommned'])->name('recom.post');
+Route::post('/setdiet', [RecommendController::class, 'setdiet'])->name('recom.setdiet');

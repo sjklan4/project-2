@@ -23,6 +23,15 @@
                         @endforeach
                     </select>
                 </div>
+                {{-- v002 add --}}
+                {{-- <div>
+                    <label for="favdiet">저장된 식단</label>
+                    <select name="favdiet" id="favdiet" onchange="DietShare()">
+                        @foreach ($favDiet as $diet)
+                            <option value="{{$diet->fav_id}}">{{$diet->fav_name}}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
                 <div>
                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('title', ':message') : ''}}</div>
                     <label for="title">제목</label>

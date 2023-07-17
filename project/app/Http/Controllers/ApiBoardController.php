@@ -74,4 +74,29 @@ class ApiBoardController extends Controller
 
         return $arr;
     }
+
+    // v002 add
+    public function selectDiets($favId) {
+        $arr = [
+            'errorcode' => '0'
+            ,'msg'      => ''
+        ];
+
+        $favFood = DB::table('fav_diet_food')
+                    ->join('food_infos', 'food_infos.food_id', 'fav_diet_food.food_id')
+                    ->where('fav_diet_food.fav_id', $favId)
+                    ->whereNull('fav_diet_food.deleted_at')
+                    ->get();
+
+        if(!$favFood){
+            $arr['errcode'] = '1';
+            $arr['msg'] = '데이터 없음';
+        }else{
+            $arr['errcode'] = '0';
+            $arr['msg'] = '성공';
+            $arr['data'] = $favFood;
+        }
+
+        return $arr;
+    }
 }

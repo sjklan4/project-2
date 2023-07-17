@@ -79,6 +79,28 @@ class UserController extends Controller
         return view('regist');
     }
 
+    //회원 이메일 인증 요청 부분
+    public function emailverify(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->verification_code = sha1(time());    
+        $user->save();        
+
+        if($user != null){
+            //Send Email
+            MailController::sendSignupEmail($user -> name, $user->email, $user->verification_code);
+            //Show a message
+            return redirect()->back()->with(session()->flash('alert-success', 'Your account has been created. Please check email for verification link.'));
+        }
+
+        return redirect()->back()->with(session()->flash('alert-danger', 'Something went wrong!'));
+
+        //Show error message
+    }
+
     // 회원 가입 부분
     public function registpost(Request $req){
 
@@ -399,6 +421,21 @@ class UserController extends Controller
         Auth::logout(); // 로그아웃
         return redirect()->route('user.login');
     }
+
+    //회원 탈퇴 부분
+    //탈퇴 페이지 이동
+public function userwithdraw(){
+    return view('Userdraw');
+}   
+
+
+
+
+
+
+
+
+
 
 }
 
