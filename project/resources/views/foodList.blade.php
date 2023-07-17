@@ -68,30 +68,36 @@
         <div class="fav_diets">
         @if (!empty($dietname))
             <h2>자주먹는 식단</h2>
-            <div class="fav_scroll">
+            <div class="fav_scroll" id="fav_scroll">
             @foreach ($dietname as $names)
-                <input type="checkbox" name="userdiet" id="userdiet" onclick='getDietValue(event, {{Auth::user()->user_id}}, {{$names->fav_id}})'>
-                <span class="favname"> {{$names->fav_name}} </span>
-                <br>
-                <div class="diet_div">
-                @foreach ($dietfood as $foods)
-                @if($foods->fav_id === $names->fav_id)
-                    <div class="dietinfo">
-                        <span> {{$foods->food_name}}</span>
-                        <br>
-                        <strong>영양성분</strong>
-                        <span> > </span>
-                        <span>칼로리 : {{$foods->kcal}}, </span>
-                        <span>탄수화물 : {{$foods->carbs}}, </span>
-                        <span>단백질 : {{$foods->protein}}, </span>
-                        <span>지방 : {{$foods->fat}}, </span>
-                        <span>당 : {{$foods->sugar}}, </span>
-                        <span>나트륨 : {{$foods->sodium}}</span>
-                        <span> > {{$foods->fav_f_intake}} 인분</span>
-                    </div>
-                    <br>
-                @endif
+            <div
+                id="{{'favId-'.$names->fav_id}}"
+                @foreach ($seleted_diet as $diet)
+                    @if($names->fav_id === $diet->fav_id)
+                        style="display: none"
+                    @endif
                 @endforeach
+            >
+                <input type="checkbox" name="userdiet" id="{{'input-'.$names->fav_id}}" onclick='getDietValue(event, {{Auth::user()->user_id}}, {{$names->fav_id}})'>
+                <span class="favname"> {{$names->fav_name}} </span>
+                <div class="diet_div">
+                    @foreach ($dietfood as $foods)
+                        @if($foods->fav_id === $names->fav_id)
+                            <div class="dietinfo">
+                                <div> {{$foods->food_name}}</div>
+                                <strong>영양성분</strong>
+                                <span> > </span>
+                                <span>칼로리 : {{$foods->kcal}}, </span>
+                                <span>탄수화물 : {{$foods->carbs}}, </span>
+                                <span>단백질 : {{$foods->protein}}, </span>
+                                <span>지방 : {{$foods->fat}}, </span>
+                                <span>당 : {{$foods->sugar}}, </span>
+                                <span>나트륨 : {{$foods->sodium}}</span>
+                                <span> > {{$foods->fav_f_intake}} 인분</span>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             </div>
             @endforeach
         </div>
@@ -121,11 +127,12 @@
                 <div class="fav_diet" id="fav_diet">
                     @foreach ($seleted_diet as $diet)
                         @csrf
-                        <span>{{$diet->fav_name}}</span>
-                        <input type="hidden" name="date" value="{{$data['date']}}">
-                        <input type="hidden" name="time" value="{{$data['time']}}">
-                        <button type="button" onclick="deletediet({{Auth::user()->user_id .','. $diet->cart_id}})">X</button>
-                        <br>
+                        <div>
+                            <span>{{$diet->fav_name}}</span>
+                            <input type="hidden" name="date" value="{{$data['date']}}">
+                            <input type="hidden" name="time" value="{{$data['time']}}">
+                            <button type="button" onclick="deletediet({{Auth::user()->user_id . ',' . $diet->cart_id . ',' . $diet->fav_id}})">X</button>
+                        </div>
                     @endforeach
                 </div>
                 <br>
