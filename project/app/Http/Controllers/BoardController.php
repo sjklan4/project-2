@@ -17,6 +17,7 @@ use App\Models\BoardLike;
 use App\Models\UserInfo;
 use App\Models\BoardImg;
 use App\Models\BoardReply;
+use App\Models\FavDiet;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,8 +74,13 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-
-        return view('boardCreate');
+        // v002 add
+        $id = Auth::user()->user_id;
+        $favDiet = DB::table('fav_diets')
+                ->where('user_id', $id)
+                ->whereNull('deleted_at')
+                ->get();
+        return view('boardCreate')->with('favDiet', $favDiet);
     }
 
     /**
@@ -231,7 +237,12 @@ class BoardController extends Controller
             return redirect()->back();
         }
 
-        return view('boardEdit')->with('data', $board)->with('cate', $bcate);
+        $favDiet = DB::table('fav_diets')
+                ->where('user_id', $id)
+                ->whereNull('deleted_at')
+                ->get();
+
+        return view('boardEdit')->with('data', $board)->with('cate', $bcate)->with('favDiet', $favDiet);
     }
 
     /**

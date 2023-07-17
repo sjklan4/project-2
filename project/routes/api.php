@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 use App\Http\Controllers\ApiBoardController;
 
 Route::put('/boards/likes', [ApiBoardController::class, 'likeUpDown']);
+// v002 add
+Route::get('/boards/diets/{favId}', [ApiBoardController::class, 'selectDiets']);
 
 // ---------------------------------------------
 // 섹션명       : 음식(Food)
