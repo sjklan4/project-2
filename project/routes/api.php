@@ -63,6 +63,7 @@ Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'checkEm
 Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'checkNkname']);
 Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'checkPhone']);
 Route::post('/user/userpsedt', [ApiUserController::class, 'checkPassword']);
+Route::delete('/user/userdraw', [ApiUserController::class, 'userdrawing']);
 
 // ---------------------------------------------
 // 섹션명       : 카트(Cart)

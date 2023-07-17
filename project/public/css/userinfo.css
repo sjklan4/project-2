@@ -25,8 +25,6 @@ h2{
     padding: 50px;
 }
 .shadowYellow {
-    background: #FFFFF0;
-    box-shadow: 0px 12px 30px #ECECEC;
     display: flex;
     justify-content: center;
     padding: 50px 30px;
@@ -62,7 +60,7 @@ button {
     border-radius: 3px;
 }
 button:hover {
-    background-color: #9D9D9D;
+    background-color: #17794b;
 }
 #greenBtn {
     background-color: #538E04;
@@ -94,11 +92,12 @@ input:focus {
     outline: none;
 }
 
-/* .diechk-td{
-    width: 15vw;
+.diechk-td{
+    padding-top: 17px;
+    text-align: center;
     vertical-align: top;
-    padding-top: 8px;
-} */
+    
+}
 
 .table-diet{
     margin: auto;
@@ -150,17 +149,40 @@ li.info-list{
     position: relative;
 }
 
-.arrow_box{
-    position: absolute;
-    top: 35px; /* 말풍선의 상단 위치 조정 */
-    left: 0; /* 말풍선의 왼쪽 위치 조정 */
-    display: none; /* 초기에 숨김 처리 */
-    color:black;
-    padding: 5px;
-    width: 28vw;
+#suggest {
+    position: relative;
+    /* other styles as needed */
 }
-.hover-btn:hover .arrow_box{
-    display: inline-block;
+
+#suggest .arrow_box {
+    visibility: hidden;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 20px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the bubble above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Set the box width as needed */
+    width: 32vw;
+}
+
+#suggest .arrow_box::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Arrow at the bottom of tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f7f8fa transparent transparent transparent;
+}
+
+#suggest:hover .arrow_box {
+    visibility: visible;
 }
 
 
@@ -189,7 +211,9 @@ input#acctivaty2{
     margin-left: 15px;
 }
 input#goal_kcal{
-    width: 20vw;
+    width: 10vw;
+    min-width: 8vw;
+    text-align: end;
 }
 /* input#user_birth{
     width: 10vw;
@@ -263,7 +287,8 @@ td.info-table{
 }
 
 .greenBtn{
-    background-color: #538E04;
+    background-color: #198754;
+    border-color: #198754;
     color: #fff;
 }
 table {
@@ -355,4 +380,14 @@ span.passworderror{
 
 .invalid-feedback{
     display: block !important;
+}
+
+/* -----------회원탈퇴 부분 --------------- */
+.drawinfo{
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+    padding: 10px;
+}
+.memo{
+    padding: 10px;
 }
