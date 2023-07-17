@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 use App\Http\Controllers\ApiBoardController;
 
 Route::put('/boards/likes', [ApiBoardController::class, 'likeUpDown']);
+// v002 add
+Route::get('/boards/diets/{favId}', [ApiBoardController::class, 'selectDiets']);
 
 // ---------------------------------------------
 // 섹션명       : 음식(Food)
@@ -75,7 +77,7 @@ Route::get('/apisearch', [ApiController::class, 'apisearch']);
 Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
 Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
-Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'dietDelete']);
 
 
 // ---------------------------------------------

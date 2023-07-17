@@ -19,6 +19,14 @@
                     </select>
                 </div>
                 <div>
+                    <label for="favdiet">저장된 식단</label>
+                    <select name="favdiet" id="favdiet" onchange="DietShare()">
+                        @foreach ($favDiet as $diet)
+                            <option value="{{$diet->fav_id}}">{{$diet->fav_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
                     <div class="errorMsg"></div>
                     <label for="title">제목</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('title', ':message') : ''}}</span>
@@ -28,17 +36,37 @@
                         value="{{count($errors) > 0 ? old('title') : ''}}"
                     >
                 </div>
-                <div>
-                    <div class="errorMsg"></div>
-                    <label for="content">내용</label>
-                    <span class="errorMsg">{{count($errors) > 0 ? $errors->first('content', ':message') : ''}}</span>
-                    <br>
+                @if ($favDiet)
                     <div>
-                        <textarea name="content" id="content"
-                            placeholder='내용을 입력해주세요.'
-                            >{{count($errors) > 0 ? old('content') : ''}}</textarea>
+                        <div class="errorMsg"></div>
+                        <label for="content">내용</label>
+                        <span class="errorMsg">{{count($errors) > 0 ? $errors->first('content', ':message') : ''}}</span>
+                        <br>
+                        <div>
+                            <textarea name="content" id="content"
+                                placeholder='내용을 입력해주세요.'
+                                >{{count($errors) > 0 ? old('content') : ''}}</textarea>
+                        </div>
                     </div>
-                </div>
+                    <div> {{-- 저장된 식단 출력 부분 --}}
+                        <br>
+                        <label for="diet">식단</label>
+                        <div id="favDiet">
+                        </div>
+                    </div>
+                @else
+                    <div>
+                        <div class="errorMsg"></div>
+                        <label for="content">내용</label>
+                        <span class="errorMsg">{{count($errors) > 0 ? $errors->first('content', ':message') : ''}}</span>
+                        <br>
+                        <div>
+                            <textarea name="content" id="content"
+                                placeholder='내용을 입력해주세요.'
+                                >{{count($errors) > 0 ? old('content') : ''}}</textarea>
+                        </div>
+                    </div>
+                @endif
                 <div>
                     <label for="picture">사진</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('picture', ':message') : ''}}</span>

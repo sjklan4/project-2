@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DietFood;
 use Illuminate\Http\Request;
 use App\Models\FoodCart;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FavDiet;
+use App\Models\FavDietFood;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -128,20 +130,26 @@ class ApiController extends Controller
         ];
 
         // 현재 장바구니 정보 획득
-        $seleted = DB::table('food_carts')
-        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
+        $carts = DB::table('food_carts')
+        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id', 'food_carts.fav_id')
         ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
         ->where('food_carts.user_id', $req->value1)
+        ->where('food_infos.food_id', $req->value2)
         ->get();
+
+        // 장바구니 
+        $countDuplicateFood = FavDietFood::join('fav_diets', 'fav_diet_food.fav_id', 'fav_diets.fav_id')
+            ->join('food_carts', 'food_carts.fav_id', 'fav_diet_food.fav_id')
+            ->where('fav_diets.user_id', $req->value1)
+            ->where('fav_diet_food.food_id', $req->value2)
+            ->get();
 
         // 장바구니에 같은 음식을 넣지 못하도록 처리
         $flg = 0;
-        foreach ($seleted as $value) {
-            if($req->value2 == $value->food_id) {
-                $arr['errorcode'] = '1';
-                $arr['msg'] = '해당음식이 이미 선택된 음식에 존재합니다.';
-                $flg = 1;
-            }
+        if($carts->count() > 0 || $countDuplicateFood->count() > 0) {
+            $arr['errorcode'] = '1';
+            $arr['msg'] = '해당음식이 이미 선택된 음식에 존재합니다.';
+            $flg = 1;
         }
 
         if($flg === 0) {
@@ -168,34 +176,45 @@ class ApiController extends Controller
     }
 
     public function postFoodCart2($user_id, $fav_id){
-        $cart = new FoodCart([
-            'user_id' => $user_id,
-            'fav_id' => $fav_id,
-            'food_id' => 0,
-            'amount' => 0.0
-        ]);
-        $cart->save();
-
-        $seleted_diet = DB::table('food_carts')
-        ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
-        ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
-        ->where('food_carts.user_id', $user_id)
-        ->get();
-
         $arr = [
-            'error' => '0'
-            ,'msg' => ''
+            'errorcode' => '0'
+            ,'msg' => '장바구니 입력 성공'
         ];
 
-        if(!$fav_id){
-            $arr['error'] = '1';
-            $arr['msg'] = 'fall';
-        }else{
-            $arr['error'] = '2';
-            $arr['msg'] = 'success';
-            $arr['data'] = $seleted_diet->only('fav_id', 'fav_name');
+        // 식단 음식 정보 + 장바구니 음식 아이디 조인 셀렉트
+        $countDuplicateFood = FavDietFood::join('fav_diets', 'fav_diet_food.fav_id', 'fav_diets.fav_id')
+            ->join('food_carts', 'food_carts.food_id', 'fav_diet_food.food_id')
+            ->where('fav_diets.user_id', $user_id)
+            ->where('fav_diet_food.fav_id', $fav_id)
+            ->get();
+
+        // 결과가 잇으면 에러코드 작성
+        $flg = 0;
+        if ($countDuplicateFood->count() > 0) {
+            $arr['errorcode'] = '1';
+            $arr['msg'] = '해당음식이 이미 선택된 음식에 존재합니다.';
+            $flg = 1;
         }
-        return response()->json($seleted_diet);
+
+        // 결과가 없으면 인서트
+        if($flg === 0) {
+            $cart = new FoodCart([
+                'user_id' => $user_id,
+                'fav_id' => $fav_id,
+                'food_id' => 0,
+                'amount' => 0.0
+            ]);
+            $cart->save();
+
+            $seleted_diet = DB::table('food_carts')
+            ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
+            ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
+            ->where('food_carts.user_id', $user_id)
+            ->get();
+
+            $arr['data'] = $seleted_diet;
+        }
+        return $arr;
     }
 
     public function foodDelete($user_id, $food_id, $cart_id) {
@@ -227,21 +246,27 @@ class ApiController extends Controller
     }
 
     public function dietDelete($user_id, $cart_id) {
-        // $arr = [
-        //     'error' => '0'
-        //     ,'msg' => '식단 삭제 성공'
-        // ];
-
+        $arr = [
+            'error' => '0'
+            ,'msg' => '식단 삭제 성공'
+        ];
+        
         DB::table('food_carts')
-        ->where('cart_id', $cart_id)
-        ->delete();
+            ->where('cart_id', $cart_id)
+            ->delete();
 
         $seleted_diet = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
         ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
         ->where('food_carts.user_id', $user_id)
         ->get();
-        
-        return response()->json($seleted_diet);
+
+        if ($seleted_diet->count() > 0 ) {
+            $arr['data'] = $seleted_diet;
+        } else {
+            $arr['errorcode'] = '1';
+            $arr['msg'] = '식단 목록이 없습니다.';
+        }
+        return $arr;
     }
 }

@@ -19,6 +19,9 @@
                 </div>
                 @endif
                 <span>{!! $data['content']!!}</span>
+                <div> {{-- 게시글에 입력한 식단 출력 div --}}
+                    
+                </div>
                 <div class="likeDiv">
                     <input type="hidden" id="value1" value="{{session('user_id')}}">
                     <input type="hidden" id="value2" value="{{$data['id']}}">
