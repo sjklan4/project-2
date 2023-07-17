@@ -5,6 +5,7 @@
  * 디렉토리     : Controllers
  * 파일명       : Usercontroller.php
  * 이력         : v001 0526 SJ.Park new
+ *                v002 0717 AR.Choe add, delete
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -39,7 +40,7 @@ class UserController extends Controller
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         ];
 
-        $validate = Validator::make($req->only('email','password'),$rules,[
+        $validate = Validator::make($req->only('email','password'), $rules, [
             'email.required' => '이메일을 입력해주세요',
             'email' => 'email형식에 맞춰주세요',
             'password' => '비밀번호를 확인해주세요'
@@ -64,8 +65,8 @@ class UserController extends Controller
         // 유저 인증작업
         Auth::login($user);
         if(Auth::check()){
-            session($user->only('user_id')); //세션에 인증된 회원 pk등록
-            return redirect()->intended(route('home')); //intended사용시 앞전 데이터를 없에고 redirect시킨다.
+            session($user->only('user_id')); // 세션에 인증된 회원 pk등록
+            return redirect()->intended(route('home')); // intended사용시 앞전 데이터를 없에고 redirect시킨다.
         } else{
             $error = '인증작업 에러.';
             return redirect()->back()->with('error',$error);
