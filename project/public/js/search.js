@@ -1,14 +1,15 @@
-window.onbeforeunload = function() {
-    return "저장되지 않은 변경사항이 있습니다. 정말 페이지를 떠나실 건 가요?";
-};
+// todo 취소나 저장하지 않고 나갔을 때 처리
+// window.onbeforeunload = function() {
+//     return "저장되지 않은 변경사항이 있습니다. 정말 페이지를 떠나실 건 가요?";
+// };
 
-$(document).on("submit", "form", function(){
-    window.onbeforeunload = null;
-});
+// $(document).on("submit", "form", function(){
+//     window.onbeforeunload = null;
+// });
 
-$(document).on("click", function(){
-    window.onbeforeunload = null;
-});
+// $(document).on("click", function(){
+//     window.onbeforeunload = null;
+// });
 
 
 // 메뉴 탭
@@ -153,15 +154,16 @@ function deletefood(userId, foodId, cartId) {
     })
 }
 
+// 즐겨찾는 식단 -> 장바구니
 function getDietValue(event, userId, favId)  {
-    let fav = event.target.parentNode;
-    
         fetch(`/api/cart2/${userId}/${favId}`, {
             method: "post"
         })
         .then(res => res.json())
         .then(data => { 
             if (data['errorcode'] === '0') {
+                // 선택된 음식 부분 처리
+                fav_diet.replaceChildren()
                 data['data'].forEach(ele => {
                     let fdiet = document.createElement('span');
                     let div = document.createElement('div');
@@ -171,15 +173,16 @@ function getDietValue(event, userId, favId)  {
                     let deldbtn = document.createElement('button');
                     deldbtn.innerHTML = 'X';
                     deldbtn.setAttribute('type', 'button')
-                    deldbtn.setAttribute('onclick', "deletediet(" + ele.user_id + ',' + ele.cart_id + ")")
+                    deldbtn.setAttribute('onclick', "deletediet(" + ele.user_id + ',' + ele.cart_id + ',' + ele.fav_id + ")")
     
                     fav_diet.appendChild(div);
                     div.appendChild(fdiet);
                     div.appendChild(deldbtn);
-                    fav.setAttribute('id', 'delDiv')
-                    event.target.setAttribute('id', 'delInput')
-                    fav.style.display = "none";
-                })
+                    })
+
+                // 저장된 식단 부분
+                let favDiv = document.getElementById('favId-' + favId);
+                favDiv.style.display = "none";
             } else if (data['errorcode'] === '1') {
                 alert(data['msg']);
                 event.target.checked = false;
@@ -188,18 +191,16 @@ function getDietValue(event, userId, favId)  {
 }
 
 // 선택 식단 삭제 함수
-function deletediet(userId, cartId) {
+function deletediet(userId, cartId, favId) {
     fetch(`/api/dietdelete/${userId}/${cartId}`, {
         method: "DELETE"
     })
     .then(res => res.json())
     .then( data => {
+        console.log(data);
         if (data['errorcode'] === '0') {
             fav_diet.replaceChildren()
             data['data'].forEach(ele => {
-                console.log(ele.cart_id);
-                console.log(ele.user_id);
-                
                 let ffood = document.createElement('span')
                 let brp = document.createElement('br')
                 ffood.innerHTML = ele.fav_name;
@@ -208,7 +209,7 @@ function deletediet(userId, cartId) {
                 let deldbtn = document.createElement('button')
                 deldbtn.innerHTML = 'X';
                 deldbtn.setAttribute('type', 'button')
-                deldbtn.setAttribute('onclick', "deletediet(" + ele.user_id + ',' + ele.cart_id + ")")
+                deldbtn.setAttribute('onclick', "deletediet(" + ele.user_id + ',' + ele.cart_id + ',' + ele.fav_id + ")")
     
                 fav_diet.appendChild(ffood);
                 fav_diet.appendChild(deldbtn)
@@ -217,11 +218,9 @@ function deletediet(userId, cartId) {
         } else if(data['errorcode'] === '1') {
             fav_diet.replaceChildren()
         }
-        const displayDiv = document.getElementById('delDiv');
-        const displayInput = document.getElementById('delInput');
+        let displayDiv = document.getElementById('favId-' + favId)
+        let displayInput = document.getElementById('input-' + favId);
         displayDiv.removeAttribute('style');
-        displayDiv.removeAttribute('id');
-        displayInput.removeAttribute('id');
         displayInput.checked = false;
     }
 )}
@@ -236,7 +235,9 @@ tab1.addEventListener('click', () => {
     }else{
         fav_diets[0].style.display = 'block'
         user_select[0].style.display = 'none'
-        search[0].style.display = 'none'
+        if(search[0]) {
+            search[0].style.display = 'none'
+        }
     }
 });
 
@@ -250,6 +251,8 @@ tab2.addEventListener('click', () => {
     }else{
         user_select[0].style.display = 'block'
         fav_diets[0].style.display = 'none'
-        search[0].style.display = 'none'
+        if(search[0]) {
+            search[0].style.display = 'none'
+        }
     }
 });
