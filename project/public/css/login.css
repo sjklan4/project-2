@@ -259,6 +259,10 @@ label {
     .registinfo label {
         font-size: 14px;
     }
+
+    .registinfo input {
+        font-size: 14px;
+    }
 }
 
 

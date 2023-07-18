@@ -56,16 +56,16 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="user_birth">생년월일</label>
-                    <input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}" required>
-                </div>
-                <div>
                     <label for="user_phone_num">전화번호</label>
                     <br>
                     <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                     @error('user_phone_num')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
+                </div>
+                <div>
+                    <label for="user_birth">생년월일</label>
+                    <input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}" required>
                 </div>
                 <div>
                     <label for="gender">성별</label>
