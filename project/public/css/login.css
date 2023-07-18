@@ -126,6 +126,10 @@ input[type=text], input[type=password] {
 	margin: 0;
     border: none;
     outline: none;
+    border-bottom: solid 1px #9D9D9D;
+    width: 350px;
+    height: 40px;
+    padding: 0 10px;
 }
 
 .write-box {
@@ -138,11 +142,7 @@ input[type=text], input[type=password] {
     align-items: center;
 }
 
-input[type=text], input[type=password] {
-    border-bottom: solid 1px #9D9D9D;
-    width: 350px;
-    height: 40px;
-    padding: 0 10px;
+.writein input[type=text], .writein input[type=password] {
     margin-bottom: 2rem;
 }
 
@@ -150,6 +150,9 @@ input[type=text], input[type=password] {
 label {
     font-weight: 700;
     letter-spacing:.1rem;
+}
+
+.writein label {
     padding-bottom: 10px;
 }
 
@@ -180,6 +183,43 @@ label {
 
 .registBtn a:hover {
     color: #538E04;
+}
+
+/* 회원가입 파트 */
+.registinfo > div {
+    padding-bottom: 1rem;
+}
+
+.email button {
+    background-color: #538E04;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.3rem;
+    width: 4.5rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.email button:hover {
+    background-color: #195F1C;
+}
+
+.registinfo h1 {
+    font-weight: 700;
+}
+
+.regisBtn button {
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.3rem;
+    width: 4.5rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+    font-size: 1rem;
+    background-color: #9D9D9D;
 }
 
 @media (max-width: 999px) {

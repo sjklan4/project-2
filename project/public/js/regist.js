@@ -34,15 +34,15 @@ function duplicationEmail(){
 
             if(apiData["errorcode"] === "1"){
                 idspan.innerHTML = apiData["msg"];
-                idspan.style.color = "red";
+                idspan.style.color = "#EE6666";
             }
             else if(!emailRegx.test(userEmail.value)){
                 idspan.innerHTML = "이메일형식에 맞춰서 입력해주세요";
-                idspan.style.color = "red"
+                idspan.style.color = "#EE6666"
             }
             else{
                 idspan.innerHTML = "사용가능한 Email입니다.";
-                idspan.style.color = "blue"
+                idspan.style.color = "#6799E4"
                 signupButton.disabled = false;
             }
         })
@@ -59,11 +59,11 @@ function pwCheck(){
     }
     else if(pw.value === pwChk.value){
         pwMsg.innerHTML = "비밀번호 일치";
-        pwMsg.style.color = "blue";
+        pwMsg.style.color = "#6799E4";
     }
     else{
         pwMsg.innerHTML = "비밀번호 불일치"
-        pwMsg.style.color = "red";
+        pwMsg.style.color = "#EE6666";
     }
 }
 

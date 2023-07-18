@@ -32,7 +32,7 @@
             <div class="chk-email">Email  {{session('data')}} </div>
         </div>
     </div>    
-    <div class = "findpsw">
+    {{-- <div class = "findpsw">
         <h1>Password Change</h1>
         <div class="changpassword-insert">
             <form action="{{ route('user.userpseditpost') }}" method="post">
@@ -59,7 +59,7 @@
                 <button type = "submit" id="passwordchg" disabled>변경</button>
             </form>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
 
