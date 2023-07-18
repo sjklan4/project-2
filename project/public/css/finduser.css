@@ -121,9 +121,6 @@ input{
     text-align: left;
     margin-top: 35px;
 }
-/* .write-input#password{
-    margin: 0;
-} */
 
 h1{
     text-align: center;
@@ -131,10 +128,6 @@ h1{
 p.first-line{
     color: #195F1C;
     margin: 0px;
-}
-
-.p-tag{
-
 }
 
 .finduser-info img{

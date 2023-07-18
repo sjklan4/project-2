@@ -1,40 +1,22 @@
 @extends('layout.loginlayout')
 
-@section('title', 'regist')
+@section('title', '회원가입')
 
-
-@section('css')
-    <link rel="stylesheet" href="{{asset('css/regist.css')}}">
-@endsection
 
 @section('contents')
-
 <div class="regist-body">
-    <div class="intro_login d-none d-lg-block">
-        <a href="{{route('user.login')}}">
-            <img src="{{asset('img/logo.png')}}" alt="logo" class="mt-4 ms-4">
-            <br>
-        </a>
-    </div>
     <div class = "registpage">
         <form action="{{route('user.registpost')}}" method="post">
-                    @csrf
-        <div class="registinfo">
-            <h1 class="mt-5">WELCOME!</h1>
-            <h1>PLEASE REGIST!</h1>
-            <table>
-                <tr>
-                    <td class="write_name">
-                        <label for="user_email">이메일</label>
-                    </td>
-                    <td>        
-                        <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
-                    </td>
-                    <td>
-                        {{-- <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" disabled>중복체크</button> --}}
-                        <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
-                    </td>
-                </tr>
+            @csrf
+            <div class="registinfo">
+                <h1>WELCOME!</h1>
+                <h1>PLEASE REGIST!</h1>
+                <div>
+                    <label for="user_email">이메일</label>
+                    <br>
+                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
+                    <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
+                </div>
                 <tr>
                     <td colspan="3">
                         <span id="mailMsg"></span>
@@ -63,7 +45,6 @@
                     <td></td>
                 </tr>           
                 <tr>
-            
                     <td class="write_name">   
                         <label for="password">비밀번호</label>
                     </td>
@@ -99,7 +80,6 @@
                     <td></td>
                 </tr>   
                 <tr>
-                
                     <td class="write_name">
                         <label for="nkname">닉네임</label>
                     </td>
@@ -143,7 +123,6 @@
                     </td> 
                     <td></td>
                     <td></td>
-
                 </tr>     
                 <tr>
                     <td class="write_name">    
@@ -156,14 +135,12 @@
                         {{-- <img src="{{asset('img/womanmark.png')}}"  class="gen" required> --}}
                     </td>
                 </tr>
-            
-                </table>
-                    <button type="button" onclick="location.href='{{route('user.login')}}'" id="exit">취소</button>
-                    <button type ="submit" id="signupButton" class="greenBtn" disabled>회원가입</button>
+                <button type="button" onclick="location.href='{{route('user.login')}}'" id="exit">취소</button>
+                <button type ="submit" id="signupButton" class="greenBtn" disabled>회원가입</button>
             </div>
         </form>
-        </div>
     </div>
+</div>
 
 @endsection
 

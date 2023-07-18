@@ -1,14 +1,10 @@
 @extends('layout.loginlayout')
 
-@section('title','Login')
+@section('title','로그인')
 
-@section('css')
-    <link rel="stylesheet" href="{{asset('css/login.css')}}">
-@endsection
 @section('js')
-<script src="{{ asset('js/login.js') }}"></script>
+    <script src="{{ asset('js/login.js') }}"></script>
 @endsection
-
 
 @section('contents')
 <div class="page-body">
@@ -50,9 +46,12 @@
                 </form>
                 <div class="registlink">
                     <a href="{{route('user.userfindE')}}">이메일찾기 | </a>
-                    <a href="{{route('user.emailverifypage')}}">회원가입</a>
+                    <a href="{{route('user.regist')}}">회원가입</a>
                 </div>
         </div>
+    </form>
+    <div class="registBtn">
+        <a href="{{route('user.userfindE')}}">이메일찾기</a>
+        <a href="{{route('user.regist')}}">회원가입</a>
     </div>
-</div>
 @endsection
