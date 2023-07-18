@@ -15,20 +15,28 @@
                 <div class="email">
                     <label for="user_email">이메일</label>
                     <br>
-                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" autocomplete="off" required>
-                    {{-- <button type="button" id="checkEmail" onclick="duplicationEmail();">중복체크</button> --}}
-                    <div id="mailMsg"></div>
-                    @error('user_email')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                    @if (isset($userInfo))
+                        <input type="text" name="user_email" id="user_email" value="{{$userInfo['email']}}" required readonly>
+                    @else
+                        <input type="text" name="user_email" id="user_email" value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" autocomplete="off" required>
+                        {{-- <button type="button" id="checkEmail" onclick="duplicationEmail();">중복체크</button> --}}
+                        <div id="mailMsg"></div>
+                        @error('user_email')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    @endif
                 </div>
                 <div>
                     <label for="user_name">이름</label>
                     <br>
-                    <input type="text" name="user_name" id="user_name"   value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}" required>
-                    @error('user_name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                    @if (isset($userInfo))
+                        <input type="text" name="user_name" id="user_name" value="{{$userInfo['name']}}" required readonly>
+                    @else
+                        <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}" required>
+                        @error('user_name')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    @endif
                 </div>
                 <div>
                     <label for="password">비밀번호</label>
@@ -74,7 +82,7 @@
                 </div>
                 <div class="regisBtn">
                     <button type="button" onclick="location.href='{{route('user.login')}}'" id="exit">취소</button>
-                    <button type ="submit" id="signupButton" class="greenBtn" disabled>회원가입</button>
+                    <button type ="submit" id="signupButton" class="greenBtn">회원가입</button>
                 </div>
             </div>
         </form>

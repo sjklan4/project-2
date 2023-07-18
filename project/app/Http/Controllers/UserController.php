@@ -115,6 +115,12 @@ class UserController extends Controller
 
     // 회원가입 화면 이동
     public function regist(){
+        // ------------- v002 add -------------
+        if(session()->has('userInfo')) {
+            return view('regist')->with('userInfo', session('userInfo'));
+        }
+        // ------------- v002 add -------------
+
         return view('regist');
     }
 
@@ -167,10 +173,10 @@ class UserController extends Controller
         //     ]);
 
         // todo 유효성 검사 부분 확인
-        if ($validate->fails()) {
-            // $errors = $validate->errors();
-            return redirect()->back()->withErrors($validate)->withInput();
-        }
+        // if ($validate->fails()) {
+        //     // $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($validate)->withInput();
+        // }
 
         Log::debug('유효성 검사 완료');
         
