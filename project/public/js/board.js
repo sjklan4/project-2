@@ -111,7 +111,7 @@ function imgSizeChk(img) {
 // 식단 출력 함수
 function DietShare() {
     const selectO = document.getElementById('favdiet')
-    const favDiet = document.getElementById('favDiet')
+    const Diet = document.getElementById('Diet')
 
     let seletedF = selectO.options[selectO.selectedIndex].value;
 
@@ -120,7 +120,7 @@ function DietShare() {
     })
     .then(res => res.json())
     .then(data => { 
-        favDiet.replaceChildren()
+        Diet.replaceChildren()
         console.log(data); console.log(data.errcode); console.log(data.msg)
         data['data'].forEach(fav => {
             let foodName = document.createElement('input');
@@ -129,9 +129,8 @@ function DietShare() {
             foodName.value = fav.food_name;
             intake.value = fav.fav_f_intake;
 
-            favDiet.appendChild(foodName);
-            favDiet.appendChild(intake);
-            // favDiet.appendChild(br);
+            Diet.appendChild(foodName);
+            Diet.appendChild(intake);
         });
     }); 
 

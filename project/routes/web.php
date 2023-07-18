@@ -32,6 +32,8 @@ Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('boar
 Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
 Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete'])->name('board.replyDelete');
 
+Route::post('/downdiet/{favid}', [BoardController::class, 'dietdownload'])->name('board.dietdownload');
+
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
 // Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
