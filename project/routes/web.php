@@ -161,6 +161,18 @@ Route::put('/home/{d_id}',[HomeController::class, 'imgEdit'])->name('img.edit');
 // 생성일       : 2023-07-12
 // ---------------------------------------------
 use App\Http\Controllers\RecommendController;
+
 Route::get('/recom', [RecommendController::class, 'rview'])->name('recom.get');
 Route::post('/recom', [RecommendController::class, 'recommned'])->name('recom.post');
 Route::post('/setdiet', [RecommendController::class, 'setdiet'])->name('recom.setdiet');
+
+
+// ---------------------------------------------
+// 섹션명       : 카카오 로그인
+// 기능         : 카카오 로그인 관련 라우트 설정
+// 관리자       : 최아란
+// 생성일       : 2023-07-18
+// ---------------------------------------------
+use App\Http\Controllers\SocialController;
+Route::get('/kakao', [SocialController::class, 'redirect']);
+Route::get('/kakao/back', [SocialController::class, 'back']);
