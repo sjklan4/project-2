@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('emailverifies', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('emailverify', function (Blueprint $table) {
+            $table->integer('email_id')->autoIncrement();
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('emailverifies');
+        Schema::table('emailverify', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use App\Models\emailverify;
+use App\Models\Emailverify as ModelsEmailverify;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
@@ -88,25 +88,28 @@ class UserController extends Controller
 
     //이메일 인증 절차 부분
     public function emailverifypost(Request $req){
-        $req->validate([
-            'email'    => 'required|email|max:100'
-        ]);
-        $data['email'] = $req->email;
-        $user = emailverify::create($data);
+        // $req->validate([
+        //     'email'    => 'required|email|max:100'
+        // ]);
+        
+        // $data['email'] = $req->mailAddress;
+        // $user = ModelsEmailverify::new($data);
+        $user= new ModelsEmailverify;
+        $user->email = $req->mailAddress;
 
-        if(!$user){
-            return redirect()
-                ->route('user.emailverify');
-        }
-        $verification_code = Str::random(30); // 인증 코드 생성
-        $validity_period = now()->addMinutes(5); // 유효기간 설정
+        // if(!$user){
+        //     return redirect()
+        //         ->route('user.emailverify');
+        // }
+        $verification_code = Str::random(10); // 인증 코드 생성
+        // $validity_period = now()->addMinutes(5); // 유효기간 설정
 
         $user->verification_code = $verification_code;
-        $user->validity_period = $validity_period;
+        // $user->validity_period = $validity_period;
         $user->save();
-
+        // Log::debug($user);
         Mail::to($user->email)->send(new MyMail($user));
-        return redirect()->route('users.login')->with('email');
+        return redirect()->route('user.emailverifypage')->with('email');
     }
     
 

@@ -10,10 +10,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class Emailverify extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'emailverify';
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +24,8 @@ class User extends Authenticatable
         'email',
     ];
 
+    // protected  $primaryKey = 'email';
+
 
     /**
      * The attributes that should be cast.
@@ -30,8 +33,10 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'timestamp',
     ];
+
+    public $timestamps = false;
 
     // 엘로퀀트로 softDel시 추가해야함
     protected $dates = ['deleted_at'];

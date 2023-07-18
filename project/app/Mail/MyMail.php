@@ -8,6 +8,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Emailverify;
+use App\Models\UserInfo;
 
 class MyMail extends Mailable
 {
@@ -55,19 +57,21 @@ class MyMail extends Mailable
     //  *
     //  * @return array
     //  */
-    public function attachments()
-    {
-        return [];
-    }
+    // public function attachments()
+    // {
+    //     return [];
+    // }
     
     public function build()
     {
-        return $this->view('email.sendemail')
+        return $this
+        ->view('email.sendemail')
         ->subject('이메일 인증을 완료해주세요.')
+        // ->from('dpeltms4@gmail.com')
         ->with([
                 'email'             => $this->user->email,
                 'verification_code' => $this->user->verification_code,
-                'validityPeriod'    => $this->user->validity_period,
+                // 'validityPeriod'    => $this->user->validity_period,
         ]);
     }
     
