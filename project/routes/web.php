@@ -190,3 +190,13 @@ Route::post('/setdiet', [RecommendController::class, 'setdiet'])->name('recom.se
 use App\Http\Controllers\SocialController;
 Route::get('/kakao', [SocialController::class, 'redirect']);
 Route::get('/kakao/back', [SocialController::class, 'back']);
+
+// ---------------------------------------------
+// 섹션명       : 비밀번호 찾기
+// 기능         : 비밀번호 찾기
+// 관리자       : 권봉정
+// 생성일       : 2023-07-18
+// ---------------------------------------------
+use App\Http\Controllers\PwController;
+Route::get('/user/userfindpw', [PwController::class, 'findpwget'])->name('findpw.get');
+Route::post('/user/userfindpw', [PwController::class, 'findpwpost'])->name('findpw.post');
