@@ -17,6 +17,7 @@
 <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('contents')
+    @yield('emailcontents')
     {{-- @include('layout.footer') --}}
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

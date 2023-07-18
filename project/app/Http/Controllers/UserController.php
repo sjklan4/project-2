@@ -9,6 +9,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MyMail;
 use App\Models\KcalInfo;
 use App\Models\UserInfo;
 use Exception;
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use App\Models\emailverify;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 class UserController extends Controller
 {
@@ -73,31 +80,38 @@ class UserController extends Controller
         
     }
 
+    //회원 이메일 인증 요청 부분
+    public function emailverifypage(){
+        return view('emailVerify');
+    }
+
+    //이메일 인증 절차 부분
+    public function emailverifypost(Request $req){
+        $req->validate([
+            'email'    => 'required|email|max:100'
+        ]);
+        $data['email'] = $req->email;
+        $user = emailverify::create($data);
+
+        if(!$user){
+            return redirect()
+                ->route('user.emailverify');
+        }
+        $verification_code = Str::random(30); // 인증 코드 생성
+        $validity_period = now()->addMinutes(5); // 유효기간 설정
+
+        $user->verification_code = $verification_code;
+        $user->validity_period = $validity_period;
+        $user->save();
+
+        Mail::to($user->email)->send(new MyMail($user));
+        return redirect()->route('users.login')->with('email');
+    }
+    
+
     // 회원가입 화면 이동
     public function regist(){
         return view('regist');
-    }
-
-    //회원 이메일 인증 요청 부분
-    public function emailverify(Request $request)
-    {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->verification_code = sha1(time());    
-        $user->save();        
-
-        if($user != null){
-            //Send Email
-            MailController::sendSignupEmail($user -> name, $user->email, $user->verification_code);
-            //Show a message
-            return redirect()->back()->with(session()->flash('alert-success', 'Your account has been created. Please check email for verification link.'));
-        }
-
-        return redirect()->back()->with(session()->flash('alert-danger', 'Something went wrong!'));
-
-        //Show error message
     }
 
     // 회원 가입 부분

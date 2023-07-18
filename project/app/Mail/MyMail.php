@@ -55,15 +55,20 @@ class MyMail extends Mailable
     //  *
     //  * @return array
     //  */
-    // public function attachments()
-    // {
-    //     return [];
-    // }
+    public function attachments()
+    {
+        return [];
+    }
+    
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), 'GameMatching')
-        ->subject("Welcome to GameMatching!")
-        ->view('mail.emailverify', ['email_data' => $this->email_data]);
+        return $this->view('email.sendemail')
+        ->subject('이메일 인증을 완료해주세요.')
+        ->with([
+                'email'             => $this->user->email,
+                'verification_code' => $this->user->verification_code,
+                'validityPeriod'    => $this->user->validity_period,
+        ]);
     }
     
 }

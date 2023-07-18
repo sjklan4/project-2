@@ -50,7 +50,7 @@
                 </form>
                 <div class="registlink">
                     <a href="{{route('user.userfindE')}}">이메일찾기 | </a>
-                    <a href="{{route('user.regist')}}">회원가입</a>
+                    <a href="{{route('user.emailverifypage')}}">회원가입</a>
                 </div>
         </div>
     </div>
