@@ -188,7 +188,7 @@ class ApiController extends Controller
             ->where('fav_diet_food.fav_id', $fav_id)
             ->get();
 
-        // 결과가 잇으면 에러코드 작성
+        // 결과가 있으면 에러코드 작성
         $flg = 0;
         if ($countDuplicateFood->count() > 0) {
             $arr['errorcode'] = '1';
@@ -206,6 +206,7 @@ class ApiController extends Controller
             ]);
             $cart->save();
 
+            // 장바구니 정보 획득
             $seleted_diet = DB::table('food_carts')
             ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
             ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
@@ -247,7 +248,7 @@ class ApiController extends Controller
 
     public function dietDelete($user_id, $cart_id) {
         $arr = [
-            'error' => '0'
+            'errorcode' => '0'
             ,'msg' => '식단 삭제 성공'
         ];
         
@@ -265,7 +266,7 @@ class ApiController extends Controller
             $arr['data'] = $seleted_diet;
         } else {
             $arr['errorcode'] = '1';
-            $arr['msg'] = '식단 목록이 없습니다.';
+            $arr['data'] = '식단 목록이 없습니다.';
         }
         return $arr;
     }

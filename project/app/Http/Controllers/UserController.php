@@ -5,10 +5,12 @@
  * 디렉토리     : Controllers
  * 파일명       : Usercontroller.php
  * 이력         : v001 0526 SJ.Park new
+ *                v002 0717 AR.Choe add, delete
  *****************************************************/
 
 namespace App\Http\Controllers;
 
+use App\Mail\MyMail;
 use App\Models\KcalInfo;
 use App\Models\UserInfo;
 use Exception;
@@ -20,6 +22,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use App\Models\emailverify;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 class UserController extends Controller
 {
@@ -39,7 +47,7 @@ class UserController extends Controller
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         ];
 
-        $validate = Validator::make($req->only('email','password'),$rules,[
+        $validate = Validator::make($req->only('email','password'), $rules, [
             'email.required' => '이메일을 입력해주세요',
             'email' => 'email형식에 맞춰주세요',
             'password' => '비밀번호를 확인해주세요'
@@ -64,14 +72,43 @@ class UserController extends Controller
         // 유저 인증작업
         Auth::login($user);
         if(Auth::check()){
-            session($user->only('user_id')); //세션에 인증된 회원 pk등록
-            return redirect()->intended(route('home')); //intended사용시 앞전 데이터를 없에고 redirect시킨다.
+            session($user->only('user_id')); // 세션에 인증된 회원 pk등록
+            return redirect()->intended(route('home')); // intended사용시 앞전 데이터를 없에고 redirect시킨다.
         } else{
             $error = '인증작업 에러.';
             return redirect()->back()->with('error',$error);
         }
         
     }
+
+    //회원 이메일 인증 요청 부분
+    public function emailverifypage(){
+        return view('emailVerify');
+    }
+
+    //이메일 인증 절차 부분
+    public function emailverifypost(Request $req){
+        $req->validate([
+            'email'    => 'required|email|max:100'
+        ]);
+        $data['email'] = $req->email;
+        $user = emailverify::create($data);
+
+        if(!$user){
+            return redirect()
+                ->route('user.emailverify');
+        }
+        $verification_code = Str::random(30); // 인증 코드 생성
+        $validity_period = now()->addMinutes(5); // 유효기간 설정
+
+        $user->verification_code = $verification_code;
+        $user->validity_period = $validity_period;
+        $user->save();
+
+        Mail::to($user->email)->send(new MyMail($user));
+        return redirect()->route('users.login')->with('email');
+    }
+    
 
     // 회원가입 화면 이동
     public function regist(){
@@ -116,7 +153,7 @@ class UserController extends Controller
             'user_phone_num.regex'  => '전화번호 형식에 맞추어 입력해주세요.'
         ];
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules, $messages);
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'), $rules, $messages);
 
         // $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
         //         'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
@@ -126,11 +163,14 @@ class UserController extends Controller
         //         'user_phone_num' => '입력하신 연락처로 가입한 이메일이 존재합니다.',
         //     ]);
 
-        if ($validate->fails()) {
-            // $errors = $validate->errors();
-            return redirect()->back()->withErrors($validate)->withInput();
-        }
+        // todo 유효성 검사 부분 확인
+        // if ($validate->fails()) {
+        //     // $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($validate)->withInput();
+        // }
 
+        Log::debug('유효성 검사 완료');
+        
         $data = [
             'user_email' => $req->user_email
             ,'user_name' => $req->user_name
@@ -140,15 +180,16 @@ class UserController extends Controller
             ,'created_at' => now()
         ];
         
-        //user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
+        // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
         // todo 트랜잭션
-        $user_id = DB::table('user_infos')->insertGetId($data,'user_id');
-
-        if($user_id < 0 || $user_id > 1){
-            $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
-            return redirect()->route('user.regist')->with('error', $error);
-        }
-    
+        $user_id = DB::table('user_infos')
+        ->insertGetId($data,'user_id');
+        
+        // if($user_id < 0 || $user_id > 1){
+            //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
+            //     return redirect()->route('user.regist')->with('error', $error);
+            // }
+        
         $data1 = [
             'user_birth' => $req->user_birth
             ,'user_gen' => $req->gender
@@ -157,13 +198,14 @@ class UserController extends Controller
         
         // insert
         $kcalInfo = KcalInfo::create($data1);
-
+        
         // $kcalInfo = false; // 에러 확인용
-
+        
         if(!$kcalInfo){
             $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
             return redirect()->route('user.regist')->with('error', $error);
         }
+        Log::debug('유저 칼로리 테이블 인서트 완료');
         
         // return view('login');
         return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
@@ -411,6 +453,21 @@ class UserController extends Controller
         Auth::logout(); // 로그아웃
         return redirect()->route('user.login');
     }
+
+    //회원 탈퇴 부분
+    //탈퇴 페이지 이동
+public function userwithdraw(){
+    return view('Userdraw');
+}   
+
+
+
+
+
+
+
+
+
 
 }
 

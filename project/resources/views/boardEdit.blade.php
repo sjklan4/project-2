@@ -23,6 +23,19 @@
                         @endforeach
                     </select>
                 </div>
+                {{-- v002 add --}}
+                <div>
+                    <label for="favdiet">저장된 식단</label>
+                    <select name="favdiet" id="favdiet" onchange="DietShare()">
+                        @foreach ($favDiet as $diet)
+                        @if($diet->fav_id == $data->fav_id)
+                            <option value="{{$diet->fav_id}}" selected>{{$diet->fav_name}}</option>
+                        @else
+                            <option value="{{$diet->fav_id}}">{{$diet->fav_name}}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
                 <div>
                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('title', ':message') : ''}}</div>
                     <label for="title">제목</label>
@@ -32,6 +45,17 @@
                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('content', ':message') : ''}}</div>
                     <label for="content">내용</label>
                     <textarea name="content" id="content" cols="40" rows="8">{{count($errors) > 0 ? old('content') : $data->bcontent}}</textarea>
+                </div>
+                <div> {{-- 저장된 식단 출력 부분 --}}
+                    <br>
+                    <label for="Diet">식단</label>
+                    <div id="Diet">
+                        @foreach ($beforeDiet as $foods)
+                            <input type="text" value={{$foods->food_name}}>
+                            <input type="text" value={{$foods->fav_f_intake}}>
+                            <br>
+                        @endforeach
+                    </div>
                 </div>
                 <div>
                     <label for="picture">사진</label>

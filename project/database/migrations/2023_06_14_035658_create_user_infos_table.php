@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->char('user_status', 1)->default('1'); // erd 랑 기본값 셋팅 다름
+            // $table->char('email_verified_at', 1)->default('0');
         });
     }
 

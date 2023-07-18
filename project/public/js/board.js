@@ -108,3 +108,31 @@ function imgSizeChk(img) {
 }
 // ? --------------------------------
 
+// 식단 출력 함수
+function DietShare() {
+    const selectO = document.getElementById('favdiet')
+    const Diet = document.getElementById('Diet')
+
+    let seletedF = selectO.options[selectO.selectedIndex].value;
+
+    fetch(`/api/boards/diets/${seletedF}`, {
+        method: "get"
+    })
+    .then(res => res.json())
+    .then(data => { 
+        Diet.replaceChildren()
+        console.log(data); console.log(data.errcode); console.log(data.msg)
+        data['data'].forEach(fav => {
+            let foodName = document.createElement('input');
+            let intake = document.createElement('input');
+            // let br = document.createElement('br');
+            foodName.value = fav.food_name;
+            intake.value = fav.fav_f_intake;
+
+            Diet.appendChild(foodName);
+            Diet.appendChild(intake);
+        });
+    }); 
+
+
+}

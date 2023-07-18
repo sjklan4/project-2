@@ -26,37 +26,49 @@ class MyMail extends Mailable
         $this->user = $user;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'My Mail',
-        );
-    }
+    // /**
+    //  * Get the message envelope.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Envelope
+    //  */
+    // public function envelope()
+    // {
+    //     return new Envelope(
+    //         subject: 'My Mail',
+    //     );
+    // }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+    // /**
+    //  * Get the message content definition.
+    //  *
+    //  * @return \Illuminate\Mail\Mailables\Content
+    //  */
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
+    // /**
+    //  * Get the attachments for the message.
+    //  *
+    //  * @return array
+    //  */
     public function attachments()
     {
         return [];
     }
+    
+    public function build()
+    {
+        return $this->view('email.sendemail')
+        ->subject('이메일 인증을 완료해주세요.')
+        ->with([
+                'email'             => $this->user->email,
+                'verification_code' => $this->user->verification_code,
+                'validityPeriod'    => $this->user->validity_period,
+        ]);
+    }
+    
 }
