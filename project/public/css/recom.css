@@ -1,19 +1,54 @@
+* {
+    margin: 0 auto;
+}
+@media screen and (max-width:500px){
+    .RecommentDiv {
+        width: 420px;
+    }
+    .contentDiv {
+        width: 325px;
+    }
+}
+@media screen and (min-width: 501px) and (max-width:1100px) {
+    .RecommentDiv {
+        width: 90vw;
+    }
+    .contentDiv {
+        width: 80vw;
+    }
+}
+@media screen and (min-width: 1100px){
+    .RecommentDiv {
+        width: 1050px;
+    }
+    .contentDiv {
+        width: 960px;
+    }
+}
 .RecommentDiv{
     margin-top: 100px;
-    display: grid;
-    grid-template-columns: 1fr;
     font-size: 16px;
     background-color: #FFFFF0;
-    padding:2.5rem;
+    padding:2rem;
 }
 
 .recomTitle{
-    padding-left: 0.5rem;
+    font-weight: 600;
+    margin-left:1rem;
 }
+.inputRadioDiv{
+
+}
+.dietCateDiv{
+    padding: 1rem;
+}
+/* .btnDiv{
+    text-align: right;
+} */
 
 .contentDiv{
     background-color: #fff;
-    padding: 2rem;
+    /* padding: 0.5rem; */
 }
 h2{
     font-weight: 500;

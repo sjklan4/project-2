@@ -167,10 +167,10 @@ class UserController extends Controller
         //     ]);
 
         // todo 유효성 검사 부분 확인
-        // if ($validate->fails()) {
-        //     // $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($validate)->withInput();
-        // }
+        if ($validate->fails()) {
+            // $errors = $validate->errors();
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
 
         Log::debug('유효성 검사 완료');
         
@@ -231,6 +231,38 @@ class UserController extends Controller
     
     // 회원 정보 변경 post
     public function userinfoeditPost(Request $req){
+
+        // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
+        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
+
+        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
+        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+        //     'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+        //     'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
+        // ]);
+        // if ($validate->fails()) {
+        //     $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($errors)->withInput();
+        // }
+
+        // 수정할 항목을 배열에 담는 변수
+        $arrKey = [];
+
+        // 기존 데이터 획득
+        $baseUser = UserInfo::find(Auth::User()->user_id);
+
+        // 수정할 항목을 배열에 담는 처리
+        if($req->user_name !== $baseUser->user_name){
+            $arrKey[] = 'user_name';
+        }
+        if($req->nkname !== $baseUser->nkname){
+            $arrKey[] = 'nkname';
+        }
+        if($req->user_phone_num !== $baseUser->user_phone_num){
+            $arrKey[] = 'user_phone_num';
+        }
+
         // 유효성 검사
         $rules = [
             'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
@@ -258,42 +290,23 @@ class UserController extends Controller
             // 'user_tall'             => '입력하신 키를 다시 확인해주세요.',
             // 'user_weight'           => '입력하신 몸무게를 다시 확인해주세요.',
         ];
+        $arrchk = [];
 
-        $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules, $messages);
+        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules, $messages);
 
-        if ($validate->fails()) {
-            return redirect()->back()->withErrors($validate)->withInput();
-        }
-
-        // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
-        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
-        // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
-
-        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
-        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-        //     'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-        //     'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
-        // ]);
         // if ($validate->fails()) {
-        //     $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($errors)->withInput();
+        //     return redirect()->back()->withErrors($validate)->withInput();
         // }
 
-        $arrKey = [];
-
-        $baseUser = UserInfo::find(Auth::User()->user_id);
-
-        if($req->user_name !== $baseUser->user_name){
-            $arrKey[] = 'user_name';
-        }
-        if($req->nkname !== $baseUser->nkname){
-            $arrKey[] = 'nkname';
-        }
-        if($req->user_phone_num !== $baseUser->user_phone_num){
-            $arrKey[] = 'user_phone_num';
+        // 유효성 체크할 항목 세팅
+        foreach($arrKey as $val){
+            $arrchk[$val] = $rules[$val];
         }
 
-         // 수정할 데이터 셋팅
+        // 유효성 체크
+        $req->validate($arrchk);
+        
+        // 수정할 데이터 셋팅
         foreach($arrKey as $val) {
             $baseUser->$val = $req->$val;
         }
