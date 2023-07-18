@@ -14,7 +14,7 @@ const userphone = document.getElementById('user_phone_num');
 
 // 이메일 중복확인
 function duplicationEmail(){
-    const userEmail = document.getElementById('mailAddress');
+    const userEmail = document.getElementById('user_email');
     const url = "/api/user/useremailedt/" + userEmail.value;
 
     // email 값이 비어있을 경우
