@@ -59,6 +59,9 @@
             </div>
             <button type = "submit" id="greenBtn">정보수정</button>
         </form>
+        @if(session('changemsg'))
+            {{session('changemsg')}}
+        @endif
     </div>
 </div>
 
