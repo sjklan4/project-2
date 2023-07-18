@@ -127,7 +127,7 @@ input[type=text], input[type=password] {
     border: none;
     outline: none;
     border-bottom: solid 1px #9D9D9D;
-    width: 350px;
+    width: 300px;
     height: 40px;
     padding: 0 10px;
 }
@@ -162,7 +162,7 @@ label {
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
     color: white;
     height: 2.8rem;
-    width: 350px;;
+    width: 300px;;
     padding: 1.5em auto;
     border-radius: 3px;
 }
@@ -190,7 +190,7 @@ label {
     padding-bottom: 1rem;
 }
 
-.email button {
+.registinfo button {
     background-color: #538E04;
     border: none;
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
@@ -202,7 +202,7 @@ label {
     font-size: 1rem;
 }
 
-.email button:hover {
+.registinfo button:hover {
     background-color: #195F1C;
 }
 
@@ -210,7 +210,7 @@ label {
     font-weight: 700;
 }
 
-.regisBtn button {
+.regisBtn > button:nth-child(1) {
     border: none;
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
     color: white;
@@ -220,6 +220,13 @@ label {
     border-radius: 3px;
     font-size: 1rem;
     background-color: #9D9D9D;
+}
+
+.regisBtn {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20%;
+    
 }
 
 @media (max-width: 999px) {
@@ -233,6 +240,28 @@ label {
     
     .write {
         height: 100vh;
+    }
+    
+    .registinfo h1 {
+        font-size: 22px;
+    }
+
+    .regisBtn button:nth-child(1), .regisBtn button:nth-child(2){
+        font-size: 14px;
+        width: 80px;
+        height: 35px;
+    }
+
+    .registinfo input[type=text], .registinfo input[type=password] {
+        height: 30px;
+    }
+
+    .registinfo label {
+        font-size: 14px;
+    }
+
+    .registinfo input {
+        font-size: 14px;
     }
 }
 

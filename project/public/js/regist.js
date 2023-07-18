@@ -44,6 +44,7 @@ function duplicationEmail(){
                 idspan.innerHTML = "사용가능한 Email입니다.";
                 idspan.style.color = "#6799E4"
                 signupButton.disabled = false;
+                signupButton.style.background = "#538E04"
             }
         })
     }

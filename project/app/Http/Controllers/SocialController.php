@@ -13,6 +13,6 @@ class SocialController extends Controller
 
     public function back() {
         $user = Socialite::driver('kakao')->user();
-        return $user->getEmail();
+        return var_dump($user);
     }
 }

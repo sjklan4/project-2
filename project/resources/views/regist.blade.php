@@ -15,8 +15,8 @@
                 <div class="email">
                     <label for="user_email">이메일</label>
                     <br>
-                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" placeholder="인증을 진행할 이메일로 입력해주세요" autocomplete="off" required>
-                    <button type="button" id="checkEmail" class = "greenBtn ms-1 ms-sm-4" onclick="duplicationEmail();">중복체크</button>
+                    <input type="text" name="user_email" id="user_email"  value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" autocomplete="off" required>
+                    {{-- <button type="button" id="checkEmail" onclick="duplicationEmail();">중복체크</button> --}}
                     <div id="mailMsg"></div>
                     @error('user_email')
                         <div class="text-danger">{{ $message }}</div>
@@ -56,16 +56,16 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="user_birth">생년월일</label>
-                    <input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}" required>
-                </div>
-                <div>
                     <label for="user_phone_num">전화번호</label>
                     <br>
                     <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                     @error('user_phone_num')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
+                </div>
+                <div>
+                    <label for="user_birth">생년월일</label>
+                    <input type="date" name="user_birth" id="user_birth" max="{{ now()->toDateString() }}" required>
                 </div>
                 <div>
                     <label for="gender">성별</label>
