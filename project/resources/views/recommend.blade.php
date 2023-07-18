@@ -7,12 +7,13 @@
 @endsection
 
 @section('contents')
+<div class="RecommentContainer">
     <div class="RecommentDiv"> {{-- 전체를 감싸는 div--}}
         <h2 class="recomTitle">식단 추천</h2>
         <div class="contentDiv"> {{-- 내용을 감싸는 div --}}
             @if ($recomFood)
                 <div class="recomFoodDiv">
-                    <h3>추천 음식</h3>
+                    <h3 class="recomFoodTitle">추천 음식</h3>
                     @foreach ($recomFood as $food)
                     <span>{{$food->food_name}}</span>
                     <span>{{$food->recom_intake}} 인분</span>
@@ -25,11 +26,12 @@
                     
                     <h3>총 영양 성분</h3>
                     @foreach ($totalnut as $nut)
-                        <span>{{round($nut)}}</span>
+                    <span>{{$nut}}</span>
                     @endforeach
                     <br>
                     <button type="button" onclick="location.href='{{route('board.create')}}'">식단 공유</button>
                     <button type="button" onclick="location.href='{{route('recom.get')}}'">취소</button>
+                    <button type="button" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
                     <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 추가</button>
                     {{-- 식단 명 입력 alert --}}
                     <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,21 +61,26 @@
                 <form action="{{route('recom.post')}}" method="post">
                     @csrf
                     <div class="dietCateDiv">
-                        <h4>식단 유형</h4>
-                        <input type="radio" name="dietcate" id="loseweight" value="0">
-                        <label for="loseweight">감량</label>
-                        <input type="radio" name="dietcate" id="increase" value="1">
-                        <label for="increase">증량</label>
-                        <input type="radio" name="dietcate" id="health" value="2">
-                        <label for="health">일반</label>
+                        <h3 class="recomFoodTitle">식단 유형</h3>
+                        <div class="inputRadioDiv">
+                            <input type="radio" name="dietcate" id="loseweight" value="0">
+                            <label for="loseweight">감량</label>
+                            <input type="radio" name="dietcate" id="increase" value="1">
+                            <label for="increase">증량</label>
+                            <input type="radio" name="dietcate" id="health" value="2">
+                            <label for="health">일반</label>
+                        </div>
                         <br>
-                        <button type="button" onclick="location.href='{{route('fav.favdiet')}}'">취소</button>
-                        <button type="submit" class="greenBtn">추천받기</button>
+                        <div class="btnDiv">
+                            <button type="button" onclick="location.href='{{route('fav.favdiet')}}'">취소</button>
+                            <button type="submit" class="greenBtn">추천받기</button>
+                        </div>
                     </div>
                 </form>
             @endif
         </div>
     </div>
+</div>
 @endsection
 
 @section('js')

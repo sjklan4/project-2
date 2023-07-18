@@ -2,8 +2,8 @@
 
 @section('title', 'Mail')
 
-@section('emailcontents')
-    <form action="{{route('user.mailpost')}}" method="POST">
+@section('contents')
+    <form action="{{route('users.verify')}}" method="POST">
         @csrf
         <label for="mailAddress">email : </label>
         <input type="text" id="mailAddress" name="mailAddress">

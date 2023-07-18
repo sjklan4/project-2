@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('emailverify', function (Blueprint $table) {
-
+        Schema::create('Emailverify', function (Blueprint $table) {
+        
+            
             $table->string('email')->unique();
             $table->string('verification_code')->nullable();
             $table->timestamp('validity_period')->nullable(); // + 메일인증코드 만료시간

@@ -112,11 +112,8 @@ Route::post('user/userdraw',[UserController::class, 'userdraw'])->name('user.use
 //메일 전송
 Route::get('/user/emailverifypage',[UserController::class, 'emailverifypage'])->name('user.emailverifypage'); //메일 전송페이지 이동
 
-Route::get('/mails/mail', [MailController::class, 'mail'])->name('user.mail');
-Route::post('/mails/mailpost', [MailController::class, 'mailpost'])->name('user.mailpost');
-
 //메일 인증
-Route::get('/users/verify/{code}/{email}', [UserController::class, 'verify'])->name('users.verify');
+Route::post('/users/verify', [UserController::class, 'emailverifypost'])->name('users.verify');
 Route::get('/resend-email', [UserController::class, 'resend_email'])->name('resend.email');
 
 
