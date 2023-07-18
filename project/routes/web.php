@@ -32,6 +32,8 @@ Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('boar
 Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
 Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete'])->name('board.replyDelete');
 
+Route::post('/downdiet/{favid}', [BoardController::class, 'dietdownload'])->name('board.dietdownload');
+
 
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
 // Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
@@ -62,6 +64,8 @@ Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('ques
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
+
+
 Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
 Route::get('/food/manage/{food}', [FoodController::class,'index'])->name('food.show');
 Route::get('/food/create', [FoodController::class,'create'])->name('food.create');
@@ -78,7 +82,7 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // 라우트수      : 총 12개 
 // ---------------------------------------------
 use App\Http\Controllers\UserController;
-use Database\Factories\UserFactory;
+use App\Http\Controllers\MailController;
 
 Route::get('/user/login', [UserController::class,'login'])->name('user.login')->middleware('guest');// 로그인 페이지 이동 라우트
 Route::get('/user/regist',[UserController::class, 'regist'])->name('user.regist');//회원가입 페이지 이동 라우트
@@ -94,16 +98,26 @@ Route::get('/user/userfindE',[UserController::class, 'userfindE'])->name('user.u
 Route::post('/user/userfindEPost',[UserController::class,'userfindEPost'])->name('user.userfindEPost'); //유저 아이디를 찾는 값을 요청하는 구문
 
 
-Route::get('/user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');//유저 비밀번호 수정 이동 라우트
-Route::post('/user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');//변경 비밀번호 적용 라우트
+Route::get('user/userpsedit',[UserController::class, 'userpsedit'])->name('user.userpsedit');//유저 비밀번호 수정 이동 라우트
+Route::post('user/userpseditpost',[UserController::class,'userpseditpost'])->name('user.userpseditpost');//변경 비밀번호 적용 라우트
 Route::post('user/userKcalup',[UserController::class, 'userKcalup'])->name('user.userKcalup');//유저 칼로리 정보 입력 라우트 - 버튼은 기본자료 수정 버튼 구동
-Route::get('/users/logout', [UserController::class, 'logout'])->name('user.logout');
+Route::get('users/logout', [UserController::class, 'logout'])->name('user.logout');
 
-Route::get('/user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo'); // 유저의 식단변경과 목표 칼로리 변경 페이지로 이동
-Route::post('/user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
+Route::get('user/userKcal',[UserController::class,'userKcalinfo'])->name('user.prevateinfo'); // 유저의 식단변경과 목표 칼로리 변경 페이지로 이동
+Route::post('user/userKcaledit',[UserController::class,'userKcaledit'])->name('user.userKcaledit'); //유저의 식단과 목표 칼로리 변경부분 입력을 진행하는 라우트
 
-Route::get('/user/userwithdraw',[UserController::class, 'userwithdraw'])->name('user.userwithdraw'); // 회원 탈퇴 페이지 이동
+Route::get('user/userwithdraw',[UserController::class, 'userwithdraw'])->name('user.userwithdraw'); // 회원 탈퇴 페이지 이동
 Route::post('user/userdraw',[UserController::class, 'userdraw'])->name('user.userdraw'); //회원 탈퇴 진행
+
+//메일 전송
+Route::get('/user/emailverifypage',[UserController::class, 'emailverifypage'])->name('user.emailverifypage'); //메일 전송페이지 이동
+
+Route::get('/mails/mail', [MailController::class, 'mail'])->name('user.mail');
+Route::post('/mails/mailpost', [MailController::class, 'mailpost'])->name('user.mailpost');
+
+//메일 인증
+Route::get('/users/verify/{code}/{email}', [UserController::class, 'verify'])->name('users.verify');
+Route::get('/resend-email', [UserController::class, 'resend_email'])->name('resend.email');
 
 
 

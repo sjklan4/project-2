@@ -21,6 +21,7 @@
                 <div>
                     <label for="favdiet">저장된 식단</label>
                     <select name="favdiet" id="favdiet" onchange="DietShare()">
+                        <option value="0">선택안함</option>
                         @foreach ($favDiet as $diet)
                             <option value="{{$diet->fav_id}}">{{$diet->fav_name}}</option>
                         @endforeach
@@ -50,8 +51,8 @@
                     </div>
                     <div> {{-- 저장된 식단 출력 부분 --}}
                         <br>
-                        <label for="diet">식단</label>
-                        <div id="favDiet">
+                        <label for="Diet">식단</label>
+                        <div id="Diet">
                         </div>
                     </div>
                 @else

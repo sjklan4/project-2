@@ -18,6 +18,8 @@ use App\Models\UserInfo;
 use App\Models\BoardImg;
 use App\Models\BoardReply;
 use App\Models\FavDiet;
+use App\Models\FavDietFood;
+use App\Models\FoodInfo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -197,17 +199,23 @@ class BoardController extends Controller
                 ->paginate(5);
 
         // 식단 관련 정보 획득
-        
+        $diet = DB::select('SELECT fi.food_name, fdf.fav_f_intake
+                            FROM fav_diet_food AS fdf
+                            INNER JOIN fav_diets AS fd
+                            ON fd.fav_id = fdf.fav_id
+                            INNER JOIN food_infos AS fi
+                            ON fi.food_id = fdf.food_id
+                            WHERE fdf.fav_id = ?', [$board->fav_id]);
 
         $arr = [
             'cate'        => $bcate->bcate_name
-            // ,'favid'      => $board->fav_id
             ,'nkname'     => $user->nkname
             ,'title'      => $board->btitle
             ,'content'    => nl2br($board->bcontent)
             ,'hits'       => $board->hits
             ,'id'         => $board->board_id
             ,'like'       => $board->likes
+            ,'fav_id'     => $board->fav_id
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
             ,'like_flg'   => $like_flg
@@ -217,7 +225,7 @@ class BoardController extends Controller
             $arr['img'] = $boardImg->bimg_name;
         }
 
-        return view('boardDetail')->with('data', $arr)->with('reply', $reply);
+        return view('boardDetail')->with('data', $arr)->with('reply', $reply)->with('diet', $diet);
     }
 
     /**
@@ -242,12 +250,23 @@ class BoardController extends Controller
             return redirect()->back();
         }
 
+        // 식단 명 정보 획득
+        $user_id = Auth::user()->user_id;
         $favDiet = DB::table('fav_diets')
-                ->where('user_id', $id)
+                ->where('user_id', $user_id)
                 ->whereNull('deleted_at')
                 ->get();
 
-        return view('boardEdit')->with('data', $board)->with('cate', $bcate)->with('favDiet', $favDiet);
+        // 수정 전 식단 관련 정보 획득
+        $beforeDiet = DB::select('SELECT fi.food_name, fdf.fav_f_intake
+                            FROM fav_diet_food AS fdf
+                            INNER JOIN fav_diets AS fd
+                            ON fd.fav_id = fdf.fav_id
+                            INNER JOIN food_infos AS fi
+                            ON fi.food_id = fdf.food_id
+                            WHERE fdf.fav_id = ?', [$board->fav_id]);
+
+        return view('boardEdit')->with('data', $board)->with('cate', $bcate)->with('favDiet', $favDiet)->with('beforeDiet', $beforeDiet);
     }
 
     /**
@@ -292,6 +311,7 @@ class BoardController extends Controller
         $board->bcate_id = $req->cate;
         $board->btitle = $req->title;
         $board->bcontent = $req->content;
+        $board->fav_id = $req->favdiet;
         $board->save();
 
         // 이미지 테이블 정보 수정
@@ -392,6 +412,36 @@ class BoardController extends Controller
         BoardReply::destroy($id);
 
         return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
+    }
+
+    // v002 add 식단 내려받기 
+    public function dietdownload(Request $req, $favid) {
+
+        $id = Auth::user()->user_id; // 유저 id 획득
+        $getsetFav = DB::table('fav_diets')->insertGetId([ // 식단 입력 및 식단 id 획득
+            'user_id' => $id,
+            'fav_name' => $req->fav_name
+        ]);
+
+        // favid를 통한 식단에 포함된 음식 검색 및 정보 획득
+        $getFavFood = DB::select('SELECT fi.food_id, fi.food_name, fdf.fav_f_intake 
+                                FROM fav_diet_food AS fdf
+                                INNER JOIN fav_diets AS fd
+                                ON fd.fav_id = fdf.fav_id
+                                INNER JOIN food_infos AS fi
+                                ON fi.food_id = fdf.food_id
+                                WHERE fdf.fav_id = ?', [$favid]);
+
+        foreach ($getFavFood as $value) { // 획득한 식단 정보를 저장
+            $setFavFood = new FavDietFood([
+                'fav_id' => $getsetFav,
+                'food_id' => $value->food_id,
+                'fav_f_intake' => $value->fav_f_intake
+            ]);
+            $setFavFood->save();
+        }
+
+        return redirect()->route('fav.favdiet');
     }
 
 }

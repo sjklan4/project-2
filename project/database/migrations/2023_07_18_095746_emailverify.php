@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('email_verify', function (Blueprint $table) {
+        Schema::create('emailverify', function (Blueprint $table) {
 
-        
-            $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
             $table->string('verification_code')->nullable();
-            $table->integer('is_verified')->default(0);
-            $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('validity_period')->nullable(); // + 메일인증코드 만료시간
+            $table->timestamp('email_verified_at')->nullable(); // email 인증 시각
+            $table->softDeletes();
         });
     }
 
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_verify');
+        //
     }
 };
