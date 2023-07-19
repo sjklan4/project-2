@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Providers\HeaderViewComposerServiceProvider::class,
 
         /*
          * Application Service Providers...

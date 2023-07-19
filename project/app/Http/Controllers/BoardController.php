@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alarm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
@@ -382,6 +383,7 @@ class BoardController extends Controller
                 ->withInput();
         }
 
+        // todo 트랜잭션
         $user_id = session('user_id');
         // 댓글 테이블 인서트
         DB::table('board_replies')->insert([
@@ -396,6 +398,16 @@ class BoardController extends Controller
         DB::table('boards')
             ->where('board_id', '=', $req->board_id)
             ->update(['replies' => $board->replies + 1]);
+
+        // ------------- v002 add -------------
+        // 댓글 알림 테이블 인서트
+        Alarm::insert([
+            'user_id'       => $req->user_id,
+            'board_id'      => $req->board_id,
+            'alarm_type'    => '1',
+            'created_at'    => now()
+        ]);
+        // ------------- v002 add -------------
 
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);

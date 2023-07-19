@@ -165,11 +165,11 @@ class UserController extends Controller
         else{
             return redirect()->intended(route('user.login'));
         }
+        // ------------- v002 add -------------
     }
 
     // 회원 가입 부분
     public function registpost(Request $req){
-
         // 유효성 검사
         $rules = [
             // 영문대소, 한글만 허용, 최소 2자 최대 30자 까지
@@ -239,14 +239,14 @@ class UserController extends Controller
             ->insertGetId($data,'user_id');
         
         // if($user_id < 0 || $user_id > 1){
-            //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
-            //     return redirect()->route('user.regist')->with('error', $error);
-            // }
+        //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
+        //     return redirect()->route('user.regist')->with('error', $error);
+        // }
         
         $data1 = [
             'user_birth' => $req->user_birth
-            ,'user_gen' => $req->gender
-            ,'user_id'  =>  $user_id
+            ,'user_gen'  => $req->gender
+            ,'user_id'   => $user_id
         ];
         
         // insert

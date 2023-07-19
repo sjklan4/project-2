@@ -6,6 +6,7 @@
                 <div>
                     <span>{{$item->nkname}}</span>
                     <span>{{substr($item->created_at, 0, 10)}}</span>
+                    {{-- 댓글 삭제버튼 --}}
                     <span>
                         @if (Auth::user()->user_id === $item->user_id)
                             <button type="button" id="deleteBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
@@ -45,6 +46,7 @@
             <hr>
         @endforelse
 
+        {{-- 페이지네이션 --}}
         @if ($reply->hasPages())
             <ul class="pagination pagination">
             @if ($reply->currentPage() > 1)
@@ -78,6 +80,7 @@
             <div id="replyInsertDiv">
                 <div class="errorMsg">{{count($errors) > 0 ? $errors->first('reply', ':message') : ''}}</div>
                 <div><input type="hidden" name="board_id" value="{{$data['id']}}"></div>
+                <div><input type="hidden" name="user_id" value="{{$data['user_id']}}"></div>
                 <div><textarea textarea name="reply" id="reply" placeholder="댓글을 작성하세요.">{{count($errors) > 0 ? old('reply') : ''}}</textarea></div>
                 <div><button type="sumbit" id="greenBtn">작성</button></div>
             </div>
