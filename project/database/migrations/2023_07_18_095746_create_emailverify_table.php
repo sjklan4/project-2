@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Emailverify', function (Blueprint $table) {
-        
             $table->integer('email_id')->autoIncrement(); //컬럼 추가된 부분
             $table->string('email');
             $table->string('verification_code')->nullable();
