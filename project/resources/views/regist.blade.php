@@ -16,7 +16,7 @@
                     <label for="user_email">이메일</label>
                     <br>
                     @if (isset($userInfo))
-                        <input type="text" name="user_email" id="user_email" value="{{$userInfo['email']}}" required readonly>
+                        <input type="text" name="user_email" id="user_email" value="{{ $userInfo['email'] }}" required readonly>
                     @else
                         <input type="text" name="user_email" id="user_email" value="{{ $errors->has('user_email') ? '' : old('user_email', isset($data) ? $data->user_email : '') }}" autocomplete="off" required>
                         {{-- <button type="button" id="checkEmail" onclick="duplicationEmail();">중복체크</button> --}}
@@ -30,7 +30,7 @@
                     <label for="user_name">이름</label>
                     <br>
                     @if (isset($userInfo))
-                        <input type="text" name="user_name" id="user_name" value="{{$userInfo['name']}}" required readonly>
+                        <input type="text" name="user_name" id="user_name" value="{{ $userInfo['name'] }}" required readonly>
                     @else
                         <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}" required>
                         @error('user_name')
@@ -38,6 +38,9 @@
                         @enderror
                     @endif
                 </div>
+                @if (isset($userInfo))
+                    <input type="hidden" name="social" value="{{ $userInfo['social'] }}">
+                @endif
                 <div>
                     <label for="password">비밀번호</label>
                     <br>
