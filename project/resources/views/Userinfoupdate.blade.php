@@ -6,9 +6,6 @@
 
 @section('userinfocontents')
 <!-- 상세 정보 영역 (오른쪽) 영역 -->
-{{-- @if(count($errors) > 0)
-    {{var_dump($errors)}}
-@endif --}}
 <div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0">
     <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
         <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
@@ -22,13 +19,15 @@
                 <div class="col-sm-6 mb-4">
                     <label for="user_name" class="form-label fs-base">Name</label>
                     <input type="text" id="user_name" name="user_name" class="form-control form-control-lg" value="{{old('user_name') !== null ? old('user_name') : $data->user_name}}" required>
-                    <div>{{ count($errors) > 0 ? $errors->first('user_name', ':message') : '' }}</div>
+                    @error('user_name')
+                    <div class="fc-red">{{ $message }}</div>
+                @enderror
                 </div>
                 <div class="col-sm-6 mb-4">
                     <label for="nkname" class="form-label fs-base">Nick Name</label>
                     <input type="text" id="nkname" name="nkname" class="form-control form-control-lg" value="{{old('nkname') !== null ? old('nkname') : $data->nkname}}" required >
                     @error('nkname')
-                        <div>{{ $message }}</div>
+                        <div class="fc-red">{{ $message }}</div>
                     @enderror
                 </div>
                 {{-- <div class="col-sm-6 mb-4">
@@ -39,7 +38,7 @@
                     <label for="user_phone_num" class="form-label fs-base">Phone</label>
                     <input type="tel" id="user_phone_num" name="user_phone_num" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" >
                     @error('user_phone_num')
-                        <div>{{ $message }}</div>
+                        <div class="fc-red">{{ $message }}</div>
                     @enderror
                 </div>
                 {{-- <div class="col-sm-6 mb-4">

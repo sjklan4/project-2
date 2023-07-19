@@ -30,9 +30,27 @@ function chkpass(){
             pwForm.submit();
             // document.getElementById('passwordchg').disabled = false;
         } else {
-            idspan.innerHTML = '비밀번호 불일치';
+            idspan.innerHTML = '기존비밀번호가 일치하지않습니다.';
+            idspan.style.color = "#EE6666";
             return;
         }
     });
 }
 
+function pwCheck(){
+    const pw = document.getElementById("newpassword");
+    const pwChk = document.getElementById("newpasswordchk");
+    const pwMsg = document.getElementById("pwMsg");
+
+    if(pw.value ==="" && pwChk.value ===""){
+        pwMsg.innerHTML = "";
+    }
+    else if(pw.value === pwChk.value){
+        pwMsg.innerHTML = "비밀번호 일치";
+        pwMsg.style.color = "#6799E4";
+    }
+    else{
+        pwMsg.innerHTML = "비밀번호 불일치"
+        pwMsg.style.color = "#EE6666";
+    }
+}

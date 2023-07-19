@@ -313,7 +313,8 @@ class UserController extends Controller
         }
 
         // 유효성 체크
-        $req->validate($arrchk);
+
+        $req->validate($arrchk, $messages);
         
         // 수정할 데이터 셋팅
         foreach($arrKey as $val) {
@@ -413,28 +414,48 @@ class UserController extends Controller
 
     public function userpseditpost(Request $req){ // 변경 비밀번호를 업데이트 하기위한 구문
     
-        // todo 유효성검사
+        // 유효성 검사
+        $rules = [
+            'bpassword' => 'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+            ,'newpassword' => 'required|same:newpasswordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
+            ];
+
+        $messages = [
+            'bpassword.required'    => '현재비밀번호는 필수 입력 사항입니다.',
+            'bpassword.regex'       => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
+            'newpassword.same'      => '비밀번호 확인과 일치하지 않습니다.',
+            'newpassword.required'  => '새비밀번호는 필수 입력 사항입니다.',
+            'newpassword.regex'        => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
+        ];
+
+        $validate = Validator::make($req->only('bpassword','newpassword'), $rules, $messages);
+
+        if ($validate->fails()) {
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $user_id = Auth::user()->user_id; //로그인된(인증된유저의 user_id(id)를 받아오는 부분) - 로그인된 유저의 pk를 참조해서 데이터를 전부 가져옴
 
         $basepassword = UserInfo::where('user_id', $user_id)->first();// 기존 데이터에서 비밀번호를 가져오기 위해서 회원 정보를 가져옴
         if(!Hash::check($req->bpassword, $basepassword->password)){
-            $error_chk = '비밀번호가 일치하지 않습니다.';
-            return redirect()->back()->with('error_chk',$error_chk);
+            $error = '비밀번호가 일치하지 않습니다.';
+            return redirect()->back()->with('error',$error);
         }
         else{
             if(!Hash::check($req->newpassword, $basepassword->password)){ // 전달받은 값을 hash화 해서 비교하기 위함
                 $newpassword = $req->newpassword; // 다르면 작성된 신규비밀번호를 사용
-
             }
             else{   //같으면 아래의 오류를 보여주고 다시 작성하게 한다.
                 $error = '기존 비밀번호와 다른 비밀번호로 해주세요'; 
                 return redirect()->back()->with('error',$error);
             }
+
         // 변경된 신규 비밀번호를 hash화 해서 저장 하는 구문
         $basepassword->password = Hash::make($newpassword);
         
         $basepassword->save(); // 비밀번호 저장
+
         $success = '비밀번호가 변경 되었습니다.';
         return redirect()->route('user.userpsedit')->with('success',$success);
         }

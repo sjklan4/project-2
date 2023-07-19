@@ -20,6 +20,9 @@
                             <input class="password-toggle-check" type="checkbox">
                             <span class="password-toggle-indicator"></span>
                         </label> --}}
+                        @error('bpassword')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                         <div class="invalid-tooltip position-absolute top-100 start-0"></div>
                         </div>
                     </div>
@@ -28,23 +31,29 @@
                     <div class="col-sm-6 mb-4">
                         <label for="newpassword" class="form-label fs-base">New password</label>
                         <div class="password-toggle">
-                            <input type="password" name="newpassword" id="newpassword" class="form-control form-control-lg">
+                            <input type="password" name="newpassword" id="newpassword" class="form-control form-control-lg" oninput="pwCheck();">
                             <div class="invalid-tooltip position-absolute top-100 start-0"></div>
                         </div>
+                        @error('newpassword')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                        <div id="pwMsg"></div>
                     </div>
                     <div class="col-sm-6 mb-4">
                         <label for="newpasswordchk" class="form-label fs-base">Confirm new password</label>
                         <div class="password-toggle">
-                            <input type="password" name="newpasswordchk" id="newpasswordchk" class="form-control form-control-lg">
-                            <div class="invalid-tooltip position-absolute top-100 start-0"></div>
+                            <input type="password" name="newpasswordchk" id="newpasswordchk" class="form-control form-control-lg" oninput="pwCheck();">
+                            <div class="invalid-tooltip position-absolute top-100 start-0" ></div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex mb-3">
                     <button type="reset" class="btn btn-secondary me-3">Cancel</button>
-                    <button type = "button" id="passwordchg" class="btn btn-success" onclick="chkpass();">변경</button>
+                    {{-- <button type = "button" id="passwordchg" class="btn btn-success" onclick="chkpass();">변경</button> --}}
+                    <button type = "submit" id="passwordchg" class="btn btn-success">변경</button>
                 </div>
             </form>
+            <div id="passworderror"></div>
         </div>
         <div class="changemsg">
             @if(session('error_chk'))

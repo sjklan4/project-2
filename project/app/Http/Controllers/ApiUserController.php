@@ -76,6 +76,8 @@ class ApiUserController extends Controller
 
         $user = UserInfo::find($req->value2);
 
+        return $user;
+
         if(!Hash::check($req->value1, $user->password)){
             $arr["errorcode"] = "1";
             $arr["msg"]="비밀번호 불일치";

@@ -1,3 +1,10 @@
+.fc-red{
+    color: #ff0000;
+}
+.form-control:focus{
+    border-color: #195F1C !important;
+    box-shadow: none !important;
+}
 .boardCon {
     padding-top: 100px;
     display: grid;
