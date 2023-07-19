@@ -186,7 +186,7 @@ Route::post('/setdiet', [RecommendController::class, 'setdiet'])->name('recom.se
 // 생성일       : 2023-07-18
 // ---------------------------------------------
 use App\Http\Controllers\SocialController;
-Route::get('/kakao', [SocialController::class, 'redirect']);
+Route::get('/kakao', [SocialController::class, 'redirect'])->name('kakao.redirect');
 Route::get('/kakao/back', [SocialController::class, 'back']);
 
 // ---------------------------------------------

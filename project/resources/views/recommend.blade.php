@@ -58,16 +58,17 @@
                     </div>
                 </div>
             @else
+            {{-- todo : 증량, 감량, 일반 선택 -> 카드형 --}}
                 <form action="{{route('recom.post')}}" method="post">
                     @csrf
                     <div class="dietCateDiv">
                         <h3 class="recomFoodTitle">식단 유형</h3>
                         <div class="inputRadioDiv">
-                            <input type="radio" name="dietcate" id="loseweight" value="0">
+                            <input type="radio" name="dietcate" id="loseweight" value="0" required>
                             <label for="loseweight">감량</label>
-                            <input type="radio" name="dietcate" id="increase" value="1">
+                            <input type="radio" name="dietcate" id="increase" value="1" required>
                             <label for="increase">증량</label>
-                            <input type="radio" name="dietcate" id="health" value="2">
+                            <input type="radio" name="dietcate" id="health" value="2" required>
                             <label for="health">일반</label>
                         </div>
                         <br>
@@ -84,5 +85,5 @@
 @endsection
 
 @section('js')
-
+    <script type="text/javascript" src="{{asset('js/recom.js')}}"></script>
 @endsection

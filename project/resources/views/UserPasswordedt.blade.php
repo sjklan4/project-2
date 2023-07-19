@@ -9,6 +9,7 @@
             <!-- Password -->
             {{-- <h2 class="h5 text-primary mb-4">Password</h2> --}}
             <form class="needs-validation pb-3 pb-lg-4" action="{{ route('user.userpseditpost') }}" method="post" id="pwForm">
+                @csrf
                 <div class="row">
                     <div class="col-sm-6 mb-4">
                         <label for="bpassword" class="form-label fs-base">Current password</label>

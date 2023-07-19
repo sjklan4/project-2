@@ -4,22 +4,25 @@
 /* 자주먹는 식단, 선택된 음식 탭 숨기기 및 내부 여백 */
 .fav_diets, .user_select {
     display: none;
-    padding:3em;
-    padding-top:0.5em;
-    padding-bottom:0px;
+    padding: 1rem 6em;
+    /* padding-top:0.5em;
+    padding-bottom:0px; */
 }
 /* tab 버튼 */
-ul{
-    overflow:hidden;
-    list-style: none;
-}
-.tab1, .tab2, .tab3{
-    float:left;
-    margin-top: 1em;
-    padding-top:0.5em;
+.searchtab{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1rem 12rem;
     text-align: center;
+    line-height: 40px;
 }
-.tab1{
+
+/* .tab1, .tab2, .tab3{
+    margin-top: 1rem 3rem;
+    padding-top: 3rem;
+    text-align: center;
+} */
+/* .tab1{
     width: 120px;
     height:40px;
 }
@@ -32,36 +35,48 @@ ul{
     margin-left:2em;
     width: 120px;
     height:40px;
-}
+} */
+
 .tab1:hover, .tab1:active {
     background-color: rgba(223, 182, 182, 0.5);
-    border-radius: 15px;
+    border-radius: 10px;
+    width: 80%;
+    height: 40px;
+    cursor: pointer;
 }
 .tab2:hover, .tab2:active {
     background-color: rgba(212, 223, 182, 0.5);
-    border-radius: 15px;
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 .tab3:hover, .tab3:active {
     background-color: rgba(165, 190, 228, 0.5);
-    border-radius: 15px;
+    border-radius: 10px;
+    width: 80%;
+    height: 40px;
+    cursor: pointer;
 }
 
 /* 전체를 감싸는 div */
 .searchContainer {
-    width: 910px;
-    height: 1150px;
+    width: 850px;
+    /* min-height: 600px; */
     background: #FFFFF0;
     margin-top:0px;
     box-shadow: 0px 12px 30px #ECECEC;
+    margin-top: 10vh;
 }
 /* 검색 폼 div */
 .searchdiv{
     position:relative;
     height:70px;
+    width: 700px;
 }
 /* 검색 폼 */
 .searchform{
-    margin-top: 5em;
+    /* margin-top: 5em; */
     text-align: center;
 }
 /* 검색 폼 안에 있는 리셋 버튼(검색어 초기화) */
@@ -80,12 +95,12 @@ ul{
 }
 /* 검색 결과와 함께 보이는 checkbox */
 #usercheck{
-    /* display: none; */
-    position:absolute;
-    right:3em;
+    position: absolute;
+    right: 3em;
 }
 /* 검색 결과 div */
 .search_result{
+    position: relative;
     margin:1em;
 }
 .searchip{ /* 검색 폼 input */
@@ -93,7 +108,7 @@ ul{
     border-bottom: 1px solid #000;
     outline: none;
     background-color: #FFFFF0;
-    width:735px;
+    width: 550px;
     height: 30px;
     padding-right: 1em;
     margin-top: 1.5em;
@@ -124,9 +139,10 @@ ul{
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: auto;
-    width:710px;
-    height: 300px;
+    min-height: 10vh;
+    max-height: 20vh;
     background-color: #fff;
+    box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
 }
 /* 자주 먹는 식단명 */
 .favname{
@@ -155,8 +171,6 @@ ul{
 }
 /* 선택된 음식/식단 정보 삭제 버튼 */
 #delete_btn{ 
-    position:absolute;
-    left:650px;
     width:20px;
     height:20px;
     border: 1px solid #000;
@@ -168,7 +182,7 @@ ul{
 
 /* hr */
 .search_hr, .select_food, .select_diet{
-    width:713px;
+    width:95%;
 }
 .div_hr{
     width:40vw;
@@ -180,10 +194,15 @@ ul{
     overflow-x: hidden; /* 가로 스크롤바 숨기기 */
     overflow-y: auto; /* 세로 스크롤바 활성화 */
     margin-top:2em;
-    width:800px;
-    height: 750px;
     position:relative;
+    padding-bottom: 2rem;
 }
+
+.user_search {
+    height: 70vh;
+    width:700px;
+}
+
 .user_search::-webkit-scrollbar, .fav_scroll::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_food::-webkit-scrollbar, #fav_food::-webkit-scrollbar, .fav_diet::-webkit-scrollbar {
     width:9px;
     background-color: transparent;
@@ -253,4 +272,82 @@ button:hover {
 }
 #greenBtn {
     background-color: #538E04;
+}
+
+#fav_food div, #fav_diet div {
+    padding: 0.2rem;
+}
+
+h3 {
+    font-weight: 700;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn button {
+    margin: 0 5px;
+}
+
+.nosearch {
+    min-height: 20rem;
+}
+
+#userving {
+    text-align: center;
+}
+
+@media (max-width: 500px) {
+    * {
+        font-size: 14px;
+    }
+
+    .searchContainer {
+        width: 100vw;
+        margin-top: 2rem;
+    }
+
+    .dietinfonotname {
+        display: none;
+    }
+
+    .searchdiv {
+        width: 80%;
+        margin: 0 auto !important;
+    }
+
+    .searchip {
+        width: 80%;
+    }
+
+    .searchbtn {
+        width: 40px;
+    }
+
+    .searchtab {
+        padding: 1rem;
+    }
+
+    .fav_diets, .user_select{
+        padding: 2rem;
+    }
+
+    #usercheck{
+        right: -0.5rem;
+        top: 1rem;
+    }
+
+    .search_hr {
+        width: 110%;
+    }
+
+    .user_search {
+        width: 90%;
+    }
+
+    .searchInfo span{
+        font-size: 10px;
+    }
 }

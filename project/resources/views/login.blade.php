@@ -39,8 +39,14 @@
             </div>
         </div>
     </form>
-    <div class="registBtn">
+    <div class="registBtn">        
         <a href="{{route('user.userfindE')}}">이메일찾기</a>
+        <a href="{{route('findpw.get')}}">비밀번호찾기</a>
         <a href="{{route('user.emailverifypage')}}">회원가입</a>
+    </div>
+    <div class="social">
+        <a href="{{route('kakao.redirect')}}">
+            <img id="kakao" src="{{ asset('img/kakao.png') }}">
+        </a>
     </div>
 @endsection

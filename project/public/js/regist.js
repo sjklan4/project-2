@@ -1,3 +1,10 @@
+window.onbeforeunload = function() {
+    return "저장되지 않은 변경사항이 있습니다. 정말 페이지를 떠나실 건 가요?";
+};
+
+$(document).on("submit", "form", function(){
+    window.onbeforeunload = null;
+});
 
 // RFC 5322형식 기준 : 거의 모든 메일의 형식에 대해서 유효성 검사를 실시한다. - 일반적인 유효성 검사로는 메일을 완벽하게 검증하는것이 불가능하여 있는 규칙
 const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
@@ -59,7 +66,7 @@ function pwCheck(){
     const pwChk = document.getElementById("passwordchk");
     const pwMsg = document.getElementById("pwMsg");
 
-    if(pw.value.trim()==="" && pwChk.value.trim()===""){
+    if(pw.value ==="" && pwChk.value ===""){
         pwMsg.innerHTML = "";
     }
     else if(pw.value === pwChk.value){

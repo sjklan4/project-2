@@ -30,14 +30,16 @@ class ApiHomeController extends Controller
 
         $dietfood->save();
 
+        // todo 리턴값 수정
         return response()->json(['staus' => '섭취량변경']);
     }
-
-
+    
+    
     public function intakedel(Request $req){
-
+        
         DietFood::destroy($req->df_id);
-
+        
+        // todo 리턴값 수정
         return response()->json(['status' => 'success']);
     }
     
