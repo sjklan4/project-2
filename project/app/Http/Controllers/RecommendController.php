@@ -15,59 +15,60 @@ class RecommendController extends Controller
         $recomFood = [];
         return view('recommend')->with('recomFood', $recomFood);
     }
-
+    
+    // ! php artisan storage:link > 사진 업로드
+    // todo : 저장된 식단이 없을 경우 식단 추천을 유도하는 멘트..?도 생각해보기
+    
     public function recommned(Request $req) {
         $id = Auth::user()->user_id;
-        $dietcount = DB::select('select count(recom_d_id) as count from recom_diets where recom_flg = ?', [$req->dietcate]); // 각 식단별 count 조회용
+        $kcalInfo = KcalInfo::find($id);
 
-        // todo : 목표칼로리 구간에 따른 식단 추천 (if) 
-        // todo : 저장된 식단이 없을 경우 식단 추천을 유도하는 멘트..?도 생각해보기
-        // 1000~1800 총합 칼로리 제일 낮은 식단 추천
-        // 1800~2500 총합 칼로리 중간
-        // 2500~ 총합 칼로리 높음 
+        // 목표칼로리 구간에 따른 식단 분류용 if
+        if($kcalInfo->goal_kcal > 1000 && $kcalInfo->goal_kcal < 1800){ // 총합 칼로리 제일 낮은 식단 추천
+            $minmax = 0;
+        }elseif($kcalInfo->goal_kcal > 1800 && $kcalInfo->goal_kcal < 2500) { // 총합 칼로리 중간 식단 추천
+            $minmax = 1;
+        }elseif($kcalInfo->goal_kcal > 2500) { // 총합 칼로리 제일 높은 식단 추천
+            $minmax = 2;
+        }
 
-        // php artisan storage:link
-        $kacaInfo = KcalInfo::find($id);
+        $dietcount = DB::select('select recom_d_id from recom_diets WHERE recom_flg = ? AND minmax_flg = ?', [$req->dietcate, $minmax]); // 각 식단별 count 조회용
+        foreach ($dietcount as $item) {
+            $diet_id[] = $item->recom_d_id;
+        }
 
-        if($kacaInfo->goal_kcal > 1000 || $kacaInfo->goal_kcal < 1800){
-            echo 'ddaadd';
-        }elseif($kacaInfo->goal_kcal > 1800 || $kacaInfo->goal_kcal < 2500) {
-            echo 'ddsdd';
-        }elseif($kacaInfo->goal_kcal > 2500) {
-            echo 'dddsdd';
-        }else{
+        // todo 목표칼로리가 1000이 넘지 않을 때 목표 칼로리 설정 페이지로 리턴 > js 함수로 변경
+        if($kcalInfo->goal_kcal < 1000){
             return redirect()->route('user.prevateinfo');
         }
         
-        if($req->dietcate == 0){ // 감량 식단
-            $dietid = DB::select('select recom_d_id from recom_diets where recom_flg = 0'); // 감량 식단 식단 id 조회용
-            $randomFood = mt_rand(0, $dietcount[0]->count-1); // 식단 추천용 랜덤 번호(-> recom_d_id 갯수만큼) 추출
+        // 목표칼로리에 따른 식단 추천
+            if($req->dietcate == 0){ // 감량 식단
+                $randomFood = array_rand($diet_id, 1); // 식단 추천용 랜덤 번호
+    
+                // 감량 식단 랜덤 추천 쿼리
+                $recomFood = DB::table('recom_diet_food')
+                ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
+                ->where('recom_diet_food.recom_d_id', $diet_id[$randomFood])
+                ->get();
+    
+            }else if($req->dietcate == 1){ // 증량 식단
+                $randomFood = array_rand($diet_id, 1); // 식단 추천용 랜덤 번호
+    
+                // 증량 식단 랜덤 추천 쿼리
+                $recomFood = DB::table('recom_diet_food')
+                ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
+                ->where('recom_diet_food.recom_d_id', $diet_id[$randomFood]) // mt_rand로 뽑은 숫자로 dietid 찾기
+                ->get();
+            }else{ // 일반 식단
+                $randomFood = array_rand($diet_id, 1); // 식단 추천용 랜덤 번호
 
-            // 감량 식단 랜덤 추천 쿼리
-            $recomFood = DB::table('recom_diet_food')
-            ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
-            ->where('recom_diet_food.recom_d_id', $dietid[$randomFood]->recom_d_id)
-            ->get();
-
-        }else if($req->dietcate == 1){ // 증량 식단
-            $dietid = DB::select('select recom_d_id from recom_diets where recom_flg = 1'); // 감량 식단 식단 id 조회용
-            $randomFood = mt_rand(0, $dietcount[0]->count-1); // 식단 추천용 랜덤 번호(-> recom_d_id 갯수만큼) 추출
-
-            // 증량 식단 랜덤 추천 쿼리
-            $recomFood = DB::table('recom_diet_food')
-            ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
-            ->where('recom_diet_food.recom_d_id', $dietid[$randomFood]->recom_d_id) // mt_rand로 뽑은 숫자로 dietid 찾기
-            ->get();
-        }else{ // 일반 식단
-            $dietid = DB::select('select recom_d_id from recom_diets where recom_flg = 2'); // 감량 식단 식단 id 조회용
-            $randomFood = mt_rand(0, $dietcount[0]->count-1); // 식단 추천용 랜덤 번호(-> recom_d_id 갯수만큼) 추출
-
-            // 일반 식단 랜덤 추천 쿼리
-            $recomFood = DB::table('recom_diet_food')
-            ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
-            ->where('recom_diet_food.recom_d_id', $dietid[$randomFood]->recom_d_id)
-            ->get();
-        }
+                // 일반 식단 랜덤 추천 쿼리
+                $recomFood = DB::table('recom_diet_food')
+                ->join('food_infos', 'recom_diet_food.food_id', 'food_infos.food_id')
+                ->where('recom_diet_food.recom_d_id', $diet_id[$randomFood])
+                ->get();
+            }
 
         $nutkcal = 0;
         $nutcarbs = 0;
@@ -80,14 +81,16 @@ class RecommendController extends Controller
             $nutprotein += $food->protein * $food->recom_intake;
             $nutfat += $food->fat * $food->recom_intake;
         }
-
+        
+        // todo : 영양성분이 0인 데이터 수정하기
         $totalnutri = [
             'kcal' => '칼로리 : '.round($nutkcal), 
             'carbs' => '탄수화물 : '.round($nutcarbs), 
             'protein' => '단백질 : '.round($nutprotein), 
             'fat' => '지방 : '.round($nutfat)
         ];
-        return view('recommend')->with('recomFood', $recomFood)->with('totalnut', $totalnutri);
+        return view('recommend')->with('recomFood', $recomFood)
+        ->with('totalnut', $totalnutri);
     }
 
     public function setdiet(Request $req) {
