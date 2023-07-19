@@ -3,36 +3,42 @@
 @section('title', '찾기')
 
 @section('contents')
-<div class="finduser-info">
-    <div class = "findemail">
-        <h1>Find Email</h1>
+    <div>
+        <h1>이메일 찾기</h1>
         <div class="findemail-insert">
             <form action="{{ route('user.userfindEPost') }}" method="post">
                 @csrf
-                <div class="write-input">
-                    <label for="user_name">회원이름</label>
-                    <br>
-                    <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
-                    @error('user_name') 
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="write-input">
-                    <label for="user_phone_num">전화번호</label>
-                    <br>
-                    <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
-                    @error('user_phone_num')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="chk-btn">
-                    <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
-                    <button type="submit" id="greenBtn">확인</button>
+                <div class="findEmail">
+                    <div class="write-input">
+                        <label for="user_name">회원이름</label>
+                        <br>
+                        <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
+                        @error('user_name') 
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="write-input">
+                        <label for="user_phone_num">전화번호</label>
+                        <br>
+                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}">
+                        @error('user_phone_num')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="regisBtn">
+                        <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
+                        <button type="submit" id="greenBtn">확인</button>
+                    </div>
                 </div>
             </form>
-            <div class="chk-email">Email  {{session('data')}} </div>
         </div>
-    </div>    
+        @if (session()->has('data'))
+        <div class="checkedEmail">
+            <label>Email :</label>
+            <span>{{session('data')}}</span>
+        </div>
+        @endif
+    </div>
     {{-- <div class = "findpsw">
         <h1>Password Change</h1>
         <div class="changpassword-insert">
@@ -61,6 +67,5 @@
             </form>
         </div>
     </div> --}}
-</div>
 @endsection
 

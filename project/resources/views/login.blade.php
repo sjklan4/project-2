@@ -43,4 +43,9 @@
         <a href="{{route('user.userfindE')}}">이메일찾기</a>
         <a href="{{route('user.emailverifypage')}}">회원가입</a>
     </div>
+    <div class="social">
+        <a href="{{route('kakao.redirect')}}">
+            <img id="kakao" src="{{ asset('img/kakao.png') }}">
+        </a>
+    </div>
 @endsection

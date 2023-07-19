@@ -172,7 +172,7 @@ label {
 }
 
 .registBtn {
-    padding: 3rem;
+    padding: 2.5rem;
 }
 
 .registBtn a {
@@ -185,28 +185,32 @@ label {
     color: #538E04;
 }
 
+#kakao {
+    width: 50px;
+}
+
 /* 회원가입 파트 */
 .registinfo > div {
     padding-bottom: 1rem;
 }
 
-.registinfo button {
+.regisBtn button {
     background-color: #538E04;
     border: none;
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
     color: white;
     height: 2.3rem;
-    width: 4.5rem;
+    width: 7.5rem;
     padding: 1.5em auto;
     border-radius: 3px;
     font-size: 1rem;
 }
 
-.registinfo button:hover {
+.regisBtn button:hover {
     background-color: #195F1C;
 }
 
-.registinfo h1 {
+h1 {
     font-weight: 700;
 }
 
@@ -215,7 +219,7 @@ label {
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
     color: white;
     height: 2.3rem;
-    width: 4.5rem;
+    width: 7.5rem;
     padding: 1.5em auto;
     border-radius: 3px;
     font-size: 1rem;
@@ -225,10 +229,23 @@ label {
 .regisBtn {
     display: flex;
     justify-content: space-around;
-    padding: 0 20%;
     
 }
 
+/* 이메일 찾기 파트 */
+.findEmail {
+    padding: 2rem 0;
+    display: grid;
+    grid-gap: 2rem;
+}
+
+.checkedEmail {
+    text-align: center;
+}
+
+
+
+/* 모바일 */
 @media (max-width: 999px) {
     .con {
         display: block;
@@ -248,7 +265,7 @@ label {
 
     .regisBtn button:nth-child(1), .regisBtn button:nth-child(2){
         font-size: 14px;
-        width: 80px;
+        width: 120px;
         height: 35px;
     }
 
