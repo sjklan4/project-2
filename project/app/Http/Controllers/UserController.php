@@ -119,6 +119,8 @@ class UserController extends Controller
         if(session()->has('userInfo')) {
             return view('regist')->with('userInfo', session('userInfo'));
         }
+
+        // todo 이메일 인증이나 카카오 로그인 안되어있으면 리턴
         // ------------- v002 add -------------
 
         return view('regist');
@@ -181,12 +183,13 @@ class UserController extends Controller
         Log::debug('유효성 검사 완료');
         
         $data = [
-            'user_email' => $req->user_email
-            ,'user_name' => $req->user_name
-            ,'password' => Hash::make($req->password)
-            ,'nkname' => $req->nkname
-            ,'user_phone_num' => $req->user_phone_num
-            ,'created_at' => now()
+            'user_email'        => $req->user_email
+            ,'user_name'        => $req->user_name
+            ,'password'         => Hash::make($req->password)
+            ,'nkname'           => $req->nkname
+            ,'user_phone_num'   => $req->user_phone_num
+            ,'social'           => $req->social  // v002 add
+            ,'created_at'       => now()
         ];
         
         // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
