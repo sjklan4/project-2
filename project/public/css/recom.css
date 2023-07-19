@@ -130,3 +130,10 @@ button:hover {
 .greenBtn:hover {
     background-color: #195F1C;
 }
+.reload { /* 식단 새로 추천용 버튼 */
+    background: transparent;
+    color:#000;
+    border:none;
+    width:3rem;
+    padding: 1.5em auto;
+}
