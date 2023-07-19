@@ -38,31 +38,36 @@
         {{-- <hr> --}}
         @if (!empty($foods))
         <div class="user_search">
-            @foreach ($foods as $item)
+            @forelse ($foods as $item)
                 <div class="search_result">
                     <span id="food_name">{{$item->food_name}}</span>
                     @if (!empty($item->user_id))
                         <span class="usercreate">사용자 등록</span>
                     @endif
                     <br>
-                    <span>인분 수 : </span>
+                    <span>인분 수</span>
                     <input type="number" name="userving" id="userving" min="0.5" step="0.5" max="100" value="1">
                     <input type="checkbox" name="usercheck" id="usercheck" value="{{$item->food_id}}" onclick='getFoodValue(event, {{Auth::user()->user_id}})'>
                     <br>
-                    <strong>영양성분</strong>
-                    <span> > </span>
-                    <span>칼로리 : {{$item->kcal}}, </span>
-                    <span>탄수화물 : {{$item->carbs}}, </span>
-                    <span>단백질 : {{$item->protein}}, </span>
-                    <span>지방 : {{$item->fat}}, </span>
-                    <span>당 : {{$item->sugar}}, </span>
-                    <span>나트륨 : {{$item->sodium}}</span>
+                    {{-- <strong>영양성분</strong>
+                    <span> > </span> --}}
+                    <div class="searchInfo">
+                        <span>칼로리 : {{$item->kcal}}</span>
+                        <span>탄수화물 : {{$item->carbs}}</span>
+                        <span>단백질 : {{$item->protein}}</span>
+                        <span>지방 : {{$item->fat}}</span>
+                        <span>당 : {{$item->sugar}}</span>
+                        <span>나트륨 : {{$item->sodium}}</span>
+                    </div>
                     <hr class="search_hr">
                 </div>
-            @endforeach
+                @empty
+                <div>검색한 음식이 없습니다.</div>
+                <div>등록 음식 관리를 클릭해 음식을 입력하세요.</div>
+                @endforelse
         </div>
         @else
-            <p class="nosearch"></p>
+            <div class="nosearch"></div>
         @endif
         
         <div class="fav_diets">
@@ -155,10 +160,11 @@
                         <div id="fav_diet">
                         </div>
                 @endif
-            <br>
-            <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
-            <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
-            ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
+            <div class="btn">
+                <button type="button" onclick="location.href='{{route('search.delete')}}'">취소</button>
+                <button type="button" id="greenBtn" onclick="location.href='{{route('search.insert', 
+                ['date' => $data['date'], 'time' => $data['time']])}}'">입력</button>
+            </div>
         </div>
     </div>
 </div>
