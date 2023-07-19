@@ -22,6 +22,11 @@ class RecommendController extends Controller
     public function recommned(Request $req) {
         $id = Auth::user()->user_id;
         $kcalInfo = KcalInfo::find($id);
+        
+        // todo 목표칼로리가 1000이 넘지 않을 때 목표 칼로리 설정 페이지로 리턴 > js 함수로 변경
+        if($kcalInfo->goal_kcal < 1000){
+            return redirect()->route('user.prevateinfo');
+        }
 
         // 목표칼로리 구간에 따른 식단 분류용 if
         if($kcalInfo->goal_kcal > 1000 && $kcalInfo->goal_kcal < 1800){ // 총합 칼로리 제일 낮은 식단 추천
@@ -37,10 +42,6 @@ class RecommendController extends Controller
             $diet_id[] = $item->recom_d_id;
         }
 
-        // todo 목표칼로리가 1000이 넘지 않을 때 목표 칼로리 설정 페이지로 리턴 > js 함수로 변경
-        if($kcalInfo->goal_kcal < 1000){
-            return redirect()->route('user.prevateinfo');
-        }
         
         // 목표칼로리에 따른 식단 추천
             if($req->dietcate == 0){ // 감량 식단

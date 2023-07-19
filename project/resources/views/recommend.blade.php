@@ -85,5 +85,5 @@
 @endsection
 
 @section('js')
-
+    <script type="text/javascript" src="{{asset('js/recom.js')}}"></script>
 @endsection
