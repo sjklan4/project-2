@@ -66,6 +66,7 @@
     background: #FFFFF0;
     margin-top:0px;
     box-shadow: 0px 12px 30px #ECECEC;
+    margin-top: 10vh;
 }
 /* 검색 폼 div */
 .searchdiv{
@@ -75,7 +76,7 @@
 }
 /* 검색 폼 */
 .searchform{
-    margin-top: 5em;
+    /* margin-top: 5em; */
     text-align: center;
 }
 /* 검색 폼 안에 있는 리셋 버튼(검색어 초기화) */
@@ -94,12 +95,12 @@
 }
 /* 검색 결과와 함께 보이는 checkbox */
 #usercheck{
-    /* display: none; */
-    position:absolute;
-    right:3em;
+    position: absolute;
+    right: 3em;
 }
 /* 검색 결과 div */
 .search_result{
+    position: relative;
     margin:1em;
 }
 .searchip{ /* 검색 폼 input */
@@ -139,6 +140,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     min-height: 10vh;
+    max-height: 20vh;
     background-color: #fff;
     box-shadow: 0px 2px 7px 0px rgba(89, 89, 89, 0.10);
 }
@@ -180,7 +182,7 @@
 
 /* hr */
 .search_hr, .select_food, .select_diet{
-    width:713px;
+    width:95%;
 }
 .div_hr{
     width:40vw;
@@ -280,8 +282,72 @@ h3 {
     font-weight: 700;
 }
 
+.btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn button {
+    margin: 0 5px;
+}
+
+.nosearch {
+    min-height: 20rem;
+}
+
+#userving {
+    text-align: center;
+}
+
 @media (max-width: 500px) {
+    * {
+        font-size: 14px;
+    }
+
+    .searchContainer {
+        width: 100vw;
+        margin-top: 2rem;
+    }
+
     .dietinfonotname {
         display: none;
+    }
+
+    .searchdiv {
+        width: 80%;
+        margin: 0 auto !important;
+    }
+
+    .searchip {
+        width: 80%;
+    }
+
+    .searchbtn {
+        width: 40px;
+    }
+
+    .searchtab {
+        padding: 1rem;
+    }
+
+    .fav_diets, .user_select{
+        padding: 2rem;
+    }
+
+    #usercheck{
+        right: -0.5rem;
+        top: 1rem;
+    }
+
+    .search_hr {
+        width: 110%;
+    }
+
+    .user_search {
+        width: 90%;
+    }
+
+    .searchInfo span{
+        font-size: 10px;
     }
 }
