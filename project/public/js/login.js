@@ -21,11 +21,11 @@ function loginFormChk() {
     }
 
     // 유효성 체크
-    if(!emailChk(email.value)) {
-        alert("이메일 형식으로 입력해주세요.");
-        email.focus();
-        return false
-    }
+    // if(!emailChk(email.value)) {
+    //     alert("이메일 형식으로 입력해주세요.");
+    //     email.focus();
+    //     return false
+    // }
 
     if(!passwordChk(password.value)) {
         alert("영문/숫자/특수문자를 하나씩 포함한 8~30자리 비밀번호를 입력해주세요.");
