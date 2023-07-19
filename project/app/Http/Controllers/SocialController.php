@@ -40,8 +40,9 @@ class SocialController extends Controller
         
         // 가입 안된 유저인 경우 회원가입 페이지로 이동
         $userInfo = [
-            'email' => $user->getEmail(),
-            'name'  => $user->getNickname(),
+            'email'   => $user->getEmail(),
+            'name'    => $user->getNickname(),
+            'social'  => '0',
         ];
 
         // 세션에 유저 정보 저장
