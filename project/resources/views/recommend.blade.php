@@ -7,7 +7,6 @@
 @endsection
 
 @section('contents')
-<div class="RecommentContainer">
     <div class="RecommentDiv"> {{-- 전체를 감싸는 div--}}
         <h2 class="recomTitle">식단 추천</h2>
         <div class="contentDiv"> {{-- 내용을 감싸는 div --}}
@@ -31,7 +30,7 @@
                     <br>
                     <button type="button" onclick="location.href='{{route('board.create')}}'">식단 공유</button>
                     <button type="button" onclick="location.href='{{route('recom.get')}}'">취소</button>
-                    <button type="button" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
+                    <button type="button" class="reload" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
                     <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 추가</button>
                     {{-- 식단 명 입력 alert --}}
                     <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,7 +80,6 @@
             @endif
         </div>
     </div>
-</div>
 @endsection
 
 @section('js')

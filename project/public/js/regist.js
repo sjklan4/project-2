@@ -12,21 +12,25 @@ const emailRegx = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\
 // 중복확인 버튼
 const checkEmailbutton = document.getElementById('checkEmail');
 
-// 회원가입 버튼
+// 인증번호 요청 버튼
 const signupButton = document.getElementById('signupButton');
 
 // 닉네임 input
 const userNkname = document.getElementById('nkname');
 const userphone = document.getElementById('user_phone_num');
+//입력 알림 부분
+const insertMSG = document.getElementById('insertmsg'); 
+
 
 // 이메일 중복확인
 function duplicationEmail(){
+   
     const userEmail = document.getElementById('mailAddress');
     const url = "/api/user/useremailedt/" + userEmail.value;
 
     // email 값이 비어있을 경우
     if(userEmail.value.trim()===""){
-        alert("이메일을 입력해주세요.");
+        insertMSG.innerHTML = "이메일을 입력해주세요.";
     }
     else{
         fetch(url)
@@ -40,16 +44,16 @@ function duplicationEmail(){
             const idspan = document.getElementById('mailMsg');
 
             if(apiData["errorcode"] === "1"){
-                idspan.innerHTML = apiData["msg"];
-                idspan.style.color = "#EE6666";
+                insertMSG.innerHTML = apiData["msg"];
+                insertMSG.style.color = "#EE6666";
             }
             else if(!emailRegx.test(userEmail.value)){
-                idspan.innerHTML = "이메일형식에 맞춰서 입력해주세요";
-                idspan.style.color = "#EE6666"
+                insertMSG.innerHTML = "이메일형식에 맞춰서 입력해주세요";
+                insertMSG.style.color = "#EE6666"
             }
             else{
-                idspan.innerHTML = "사용가능한 Email입니다.";
-                idspan.style.color = "#6799E4"
+                insertMSG.innerHTML = "사용가능한 Email입니다.";
+                insertMSG.style.color = "#6799E4"
                 signupButton.disabled = false;
                 signupButton.style.background = "#538E04"
             }
@@ -74,6 +78,24 @@ function pwCheck(){
         pwMsg.style.color = "#EE6666";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // checkEmailbutton.addEventListener('click',function(){
 //     const userEmail = document.getElementById('user_email');

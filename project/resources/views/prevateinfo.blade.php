@@ -41,7 +41,6 @@
             </button>
             <button type ="submit" id="modal" class="btn btn-success">설정완료</button>
     </div> 
-   
 
     <div class="modal_wrap">
         <div class="shadowYellow">

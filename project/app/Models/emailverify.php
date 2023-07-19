@@ -40,4 +40,5 @@ class Emailverify extends Authenticatable
 
     // 엘로퀀트로 softDel시 추가해야함
     protected $dates = ['deleted_at'];
+    protected $primaryKey = 'email_id';
 }

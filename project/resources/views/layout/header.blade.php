@@ -72,6 +72,13 @@
                     </ul>
                 </li>
                 <li>
+                    <a>
+                        @if(isset($alarmData))
+                            {{ $alarmData->user_id }}
+                        @endif
+                    </a>
+                </li>
+                <li>
                     {{-- 로그인 상태 --}}
                     @auth
                     <a href='{{route('user.logout')}}' id="logoutBtn" title="로그아웃">
