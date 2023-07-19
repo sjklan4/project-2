@@ -61,15 +61,12 @@ class FindEmail extends Mailable
 
     public function build()
     {
-
         return $this
         ->view('email.findemail')
         ->subject('이메일로 발송되었습니다.')
-        // ->from('dpeltms4@gmail.com')
         ->with([
-                'email'             => $this->user->email
-                // 'verification_code' => $this->user->verification_code,
-                // 'validityPeriod'    => $this->user->validity_period,
+                'email'     => $this->user->user_email  
+                ,'onepw'    => $this->user->temporary_pw
         ]);
     }
 }

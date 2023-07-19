@@ -62,7 +62,7 @@ function pwCheck(){
     const pwChk = document.getElementById("passwordchk");
     const pwMsg = document.getElementById("pwMsg");
 
-    if(pw.value.trim()==="" && pwChk.value.trim()===""){
+    if(pw.value ==="" && pwChk.value ===""){
         pwMsg.innerHTML = "";
     }
     else if(pw.value === pwChk.value){

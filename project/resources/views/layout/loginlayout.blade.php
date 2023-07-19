@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{asset('css/common.css')}}">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
+    <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     
     @section('css')
         <link rel="stylesheet" href="{{asset('css/login.css')}}">

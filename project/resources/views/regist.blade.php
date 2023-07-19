@@ -44,7 +44,7 @@
                 <div>
                     <label for="password">비밀번호</label>
                     <br>
-                    <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}" required>
+                    <input type="password" name="password" id="password"  value="{{ $errors->has('password') ? '' : old('password', isset($data) ? $data->password : '') }}" required oninput="pwCheck();">
                     @error('password')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror

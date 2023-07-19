@@ -43,7 +43,7 @@ class UserController extends Controller
     // 라라벨에서 제공하는 기본 이름과 테이블 이름이 다름으로 인해서 model, config/app/userinfo의 users의 model경로 수정( 'model' => App\Models\UserInfo::class,)
     public function loginpost(Request $req){
         $rules = [
-            'email'    =>  'required|email|max:20'
+            'email'    =>  'required|email|max:50'
             ,'password' =>  'required|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
         ];
 
@@ -138,7 +138,7 @@ class UserController extends Controller
             ,'password' => 'required|same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
 
             // email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
-            ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20'
+            ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:50'
             ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
             ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
             ,'user_id'    => 'required|regex:/^[0-9]+$'
@@ -175,10 +175,10 @@ class UserController extends Controller
         //     ]);
 
         // todo 유효성 검사 부분 확인
-        // if ($validate->fails()) {
-        //     // $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($validate)->withInput();
-        // }
+        if ($validate->fails()) {
+            // $errors = $validate->errors();
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
 
         Log::debug('유효성 검사 완료');
         
