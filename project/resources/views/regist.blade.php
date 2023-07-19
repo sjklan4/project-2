@@ -29,7 +29,7 @@
                 <div>
                     <label for="user_name">이름</label>
                     <br>
-                    @if (isset($userInfo))
+                    @if (isset($userInfo['name']))
                         <input type="text" name="user_name" id="user_name" value="{{$userInfo['name']}}" required readonly>
                     @else
                         <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}" required>

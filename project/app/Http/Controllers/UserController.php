@@ -88,12 +88,18 @@ class UserController extends Controller
 
     //이메일 인증 절차 부분
     public function emailverifypost(Request $req){
-        // $req->validate([
-        //     'email'    => 'required|email|max:100'
+        // $rules = [ 'email'    => 'required|email|max:100'];
+
+        // $validate = Validator::make($req->only('email'), $rules, [
+        //     'email.required' => '이메일을 입력해주세요',
+        //     'email' => 'email형식에 맞춰주세요',
         // ]);
-        
-        // $data['email'] = $req->mailAddress;
-        // $user = ModelsEmailverify::new($data);
+
+        // if ($validate->fails()) {
+        //     $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($errors)->withInput();
+        // }
+
         $user= new ModelsEmailverify;
         $user->email = $req->mailAddress;
 
@@ -102,16 +108,53 @@ class UserController extends Controller
         //         ->route('user.emailverify');
         // }
         $verification_code = Str::random(10); // 인증 코드 생성
-        // $validity_period = now()->addMinutes(5); // 유효기간 설정
+        $validity_period = now()->addMinutes(5); // 유효기간 설정
 
         $user->verification_code = $verification_code;
-        // $user->validity_period = $validity_period;
+        $user->validity_period = $validity_period;
         $user->save();
-        // Log::debug($user);
-        Mail::to($user->email)->send(new MyMail($user));
-        return redirect()->route('user.emailverifypage')->with('email');
-    }
     
+        // Log::debug($user);
+        // 메일 발송 처리
+        Mail::to($user->email)->send(new MyMail($user));
+        return redirect()->route('user.emailverifypage')->with('data', $user->email);
+    }
+
+    // 인증번호 확인절차 처리후 
+    // 아래 등록 부분으로 이동. 인증된 이메일 이면 진행되고 없으면 리다이렉트백 - > session 확인 
+    public function accessok(Request $req){
+        
+        $useraccess = ModelsEmailverify::where('verification_code',$req->accessnum)->first();
+        $currentTime = now();
+        $validity_period = $useraccess->validity_period;
+        // $email_id = $useraccess->email_id;
+
+        if (empty(trim($req->accessnum))){
+            $error = '인증번호를 입력해 주세요.';
+            return back()->with('user_email', $useraccess->email)->withErrors(['numerror' => $error]);
+        }
+        elseif(!$useraccess){
+            $error = '인증번호를 확인해주세요';
+            return back()->withErrors(['numerror' => $error]);
+        }
+        elseif($currentTime > $validity_period){
+            $error = '만료된 인증번호 입니다.';
+            return back()->withErrors(['numerror' => $error]);
+        }
+        // dump($useraccess);
+        // exit;
+        else{
+
+            $useraccess->verification_code = null;
+            $useraccess->validity_period = null;
+            $useraccess->email_verified_at = now();
+            // $useraccess->id = $email_id;
+            $useraccess->save();
+
+            session(['userInfo' => ['email' => $useraccess->email]]);
+            return redirect()->route('user.regist');
+        }
+    }
 
     // 회원가입 화면 이동
     public function regist(){
@@ -119,9 +162,9 @@ class UserController extends Controller
         if(session()->has('userInfo')) {
             return view('regist')->with('userInfo', session('userInfo'));
         }
-        // ------------- v002 add -------------
-
-        return view('regist');
+        else{
+            return redirect()->intended(route('user.login'));
+        }
     }
 
     // 회원 가입 부분
@@ -192,7 +235,7 @@ class UserController extends Controller
         // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
         // todo 트랜잭션
         $user_id = DB::table('user_infos')
-        ->insertGetId($data,'user_id');
+            ->insertGetId($data,'user_id');
         
         // if($user_id < 0 || $user_id > 1){
             //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
@@ -216,6 +259,9 @@ class UserController extends Controller
         }
         Log::debug('유저 칼로리 테이블 인서트 완료');
         
+        // userinfo session 파기
+        session()->forget('userInfo');
+
         // return view('login');
         return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
     }

@@ -170,6 +170,20 @@ label {
 .loginBtn > button:hover {
     background-color: #195F1C;
 }
+.accessBtn > button {
+    background-color: #538E04;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.8rem;
+    width: 100px;;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+.accessBtn > button:hover {
+    background-color: #195F1C;
+}
 
 .registBtn {
     padding: 3rem;
@@ -265,6 +279,17 @@ label {
     }
 }
 
+.access_email{
+    padding-bottom: 10px;
+}
+
+.mailAddress{
+    padding-bottom: 30px;
+}
+
+.insermsg{
+    color: #EE6666;
+}
 
 /* ! 이전 */
 

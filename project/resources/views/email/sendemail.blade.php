@@ -9,7 +9,7 @@
     <div>아래 인증코드를 입력해주세요</div>
     <br>
     <div>{{ $verification_code }}</div>
-    <div><a href="{{ route('user.emailverifypage')}}">이메일 인증 링크</a></div>
+    {{-- <div><a href="{{ route('user.emailverifypage')}}">이메일 인증 링크</a></div> --}}
     <br>
     {{-- <div>이 인증 링크는 {{ $validityPeriod }}까지 유효합니다.</div> --}}
 </body>

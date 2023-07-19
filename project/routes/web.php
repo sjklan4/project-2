@@ -116,7 +116,8 @@ Route::get('/user/emailverifypage',[UserController::class, 'emailverifypage'])->
 Route::post('/users/verify', [UserController::class, 'emailverifypost'])->name('users.verify');
 Route::get('/resend-email', [UserController::class, 'resend_email'])->name('resend.email');
 
-
+//인증 번호 입력확인
+Route::post('/users/accessnum', [UserController::class, 'accessok'])->name('users.accessok');
 
 //----------------테스트용--------------------------------------
 // use App\Http\Controllers\ButtonController;

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('Emailverify', function (Blueprint $table) {
         
-            
-            $table->string('email')->unique();
+            $table->integer('email_id')->autoIncrement(); //컬럼 추가된 부분
+            $table->string('email');
             $table->string('verification_code')->nullable();
             $table->timestamp('validity_period')->nullable(); // + 메일인증코드 만료시간
             $table->timestamp('email_verified_at')->nullable(); // email 인증 시각
