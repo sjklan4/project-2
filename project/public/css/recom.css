@@ -15,6 +15,16 @@ body {
     .inputRadioDiv input[type=radio]+label{
         width:50px;
     }
+    .nutcontent{
+        display: block;
+    }
+    .RecommentDiv{
+        margin-top: 65px;
+        font-size: 16px;
+        background-color: #FFFFF0;
+        box-shadow: 0px 12px 30px #ECECEC;
+        padding:2rem;
+    }
 }
 @media screen and (min-width: 501px) and (max-width:1100px) {
     .RecommentDiv {
@@ -25,6 +35,17 @@ body {
     }
     .inputRadioDiv input[type=radio]+label{
         width:90px;
+    }
+    .nutcontent{
+        margin:0.5em;
+        display: inline;
+    }
+    .RecommentDiv{
+        margin-top: 100px;
+        font-size: 16px;
+        background-color: #FFFFF0;
+        box-shadow: 0px 12px 30px #ECECEC;
+        padding:2rem;
     }
 }
 @media screen and (min-width: 1100px){
@@ -37,14 +58,19 @@ body {
     .inputRadioDiv input[type=radio]+label{
         width:90px;
     }
+    .nutcontent{
+        margin:0.5em;
+        display: inline;
+    }
+    .RecommentDiv{
+        margin-top: 100px;
+        font-size: 16px;
+        background-color: #FFFFF0;
+        box-shadow: 0px 12px 30px #ECECEC;
+        padding:2rem;
+    }
 }
-.RecommentDiv{
-    margin-top: 100px;
-    font-size: 16px;
-    background-color: #FFFFF0;
-    box-shadow: 0px 12px 30px #ECECEC;
-    padding:2rem;
-}
+
 .recomTitle{
     font-weight: 600;
     margin-left:1rem;
@@ -81,9 +107,7 @@ body {
 .dietCateDiv{
     padding: 1rem;
 }
-.btnDiv{
-    text-align: right;
-}
+
 .recomFoodDiv{
     padding:0.5rem;
 }
@@ -92,8 +116,15 @@ body {
     background-color: #fff;
     box-shadow: 0px 1px 30px 0px rgba(217, 217, 217, 0.50);
 }
+.recomcontent{
+    margin:1rem;
+}
+
 h2{
     font-weight: 500;
+}
+.recomFoodTitle{
+    display: inline-block;
 }
 
 .recomF {
@@ -126,14 +157,27 @@ button:hover {
 }
 .greenBtn {
     background-color: #538E04;
+    display: inline-block;
 }
 .greenBtn:hover {
     background-color: #195F1C;
+}
+
+/* 식단 추천 페이지 버튼 div */
+.btnDiv{
+    position: relative;
+    text-align: right;
 }
 .reload { /* 식단 새로 추천용 버튼 */
     background: transparent;
     color:#000;
     border:none;
-    width:3rem;
-    padding: 1.5em auto;
+    width:1.5rem;
+    height:1.5rem;
+    margin-left:0.5rem;
+    /* padding-bottom:0.5rem; */
+    /* padding-bottom: 1.5em auto; */
+}
+.reload:hover {
+    background-color: transparent;
 }

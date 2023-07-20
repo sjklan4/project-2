@@ -11,27 +11,35 @@
         <h2 class="recomTitle">식단 추천</h2>
         <div class="contentDiv"> {{-- 내용을 감싸는 div --}}
             @if ($recomFood)
-                <div class="recomFoodDiv">
+            <div class="recomFoodDiv">
+                <div>
                     <h3 class="recomFoodTitle">추천 음식</h3>
-                    @foreach ($recomFood as $food)
-                    <span>{{$food->food_name}}</span>
-                    <span>{{$food->recom_intake}} 인분</span>
-                    <span class="nut">칼로리 : {{round($food->kcal * $food->recom_intake)}}</span>
-                    <span class="nut">탄수화물 : {{round($food->carbs * $food->recom_intake)}}</span>
-                    <span class="nut">단백질 : {{round($food->protein * $food->recom_intake)}}</span>
-                    <span class="nut">지방 : {{round($food->fat * $food->recom_intake)}}</span>
-                    <br>
+                    <button type="button" class="reload" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+                @foreach ($recomFood as $food)
+                    <div class="recomcontent">
+                        <span>{{$food->food_name}}</span>
+                        <span>{{$food->recom_intake}} 인분</span>
+                        <div class="nutcontent">
+                            <span class="nut">칼로리 : {{round($food->kcal * $food->recom_intake)}}</span>
+                            <span class="nut">탄수화물 : {{round($food->carbs * $food->recom_intake)}}</span>
+                            <span class="nut">단백질 : {{round($food->protein * $food->recom_intake)}}</span>
+                            <span class="nut">지방 : {{round($food->fat * $food->recom_intake)}}</span>
+                        </div>
+                    </div>
                     @endforeach
-                    
+                    <hr>
                     <h3>총 영양 성분</h3>
                     @foreach ($totalnut as $nut)
-                    <span>{{$nut}}</span>
+                    <div class="nutcontent">
+                        <span>{{$nut}}</span>
+                    </div>
                     @endforeach
                     <br>
-                    <button type="button" onclick="location.href='{{route('board.create')}}'">식단 공유</button>
-                    <button type="button" onclick="location.href='{{route('recom.get')}}'">취소</button>
-                    <button type="button" class="reload" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i></button>
-                    <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 추가</button>
+                    <div class="btnDiv">
+                        <button type="button" onclick="location.href='{{route('recom.get')}}'">취소</button>
+                        <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 추가</button>
+                    </div>
                     {{-- 식단 명 입력 alert --}}
                     <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
