@@ -17,9 +17,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
-            // $quest = new QuestController;
-            // $quest->questAlarmInsert();
-        })->daily();
+            $quest = new QuestController;
+            $quest->questAlarmInsert();
+        })->hourly();
     }
 
     /**
