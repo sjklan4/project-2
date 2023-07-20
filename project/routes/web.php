@@ -35,7 +35,6 @@ Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete
 
 Route::post('/downdiet/{favid}', [BoardController::class, 'dietdownload'])->name('board.dietdownload');
 
-
 // Route::post('/board', [BoardController::class, 'store'])->name('board.store');
 // Route::get('/board/create', [BoardController::class, 'create'])->name('board.create');
 // Route::get('/board/{board}', [BoardController::class, 'show'])->name('board.show');
@@ -143,6 +142,7 @@ Route::post('/users/accessnum', [UserController::class, 'accessok'])->name('user
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FavController;
+
 Route::get('/userfav/favdiet',[FavController::class,'favdiet'])->name('fav.favdiet'); //즐겨찾는 식단 정보 페이지 이동
 Route::get('/userfav/favfoodinfo/{fav_id}',[FavController::class,'favdiet'])->name('fav.favfoodinfo'); //즐겨 찾는 식단 정보의 식단별 음식들의 영양 정보 확인 하는 구문의 라우터
 Route::post('/userfav/intakeupdate',[FavController::class,'intakeupdate'])->name('fav.intakeupdate'); // 즐겨 찾는 식단 정보에서 수량조절(인분서 - 먹은양)하는 라우터
@@ -162,6 +162,15 @@ Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert
 Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
 Route::post('/search/{f_id}/{c_id}', [SearchController::class, 'fooddelete'])->name('food.delete');
 Route::post('/search/{d_id}/{c_id}', [SearchController::class, 'dietdelete'])->name('diet.delete');
+
+// ---------------------------------------------
+// 섹션명       : 신고(Report)
+// 기능         : 게시글, 댓글 신고 등 라우트 설정
+// 관리자       : 채수지
+// 생성일       : 2023-07-20
+// ---------------------------------------------
+use App\Http\Controllers\ReportController;
+Route::post('/report', [ReportController::class, 'report'])->name('report');
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)

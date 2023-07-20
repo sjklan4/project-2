@@ -11,6 +11,41 @@
                 <div>{{$data['nkname']}}</div>
                 <div>{{substr($data['created_at'], 0, 16)}}</div>
                 <div><i class="bi bi-bar-chart-fill"></i> {{number_format($data['hits'])}}</div>
+                <div>
+                    <button type="button" id="reportBtn" data-bs-toggle="modal" data-bs-target="#reportpost">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 신고
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="reportpost" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">댓글 신고</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('report')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="reporter" value="{{Auth::user()->user_id}}">
+                                <input type="hidden" name="suspect" value="{{$data['user_id']}}">
+                                <input type="hidden" name="board_id" value="{{$data['id']}}">
+                                <label for="reportreason">신고 사유</label>
+                                <select name="reportselect" id="reportreason">
+                                    <option value="0">불법광고</option>
+                                    <option value="1">비방 및 욕설</option>
+                                    <option value="2">허위 사실 유포</option></option>
+                                    <option value="3">지속적인 도배</option>
+                                </select>
+                                <textarea name="reporttext" id="reportreason" cols="30" rows="10"></textarea>
+                                <div class="modal-footer">
+                                    <button type="button" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" id="greenBtn">신고</button>
+                                </div>
+                            </form>`
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="boardDetailContet">
                 @if (isset($data['img']))
