@@ -3,6 +3,7 @@
 @section('title', 'Mail')
 
 @section('contents')
+@if (!session()->has('data'))
     <div class="access_email">
         <form action="{{route('users.verify')}}" method="POST">
             @csrf
@@ -10,32 +11,23 @@
                 <label for="mailAddress">email : </label>
                 <input type="text" id="mailAddress" name="mailAddress" onblur="duplicationEmail()"
                 value="{{ session()->has('data') ? session('data') : '' }}" autocomplete="off" required>
-
-                @if (!session()->has('data'))
-                    <button type="submit" id="signupButton" class="accessBtn"  disabled>인증요청</button>
-                @endif
-                    <div class="insermsg">
-                        <span id="insertmsg"></span>
-                    </div>
+                <div class="insermsg">
+                    <span id="insertmsg"></span>
+                </div>
             </div>
-         
-         
+            
+                <div class="accessBtn">
+                    <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
+                    <button type="submit" id="signupButton" class="accessBtn"  disabled>인증요청</button>
+                </div>
             @error('email')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </form>
     </div>    
-    
-    @if (!session()->has('data'))
-        <div class="loginBtn">
-            <button type="button" onclick="location.href='{{route('user.login')}}'" id="greenBtn">취소</button>
-        </div>
-    @endif
+@endif   
 
     @if(session()->has('data'))
-        <div>
-            <h2>입력하신 이메일에서 인증번호를 확인해주세요.</h2>
-        </div>
         <form action="{{route('users.accessok')}}" method="POST">
             @csrf
             <div id="accessnumber">
@@ -47,7 +39,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div>
+            <div class="accessBtn_b">
                 <button type="submit" id="registbtn">인증</button> 
             </div>
         </form>
