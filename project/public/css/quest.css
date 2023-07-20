@@ -257,9 +257,9 @@ Generic layout (demo looks)
 }
 
 @media screen and (max-width: 960px) {
-    article {
+    /* article {
     container: card/inline-size;
-    }
+    } */
 
     figure {
         display: none;
