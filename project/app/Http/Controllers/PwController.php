@@ -19,11 +19,15 @@ class PwController extends Controller
     public function findpwpost(Request $req){
         // 유효성 검사
         $rules = [
-            'user_email'    => 'required|email|min:2|max:50'
+            'user_email'        => 'required|email|min:2|max:50'
+            // ,'user_name'        => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
+            // ,'user_phone_num'   => 'required|regex:/^01[0-9]{9,10}$/'
         ];
 
         $validate = Validator::make($req->only('user_email'),$rules,[
-            'user_email'            => '이메일 형식에 맞춰서 입력해주세요.'
+            'user_email'        => '이메일 형식에 맞춰서 입력해주세요.'
+            // ,'user_name'        => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+            // 'user_phone_num'    => '전화번호 형식에 맞춰서 숫자 0~9까지 숫자만 입력해주세요'
         ]);
 
         if ($validate->fails()) {
@@ -55,17 +59,23 @@ class PwController extends Controller
 
         $temporaryPw = getRandStr(10);
 
-        $user->temporary_pw = $temporaryPw;
-        $user->password = Hash::make($temporaryPw);
-
-        $user->save();
-
         // 임시비밀번호 변경
-
         if($user){
-            Mail::to($user->user_email)->send(new FindEmail($user));
-            $message = '이메일을 확인해주세요';
-            return redirect()->route('findpw.get')->with('message',$message);
+            if($user->user_name !== $req->user_name || $user->user_phone_num!== $req->user_phone_num){
+                $error = '이메일과 회원정보가 일치하지않습니다.';
+                return redirect()->back()->with('message',$error);
+            }
+            else{
+                // 임시비밀번호로 변경
+                $user->temporary_pw = $temporaryPw;
+                $user->password = Hash::make($temporaryPw);
+
+                $user->save();
+
+                Mail::to($user->user_email)->send(new FindEmail($user));
+                $message = '이메일을 확인해주세요';
+                return redirect()->route('findpw.get')->with('message',$message);
+            }
         }
         else{
             $error = '가입되지않은 이메일입니다.';

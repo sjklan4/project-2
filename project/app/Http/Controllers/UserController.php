@@ -345,19 +345,12 @@ class UserController extends Controller
         ];
         $arrchk = [];
 
-        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules, $messages);
-
-        // if ($validate->fails()) {
-        //     return redirect()->back()->withErrors($validate)->withInput();
-        // }
-
         // 유효성 체크할 항목 세팅
         foreach($arrKey as $val){
             $arrchk[$val] = $rules[$val];
         }
 
         // 유효성 체크
-
         $req->validate($arrchk, $messages);
         
         // 수정할 데이터 셋팅
@@ -472,7 +465,7 @@ class UserController extends Controller
             'newpassword.regex'        => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
         ];
 
-        $validate = Validator::make($req->only('bpassword','newpassword'), $rules, $messages);
+        $validate = Validator::make($req->only('bpassword','newpassword','newpasswordchk'), $rules, $messages);
 
         if ($validate->fails()) {
             $errors = $validate->errors();

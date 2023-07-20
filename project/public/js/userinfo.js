@@ -1,10 +1,11 @@
-const test = document.getElementsByClassName('list-group-item');
 
-let li = null;
+// const test = document.getElementsByClassName('list-group-item');
 
-for (let i = 0; i < test.length; i++) {
-        li = test[i];
-}
+// let li = null;
+
+// for (let i = 0; i < test.length; i++) {
+//         li = test[i];
+// }
 
 // const today = new Date();
 // const birthDate = document.getElementById('user_birth'); 

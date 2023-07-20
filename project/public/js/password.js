@@ -1,3 +1,33 @@
+$(document).ready(function(){
+    pwBtn('#newicon1','#newicon2','#newpassword');
+    pwBtn('#nowicon1','#nowicon2','#bpassword');
+    pwBtn('#newicon3','#newicon4','#newpasswordchk');
+
+    function pwBtn(btn1,btn2,input){
+        $(btn1).click(function(){
+            $(btn2).show();
+            $(btn1).hide();
+            $(input).attr('type','text');
+        });
+        $(btn2).click(function(){
+            $(btn1).show();
+            $(btn2).hide();
+            $(input).attr('type','password');
+        });
+    }
+
+    // $('#test').click(function(){
+    //     $('#test2').show();
+    //     $('#test').hide();
+    //     $('#newpassword').attr('type','text');
+    // });
+    // $('#test2').click(function(){
+    //     $('#test').show();
+    //     $('#test2').hide();
+    //     $('#newpassword').attr('type','password');
+    // });
+});
+
 function chkpass(){
     const url = "/api/user/userpsedt";
     const pwForm = document.getElementById('pwForm');
