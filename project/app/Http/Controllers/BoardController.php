@@ -383,33 +383,34 @@ class BoardController extends Controller
                 ->withInput();
         }
 
-        // todo 트랜잭션
-        $user_id = session('user_id');
-        // 댓글 테이블 인서트
-        $reply_id = DB::table('board_replies')->insertGetId([
-            'user_id'       => $user_id
-            ,'board_id'     => $req->board_id
-            ,'rcontent'     => $req->reply
-            ,'created_at'   => now()
-        ], 'reply_id');
-
-        // 게시글 테이블 댓글 수 업데이트
-        DB::table('boards')
-            ->where('board_id', $req->board_id)
-            ->increment('replies');
-
-        // ------------- v002 add -------------
-        // 본인이 작성한 댓글은 알림 인서트가 되지 않게 처리
-        if($req->user_id != $user_id) {
-            // 댓글 알림 테이블 인서트
-            $alarm= new Alarm;
-            $alarm->user_id = $req->user_id;
-            $alarm->board_id = $req->board_id;
-            $alarm->reply_id = $reply_id;
-            $alarm->alarm_type = '1';  // 댓글 알림 타입
-            $alarm->save();
-        }
-        // ------------- v002 add -------------
+        DB::transaction(function () use ($req) {
+            $user_id = session('user_id');
+            // 댓글 테이블 인서트
+            $reply_id = DB::table('board_replies')->insertGetId([
+                'user_id'       => $user_id
+                ,'board_id'     => $req->board_id
+                ,'rcontent'     => $req->reply
+                ,'created_at'   => now()
+            ], 'reply_id');
+    
+            // 게시글 테이블 댓글 수 업데이트
+            DB::table('boards')
+                ->where('board_id', $req->board_id)
+                ->increment('replies');
+    
+            // ------------- v002 add -------------
+            // 본인이 작성한 댓글은 알림 인서트가 되지 않게 처리
+            if($req->user_id != $user_id) {
+                // 댓글 알림 테이블 인서트
+                $alarm= new Alarm;
+                $alarm->user_id = $req->user_id;
+                $alarm->board_id = $req->board_id;
+                $alarm->reply_id = $reply_id;
+                $alarm->alarm_type = '1';  // 댓글 알림 타입
+                $alarm->save();
+            }
+            // ------------- v002 add -------------
+        });
 
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
