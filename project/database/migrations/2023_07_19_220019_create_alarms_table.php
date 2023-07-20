@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('alarm_id')->autoIncrement();
             $table->integer('user_id');
             $table->integer('board_id')->nullable();
+            $table->integer('reply_id')->nullable();
             $table->char('alarm_type', 1);
             $table->char('alarm_flg', 1)->default('0');
             $table->timestamps();

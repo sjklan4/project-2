@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('likes')->default(0);
             $table->integer('replies')->default(0);
             $table->integer('hits')->default(0);
-            $table->integer('fav_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
