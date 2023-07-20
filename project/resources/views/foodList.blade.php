@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'FoodSearch')
+@section('title', '식단입력')
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/search.css')}}">
