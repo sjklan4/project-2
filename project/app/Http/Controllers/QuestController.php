@@ -57,7 +57,8 @@ class QuestController extends Controller
             $quest_status_id = QuestStatus::insertGetId([
                 'user_id'           => Auth::user()->user_id,
                 'quest_cate_id'     => $req->id,
-                'created_at'        => now()
+                'alram_time'        => $req->time,
+                'created_at'        => Carbon::now()
             ]);
             
             // 퀘스트 로그 테이블 인서트

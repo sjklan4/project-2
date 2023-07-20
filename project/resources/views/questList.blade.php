@@ -7,111 +7,52 @@
 @section('title', '퀘스트 수락')
 
 @section('contents')
-<h1>퀘스트 수락</h1>
-<ul class="cards">
-    <li>
-        <a href="" class="card">
-            <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" />
-            <div class="card__overlay">
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
-                <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">Jessica Parker</h3>            
-                <span class="card__status">1 hour ago</span>
+<div class="con">
+    <h1>퀘스트 수락</h1>
+    
+    <section class="articles">
+        @foreach ($data as $item)
+        <article>
+            <div class="article-wrapper">
+                <figure>
+                    <img src="{{asset('img/quest_'.$item->quest_cate_id.'.jpg')}}" alt="" />
+                </figure>
+                <div class="article-body">
+                    <h2>
+                        {{$item->quest_name}}</h2>
+                    <p>
+                        {{$item->quest_content}} ｜ {{$item->min_period}}일
+                    </p>
+                    @if (isset($flg))
+                    <form action="{{route('quest.store')}}" method="post">
+                        @csrf
+                        <label for="time">알림 설정</label>
+                        <select name="time">
+                            <option value="">ㄴㄴ</option>
+                            @for ($i = 1; $i < 24; $i++)
+                                <option value="{{$i}}">{{sprintf('%02d',$i)}}시</option>
+                            @endfor
+                        </select>
+
+                        <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
+                        <button id="greenBtn" type="submit">시작하기</button>
+                    </form>
+                    @endif
                 </div>
             </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>      
-    </li>
-    <li>
-        <a href="" class="card">
-            <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-            <div class="card__overlay">        
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                 
-                <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">kim Cattrall</h3>
-                <span class="card__status">3 hours ago</span>
-                </div>
-            </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>
-    <li>
-        <a href="" class="card">
-            <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" />
-            <div class="card__overlay">
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
-                <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">Jessica Parker</h3>
-                <span class="card__tagline">Lorem ipsum dolor sit amet consectetur</span>            
-                <span class="card__status">1 hour ago</span>
-                </div>
-            </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>
-    <li>
-        <a href="" class="card">
-            <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-            <div class="card__overlay">
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                 
-                <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">kim Cattrall</h3>
-                <span class="card__status">3 hours ago</span>
-                </div>          
-            </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>    
-    <li>
-        <a href="" class="card">
-            <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-            <div class="card__overlay">
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                 
-                <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">kim Cattrall</h3>
-                <span class="card__status">3 hours ago</span>
-                </div>          
-            </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>    
-    <li>
-        <a class="card">
-            <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-            <div class="card__overlay">
-            <div class="card__header">
-                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                 
-                <img class="card__thumb" src="https://i.imgur.com/sjLMNDM.png" alt="" />
-                <div class="card__header-text">
-                <h3 class="card__title">kim Cattrall</h3>
-                <span class="card__status">3 hours ago</span>
-                </div>          
-            </div>
-            <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-            </div>
-        </a>
-    </li>    
-</ul>
+        </article>
+        @endforeach
+    </section>
+
+    <h6 id="questSet">
+        @if (!isset($flg))
+            이미 진행중인 퀘스트가 있습니다.
+        @endif
+    </h6>
+</div>
 
 
 {{-- <div class="cards">
-    <h1>퀘스트 수락</h1>
-    
     <div class="options">
         @foreach ($data as $item)
             <div class="option" style="--optionBackground:url({{asset('img/quest_'.$item->quest_cate_id.'.jpg')}});">
