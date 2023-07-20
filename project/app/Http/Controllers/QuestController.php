@@ -9,6 +9,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alarm;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\QuestCate;
@@ -185,7 +186,20 @@ class QuestController extends Controller
 
     public function questAlarmInsert() {
         // 알림 받기를 설정한 진행중인 퀘스트 목록 획득
+        $questStat = QuestStatus::join('user_infos', 'user_infos.user_id', 'quest_statuses.user_id')
+            ->where('quest_statuses.complete_flg', '0')
+            ->where('user_infos.user_status', '1')
+            ->whereNotNull('quest_statuses.alarm_time')
+            ->get();
 
         // 정해진 시간에 알림 인서트
+        foreach ($questStat as $item) {
+            if ($item->alarm_time == Carbon::now()->format("H")) {
+                $alarm= new Alarm;
+                $alarm->user_id = $item->user_id;
+                $alarm->alarm_type = '0';  // 댓글 알림 타입
+                $alarm->save();
+            }
+        }
     }
 }
