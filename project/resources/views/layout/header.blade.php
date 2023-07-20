@@ -73,14 +73,33 @@
                 </li>
                 <li>
                     <a id="cursorPointer">
-                        알림
+                        @if (isset($alarmData))
+                            <img class="alramImg" src="{{asset('img/alarm1.png')}}" alt="">
+                        @else
+                            <img class="alramImg" src="{{asset('img/alarm2.png')}}" alt="">
+                        @endif
                     </a>
                     <ul class="navbar-dropdown">
                         @if(isset($alarmData))
                             @foreach ($alarmData as $item)
-                            <li>
-                                <a href="{{route('board.show', ['board' => $item->board_id])}}"> 새 댓글 </a>
-                            </li>
+                                <form action="{{route('alarm.flgUpdate', ['alarm' => $item->alarm_id])}}" method="post">
+                                @csrf
+                                @method('put')
+                                <input type="hidden" name="board_id" value="{{$item->board_id}}">
+                                    @if ($item->alarm_type === '1')
+                                    <li>
+                                        <a>
+                                            <button type="submit">새 댓글 잇음</button>
+                                        </a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a>
+                                            <button type="submit">오늘 퀘스트</button>
+                                        </a>
+                                    </li>
+                                    @endif
+                                </form>
                             @endforeach
                         @else
                             <li>

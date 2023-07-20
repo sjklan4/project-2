@@ -10,13 +10,28 @@ section{
     /* box-shadow: 0 0.275rem 0.75rem -0.0625rem rgba(11,15,25,.06), 0 0.125rem 0.4rem -0.0625rem rgba(11,15,25,.03); */
 }
 
+.navbar-dropdown button {
+    color: black;
+    background-color: transparent;
+    height: 0px;
+}
+
+.navbar-dropdown form {
+    display: inline;
+}
+
 .nav-top {
     height: 4vh;
 }
 
-#logoutBtn img {
+.alramImg, #logoutBtn img {
     width: 35px;
     height: 35px;
+}
+
+.alramImg:hover, #logoutBtn img:hover {
+    transform: scale(1.1, 1.1);
+    transition: transform.1s;
 }
 
 .navigation {
@@ -95,6 +110,11 @@ nav ul li a{
 nav ul li a:not(:only-child):after, nav ul li a:visited:not(:only-child):after {
     padding-left: 4px;
     content: ' \025BE';
+}
+
+nav ul li:nth-child(5) a:not(:only-child):after, nav ul li:nth-child(5) a:visited:not(:only-child):after {
+    padding-left: 0px;
+    content: '';
 }
 
 nav ul li ul li {

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,16 @@ Route::get('/food/create', [FoodController::class,'create'])->name('food.create'
 Route::post('/food/store', [FoodController::class,'store'])->name('food.store');
 Route::put('/food/{food}', [FoodController::class,'update'])->name('food.update');
 Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.destroy');
+
+// ---------------------------------------------
+// 섹션명       : 알림(Alarm)
+// 기능         : 알림 관련 라우트 설정
+// 관리자       : 최아란
+// 생성일       : 2023-07-20
+// ---------------------------------------------
+use App\Http\Controllers\AlarmController;
+Route::put('/alarm/{alarm}', [AlarmController::class,'flgUpdate'])->name('alarm.flgUpdate');
+
 
 
 // ---------------------------------------------
