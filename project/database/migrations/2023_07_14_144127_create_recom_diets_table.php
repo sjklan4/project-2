@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('recom_diets', function (Blueprint $table) {
             $table->integer('recom_d_id')->autoIncrement();
             $table->char('recom_flg', 1);
+            $table->char('minmax_flg', 1);
             $table->timestamps();
             $table->softDeletes();
         });
