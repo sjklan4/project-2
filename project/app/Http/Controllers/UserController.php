@@ -61,6 +61,11 @@ class UserController extends Controller
 
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
+        if (!$user) {
+            $error = '등록된 유저가 없습니다. 고객센터에 문의해주세요';
+            return back()->withErrors(['idpw' => $error])
+            ->withInput();
+        }
         
         if(!$user || !(Hash::check($req->password,$user->password))){
             $error = '아이디와 비밀번호를 확인해 주세요.';
@@ -108,13 +113,13 @@ class UserController extends Controller
         //         ->route('user.emailverify');
         // }
         $verification_code = Str::random(10); // 인증 코드 생성
-        $validity_period = now()->addMinutes(5); // 유효기간 설정
+        $validity_period = now()->addMinutes(1); // 유효기간 설정
 
         $user->verification_code = $verification_code;
         $user->validity_period = $validity_period;
+        
         $user->save();
-    
-        // Log::debug($user);
+
         // 메일 발송 처리
         Mail::to($user->email)->send(new MyMail($user));
         return redirect()->route('user.emailverifypage')->with('data', $user->email);
@@ -124,22 +129,48 @@ class UserController extends Controller
     // 아래 등록 부분으로 이동. 인증된 이메일 이면 진행되고 없으면 리다이렉트백 - > session 확인 
     public function accessok(Request $req){
         
-        $useraccess = ModelsEmailverify::where('verification_code',$req->accessnum)->first();
-        $currentTime = now();
-        $validity_period = $useraccess->validity_period;
-        // $email_id = $useraccess->email_id;
-
         if (empty(trim($req->accessnum))){
             $error = '인증번호를 입력해 주세요.';
-            return back()->with('user_email', $useraccess->email)->withErrors(['numerror' => $error]);
+            return back()
+                ->with('data', '0')
+                ->withErrors(['numerror' => $error]);
         }
-        elseif(!$useraccess){
+        
+        $useraccess = ModelsEmailverify::where('verification_code',$req->accessnum)->first();
+        // dump($req->accessnum);
+        // exit;
+        // $email_id = $useraccess->email_id;
+ 
+
+        if(!$useraccess){
             $error = '인증번호를 확인해주세요';
-            return back()->withErrors(['numerror' => $error]);
+            return back()
+            ->with('data', '0')
+            ->withErrors(['numerror' => $error]);
+            
         }
-        elseif($currentTime > $validity_period){
-            $error = '만료된 인증번호 입니다.';
-            return back()->withErrors(['numerror' => $error]);
+
+        $currentTime = now();
+        $validity_period = $useraccess->validity_period;
+
+        // todo 만료시 메일 다시 보내는 기능 추가 
+        if($currentTime > $validity_period){
+
+            // 신규 인증코드 전송
+            $new_verification_code = Str::random(10); // 인증 코드 생성
+            $new_validity_period = now()->addMinutes(1); // 유효기간 설정
+
+            //다시 보내는 인증 코드 업데이트
+            $useraccess->verification_code = $new_verification_code;
+            $useraccess->validity_period = $new_validity_period;
+            $useraccess->save();
+    
+            Mail::to($useraccess->email)->send(new MyMail($useraccess));
+
+            $error = '만료된 인증번호 입니다 인증번호를 다시 확인해주세요';
+            return back()
+            ->with('data', '0')
+            ->withErrors(['numerror' => $error]);
         }
         // dump($useraccess);
         // exit;
@@ -151,7 +182,9 @@ class UserController extends Controller
             // $useraccess->id = $email_id;
             $useraccess->save();
 
-            session(['userInfo' => ['email' => $useraccess->email]]);
+            session(['userInfo' => ['email' => $useraccess->email
+                                    , 'name' => ''
+                                    , 'social' => '']]);
             return redirect()->route('user.regist');
         }
     }
@@ -216,10 +249,10 @@ class UserController extends Controller
         //     ]);
 
         // todo 유효성 검사 부분 확인
-        if ($validate->fails()) {
-            // $errors = $validate->errors();
-            return redirect()->back()->withErrors($validate)->withInput();
-        }
+        // if ($validate->fails()) {
+        //     // $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($validate)->withInput();
+        // }
 
         Log::debug('유효성 검사 완료');
         

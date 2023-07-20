@@ -1,8 +1,4 @@
 // 퀘스트 리스트
-$(".option").click(function(){
-    $(".option").removeClass("active");
-    $(this).addClass("active");
-});
 
 // 퀘스트 확인 갱신
 if(document.querySelector('.questUdt')){

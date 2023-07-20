@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alarms', function (Blueprint $table) {
-            $table->integer('alarm_id')->autoIncrement();
-            $table->integer('user_id');
+        Schema::create('report_lists', function (Blueprint $table) {
+            $table->integer('rep_id')->autoIncrement();
+            $table->integer('reporter');
+            $table->integer('suspect');
             $table->integer('board_id')->nullable();
             $table->integer('reply_id')->nullable();
-            $table->char('alarm_type', 1);
-            $table->char('alarm_flg', 1)->default('0');
+            $table->integer('rep_r_id');
+            $table->char('complate_flg', 1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alarms');
+        Schema::dropIfExists('report_lists');
     }
 };

@@ -73,6 +73,18 @@ button:hover {
     border-radius: 50%;
 }
 
+#reportBtn {
+    font-size: 13px;
+    font-weight: 600;
+    width: 40px;
+    height: 20px;
+    line-height: 20px;
+    background-color: transparent;
+    border: none;
+    color:black;
+    display: inline;
+}
+
 /* 게시판 콘텐츠 */
 .shadowWhite {
     background: #FFFFFF;
@@ -169,7 +181,7 @@ table {
     color: #FFD029;
 }
 
-.bi-heart-fill{
+.bi-heart-fill, .fa-solid{
     color: #EE6666;
 }
 
@@ -475,13 +487,13 @@ h5 {
 
     .boardDetailTitle {
         display: grid;
-        grid-template-columns: 1fr 2fr 3fr 1fr;
+        grid-template-columns: 1fr 2fr 3fr 1fr 1fr 1fr;
         grid-template-rows: none;
         grid-row-gap: 5px;
     }
 
     .boardDetailTitle > div:nth-child(1) {
-        grid-column: 1/5;
+        grid-column: 1/4;
         grid-row: 1/2;
         padding: 0;
     }
@@ -506,6 +518,11 @@ h5 {
     
     .boardDetailTitle > div:nth-child(5) {
         grid-column: 4/5;
+        grid-row: 2/3;
+        font-size: 12px;
+    }
+    .boardDetailTitle > div:nth-child(6) {
+        grid-column: 5/6;
         grid-row: 2/3;
         font-size: 12px;
     }

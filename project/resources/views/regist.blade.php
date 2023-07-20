@@ -30,7 +30,11 @@
                     <label for="user_name">이름</label>
                     <br>
                     @if (isset($userInfo))
-                        <input type="text" name="user_name" id="user_name" value="{{ $userInfo['name'] }}" required readonly>
+                        <input type="text" name="user_name" id="user_name" value="{{ $userInfo['name'] }}" required
+                        @if ($userInfo['name'] !== '')
+                            readonly
+                        @endif
+                        >
                     @else
                         <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_name : '') }}" required>
                         @error('user_name')
@@ -38,7 +42,7 @@
                         @enderror
                     @endif
                 </div>
-                @if (isset($userInfo))
+                @if ($userInfo['social'] !== '')
                     <input type="hidden" name="social" value="{{ $userInfo['social'] }}">
                 @endif
                 <div>

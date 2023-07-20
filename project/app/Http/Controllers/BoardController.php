@@ -383,30 +383,34 @@ class BoardController extends Controller
                 ->withInput();
         }
 
-        // todo 트랜잭션
-        $user_id = session('user_id');
-        // 댓글 테이블 인서트
-        DB::table('board_replies')->insert([
-            'user_id'       => $user_id
-            ,'board_id'     => $req->board_id
-            ,'rcontent'     => $req->reply
-            ,'created_at'   => now()
-        ]);
-
-        // 게시글 테이블 댓글 수 업데이트
-        $board = Board::find($req->board_id);
-        DB::table('boards')
-            ->where('board_id', '=', $req->board_id)
-            ->update(['replies' => $board->replies + 1]);
-
-        // ------------- v002 add -------------
-        // 댓글 알림 테이블 인서트
-        $alarm= new Alarm;
-        $alarm->user_id = $req->user_id;
-        $alarm->board_id = $req->board_id;
-        $alarm->alarm_type = '1';
-        $alarm->save();
-        // ------------- v002 add -------------
+        DB::transaction(function () use ($req) {
+            $user_id = session('user_id');
+            // 댓글 테이블 인서트
+            $reply_id = DB::table('board_replies')->insertGetId([
+                'user_id'       => $user_id
+                ,'board_id'     => $req->board_id
+                ,'rcontent'     => $req->reply
+                ,'created_at'   => now()
+            ], 'reply_id');
+    
+            // 게시글 테이블 댓글 수 업데이트
+            DB::table('boards')
+                ->where('board_id', $req->board_id)
+                ->increment('replies');
+    
+            // ------------- v002 add -------------
+            // 본인이 작성한 댓글은 알림 인서트가 되지 않게 처리
+            if($req->user_id != $user_id) {
+                // 댓글 알림 테이블 인서트
+                $alarm= new Alarm;
+                $alarm->user_id = $req->user_id;
+                $alarm->board_id = $req->board_id;
+                $alarm->reply_id = $reply_id;
+                $alarm->alarm_type = '1';  // 댓글 알림 타입
+                $alarm->save();
+            }
+            // ------------- v002 add -------------
+        });
 
         // 게시글 상세 페이지 이동
         return redirect()->route('board.shows', ['board' => $req->board_id, 'flg' => '1']);
@@ -414,13 +418,26 @@ class BoardController extends Controller
 
     // 댓글 삭제
     public function replyDelete($board, $id) {
-        
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
 
-        // 댓글 삭제 처리
-        BoardReply::destroy($id);
+        DB::transaction(function () use ($id, $board) {
+            // 댓글 삭제 처리
+            BoardReply::destroy($id);
+    
+            // 게시글 테이블 댓글 수 업데이트
+            DB::table('boards')
+                ->where('board_id', $board)
+                ->decrement('replies');
+
+            // ------------- v002 add -------------
+            // 댓글 알림 테이블 플래그 변경
+            DB::table('alarms')
+                ->where('reply_id', $id)
+                ->update(['alarm_flg' => '1']);
+            // ------------- v002 add -------------
+        });
 
         return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
     }
@@ -454,5 +471,4 @@ class BoardController extends Controller
 
         return redirect()->route('fav.favdiet');
     }
-
 }

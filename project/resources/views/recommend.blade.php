@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'FoodSearch')
+@section('title', '식단추천')
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/recom.css')}}">

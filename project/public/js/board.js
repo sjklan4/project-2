@@ -133,6 +133,4 @@ function DietShare() {
             Diet.appendChild(intake);
         });
     }); 
-
-
 }

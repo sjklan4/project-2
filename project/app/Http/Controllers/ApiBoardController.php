@@ -42,10 +42,9 @@ class ApiBoardController extends Controller
                 ]);
     
                 // 게시판 테이블 좋아요 수 증가
-                $board = Board::find($req->id2);
                 DB::table('boards')
                 ->where('board_id', '=', $req->id2)
-                ->update(['likes' => $board->likes + 1]);
+                ->increment('likes');
             });
             
             $arr['errorcode'] = '0';
@@ -59,7 +58,6 @@ class ApiBoardController extends Controller
                     ->delete();
     
                 // 게시판 테이블 좋아요 수 감소
-                $board = Board::find($req->id2);
                 DB::table('boards')
                 ->where('board_id', '=', $req->id2)
                 ->decrement('likes');

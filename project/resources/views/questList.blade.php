@@ -7,8 +7,52 @@
 @section('title', '퀘스트 수락')
 
 @section('contents')
-<div class="cards">
+<div class="con">
     <h1>퀘스트 수락</h1>
+    
+    <section class="articles">
+        @foreach ($data as $item)
+        <article>
+            <div class="article-wrapper">
+                <figure>
+                    <img src="{{asset('img/quest_'.$item->quest_cate_id.'.jpg')}}" alt="" />
+                </figure>
+                <div class="article-body">
+                    <h2>
+                        {{$item->quest_name}}</h2>
+                    <p>
+                        {{$item->quest_content}} ｜ {{$item->min_period}}일
+                    </p>
+                    @if (isset($flg))
+                    <form action="{{route('quest.store')}}" method="post">
+                        @csrf
+                        <label for="time">알림 설정</label>
+                        <select name="time">
+                            <option value="">ㄴㄴ</option>
+                            @for ($i = 1; $i < 24; $i++)
+                                <option value="{{$i}}">{{sprintf('%02d',$i)}}시</option>
+                            @endfor
+                        </select>
+
+                        <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
+                        <button id="greenBtn" type="submit">시작하기</button>
+                    </form>
+                    @endif
+                </div>
+            </div>
+        </article>
+        @endforeach
+    </section>
+
+    <h6 id="questSet">
+        @if (!isset($flg))
+            이미 진행중인 퀘스트가 있습니다.
+        @endif
+    </h6>
+</div>
+
+
+{{-- <div class="cards">
     <div class="options">
         @foreach ($data as $item)
             <div class="option" style="--optionBackground:url({{asset('img/quest_'.$item->quest_cate_id.'.jpg')}});">
@@ -49,7 +93,7 @@
             이미 진행중인 퀘스트가 있습니다.
         @endif
     </h6>
-</div>
+</div> --}}
 @endsection
 
 @section('js')

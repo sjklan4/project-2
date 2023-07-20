@@ -101,6 +101,7 @@
                     @endif
                 </div>
             </div>
+        {{-- 플래그가 1일때 --}}
         @else
             <div class="fail">
                 <span>

@@ -76,8 +76,6 @@ class ApiUserController extends Controller
 
         $user = UserInfo::find($req->value2);
 
-        return $user;
-
         if(!Hash::check($req->value1, $user->password)){
             $arr["errorcode"] = "1";
             $arr["msg"]="비밀번호 불일치";
@@ -101,6 +99,10 @@ class ApiUserController extends Controller
             $arr["errorcode"] = "1";
             $arr["msg"] = "권한이 없는 요청입니다.(로그인을 확인해주세요)";
         }
+
+        $userinfo->user_status = 2;
+        $userinfo->save();
+
         UserInfo::destroy($userinfo->user_id);
 
         return response()->json(['errorcode' => '0']);

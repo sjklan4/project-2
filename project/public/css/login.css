@@ -170,18 +170,33 @@ label {
 .loginBtn > button:hover {
     background-color: #195F1C;
 }
-.accessBtn > button {
+.accessBtn > button{
     background-color: #538E04;
     border: none;
     transition: all 0.2s cubic-bezier(.4,0,.2,1);
     color: white;
-    height: 2.8rem;
-    width: 100px;;
+    height: 2.2rem;
+    width: 178px;;
     padding: 1.5em auto;
     border-radius: 3px;
 }
 
 .accessBtn > button:hover {
+    background-color: #195F1C;
+}
+
+.accessBtn_b > button{
+    background-color: #538E04;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 380px;;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+.accessBtn_b > button:hover {
     background-color: #195F1C;
 }
 
@@ -198,6 +213,7 @@ label {
 .registBtn a:hover {
     color: #538E04;
 }
+
 
 #kakao {
     width: 50px;
@@ -302,10 +318,17 @@ h1 {
     padding-bottom: 30px;
 }
 
+#accessnumber{
+    padding-bottom: 30px;
+}
+
 .insermsg{
     color: #EE6666;
 }
 
+h2{
+    font-size:  1rem;
+}
 /* ! 이전 */
 
 /* .page-body{

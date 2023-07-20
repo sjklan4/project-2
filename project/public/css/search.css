@@ -67,6 +67,7 @@
     margin-top:0px;
     box-shadow: 0px 12px 30px #ECECEC;
     margin-top: 10vh;
+    min-height: 20rem;
 }
 /* 검색 폼 div */
 .searchdiv{
@@ -289,10 +290,6 @@ h3 {
 
 .btn button {
     margin: 0 5px;
-}
-
-.nosearch {
-    min-height: 20rem;
 }
 
 #userving {
