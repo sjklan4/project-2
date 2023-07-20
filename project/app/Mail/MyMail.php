@@ -71,7 +71,7 @@ class MyMail extends Mailable
         ->with([
                 'email'             => $this->user->email,
                 'verification_code' => $this->user->verification_code,
-                // 'validityPeriod'    => $this->user->validity_period,
+                'validityPeriod'    => $this->user->validity_period,
         ]);
     }
     

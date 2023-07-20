@@ -13,7 +13,8 @@ body {
         width: 325px;
     }
     .inputRadioDiv input[type=radio]+label{
-        width:50px;
+        width:60px;
+        font-size:13px;
     }
     .nutcontent{
         display: block;
@@ -34,10 +35,12 @@ body {
         width: 80vw;
     }
     .inputRadioDiv input[type=radio]+label{
-        width:90px;
+        width:100px;
+        padding:0.5rem;
+        font-size:16px;
     }
     .nutcontent{
-        margin:0.5em;
+        margin:0.3em;
         display: inline;
     }
     .RecommentDiv{
@@ -56,12 +59,15 @@ body {
         width: 960px;
     }
     .inputRadioDiv input[type=radio]+label{
-        width:90px;
+        width:100px;
+        padding:0.3rem;
+        font-size:16px;
     }
     .nutcontent{
         margin:0.5em;
         display: inline;
     }
+    
     .RecommentDiv{
         margin-top: 100px;
         font-size: 16px;
@@ -75,7 +81,7 @@ body {
     font-weight: 600;
     margin-left:1rem;
 }
-/* 빨 : ee6666 / 초 : 538e04 / 파 : 6799e4 */
+
 /* radio */
 .inputRadioDiv{
     padding: 15px 10px;
@@ -86,14 +92,11 @@ body {
 .inputRadioDiv input[type=radio]+label{
     display: inline-block;
     cursor: pointer;
-    height: 25px;
-    /* width: 50px; */
     border: 1px solid #d4d4d4;
     border-radius: 5px;
     line-height: 24px;
     text-align: center;
     font-weight:bold;
-    font-size:13px;
 }
 .inputRadioDiv input[type=radio]+label{
     background-color: #fff;
@@ -125,6 +128,7 @@ h2{
 }
 .recomFoodTitle{
     display: inline-block;
+    font-weight: 500;
 }
 
 .recomF {

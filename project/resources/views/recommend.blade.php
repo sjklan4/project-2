@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'FoodSearch')
+@section('title', '식단추천')
 
 @section('css')
     <link rel="stylesheet" href="{{asset('css/recom.css')}}">
@@ -29,7 +29,7 @@
                     </div>
                     @endforeach
                     <hr>
-                    <h3>총 영양 성분</h3>
+                    <h3>총 영양성분</h3>
                     @foreach ($totalnut as $nut)
                     <div class="nutcontent">
                         <span>{{$nut}}</span>
@@ -69,14 +69,14 @@
                 <form action="{{route('recom.post')}}" method="post">
                     @csrf
                     <div class="dietCateDiv">
-                        <h3 class="recomFoodTitle">식단 유형</h3>
+                        <h3 class="recomFoodTitle">식단 유형을 선택해주세요.</h3>
                         <div class="inputRadioDiv">
                             <input type="radio" name="dietcate" id="loseweight" value="0" required>
-                            <label for="loseweight">감량</label>
+                            <label for="loseweight">감 량</label>
                             <input type="radio" name="dietcate" id="increase" value="1" required>
-                            <label for="increase">증량</label>
+                            <label for="increase">증 량</label>
                             <input type="radio" name="dietcate" id="health" value="2" required>
-                            <label for="health">일반</label>
+                            <label for="health">일 반</label>
                         </div>
                         <br>
                         <div class="btnDiv">
