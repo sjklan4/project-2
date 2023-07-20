@@ -72,11 +72,22 @@
                     </ul>
                 </li>
                 <li>
-                    <a>
-                        @if(isset($alarmData))
-                            {{ $alarmData->user_id }}
-                        @endif
+                    <a id="cursorPointer">
+                        알림
                     </a>
+                    <ul class="navbar-dropdown">
+                        @if(isset($alarmData))
+                            @foreach ($alarmData as $item)
+                            <li>
+                                <a href="{{route('board.show', ['board' => $item->board_id])}}"> 새 댓글 </a>
+                            </li>
+                            @endforeach
+                        @else
+                            <li>
+                                <a>알림 없음</a>
+                            </li>
+                        @endif
+                    </ul>
                 </li>
                 <li>
                     {{-- 로그인 상태 --}}

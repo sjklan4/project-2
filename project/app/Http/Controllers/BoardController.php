@@ -401,12 +401,11 @@ class BoardController extends Controller
 
         // ------------- v002 add -------------
         // 댓글 알림 테이블 인서트
-        Alarm::insert([
-            'user_id'       => $req->user_id,
-            'board_id'      => $req->board_id,
-            'alarm_type'    => '1',
-            'created_at'    => now()
-        ]);
+        $alarm= new Alarm;
+        $alarm->user_id = $req->user_id;
+        $alarm->board_id = $req->board_id;
+        $alarm->alarm_type = '1';
+        $alarm->save();
         // ------------- v002 add -------------
 
         // 게시글 상세 페이지 이동

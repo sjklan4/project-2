@@ -183,6 +183,7 @@ class QuestController extends Controller
         
         $lastLogDate = $logs->effective_date;
 
+        // 오늘이 마지막 날인지 확인
         if ($lastLogDate === Carbon::now()->format("Y-m-d")) {
             $questStat = QuestStatus::find($req->statId);
             // 퀘스트 성공 처리

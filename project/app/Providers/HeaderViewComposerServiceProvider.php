@@ -36,7 +36,7 @@ class HeaderViewComposerServiceProvider extends ServiceProvider
 
                 if($alarm->count() > 0) {
                     // 뷰에 데이터 전달
-                    $view->with('alarmData', $alarm[0]);
+                    $view->with('alarmData', $alarm);
                 }
             }
         });
