@@ -11,6 +11,6 @@
     <div>{{ $verification_code }}</div>
     {{-- <div><a href="{{ route('user.emailverifypage')}}">이메일 인증 링크</a></div> --}}
     <br>
-    {{-- <div>이 인증 링크는 {{ $validityPeriod }}까지 유효합니다.</div> --}}
+    <div>이 인증번호는 {{ $validityPeriod }}까지 유효합니다.</div>
 </body>
 </html>
