@@ -24,13 +24,12 @@ class ReportController extends Controller
             'created_at' => now()
         ]);
 
-        // 확실하지 않은 쿼리
         $getSuspectId = DB::table('report_lists')
         ->select('report_lists.suspect', 'user_infos.report_num')
         ->join('user_infos', 'user_infos.user_id', 'report_lists.suspect')
         ->where('rep_id', $insert)
         ->get();
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }
