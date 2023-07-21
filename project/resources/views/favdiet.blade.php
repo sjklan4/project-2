@@ -104,7 +104,7 @@
                                     <label for="intake">
                                     {{-- <td> --}}
                                     {{-- 인분수 수정값을 입력하기 위한 구문 intake[]를 배열로 해서 여러 값들이 한번에 들어 갈수 있도록 함. 기존 섭취 량을 받아오기 위해서{{$item->fav_f_intake}} 를 사용하고 required를 주어서 필수 입력값으로 설정  --}}
-                                    <input type="number" name="intake[]" id="intake" value={{$item->fav_f_intake}}  required>인분</label>
+                                    <input type="number" name="intake[]" id="intake" min="0" value={{$item->fav_f_intake}}  required>인분</label>
                                     {{-- </td> --}}
                                     {{-- <td> --}}
                                     <span class="del-food" id="del-food">
