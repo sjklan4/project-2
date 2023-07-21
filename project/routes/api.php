@@ -32,23 +32,6 @@ Route::put('/boards/likes', [ApiBoardController::class, 'likeUpDown']);
 Route::get('/boards/diets/{favId}', [ApiBoardController::class, 'selectDiets']);
 
 // ---------------------------------------------
-// 섹션명       : 음식(Food)
-// 기능         : 사용자 등록 음식 관련 api 라우트 설정
-// 관리자       : 최아란
-// 생성일       : 2023-06-19
-// ---------------------------------------------
-use App\Http\Controllers\ApiFoodController;
-
-
-// ---------------------------------------------
-// 섹션명       : 퀘스트(Quest)
-// 기능         : 퀘스 관련 api 라우트 설정
-// 관리자       : 최아란
-// 생성일       : 2023-06-26
-// ---------------------------------------------
-use App\Http\Controllers\ApiQuestController;
-
-// ---------------------------------------------
 // 섹션명       : 회원(User)
 // 기능         : 회원 관리 api 라우트 설정
 // 관리자       : 박상준 / 권봉정
@@ -88,5 +71,4 @@ Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'dietDel
 use App\Http\Controllers\ApiHomeController;
 
 Route::post('/home/intakeupdate/{df_id}',[ApiHomeController::class, 'intakeupdate'])->name('home.intakeupdate');
-
 Route::delete('/home/intakedel',[ApiHomeController::class, 'intakedel'])->name('home.intakedel');

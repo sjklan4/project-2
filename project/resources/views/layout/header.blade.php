@@ -32,6 +32,9 @@
                         <li>
                             <a href="{{route('quest.show')}}">퀘스트 관리</a>
                         </li>
+                        <li>
+                            <a href="{{route('quest.questAchieve')}}">퀘스트 업적</a>
+                        </li>
                     </ul>
                 </li>
                 <li>

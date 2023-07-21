@@ -57,7 +57,7 @@ class QuestController extends Controller
             $quest_status_id = QuestStatus::insertGetId([
                 'user_id'           => Auth::user()->user_id,
                 'quest_cate_id'     => $req->id,
-                'alram_time'        => $req->time,
+                'alarm_time'        => $req->time,
                 'created_at'        => Carbon::now()
             ]);
             
@@ -180,7 +180,10 @@ class QuestController extends Controller
     
 
     public function destroy($id) {
-        QuestStatus::destroy($id);
+        
+        DB::table('quest_statuses')
+            ->where('quest_status_id', $id)
+            ->update(['deleted_at' => Carbon::now()]);
 
         return redirect()->route('quest.show');
     }
@@ -202,5 +205,52 @@ class QuestController extends Controller
                 $alarm->save();
             }
         }
+    }
+
+    public function questAchieve() {
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
+        // 유저의 가장 처음 성공한 퀘스트 목록 획득
+        $list = DB::table('quest_statuses')
+        ->join('quest_cates', 'quest_cates.quest_cate_id', 'quest_statuses.quest_cate_id')
+        ->where('quest_statuses.complete_flg', '1')
+        ->where('quest_statuses.user_id', Auth::user()->user_id)
+        ->orderBy('created_at')
+        ->get()
+        ->unique('quest_cate_id');
+
+        return view('questAchieve')->with('data', $list);
+    }
+
+    public function repFlgUpdate($id) {
+        // 해당 퀘스트 정보 획득
+        $questStatus = DB::table('quest_statuses')
+            ->where('quest_status_id', $id)
+            ->first();
+        
+        // 해당 퀘스트의 유저가 아니면 리다이렉트
+        if (Auth::user()->user_id !== $questStatus->user_id) {
+            return redirect()->back();
+        }
+
+        // 해당 유저의 성공한 퀘스트 rep_flg 초기화
+        DB::table('quest_statuses')
+            ->where('user_id', $questStatus->user_id)
+            ->where('complete_flg', '1')
+            ->where('rep_flg','1')
+            ->update([
+                'rep_flg' => '0'
+            ]);
+
+        // 해당 퀘스트와 rep_flg 1로 변경
+        DB::table('quest_statuses')
+            ->where('quest_status_id', $id)
+            ->update([
+                'rep_flg' => '1'
+            ]);
+
+        return redirect()->route('quest.questAchieve');
     }
 }

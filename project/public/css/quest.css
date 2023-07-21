@@ -139,7 +139,8 @@ button:hover {
 }
 
 #questSet {
-    margin-top: 20px;
+    text-align: center;
+    padding: 20px 0 40px;
 }
 
 
@@ -173,16 +174,37 @@ button:hover {
 
 h1 {
     font-weight: 900;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
 .con {
-    margin: 5%;
+    margin: 5% 5% 0;
 }
 
 
 /** ----------------- 드롭다운 ------------------- */
+select {
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+p {
+    margin: 0;
+}
+
+.article-body label {
+    padding-right: 5px;
+}
+
+.article-body button {
+    margin-top: 5px;
+    height: 2rem;
+}
+
+.article-body {
+    line-height: 1.6rem;
+}
 
 
 /** ----------------- 카드 ------------------- */
@@ -198,6 +220,10 @@ article {
     transform-origin: center;
     transition: all 0.4s ease-in-out;
     overflow: hidden;
+}
+
+#colorCard {
+    background-color: #6799E4;
 }
 
 /* basic article elements styling */
@@ -225,7 +251,11 @@ article img {
 
 .article-body {
     padding: 24px;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+}
+
+.article-body p {
+    color: #000000;
 }
 
 /* using the has() relational pseudo selector to update our custom properties */
@@ -260,9 +290,19 @@ Generic layout (demo looks)
     /* article {
     container: card/inline-size;
     } */
+    * {
+        font-size: 1rem;
+    }
 
     figure {
         display: none;
+    }
+
+    .article-body button {
+        height: 1.5rem;
+        width: 5rem;
+        font-size: 0.8rem;
+        margin-left: 10px;
     }
 }
 

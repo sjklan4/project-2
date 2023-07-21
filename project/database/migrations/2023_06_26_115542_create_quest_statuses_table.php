@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('alarm_time')->nullable();
+            $table->char('rep_flg', 1)->default('0');
         });
     }
 

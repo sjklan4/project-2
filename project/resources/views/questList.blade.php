@@ -9,6 +9,11 @@
 @section('contents')
 <div class="con">
     <h1>퀘스트 수락</h1>
+    <h6 id="questSet">
+        @if (!isset($flg))
+            이미 진행중인 퀘스트가 있습니다.
+        @endif
+    </h6>
     
     <section class="articles">
         @foreach ($data as $item)
@@ -28,12 +33,11 @@
                         @csrf
                         <label for="time">알림 설정</label>
                         <select name="time">
-                            <option value="">ㄴㄴ</option>
+                            <option value="">시간 선택</option>
                             @for ($i = 1; $i < 24; $i++)
-                                <option value="{{$i}}">{{sprintf('%02d',$i)}}시</option>
+                                <option value="{{sprintf('%02d',$i)}}">{{sprintf('%02d',$i)}}시</option>
                             @endfor
                         </select>
-
                         <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
                         <button id="greenBtn" type="submit">시작하기</button>
                     </form>
@@ -43,12 +47,6 @@
         </article>
         @endforeach
     </section>
-
-    <h6 id="questSet">
-        @if (!isset($flg))
-            이미 진행중인 퀘스트가 있습니다.
-        @endif
-    </h6>
 </div>
 
 
