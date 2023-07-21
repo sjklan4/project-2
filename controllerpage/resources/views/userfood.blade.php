@@ -11,12 +11,14 @@
     <meta name="description"
         content="Monster Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
+    <meta name="csrf-token" content="xe1t9is6-Q1bcuuJ8G5rdTXWCRqzkSat7FUI">
     <title>Monster Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('temple/assets/images/favicon.png')}}">
     <!-- Custom CSS -->
     <link href="{{asset('temple/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/food.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -222,38 +224,113 @@
                                                 <th class="border-top-0">음식 이름</th>
                                                 <th class="border-top-0">음식 등록일</th>
                                                 <th class="border-top-0">음식 삭제일</th>
-                                                <th class="border-top-0">삭제여부</th>
                                             </tr>
                                         </thead>
-                                        {{-- <tbody>
+                                        <tbody>
                                                 @foreach ($data as $item)
-                                                    <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
+                                                    <form>
                                                         @csrf
-
                                                         <tr>
+                                                            <td>{{ $item->food_id }}</td>
                                                             <td>{{ $item->user_id }}</td>
-                                                            <td>{{ $item->user_email }}</td>
-                                                            <td>{{ $item->user_name }}</td>
-                                                            <td>{{ $item->user_phone_num }}</td>
+                                                            {{-- <td><a href="{{route('userfood.detail', ['food_id' => $item->food_id])}}">{{ $item->food_name }}</a></td> --}}
+                                                            <td><a data-bs-toggle="modal" data-bs-target="#postModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
                                                             <td>{{ $item->created_at }}</td>
-                                                            <td>{{$item->user_status}}</td>
-                                                            <td>
-                                                                @if($item->user_status === '3')
-                                                                    정지된 회원입니다.
-                                                                        <button>
-                                                                            복구
-                                                                        </button>
-                                                                    @elseif($item->user_status !== '3')
-                                                                <button type="submit">정지</button>
-                                                                @endif
-                                                            </td>
+                                                            @if(isset($item->deleted_at))
+                                                                <td>{{$item->deleted_at}}</td>
+                                                            @else
+                                                                <td class="delDate"><button type="button" onclick="foodDel({{$item->food_id}})" class="delBtn">삭제</button></td>
+                                                            @endif
                                                         </tr>
-                                                    </form>   
+                                                    </form>                                                    
+                                                    {{-- 모달 --}}
+                                                    <div class="modal" tabindex="-1" id="postModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h5 class="modal-title">음식번호 {{$item->food_id}}</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <ul>
+                                                                        <li><span>음식이름</span> : {{$item->food_name}}</li>
+                                                                        <li><span>칼로리</span> : {{$item->kcal}}KCAL</li>
+                                                                        <li><span>탄수화물</span> : {{$item->carbs}}g</li>
+                                                                        <li><span>단백질</span> : {{$item->protein}}g</li>
+                                                                        <li><span>지방</span> : {{$item->fat}}g</li>
+                                                                        <li><span>당</span> : {{$item->sugar}}g</li>
+                                                                        <li><span>나트륨</span> : {{$item->sodium}}g</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
-                                    
-                                        </tbody> --}}
+                                        </tbody>
                                     </table>
                                 </div>
+                                {{-- 페이지네이션 --}}
+                                @if ($data->hasPages())
+                                    <ul class="pagination pagination">
+                    
+                                        @php
+                                            $block = 5;
+                                            $startPage = max(1, $data->currentPage() - floor($block / 2));
+                                            $endPage = min($startPage + $block - 1, $data->lastPage());
+                                        @endphp
+                    
+                                        {{-- 첫 페이지 버튼 --}}
+                                        @if ($data->onFirstPage())
+                                            <li><<</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $data->url(1) }}" rel="prev"><<</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 이전 페이지 버튼 --}}
+                                        @if ($data->onFirstPage())
+                                            <li><</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $data->previousPageUrl() }}" rel="prev"><</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 페이징 --}}
+                                        {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                                        @foreach(range($startPage, $endPage) as $i)
+                                            @if ($i == $data->currentPage())
+                                                <li class="active"><span>{{ $i }}</span></li>
+                                            @else
+                                                <li class="active">
+                                                    <a href="{{$data->url($i)}}">{{$i}}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                    
+                                        {{-- 다음 페이지 버튼 --}}
+                                        @if ($data->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{$data->nextPageUrl()}}">></a>
+                                            </li>
+                                        @else
+                                            <li>></li> 
+                                        @endif
+                    
+                                        {{-- 마지막 페이지 --}}
+                                        @if ($data->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{ $data->url($data->lastPage()) }}" rel="next">>></a>
+                                            </li>
+                                        @else
+                                            <li>>></li> 
+                                        @endif
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -306,6 +383,7 @@
     <script src="{{asset('temple/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
     <script src="{{asset('temple/js/custom.js')}}"></script>
+    <script src="{{asset('js/food.js')}}"></script>
 </body>
 
 </html>
