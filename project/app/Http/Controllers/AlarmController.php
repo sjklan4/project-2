@@ -11,7 +11,7 @@ class AlarmController extends Controller
         // todo 유효성
 
         // 알람 플래그 업데이트
-        $alarm = Alarm::where('alarm_id', $alarm_id)
+        Alarm::where('alarm_id', $alarm_id)
             ->update(['alarm_flg' => '1']);
 
         $alarmInfo = Alarm::find($alarm_id);
