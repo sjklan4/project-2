@@ -87,5 +87,3 @@ Route::get('/manager/logout', [ManagerController::class, 'logout'])->name('manag
 use App\Http\Controllers\FoodController;
 
 Route::get('/user/food', [FoodController::class, 'userfood'])->name('user.food');
-
-

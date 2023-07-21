@@ -55,6 +55,8 @@ Route::post('/quest', [QuestController::class, 'store'])->name('quest.store');
 Route::get('/quest/log', [QuestController::class,'show'])->name('quest.show');
 Route::put('/quest/log/{id}', [QuestController::class,'update'])->name('quest.update');
 Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('quest.destroy');
+Route::get('/quest/achieve', [QuestController::class,'questAchieve'])->name('quest.questAchieve');
+Route::get('/quest/achieve/{id}', [QuestController::class,'repFlgUpdate'])->name('quest.repFlgUpdate');
 
 
 // ---------------------------------------------
@@ -64,7 +66,6 @@ Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('ques
 // 생성일       : 2023-06-15
 // ---------------------------------------------
 use App\Http\Controllers\FoodController;
-
 
 Route::get('/food/manage', [FoodController::class,'index'])->name('food.index');
 Route::get('/food/manage/{food}', [FoodController::class,'index'])->name('food.show');
@@ -81,8 +82,6 @@ Route::delete('/food/{food}', [FoodController::class,'destroy'])->name('food.des
 // ---------------------------------------------
 use App\Http\Controllers\AlarmController;
 Route::put('/alarm/{alarm}', [AlarmController::class,'flgUpdate'])->name('alarm.flgUpdate');
-
-
 
 // ---------------------------------------------
 // 섹션명       : 유저(User)

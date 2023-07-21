@@ -176,12 +176,11 @@ class BoardController extends Controller
             $like_flg = 1;
         }
         
-        $board = Board::find($id);
         // 조회수 증가
         if($flg === '0') {
             DB::table('boards')
                 ->where('board_id', '=', $id)
-                ->update(['hits' => $board->hits + 1]);
+                ->increment('hits');
         }
         
         // 게시글 상세 정보 획득

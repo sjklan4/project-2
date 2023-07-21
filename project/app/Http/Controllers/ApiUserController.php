@@ -86,6 +86,7 @@ class ApiUserController extends Controller
         return $arr;
     }
 
+    //유저 탈퇴.
     public function userdrawing(Request $req){
 
         $arr = [
@@ -95,15 +96,11 @@ class ApiUserController extends Controller
 
         $userinfo = UserInfo::find($req->user_id);
 
-        if(Auth::id() != $userinfo->user_id){
-            $arr["errorcode"] = "1";
-            $arr["msg"] = "권한이 없는 요청입니다.(로그인을 확인해주세요)";
-        }
-
         $userinfo->user_status = 2;
         $userinfo->save();
 
         UserInfo::destroy($userinfo->user_id);
+        
 
         return response()->json(['errorcode' => '0']);
     }
