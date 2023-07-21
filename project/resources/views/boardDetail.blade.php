@@ -11,6 +11,7 @@
                 <div>{{$data['nkname']}}</div>
                 <div>{{substr($data['created_at'], 0, 16)}}</div>
                 <div><i class="bi bi-bar-chart-fill"></i> {{number_format($data['hits'])}}</div>
+                {{-- 신고 --}}
                 <div>
                     <button type="button" id="reportBtn" data-bs-toggle="modal" data-bs-target="#reportpost">
                         <i class="fa-solid fa-triangle-exclamation"></i> 신고
