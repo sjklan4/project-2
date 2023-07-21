@@ -85,20 +85,20 @@
                                 <form action="{{route('alarm.flgUpdate', ['alarm' => $item->alarm_id])}}" method="post">
                                 @csrf
                                 @method('put')
-                                <input type="hidden" name="board_id" value="{{$item->board_id}}">
-                                    @if ($item->alarm_type === '1')
+                                @if ($item->alarm_type === '1')
+                                    <input type="hidden" name="board_id" value="{{$item->board_id}}">
                                     <li>
                                         <a>
                                             <button type="submit">새 댓글 잇음</button>
                                         </a>
                                     </li>
-                                    @else
+                                @else
                                     <li>
                                         <a>
                                             <button type="submit">오늘 퀘스트</button>
                                         </a>
                                     </li>
-                                    @endif
+                                @endif
                                 </form>
                             @endforeach
                         @else

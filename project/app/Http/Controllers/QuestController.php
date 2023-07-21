@@ -198,7 +198,7 @@ class QuestController extends Controller
             if ($item->alarm_time == Carbon::now()->format("H")) {
                 $alarm= new Alarm;
                 $alarm->user_id = $item->user_id;
-                $alarm->alarm_type = '0';  // 댓글 알림 타입
+                $alarm->alarm_type = '0';  // 퀘스트 알림 타입
                 $alarm->save();
             }
         }
