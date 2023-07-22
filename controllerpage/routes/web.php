@@ -65,3 +65,25 @@ Route::post('/member/memberstop',[MemberController::class, 'memberstop'])->name(
 // ---------------------------------------------
 Route::get('/report', [ReportController::class, 'returnview'])->name('report.get');
 Route::post('/report', [ReportController::class, 'confirm'])->name('report.post');
+
+// ---------------------------------------------
+// 섹션명       : 관리자 로그인
+// 기능         : 관리자 로그인 관련 라우트 설정
+// 관리자       : 권봉정
+// 생성일       : 2023-07-20
+// ---------------------------------------------
+use App\Http\Controllers\ManagerController;
+
+Route::get('/', [ManagerController::class, 'login'])->name('login.get');
+Route::post('/', [ManagerController::class, 'loginpost'])->name('login.post');
+Route::get('/manager/logout', [ManagerController::class, 'logout'])->name('manager.logout');
+
+// ---------------------------------------------
+// 섹션명       : 음식 관리 페이지
+// 기능         : 회원 음식, 관리자 음식 관련 라우트 설정
+// 관리자       : 권봉정
+// 생성일       : 2023-07-20
+// ---------------------------------------------
+use App\Http\Controllers\FoodController;
+
+Route::get('/user/food', [FoodController::class, 'userfood'])->name('user.food');

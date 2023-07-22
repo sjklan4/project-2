@@ -26,3 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // ---------------------------------------------
 use App\Http\Controllers\ApiReportController;
 Route::get('/reportdetail/{id}/{board}', [ApiReportController::class, 'reportDetail']);
+
+// ---------------------------------------------
+// 섹션명       : 음식 관리 페이지 
+// 기능         : 회원 음식, 관리자 음식 관련 라우트 설정
+// 관리자       : 권봉정
+// 생성일       : 2023-07-21
+// ---------------------------------------------
+use App\Http\Controllers\ApiFoodController;
+
+Route::delete('/userfood/del/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood/del');

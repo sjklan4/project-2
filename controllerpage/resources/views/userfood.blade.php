@@ -11,12 +11,14 @@
     <meta name="description"
         content="Monster Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
+    <meta name="csrf-token" content="xe1t9is6-Q1bcuuJ8G5rdTXWCRqzkSat7FUI">
     <title>Monster Lite Template by WrapPixel</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/temple/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('temple/assets/images/favicon.png')}}">
     <!-- Custom CSS -->
-    <link href="/temple/css/style.min.css" rel="stylesheet">
+    <link href="{{asset('temple/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/food.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,14 +56,14 @@
                         <b class="logo-icon">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="temple/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="{{asset('temple/assets/images/logo-icon.png')}}" alt="homepage" class="dark-logo" />
 
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="temple/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="{{asset('temple/assets/images/logo-text.png')}}" alt="homepage" class="dark-logo" />
 
                         </span>
                     </a>
@@ -104,9 +106,11 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="temple/assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
+                                <img src="{{asset('temple/assets/images/users/1.jpg')}}" alt="user" class="profile-pic me-2">{{Auth::user()->mng_name}}
                             </a>
-                            <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{route('manager.logout')}}">로그아웃</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -126,8 +130,8 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
-                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
+                                href="{{route('user.food')}}" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
+                                    aria-hidden="true"></i><span class="hide-menu">회원음식관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{ route('member.memberlist')}}" aria-expanded="false">
                                 <i class="me-3 fa fa-user" aria-hidden="true"></i><span
@@ -174,12 +178,12 @@
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="page-title mb-0 p-0">Table</h3>
+                        <h3 class="page-title mb-0 p-0">Profile</h3>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Table</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Profile</li>
                                 </ol>
                             </nav>
                         </div>
@@ -199,6 +203,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
+
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -208,81 +213,124 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">회원 관리</h4>
-                                <h6 class="card-subtitle">회원정보 <code>.관리자용</code></h6>
+                                <h4 class="card-title">회원 등록 음식 관리</h4>
+                                <h6 class="card-subtitle">음식정보 <code>.관리자용</code></h6>
                                 <div class="table-responsive">
                                     <table class="table user-table no-wrap">
                                         <thead>
                                             <tr>
+                                                <th class="border-top-0">음식 번호</th>
                                                 <th class="border-top-0">회원 번호</th>
-                                                <th class="border-top-0">회원 이름</th>
-                                                <th class="border-top-0">닉네임</th>
-                                                <th class="border-top-0">연락처</th>
-                                                <th class="border-top-0">가입일</th>
-                                                <th class="border-top-0">유저상태 번호</th>
-                                                <th class="border-top-0">유저전환여부</th>
-                                                {{-- <th class="border-top-0">신고받은 횟수</th> --}}
+                                                <th class="border-top-0">음식 이름</th>
+                                                <th class="border-top-0">음식 등록일</th>
+                                                <th class="border-top-0">음식 삭제일</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 @foreach ($data as $item)
-                                                    <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
+                                                    <form>
                                                         @csrf
-
                                                         <tr>
+                                                            <td>{{ $item->food_id }}</td>
                                                             <td>{{ $item->user_id }}</td>
-                                                            <td>{{ $item->user_email }}</td>
-                                                            <td>{{ $item->user_name }}</td>
-                                                            <td>{{ $item->user_phone_num }}</td>
+                                                            {{-- <td><a href="{{route('userfood.detail', ['food_id' => $item->food_id])}}">{{ $item->food_name }}</a></td> --}}
+                                                            <td><a data-bs-toggle="modal" data-bs-target="#postModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
                                                             <td>{{ $item->created_at }}</td>
-                                                            <td>{{$item->user_status}}</td>
-                                                            <td>
-                                                                @if($item->user_status === '3')
-                                                                    정지된 회원입니다.
-                                                                        <button>
-                                                                            복구
-                                                                        </button>
-                                                                    @elseif($item->user_status !== '3')
-                                                                <button type="submit">정지</button>
-                                                                @endif
-                                                            </td>
+                                                            @if(isset($item->deleted_at))
+                                                                <td>{{$item->deleted_at}}</td>
+                                                            @else
+                                                                <td class="delDate"><button type="button" onclick="foodDel({{$item->food_id}})" class="delBtn">삭제</button></td>
+                                                            @endif
                                                         </tr>
-                                                    </form>   
+                                                    </form>                                                    
+                                                    {{-- 모달 --}}
+                                                    <div class="modal" tabindex="-1" id="postModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h5 class="modal-title">음식번호 {{$item->food_id}}</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <ul>
+                                                                        <li><span>음식이름</span> : {{$item->food_name}}</li>
+                                                                        <li><span>칼로리</span> : {{$item->kcal}}KCAL</li>
+                                                                        <li><span>탄수화물</span> : {{$item->carbs}}g</li>
+                                                                        <li><span>단백질</span> : {{$item->protein}}g</li>
+                                                                        <li><span>지방</span> : {{$item->fat}}g</li>
+                                                                        <li><span>당</span> : {{$item->sugar}}g</li>
+                                                                        <li><span>나트륨</span> : {{$item->sodium}}g</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
-                                            
-                                            {{-- <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>Gaylord</td>
-                                                <td>@Ritesh</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sanghani</td>
-                                                <td>Gusikowski</td>
-                                                <td>@Govinda</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Roshan</td>
-                                                <td>Rogahn</td>
-                                                <td>@Hritik</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Joshi</td>
-                                                <td>Hickle</td>
-                                                <td>@Maruti</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Nigam</td>
-                                                <td>Eichmann</td>
-                                                <td>@Sonu</td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
+                                {{-- 페이지네이션 --}}
+                                @if ($data->hasPages())
+                                    <ul class="pagination pagination">
+                    
+                                        @php
+                                            $block = 5;
+                                            $startPage = max(1, $data->currentPage() - floor($block / 2));
+                                            $endPage = min($startPage + $block - 1, $data->lastPage());
+                                        @endphp
+                    
+                                        {{-- 첫 페이지 버튼 --}}
+                                        @if ($data->onFirstPage())
+                                            <li><<</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $data->url(1) }}" rel="prev"><<</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 이전 페이지 버튼 --}}
+                                        @if ($data->onFirstPage())
+                                            <li><</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $data->previousPageUrl() }}" rel="prev"><</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 페이징 --}}
+                                        {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                                        @foreach(range($startPage, $endPage) as $i)
+                                            @if ($i == $data->currentPage())
+                                                <li class="active"><span>{{ $i }}</span></li>
+                                            @else
+                                                <li class="active">
+                                                    <a href="{{$data->url($i)}}">{{$i}}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                    
+                                        {{-- 다음 페이지 버튼 --}}
+                                        @if ($data->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{$data->nextPageUrl()}}">></a>
+                                            </li>
+                                        @else
+                                            <li>></li> 
+                                        @endif
+                    
+                                        {{-- 마지막 페이지 --}}
+                                        @if ($data->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{ $data->url($data->lastPage()) }}" rel="next">>></a>
+                                            </li>
+                                        @else
+                                            <li>>></li> 
+                                        @endif
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -298,6 +346,10 @@
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
+
+
+
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -321,16 +373,17 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="/temple/assets/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('temple/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="/temple/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/temple/js/app-style-switcher.js"></script>
+    <script src="{{asset('temple/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('temple/js/app-style-switcher.js')}}"></script>
     <!--Wave Effects -->
-    <script src="/temple/js/waves.js"></script>
+    <script src="{{asset('temple/js/waves.js')}}"></script>
     <!--Menu sidebar -->
-    <script src="/temple/js/sidebarmenu.js"></script>
+    <script src="{{asset('temple/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
-    <script src="/temple/js/custom.js"></script>
+    <script src="{{asset('temple/js/custom.js')}}"></script>
+    <script src="{{asset('js/food.js')}}"></script>
 </body>
 
 </html>

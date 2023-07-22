@@ -1,0 +1,68 @@
+a{
+    display: block;
+}
+
+/* 페이징 */
+.pagination {
+    justify-content: center;
+    font: 2rem;
+}
+.pagination li {
+    width: 30px;
+    height: 30px;
+    margin: 0 3px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.pagination li a:hover {
+    font-weight: 700;
+    color: rgb(1,129,192);
+}
+
+.active span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: rgb(1,129,192);
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+tbody tr:hover{
+    background: #f2f7f8;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 모달 */
+.modal{
+    top: 85px !important;
+}
+
+.modal-body span{
+    display: inline-block;
+    text-indent: 5px;
+    width: 100px;
+    font-weight: 700;
+    text-align: center;
+} 
+
+.modal-body li{
+    line-height: 30px;
+    list-style-type: '‣';
+    font-size: 16px;
+}
+
+li::marker{
+    color: rgb(1,129,192);
+}
+
+.delBtn{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(1,129,192);
+    width: 70px;
+    color: white;
+    outline: none;
+}

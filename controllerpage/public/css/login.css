@@ -1,0 +1,49 @@
+body{
+    background: #f2f7f8;
+}
+#wrap{
+    width: 480px;
+    min-height: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 150px auto;
+}
+
+.container{
+    width: 400px;
+    margin: 50px auto;
+}
+
+input[type=text], input[type=password], input[type=email] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0 auto;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #9D9D9D;
+    width: 380px;
+    height: 40px;
+    padding: 0 10px;
+}
+.pwBox{
+    margin-top: 20px;
+}
+
+.loginBtn{
+    margin-top: 30px;
+}
+#loginBtn{
+    width: 380px;
+    height: 50px;
+    text-align: center;
+    background: rgb(1,129,192);
+    background: linear-gradient(160deg, rgba(1,129,192,1) 0%, rgba(0,150,223,1) 96%);
+    border: none;
+    color: white;
+    font-weight: 700;
+}
+.error_msg{
+    margin-top: 10px;
+    color: red;
+}

@@ -15,7 +15,7 @@ class UserInfo extends Model
     protected  $primaryKey = 'user_id';
 
 
-    protected $fillable = ['user_name','user_email','password','nkname','user_phone_num'];
+    protected $fillable = ['user_name','user_email','password','nkname','user_phone_num','user_status'];
     protected $garded = ['user_id'];
 
     protected $dates = ['deleted_at'];  

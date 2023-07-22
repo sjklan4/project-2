@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->integer('mng_id')->autoIncrement();
+            $table->string('mng_email');
             $table->string('mng_name')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
