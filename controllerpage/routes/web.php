@@ -87,3 +87,7 @@ Route::get('/manager/logout', [ManagerController::class, 'logout'])->name('manag
 use App\Http\Controllers\FoodController;
 
 Route::get('/user/food', [FoodController::class, 'userfood'])->name('user.food');
+Route::get('/manager/food', [FoodController::class, 'managerfood'])->name('manager.food');
+Route::post('/food/insert', [FoodController::class, 'foodinsert'])->name('food.insert');
+
+
