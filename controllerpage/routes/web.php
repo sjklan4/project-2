@@ -64,7 +64,7 @@ Route::post('/member/memberstop',[MemberController::class, 'memberstop'])->name(
 // 생성일       : 2023-07-20
 // ---------------------------------------------
 Route::get('/report', [ReportController::class, 'returnview'])->name('report.get');
-Route::post('/report', [ReportController::class, 'confirm'])->name('report.post');
+Route::post('/report', [ReportController::class, 'confirmOreport'])->name('report.post');
 
 // ---------------------------------------------
 // 섹션명       : 관리자 로그인

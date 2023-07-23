@@ -9,7 +9,6 @@
                 board_id{{$item->board_id}}
                 reply_id{{$item->reply_id}}
                 {{$item->rep_flg}}
-                {{-- {{$item->rep_r_content}} --}}
                 {{$item->complate_flg}}
                 {{$item->created_at}}
                 @if ($item->complate_flg == 0)
