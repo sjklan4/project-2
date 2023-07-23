@@ -329,7 +329,7 @@
                                                         <tr>
                                                             <td>{{ $item->food_id }}</td>
                                                             <td>{{ $item->user_id }}</td>
-                                                            <td><a data-bs-toggle="modal" data-bs-target="#postModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
+                                                            <td><a data-bs-toggle="modal" data-bs-target="#editModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
                                                             <td>{{ $item->created_at }}</td>
                                                             @if(isset($item->deleted_at))
                                                                 <td>{{$item->deleted_at}}</td>
@@ -339,7 +339,7 @@
                                                         </tr>
                                                     </form>                                                    
                                                     {{-- 수정 모달 --}}
-                                                    <div class="modal" tabindex="-1" id="postModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                                    <div class="modal" tabindex="-1" id="editModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <form class="form-horizontal form-material mx-2" id="editModal">

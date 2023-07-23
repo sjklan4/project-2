@@ -176,7 +176,6 @@ function foodedit(food_id) {
         method: 'PUT',
         credentials: "same-origin",
         body: JSON.stringify({
-            user_id: user_id.value,
             food_name: food_name.value,
             kcal: kcal.value,
             carbs: carbs.value,
@@ -186,7 +185,6 @@ function foodedit(food_id) {
             sodium: sodium.value,
             ser_unit: selectedValue,
             serving: serving.value,
-            userfood_flg: '0'
         })
     });
     fetch(request)
