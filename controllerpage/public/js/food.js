@@ -117,7 +117,8 @@ function foodinsert() {
         // 유효성검사에 걸린경우
         if(apiData["errorcode"] == 2){
             console.log(apiData);
-            alert(apiData["msg"]);
+            let errResult = apiData["msg"].join("\n");
+            alert(errResult);
         }
         // 음식이름이 중복되는 경우
         else if(apiData["errorcode"] == 1){
@@ -145,19 +146,19 @@ function foodedit(food_id) {
     const url = "/api/food/edit/" + food_id;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
-    const user_id = document.getElementById('user_id');
-    const food_name = document.getElementById('food_name');
-    const kcal = document.getElementById('kcal');
-    const carbs = document.getElementById('carbs');
-    const protein = document.getElementById('protein');
-    const fat = document.getElementById('fat');
-    const sugar = document.getElementById('sugar');
-    const sodium = document.getElementById('sodium');
-    const serving = document.getElementById('serving');
+    // const user_id = document.querySelector('#editModal' + food_id + ' #user_id');
+    const food_name = document.querySelector('#editModal' + food_id + ' #food_name');
+    const kcal = document.querySelector('#editModal' + food_id + ' #kcal');
+    const carbs = document.querySelector('#editModal' + food_id + ' #carbs');
+    const protein = document.querySelector('#editModal' + food_id + ' #protein');
+    const fat = document.querySelector('#editModal' + food_id + ' #fat');
+    const sugar = document.querySelector('#editModal' + food_id + ' #sugar');
+    const sodium = document.querySelector('#editModal' + food_id + ' #sodium');
+    const serving = document.querySelector('#editModal' + food_id + ' #serving');
 
 
     // 라디오버튼 값 가져오기
-    const radioButtons = document.getElementsByName('ser_unit');
+    const radioButtons = document.querySelectorAll('#editModal' + food_id + ' input[name="ser_unit"] ');
     let selectedValue = '';
     for (const radioButton of radioButtons) {
         if (radioButton.checked) {
@@ -198,7 +199,8 @@ function foodedit(food_id) {
         // 유효성검사에 걸린경우
         if(apiData["errorcode"] == 2){
             console.log(apiData);
-            alert(apiData["msg"]);
+            let errResult = apiData["msg"].join("\n");
+            alert(errResult);
         }
         // 음식이름이 중복되는 경우
         else if(apiData["errorcode"] == 1){

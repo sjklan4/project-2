@@ -300,7 +300,7 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="edit">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
@@ -356,12 +356,12 @@
                                                                             <ul class="card-body">
                                                                                 <li class="form-group">
                                                                                     <label for="food_name" class="w100">음식이름</label>
-                                                                                    <input type="text" id="food_name" name="food_name" value="{{ $item-> food_name }}" class="editInput">
+                                                                                    <input type="text" id="food_name" name="food_name" value="{{ $item->food_name }}" class="editInput">
                                                                                 </li>
                                                                                 <li class="form-group">
                                                                                     <label for="kcal" class="w100">칼로리(kcal)</label>
                                                                                     <input type="number" id="kcal" name="kcal"
-                                                                                    value="{{ $item-> kcal }}" class="editInput">
+                                                                                    value="{{ $item->kcal }}" class="editInput">
                                                                                 </li>
                                                                                 <li class="form-group">
                                                                                     <label for="carbs" class="w100">탄수화물(g)</label>

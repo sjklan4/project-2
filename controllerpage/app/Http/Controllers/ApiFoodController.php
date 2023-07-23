@@ -138,8 +138,6 @@ class ApiFoodController extends Controller
 
     public function foodedit(Request $req, $id){
 
-        return $req;
-
         $arr = [
             'errorcode' => '0'
             ,'msg'      => ''
@@ -170,20 +168,23 @@ class ApiFoodController extends Controller
             'sodium'            => '나트륨은 0~10000 사이의 숫자로 입력해주세요',
         ];
 
-        // $validator = Validator::make($requestBody->only(
-        //     'food_name'
-        //     ,'kcal'
-        //     ,'carbs'
-        //     ,'protein'
-        //     ,'fat'
-        //     ,'sugar'
-        //     ,'sodium'
-        //     ,'ser_unit'
-        //     ,'serving'
-        // ), $rules, $messages);
+        $validator = Validator::make($req->only(
+            'food_name'
+            ,'kcal'
+            ,'carbs'
+            ,'protein'
+            ,'fat'
+            ,'sugar'
+            ,'sodium'
+            ,'ser_unit'
+            ,'serving'
+        ), $rules, $messages);
 
         // 관리자 id와 userfood_flg
         $user_id = 0;
+
+        // $id = food_id 
+        $foodinfo = FoodInfo::find($id);
 
         // 같은 이름으로 등록 불가능
         $foods = FoodInfo::where('user_id', $user_id)->where('userfood_flg', $user_id)
@@ -193,26 +194,27 @@ class ApiFoodController extends Controller
         // 음식이름 중복체크 중복일 경우 duplicheck의 값 변경
         $dupliCheck = false;
 
-        foreach ($foods as $val) {
-            if ($val->food_name === $req->input('food_name')) {
-                $dupliCheck = true;
+        // 수정하기전 갖고있던 기존의 이름과 같지 않은경우에만 중복체크
+        if($foodinfo->food_name !== $req->input('food_name')){
+            foreach ($foods as $val) {
+                if ($val->food_name === $req->input('food_name')) {
+                    $dupliCheck = true;
+                }
             }
         }
 
-        // if ($validator->fails()) {
-        //     // 유효성 검사에 걸린 항목과 해당 에러 메시지를 가져옵니다.
-        //     $errors = $validator->errors()->all();
-        //     $arr['errorcode'] = '2';
-        //     $arr['msg'] = $errors;
-        // }
-        // else{
+        if ($validator->fails()) {
+            // 유효성 검사에 걸린 항목과 해당 에러 메시지를 가져옵니다.
+            $errors = $validator->errors()->all();
+            $arr['errorcode'] = '2';
+            $arr['msg'] = $errors;
+        }
+        else{
             if($dupliCheck){
                 $arr['errorcode'] = '1';
                 $arr['msg'] = '이미 등록된 이름입니다.';
             }
             else{
-                // $id = food_id
-                $foodinfo = FoodInfo::find($id);
         
                 // 관리자음식 수정
                 $foodinfo->food_name = $req->input('food_name');
@@ -232,7 +234,7 @@ class ApiFoodController extends Controller
                 $arr['msg'] = '성공';
                 $arr['data'] = $foodinfo;
             }
-        // }
+        }
 
         return $arr;
     }
