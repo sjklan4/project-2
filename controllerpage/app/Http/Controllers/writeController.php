@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Models\BoardReply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WriteController extends Controller
 {
     // 모든 댓글들의 정보와 신고 횟수를 불러오는 부분
     public function commentlist(){
+        if(!Auth::user()) {
+            return redirect()->route('login.get');
+        }
+
         $comt_list = DB::table('board_replies')->select('reply_id','user_id','board_id','rcontent','created_at','deleted_at')->orderBy('reply_id','desc')->paginate(10);
 
     return view('commenttem')->with('data', $comt_list);
@@ -26,6 +31,11 @@ class WriteController extends Controller
 
 
     public function boardlist(){
+
+        if(!Auth::user()) {
+            return redirect()->route('login.get');
+        }
+
         $board_list = DB::table('boards')->select('board_id','user_id','btitle','created_at','deleted_at')->orderBy('board_id','desc')->paginate(10);
         // $board_list = DB::select('SELECT 
         //                             ba.board_id,
@@ -51,6 +61,11 @@ class WriteController extends Controller
     }
 
     public function boarddel($id){
+
+        if(!Auth::user()) {
+            return redirect()->route('login.get');
+        }
+
 
         Board::destroy($id);
 
