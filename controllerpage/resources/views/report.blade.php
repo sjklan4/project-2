@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('title', '신고')
 @section('css')
     <link rel="stylesheet" href="{{asset('css/report.css')}}">
 @endsection
