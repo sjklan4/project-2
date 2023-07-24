@@ -92,7 +92,7 @@
                                     <input type="hidden" name="board_id" value="{{$item->board_id}}">
                                     <li>
                                         <a>
-                                            <button type="submit">새 댓글 잇음</button>
+                                            <button type="submit">새 댓글 알림</button>
                                         </a>
                                     </li>
                                 @else
