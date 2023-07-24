@@ -16,6 +16,7 @@ class FoodInfo extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $guarded = ['food_id', 'user_id', 'userfood_flg'];
+    // protected $guarded = ['food_id', 'userfood_flg'];
 
+    protected $fillable = ['user_id', 'food_name', 'kcal', 'carbs', 'protein', 'fat', 'sugar', 'sodium', 'serving', 'ser_unit', 'created_at', 'updated_at','userfood_flg'];
 }

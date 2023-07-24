@@ -64,7 +64,7 @@ Route::post('/member/memberstop',[MemberController::class, 'memberstop'])->name(
 // 생성일       : 2023-07-20
 // ---------------------------------------------
 Route::get('/report', [ReportController::class, 'returnview'])->name('report.get');
-Route::post('/report', [ReportController::class, 'confirm'])->name('report.post');
+Route::post('/report', [ReportController::class, 'confirmOreport'])->name('report.post');
 
 // ---------------------------------------------
 // 섹션명       : 관리자 로그인
@@ -87,3 +87,7 @@ Route::get('/manager/logout', [ManagerController::class, 'logout'])->name('manag
 use App\Http\Controllers\FoodController;
 
 Route::get('/user/food', [FoodController::class, 'userfood'])->name('user.food');
+Route::get('/manager/food', [FoodController::class, 'managerfood'])->name('manager.food');
+Route::post('/food/insert', [FoodController::class, 'foodinsert'])->name('food.insert');
+
+

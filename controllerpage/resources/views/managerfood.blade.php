@@ -146,7 +146,7 @@
                                     aria-hidden="true"></i><span class="hide-menu">댓글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('manager.food')}}" aria-expanded="false"><i class="me-3 fa fa-globe"
-                                    aria-hidden="true"></i><span class="hide-menu">관리자 음식 관리</span></a></li>
+                                    aria-hidden="true"></i><span class="hide-menu">관리자음식 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="pages-blank.html" aria-expanded="false"><i class="me-3 fa fa-columns"
                                     aria-hidden="true"></i><span class="hide-menu">Blank</span></a></li>
@@ -190,10 +190,106 @@
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
                         <div class="text-end upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/monsteradmin/"
-                                class="btn btn-success d-none d-md-inline-block text-white" target="_blank">Upgrade to
-                                Pro</a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">음식추가하기</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+            {{-- 음식추가 모달 --}}
+            <div class="modal" tabindex="-1" id="insertModal" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form class="form-horizontal form-material mx-2" action="{{route('food.insert')}}" method="post" id="insertForm">
+                            @csrf
+                            <input type="hidden" value="0" id="user_id" name="user_id">
+                            <input type="hidden" value="0" id="userfood_flg" name="userfood_flg">
+                            <div class="modal-header">
+                            <h5 class="modal-title">관리자음식 등록</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="food_name" class="col-md-12 mb-0"><span class="fc-red">⁕</span> 음식이름</label>
+                                            <div class="col-md-12">
+                                                <input type="text"
+                                                    id="food_name" name="food_name" class="form-control ps-0 form-control-line">
+                                            </div>
+                                            <div id="errMsg"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kcal" class="col-md-12"><span class="fc-red">⁕</span> 칼로리(kcal)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="kcal" name="kcal"
+                                                    class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="carbs" class="col-md-12 mb-0"><span class="fc-red">⁕</span> 탄수화물(g)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="carbs" name="carbs"
+                                                    class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="protein" class="col-md-12 mb-0"><span class="fc-red">⁕</span> 단백질(g)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="protein" name="protein"
+                                                    class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fat" class="col-md-12 mb-0"><span class="fc-red">⁕</span> 지방(g)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="fat" name="fat"
+                                                class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sugar" class="col-md-12 mb-0">당(g)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="sugar" name="sugar"
+                                                class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sodium" class="col-md-12 mb-0">나트륨(g)</label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="sodium" name="sodium"
+                                                class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="serving" class="col-md-12 mb-0"><span class="fc-red">⁕</span> 1회제공량
+                                                <input class="form-check-input" type="radio" name="ser_unit" id="unit0" value="0" checked>
+                                                <label class="form-check-label" for="unit2">
+                                                g
+                                                </label>
+                                                <input class="form-check-input" type="radio" name="ser_unit" id="unit1" value="1">
+                                                <label class="form-check-label" for="unit1">
+                                                    ml
+                                                </label>
+                                            </label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="serving" name="serving"
+                                                class="form-control ps-0 form-control-line">
+                                            </div>
+                                        </div>
+                                        <span class="fc-red">⁕ 필수입력사항입니다.</span>
+                                        {{-- <div class="fc-red">
+                                            @if(session('error'))
+                                                {{session('error')}}
+                                            @endif
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="foodinsert();" class="btn btn-primary">등록하기</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -204,7 +300,7 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="edit">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
@@ -213,7 +309,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">회원 등록 음식 관리</h4>
+                                <h4 class="card-title">관리자 등록 음식 관리</h4>
                                 <h6 class="card-subtitle">음식정보 <code>.관리자용</code></h6>
                                 <div class="table-responsive">
                                     <table class="table user-table no-wrap">
@@ -233,8 +329,7 @@
                                                         <tr>
                                                             <td>{{ $item->food_id }}</td>
                                                             <td>{{ $item->user_id }}</td>
-                                                            {{-- <td><a href="{{route('userfood.detail', ['food_id' => $item->food_id])}}">{{ $item->food_name }}</a></td> --}}
-                                                            <td><a data-bs-toggle="modal" data-bs-target="#postModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
+                                                            <td><a data-bs-toggle="modal" data-bs-target="#editModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
                                                             <td>{{ $item->created_at }}</td>
                                                             @if(isset($item->deleted_at))
                                                                 <td>{{$item->deleted_at}}</td>
@@ -243,28 +338,81 @@
                                                             @endif
                                                         </tr>
                                                     </form>                                                    
-                                                    {{-- 모달 --}}
-                                                    <div class="modal" tabindex="-1" id="postModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                                    {{-- 수정 모달 --}}
+                                                    <div class="modal" tabindex="-1" id="editModal{{ $item->food_id }}" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                <h5 class="modal-title">음식번호 {{$item->food_id}}</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body usermodal">
-                                                                    <ul>
-                                                                        <li><span class="w100">음식이름</span> {{$item->food_name}}</li>
-                                                                        <li><span class="w100">칼로리</span> {{$item->kcal}}KCAL</li>
-                                                                        <li><span class="w100">탄수화물</span> {{$item->carbs}}g</li>
-                                                                        <li><span class="w100">단백질</span> {{$item->protein}}g</li>
-                                                                        <li><span class="w100">지방</span> {{$item->fat}}g</li>
-                                                                        <li><span class="w100">당</span> {{$item->sugar}}g</li>
-                                                                        <li><span class="w100">나트륨</span> {{$item->sodium}}g</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                </div>
+                                                                <form class="form-horizontal form-material mx-2" id="editModal">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{ $item->food_id }}" id="food_id" name="food_id">
+                                                                    <input type="hidden" value="0" id="user_id" name="user_id">
+                                                                    <input type="hidden" value="0" id="userfood_flg" name="userfood_flg">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">음식번호 {{ $item->food_id }}</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="card">
+                                                                            <ul class="card-body">
+                                                                                <li class="form-group">
+                                                                                    <label for="food_name" class="w100">음식이름</label>
+                                                                                    <input type="text" id="food_name" name="food_name" value="{{ $item->food_name }}" class="editInput">
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="kcal" class="w100">칼로리(kcal)</label>
+                                                                                    <input type="number" id="kcal" name="kcal"
+                                                                                    value="{{ $item->kcal }}" class="editInput">
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="carbs" class="w100">탄수화물(g)</label>
+                                                                                    <input type="number" id="carbs" name="carbs"
+                                                                                    value="{{ $item->carbs }}" class="editInput">           
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="protein" class="w100">단백질(g)</label>
+                                                                                    <input type="number" id="protein" name="protein"
+                                                                                    value="{{ $item->protein }}" class="editInput">
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="fat" class="w100">지방(g)</label>
+                                                                                    <input type="number" id="fat" name="fat"
+                                                                                    value="{{ $item->fat }}" class="editInput"> 
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="sugar" class="w100">당(g)</label>
+                                                                                    <input type="number" id="sugar" name="sugar"
+                                                                                    value="{{ $item->sugar }}" class="editInput">
+                                                                                </li>
+                                                                                <li class="form-group">
+                                                                                    <label for="sodium" class="w100">나트륨(g)</label>
+                                                                                    <input type="number" id="sodium" name="sodium"
+                                                                                    value="{{ $item->sodium }}" class="editInput">
+                                                                                </li>
+                                                                                <li>
+                                                                                    <label for="serving" class="w150">1회제공량
+                                                                                        @if($item->ser_unit === '0')
+                                                                                            <input class="form-check-input" type="radio" name="ser_unit" id="unit0" value="0" checked>
+                                                                                            <label class="form-check-label" for="unit2">g</label>
+                                                                                            <input class="form-check-input" type="radio" name="ser_unit" id="unit1" value="1">
+                                                                                            <label class="form-check-label" for="unit1">ml</label>
+                                                                                        @else
+                                                                                            <input class="form-check-input" type="radio" name="ser_unit" id="unit0" value="0">
+                                                                                            <label class="form-check-label" for="unit2">g</label>
+                                                                                            <input class="form-check-input" type="radio" name="ser_unit" id="unit1" value="1" checked>
+                                                                                            <label class="form-check-label" for="unit1">ml</label>
+                                                                                        @endif
+                                                                                    </label>
+                                                                                    <input type="number" id="serving" name="serving"
+                                                                                    value="{{ $item->serving }}" class="editInput serving">
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" onclick="foodedit({{$item->food_id}});" class="btn btn-warning">수정하기</button>
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -346,9 +494,6 @@
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
-
-
-
 
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
