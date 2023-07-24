@@ -188,6 +188,16 @@ table {
 .bi-chat-dots-fill {
     color: #6799E4;
 }
+.dietshere{
+    text-align: center;
+    margin:1rem;
+    background-color: #FFFFF0;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.shereBtn{
+    margin-top:0.5rem;
+}
 
 /* 페이징 */
 .pagination li {
