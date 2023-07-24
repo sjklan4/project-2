@@ -14,6 +14,11 @@ class ReportController extends Controller
 {  
     public function returnview() {
 
+        // 로그인 확인
+        if(auth()->guest()) {
+            return redirect()->route('user.login');
+        }
+
         // 신고 리스트 id / 게시물 id, 댓글 id / 신고인 user_id, name, 피신고인 user_id, name 및 피신고인의 신고받은 횟수 정보 / 신고사유 / 신고일, 신고 현황
         $reportinfo = DB::table('report_lists as rp')
         ->select('rp.rep_id', 'rp.board_id', 'rp.reply_id', 'rp.reporter', 'rp.suspect', 'ui2.report_num', 'rr.rep_flg', 'rr.rep_r_content', 'rp.complate_flg', 'rp.created_at')
@@ -22,17 +27,6 @@ class ReportController extends Controller
         ->join('report_reasons as rr', 'rr.rep_r_id', '=', 'rp.rep_r_id')
         ->orderBy('rp.complate_flg')
         ->paginate(10);
-        // ->get();
-        // DB::select('SELECT 
-        // rp.rep_id, rp.board_id, rp.reply_id, rp.reporter, rp.suspect, ui2.report_num, rr.rep_flg, rr.rep_r_content, rp.complate_flg, rp.created_at
-        // FROM report_lists rp
-        // LEFT JOIN user_infos ui1 
-        // ON rp.reporter = ui1.user_id
-        // LEFT JOIN user_infos ui2
-        // ON rp.suspect = ui2.user_id
-        // INNER JOIN report_reasons rr
-        // ON rr.rep_r_id = rp.rep_r_id
-        // order by complate_flg');
 
         return view('report')
         ->with('report_info', $reportinfo);
