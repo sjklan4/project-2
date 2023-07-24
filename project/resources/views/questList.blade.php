@@ -35,7 +35,7 @@
                         <select name="time">
                             <option value="">시간 선택</option>
                             @for ($i = 1; $i < 24; $i++)
-                                <option value="{{sprintf('%02d',$i)}}">{{sprintf('%02d',$i)}}시</option>
+                                <option value="{{$i}}">{{sprintf('%02d',$i)}}시</option>
                             @endfor
                         </select>
                         <input type="hidden" name="id" value="{{$item->quest_cate_id}}">
