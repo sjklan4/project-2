@@ -11,7 +11,6 @@
                 <div>
                     @if (isset($data['style']))
                         {{$data['style']}}
-                        <br id="disNone">
                     @endif
                     {{$data['nkname']}}</div>
                 <div>{{substr($data['created_at'], 0, 16)}}</div>
