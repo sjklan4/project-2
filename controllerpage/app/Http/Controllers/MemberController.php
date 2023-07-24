@@ -29,25 +29,9 @@ class MemberController extends Controller
    
         $user->update(['user_status' => '3']);
 
-        // dump($user);
-        // exit;
+    
             Mail::to($user->user_email)->send(new infomail($user));
         return redirect()->route('member.memberlist');
     }
 
-
-    // public function memberreturn(Request $req){
-    //     UserInfo::where('user_id', $req->id)
-    //     ->update(['user_status' => '1']);
-
-    //     return redirect()->route('member.memberlist');
-    // }
-
-
-
-    // public function memberrestore(Request $req){
-    //     UserInfo::where('user_id',$req->user_id)
-    //         ->restore();
-    //         return redirect()->route('member.memberlist');
-    // }
 }

@@ -57,9 +57,30 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 
+//체크 박스 기능
+function selectAll(selectAll)  {
+const checkboxes 
+        = document.getElementsByName('delchk[]');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked;
+    })
+}
 
 
+function bulkdel(){
 
+    const checkboxes = document.querySelectorAll('input[name="delchk[]"]:checked');
 
+    if (!checkboxes.length) {
+        alert('삭제하려는 댓글을 선태해주세요.');
+    } else {
+        let values = Array.from(checkboxes).map(checkbox => checkbox.value);
 
+        console.log(values); // 이 부분은 reply_id 값의 배열을 콘솔에 기록합니다.
+        let frmDel = document.getElementById('selectdel');
+        frmDel.append('chkdel', values);
+        frmDel.submit();
+    }
+}
 

@@ -34,6 +34,9 @@ use App\Http\Controllers\writeController;
 Route::get('/comment/commentlist', [WriteController::class, 'commentlist'])->name('comment.commentlist');
 // 댓글 삭제 라우트
 Route::delete('/comment/commentdel/{id}',[WriteController::class, 'commentdel'])->name('comment.commentdel');
+// 댓글 선택 삭제 라우트
+Route::delete('/comment/bulk-delete', [WriteController::class, 'bulkDelete'])->name('comment.bulkDelete');
+
 //전체 게시글 가져오는 라우트
 Route::get('/board/boardlist', [WriteController::class, 'boardlist'])->name('board.boardlist');
 //게시글 삭제 라우트

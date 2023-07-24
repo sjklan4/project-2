@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoardReply;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,25 @@ class ApiMemberController extends Controller
 
         return $arr;
     }
+
+    // public function bulkDelete(Request $request)
+    // {
+    //     $arr = [
+    //         'errorcode' => '0'
+    //         ,'msg'      => ''
+    //     ];
+        
+    //     if($request->has('delchk')) {
+    //         // 'delchk' will be an array of comment IDs to delete
+    //         BoardReply::destroy($request->delchk);
+
+            
+    //     $arr['errorcode'] = '0';
+    //     $arr['msg'] = '댓글 삭제';
+    //     }
+        
+    //     return $arr;
+    // }
 
 
 }

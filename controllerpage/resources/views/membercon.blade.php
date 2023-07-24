@@ -246,7 +246,7 @@
                                                                     복구
                                                                 </button>
                                                             @elseif($item->user_status !== '3')
-                                                        <button type="submit">정지</button>
+                                                        <button type="submit" class = "delBtn">정지</button>
                                                         @endif
                                                     </td>
                                                 </tr>

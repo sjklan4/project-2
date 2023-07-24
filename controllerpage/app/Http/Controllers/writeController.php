@@ -7,6 +7,7 @@ use App\Models\BoardReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class WriteController extends Controller
 {
@@ -22,12 +23,35 @@ class WriteController extends Controller
 
     }
 
-    public function commentdel($id){
+//댓글 삭제 하기
+public function commentdel($id){
+    // dump($id);
+    // exit;
 
         BoardReply::destroy($id);
 
+
+        DB::table('boards')
+        ->join('board_replies', 'boards.board_id', '=', 'board_replies.board_id')
+        ->where('board_replies.reply_id', $id)
+        ->decrement('replies');
+
         return redirect()->route('comment.commentlist');
     }
+    
+//체크된 댓글 삭제 하기
+public function bulkDelete(Request $req)
+{
+    // Log::debug('--------- bulkDelete Start ---------');
+    // Log::debug('Array delchk', $req->all());
+    if($req->has('delchk')) {
+        BoardReply::destroy($req->delchk[]);
+    }
+
+    Log::debug('--------- bulkDelete End ---------');
+    return redirect()->route('comment.commentlist');
+}
+
 
 
     public function boardlist(){

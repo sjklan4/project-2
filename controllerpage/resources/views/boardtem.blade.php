@@ -237,7 +237,7 @@
                                                             <td>{{ $item->created_at }}</td>
                                                             <td>{{$item->deleted_at}}</td>
                                                                 @if($item->deleted_at === null)
-                                                                    <td><button type="submit">삭제</button></td>
+                                                                    <td><button type="submit" class="delBtn">삭제</button></td>
                                                                 @elseif($item->deleted_at !== null)
                                                                     <td>삭제된 게시글입니다.</td>
                                                                 @endif
