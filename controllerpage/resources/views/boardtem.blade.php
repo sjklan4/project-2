@@ -126,13 +126,13 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
-                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="{{ route('member.memberlist')}}" aria-expanded="false">
-                                <i class="me-3 fa fa-user" aria-hidden="true"></i><span
-                                    class="hide-menu">회원관리</span></a>
-                        </li>
+                            href="{{route('user.food')}}" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
+                                aria-hidden="true"></i><span class="hide-menu">회원음식관리</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            href="{{ route('member.memberlist')}}" aria-expanded="false">
+                            <i class="me-3 fa fa-user" aria-hidden="true"></i><span
+                                class="hide-menu">회원관리</span></a>
+                    </li>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('board.boardlist')}}" aria-expanded="false"><i class="me-3 fa fa-table"
@@ -141,8 +141,8 @@
                                 href="{{ route('comment.commentlist') }}" aria-expanded="false"><i class="me-3 fa fa-font"
                                     aria-hidden="true"></i><span class="hide-menu">댓글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="map-google.html" aria-expanded="false"><i class="me-3 fa fa-globe"
-                                    aria-hidden="true"></i><span class="hide-menu">Google Map</span></a></li>
+                            href="{{route('manager.food')}}" aria-expanded="false"><i class="me-3 fa fa-globe"
+                            aria-hidden="true"></i><span class="hide-menu">관리자 음식 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="pages-blank.html" aria-expanded="false"><i class="me-3 fa fa-columns"
                                     aria-hidden="true"></i><span class="hide-menu">Blank</span></a></li>
