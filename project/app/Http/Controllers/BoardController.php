@@ -4,6 +4,7 @@
  * 디렉토리     : Controllers
  * 파일명       : BoardController.php
  * 이력         : v001 0526 AR.Choe new
+ *                v002 0724 AR.Choe add
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -191,21 +192,46 @@ class BoardController extends Controller
             ->where('board_id', $id)
             ->select('bimg_name')
             ->first();
+        $style = DB::table('quest_statuses')
+        ->join('quest_cates', 'quest_cates.quest_cate_id', 'quest_statuses.quest_cate_id')
+        ->where('quest_statuses.user_id', $board->user_id)
+        ->where('quest_statuses.rep_flg', '1')
+        ->first();
 
         // 댓글 관련 정보 획득
-        $reply = BoardReply::join('user_infos', 'user_infos.user_id', '=', 'board_replies.user_id')
-                ->select('board_replies.rcontent', 'user_infos.nkname', 'board_replies.created_at', 'board_replies.reply_id', 'board_replies.user_id')
-                ->where('board_replies.board_id', $board->board_id)
-                ->paginate(5);
-
+        // ------------- v002 add -------------
+        $subQuery = DB::table('quest_statuses')
+        ->select('quest_statuses.user_id', 'quest_cates.quest_style', 'quest_statuses.rep_flg')
+        ->join('quest_cates', 'quest_cates.quest_cate_id', '=', 'quest_statuses.quest_cate_id')
+        ->where('quest_statuses.rep_flg', '1');
+        
+        $reply = DB::table('board_replies')
+            ->select(
+                'board_replies.rcontent',
+                'board_replies.created_at',
+                'board_replies.reply_id',
+                'board_replies.user_id',
+                'user_infos.nkname',
+                'qs.quest_style'
+            )
+            ->leftJoinSub($subQuery, 'qs', function ($join) {
+                $join->on('qs.user_id', 'board_replies.user_id');
+            })
+            ->join('user_infos', 'user_infos.user_id', 'board_replies.user_id')
+            ->where('board_replies.board_id', $id)
+            ->whereNull('board_replies.deleted_at')
+            ->where('user_infos.user_status', '1')
+            ->paginate(5);
+                
         // 식단 관련 정보 획득
         $diet = DB::select('SELECT fi.food_name, fdf.fav_f_intake
-                            FROM fav_diet_food AS fdf
-                            INNER JOIN fav_diets AS fd
-                            ON fd.fav_id = fdf.fav_id
-                            INNER JOIN food_infos AS fi
-                            ON fi.food_id = fdf.food_id
-                            WHERE fdf.fav_id = ?', [$board->fav_id]);
+            FROM fav_diet_food AS fdf
+            INNER JOIN fav_diets AS fd
+            ON fd.fav_id = fdf.fav_id
+            INNER JOIN food_infos AS fi
+            ON fi.food_id = fdf.food_id
+                    WHERE fdf.fav_id = ?', [$board->fav_id]);
+        // ------------- v002 add -------------
 
         $arr = [
             'cate'        => $bcate->bcate_name
@@ -223,6 +249,10 @@ class BoardController extends Controller
 
         if (isset($boardImg)) {
             $arr['img'] = $boardImg->bimg_name;
+        }
+
+        if (isset($style)) {
+            $arr['style'] = $style->quest_style;
         }
 
         return view('boardDetail')->with('data', $arr)->with('reply', $reply)->with('diet', $diet);
