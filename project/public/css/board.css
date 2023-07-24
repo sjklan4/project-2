@@ -109,7 +109,7 @@ button:hover {
 
 .boardDetailTitle {
     display: grid;
-    grid-template-columns: 3fr 0.7fr 1.5fr 1.5fr 0.7fr 0.7fr;
+    grid-template-columns: 2fr 0.5fr 1.8fr 1.2fr 0.6fr 0.5fr;
     justify-content: space-around;
     font-weight: 600;
     padding-bottom: 40px;
@@ -449,8 +449,16 @@ h5 {
     background-color: #538E04;
 }
 
+#disNone {
+    display: none;
+}
 /* 모바일 */
 @media (max-width: 500px) {
+    
+    #disNone {
+        display: inline;
+    }
+    
     .boardCon {
         padding: 0;
         display: inline-block;

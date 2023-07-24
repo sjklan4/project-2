@@ -30,19 +30,26 @@
                                     <tr onclick="detailReport('{{$item->rep_id}}', '{{$item->board_id}}')" data-bs-toggle="modal" data-bs-target="#detailreport">
                                         <td>{{ $item->reporter }}</td>
                                         <td>{{ $item->suspect }}</td>
-                                        @if ($item->board_id != null)
+
+                                        {{-- board_id가 없을 경우 X를 출력하고 id가 있으면 id 값을 출력 --}}
+                                        @if ($item->board_id != null) 
                                             <td>{{ $item->board_id }}</td>
                                         @else
                                             <td>X</td>
                                         @endif
+
+                                        {{-- reply_id가 없을 경우 X를 출력하고 id가 있으면 id 값을 출력 --}}
                                         @if ($item->reply_id != null)
                                             <td>{{ $item->reply_id }}</td>
                                         @else
                                             <td>X</td>
                                         @endif
+
                                         <td>{{ $item->rep_flg }}</td>
                                         <td>{{ $item->report_num }}</td>
                                         <td>{{$item->created_at}}</td>
+
+                                        {{-- complate_flg의 값에 따라 출력 값 변경 (0 : 대기 | 1 : 완료) --}}
                                         @if ($item->complate_flg == 0)
                                             <td>대기</td>
                                         @else
@@ -156,7 +163,7 @@
         </div>
     </div>
 </div>
-    @endsection
-    @section('js')
+@endsection
+@section('js')
     <script type="text/javascript" src="{{asset('js/report.js')}}"></script>
-    @endsection
+@endsection

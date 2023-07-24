@@ -264,4 +264,9 @@ class QuestController extends Controller
 
         return redirect()->route('quest.questAchieve');
     }
+
+    public function alarmUpdate(Request $req, $id) {
+        QuestStatus::find($id)->update(['alarm_time' => $req->time]);
+        return redirect()->route('quest.show');
+    }
 }

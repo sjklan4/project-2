@@ -221,7 +221,7 @@ class BoardController extends Controller
             ->whereNull('board_replies.deleted_at')
             ->where('user_infos.user_status', '1')
             ->paginate(5);
-                
+            
         // 식단 관련 정보 획득
         $diet = DB::select('SELECT fd.fav_name, fi.food_name, fdf.fav_f_intake
                             FROM fav_diet_food AS fdf
