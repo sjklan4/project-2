@@ -38,10 +38,10 @@
                     <br>
                     <div class="btnDiv">
                         <button type="button" onclick="location.href='{{route('recom.get')}}'">취소</button>
-                        <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 추가</button>
+                        <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#plusdiet">식단 추가</button>
                     </div>
                     {{-- 식단 명 입력 alert --}}
-                    <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="plusdiet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -65,7 +65,6 @@
                     </div>
                 </div>
             @else
-            {{-- todo : 증량, 감량, 일반 선택 -> 카드형 --}}
                 <form action="{{route('recom.post')}}" method="post">
                     @csrf
                     <div class="dietCateDiv">
@@ -81,7 +80,32 @@
                         <br>
                         <div class="btnDiv">
                             <button type="button" onclick="location.href='{{route('fav.favdiet')}}'">취소</button>
-                            <button type="submit" class="greenBtn">추천받기</button>
+                            @if ($goalKcal)
+                                <button type="submit" class="greenBtn">추천받기</button>
+                            @else
+                                <button type="button" class="greenBtn" data-bs-toggle="modal" data-bs-target="#nokcal">추천받기</button>
+                                {{-- 식단 설정 경고 모달 --}}
+                                <div class="modal fade" id="nokcal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    <i class="fa-solid fa-circle-exclamation" style="color: #538e04;"></i>
+                                                    설정된 목표 칼로리가 없습니다.
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="fw-bold">목표갈로리 설정 페이지로 이동하시겠습니까?</span>  
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-bs-dismiss="modal" aria-label="Close">취소</button>                                   
+                                                <button type="button" class="greenBtn" onclick="location.href='{{route('user.prevateinfo')}}'">확인</button>
+                                            </div>
+                                        </div>
+                                    </div>                    
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </form>
