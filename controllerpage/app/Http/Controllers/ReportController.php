@@ -35,8 +35,8 @@ class ReportController extends Controller
         $reportID = (int)$req->reportId;
         $userId = (int)$req->userId;
         $complate = $req->complate;
-        $boardId = $req->boartId;
-        $replyId = $req->replyId;
+        $boardId = (int)$req->boartId;
+        $replyId = (int)$req->replyId;
 
         if($complate == 1){
             DB::table('report_lists')
@@ -52,22 +52,14 @@ class ReportController extends Controller
             ->increment('report_num');
 
             // 신고받은 회원의 게시물, 댓글 삭제
-            if($req->reply_id != null){
+            if($replyId != null){
+                var_dump($replyId);
+                exit;
                 BoardReply::destroy($replyId);
-                // DB::table('board_replies')
-                // ->where('reply_id', $replyId)
-                // ->update([
-                //     'updated_at' => now(),
-                //     'deleted_at' => now()
-                // ]);
             }else{
+                var_dump($boardId);
+                exit;
                 Board::destroy($boardId);
-                // DB::table('boards')
-                // ->where('board_id', $boardId)
-                // ->update([
-                //     'updated_at' => now(),
-                //     'deleted_at' => now()
-                // ]);
             }
         }else{ // 신고 철회
             // 완료 플래그 변경 (1->0)
@@ -84,11 +76,13 @@ class ReportController extends Controller
             ->where('user_id', $userId)
             ->decrement('report_num');
 
-            // 신고받은 회원의 게시물, 댓글 삭제
+            // 신고받은 회원의 게시물, 댓글 삭제 철회
             if($req->reply_id != null){
                 BoardReply::where('reply_id', $replyId)
                 ->restore();
             }else{
+                var_dump($boardId);
+                exit;
                 Board::where('board_id', $boardId)
                 ->restore();
             }

@@ -116,24 +116,34 @@
                                 <h4 class="card-title">신고 내역</h4>
                                 <h6 class="card-subtitle">신고 내역</h6>
                                 <div class="table-responsive">
-                                    @forelse ($report_info as $item)
-                                        <ul>
-                                            <li>
-                                                {{$item->reporter}}
-                                                {{$item->suspect}}
-                                                {{$item->report_num}}
-                                                board_id{{$item->board_id}}
-                                                reply_id{{$item->reply_id}}
-                                                {{$item->rep_flg}}
-                                                {{$item->complate_flg}}
-                                                {{$item->created_at}}
-                                                @if ($item->complate_flg == 0)
-                                                    <span>대기</span>
-                                                @else
-                                                    <span>완료</span>   
-                                                @endif
-                                                <button type="button" onclick="detailReport('{{$item->rep_id}}', '{{$item->board_id}}')" data-bs-toggle="modal" data-bs-target="#detailreport">자세히 보기</button>
-                                            </li>
+                                    <table class="table user-table no-wrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0"></th>
+                                                <th class="border-top-0">신고인 번호</th>
+                                                <th class="border-top-0">피신고인 번호</th>
+                                                <th class="border-top-0">댓글 번호</th>
+                                                <th class="border-top-0">신고 사유 카테고리</th>
+                                                <th class="border-top-0">신고현황 플래그</th>
+                                                <th class="border-top-0">신고일</th>
+                                                <th class="border-top-0">신고현황</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($report_info as $item)
+                                            <a onclick="detailReport('{{$item->rep_id}}', '{{$item->board_id}}')" data-bs-toggle="modal" data-bs-target="#detailreport">
+                                                <tr>
+                                                    <td>{{ $item->report_num }}</td>
+                                                    <td>{{ $item->reporter }}</td>
+                                                    <td>{{ $item->suspect }}</td>
+                                                    <td>{{ $item->board_id }}</td>
+                                                    <td>{{ $item->reply_id }}</td>
+                                                    <td>{{ $item->rep_flg }}</td>
+                                                    <td>{{$item->complate_flg}}</td>
+                                                    <td>{{$item->created_at}}</td>
+                                                </tr>
+                                            </a>
+                                            {{-- <button type="button" onclick="detailReport('{{$item->rep_id}}', '{{$item->board_id}}')" data-bs-toggle="modal" data-bs-target="#detailreport">자세히 보기</button> --}}
                                             <div class="modal fade" id="detailreport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -167,12 +177,13 @@
                                                     </div>
                                                 </div>                    
                                             </div>
-                                        </ul>
-                                    @empty
-                                        <ul>
-                                            <li>신고 없음</li>
-                                        </ul>
-                                    @endforelse
+                                            @empty
+                                                <tr>
+                                                    <td>신고 없음</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
