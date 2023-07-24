@@ -1,0 +1,38 @@
+/* 페이징 */
+.pagination {
+    justify-content: center;
+    font: 2rem;
+}
+.pagination li {
+    width: 30px;
+    height: 30px;
+    margin: 0 3px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.pagination li a:hover {
+    font-weight: 700;
+    color: rgb(1,129,192);
+}
+
+.pagination .active span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: rgb(1,129,192);
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+tbody tr:hover{
+    background: #f2f7f8;
+    font-weight: 700;
+    cursor: pointer;
+    color: rgb(1,129,192);
+}
+
+
+a {
+    color:#000;
+}

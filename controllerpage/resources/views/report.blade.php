@@ -1,4 +1,7 @@
 @extends('layout.layout')
+@section('css')
+    <link rel="stylesheet" href="{{asset('css/report.css')}}">
+@endsection
 @section('contents')
     <div class="preloader">
         <div class="lds-ripple">
@@ -197,67 +200,67 @@
                                                 
                                         </tbody>
                                         <tfoot>
-                                            {{-- 페이지네이션 --}}
-                                            @if ($report_info->hasPages())
-                                                <ul class="pagination pagination">
-                                                    @php
-                                                        $block = 5;
-                                                        $startPage = max(1, $report_info->currentPage() - floor($block / 2));
-                                                        $endPage = min($startPage + $block - 1, $report_info->lastPage());
-                                                    @endphp
-                                
-                                                    {{-- 첫 페이지 버튼 --}}
-                                                    @if ($report_info->onFirstPage())
-                                                        <li><<</li>
-                                                    @else
-                                                        <li class="active">
-                                                            <a href="{{ $report_info->url(1) }}" rel="prev"><<</a>
-                                                        </li>
-                                                    @endif
-                                
-                                                    {{-- 이전 페이지 버튼 --}}
-                                                    @if ($report_info->onFirstPage())
-                                                        <li><</li>
-                                                    @else
-                                                        <li class="active">
-                                                            <a href="{{ $report_info->previousPageUrl() }}" rel="prev"><</a>
-                                                        </li>
-                                                    @endif
-                                
-                                                    {{-- 페이징 --}}
-                                                    {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
-                                                    @foreach(range($startPage, $endPage) as $i)
-                                                        @if ($i == $report_info->currentPage())
-                                                            <li class="active"><span>{{ $i }}</span></li>
-                                                        @else
-                                                            <li class="active">
-                                                                <a href="{{$report_info->url($i)}}">{{$i}}</a>
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
-                                
-                                                    {{-- 다음 페이지 버튼 --}}
-                                                    @if ($report_info->hasMorePages())
-                                                        <li class="active">
-                                                            <a href="{{$report_info->nextPageUrl()}}">></a>
-                                                        </li>
-                                                    @else
-                                                        <li>></li> 
-                                                    @endif
-                                
-                                                    {{-- 마지막 페이지 --}}
-                                                    @if ($report_info->hasMorePages())
-                                                        <li class="active">
-                                                            <a href="{{ $report_info->url($report_info->lastPage()) }}" rel="next">>></a>
-                                                        </li>
-                                                    @else
-                                                        <li>>></li> 
-                                                    @endif
-                                                </ul>
-                                            @endif
                                         </tfoot>
                                     </table>
                                 </div>
+                                {{-- 페이지네이션 --}}
+                                @if ($report_info->hasPages())
+                                    <ul class="pagination pagination">
+                                        @php
+                                            $block = 5;
+                                            $startPage = max(1, $report_info->currentPage() - floor($block / 2));
+                                            $endPage = min($startPage + $block - 1, $report_info->lastPage());
+                                        @endphp
+                    
+                                        {{-- 첫 페이지 버튼 --}}
+                                        @if ($report_info->onFirstPage())
+                                            <li><<</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $report_info->url(1) }}" rel="prev"><<</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 이전 페이지 버튼 --}}
+                                        @if ($report_info->onFirstPage())
+                                            <li><</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ $report_info->previousPageUrl() }}" rel="prev"><</a>
+                                            </li>
+                                        @endif
+                    
+                                        {{-- 페이징 --}}
+                                        {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                                        @foreach(range($startPage, $endPage) as $i)
+                                            @if ($i == $report_info->currentPage())
+                                                <li class="active"><span>{{ $i }}</span></li>
+                                            @else
+                                                <li class="active">
+                                                    <a href="{{$report_info->url($i)}}">{{$i}}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                    
+                                        {{-- 다음 페이지 버튼 --}}
+                                        @if ($report_info->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{$report_info->nextPageUrl()}}">></a>
+                                            </li>
+                                        @else
+                                            <li>></li> 
+                                        @endif
+                    
+                                        {{-- 마지막 페이지 --}}
+                                        @if ($report_info->hasMorePages())
+                                            <li class="active">
+                                                <a href="{{ $report_info->url($report_info->lastPage()) }}" rel="next">>></a>
+                                            </li>
+                                        @else
+                                            <li>>></li> 
+                                        @endif
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
