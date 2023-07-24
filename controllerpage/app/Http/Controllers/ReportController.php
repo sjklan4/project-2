@@ -31,8 +31,7 @@ class ReportController extends Controller
         return view('report')
         ->with('report_info', $reportinfo);
     }
-
-    // ! --------------------------------------------------------------------------
+    
     // 신고 상세내용에서 확인 및 철회 버튼 클릭 시 complate_flg 변경 처리
     public function confirmOreport(Request $req) {
         

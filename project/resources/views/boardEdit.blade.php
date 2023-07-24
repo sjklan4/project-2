@@ -27,6 +27,7 @@
                 <div>
                     <label for="favdiet">저장된 식단</label>
                     <select name="favdiet" id="favdiet" onchange="DietShare()">
+                        <option value="0">선택안함</option>
                         @foreach ($favDiet as $diet)
                         @if($diet->fav_id == $data->fav_id)
                             <option value="{{$diet->fav_id}}" selected>{{$diet->fav_name}}</option>
