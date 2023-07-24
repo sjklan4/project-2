@@ -1,34 +1,43 @@
 // 음식 삭제
-function foodDel(food_id) {
+function chkDel() {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
+    function getCheckedValues() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        const checkedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
+        return checkedValues;
+    }
+
+    const arrChkVal = getCheckedValues();
     if (confirmDelete) {
-        const url = "/api/userfood/del/" + food_id;
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const request = new Request(url, {
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": token
-            },
-            method: 'DELETE',
-            credentials: "same-origin",
-            body: JSON.stringify({
-                food_id: food_id
-            })  
-        });
-        fetch(request)
-        .then(data => {
-            if (!data.status) {
-                throw new Error(data.status + ' : API 응답 오류');
-            }
-            return data.json();
+        arrChkVal.forEach(ele => {
+            const url = "/api/userfood/del/" + ele;
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const request = new Request(url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": token
+                },
+                method: 'DELETE',
+                credentials: "same-origin",
+                // body: JSON.stringify({
+                //     food_id: food_id;
+                // })  
+            });
+            fetch(request)
+            .then(data => {
+                if (!data.status) {
+                    throw new Error(data.status + ' : API 응답 오류');
+                }
+                return data.json();
+            })
+            .then(apiData => {
+                console.log(apiData);
+                chk = true;
+            })
+            .catch(error => console.error('Error:', error));
         })
-        .then(apiData => {
-            console.log(apiData);
-            alert('삭제되었습니다.');
-            location.reload();
-        })
-        .catch(error => console.error('Error:', error));
+        location.reload();
     }
 }
 

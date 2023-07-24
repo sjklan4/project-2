@@ -14,7 +14,8 @@
                     <h4 class="card-title">관리자 등록 음식 관리</h4>
                     <h6 class="card-subtitle">음식정보 <code>.관리자용</code></h6>
                     <div class="text-end upgrade-btn">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">음식추가하기</button>
+                        <button type="button" onclick="chkDel()" class="btn delBtn">선택삭제</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">음식추가</button>
                     </div>
                     {{-- 음식추가 모달 --}}
                     <div class="modal" tabindex="-1" id="insertModal" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
@@ -115,10 +116,10 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">음식 번호</th>
-                                    <th class="border-top-0">회원 번호</th>
                                     <th class="border-top-0">음식 이름</th>
                                     <th class="border-top-0">음식 등록일</th>
                                     <th class="border-top-0">음식 삭제일</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,13 +128,17 @@
                                             @csrf
                                             <tr>
                                                 <td>{{ $item->food_id }}</td>
-                                                <td>{{ $item->user_id }}</td>
                                                 <td><a data-bs-toggle="modal" data-bs-target="#editModal{{ $item->food_id }}">{{ $item->food_name }}</a></td>
                                                 <td>{{ $item->created_at }}</td>
                                                 @if(isset($item->deleted_at))
                                                     <td>{{$item->deleted_at}}</td>
                                                 @else
                                                     <td class="delDate"><button type="button" onclick="foodDel({{$item->food_id}})" class="delBtn">삭제</button></td>
+                                                @endif
+                                                @if(isset($item->deleted_at))
+                                                    <td></td>
+                                                @else
+                                                    <td><input type="checkbox" class="delChk" value="{{ $item->food_id }}"></td>
                                                 @endif
                                             </tr>
                                         </form>                                                    
