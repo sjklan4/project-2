@@ -39,3 +39,27 @@ function release(user_id){
         }
 }
 
+// .btitle 클래스를 가진 모든 요소 가져오기
+let elements = document.querySelectorAll('.btitle');
+
+// 각 요소에 대해 반복문 실행
+for (let i = 0; i < elements.length; i++) {
+    let element = elements[i];
+    let text = element.innerText;
+
+    if(text.length >= 20){
+        // 문자열 자르기
+        let startIndex = 0; // 시작 인덱스
+        let endIndex = 20; // 종료 인덱스 (10번째 문자까지 자르기)
+        let cutText = text.substring(startIndex, endIndex) + '...';       
+        element.innerHTML = cutText;
+    }
+}
+
+
+
+
+
+
+
+
