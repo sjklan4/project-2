@@ -36,7 +36,7 @@
                                             <button type="button" data-bs-dismiss="modal">취소</button>
                                             <button type="submit" id="greenBtn">신고</button>
                                         </div>
-                                    </form>`
+                                    </form>
                                 </div>
                             </div>
                         </div>
