@@ -56,11 +56,11 @@ Route::delete('/user/userdraw', [ApiUserController::class, 'userdrawing']);
 // 관리자       : 채수지
 // 생성일       : 2023-06-22
 // ---------------------------------------------
-Route::get('/apisearch', [ApiController::class, 'apisearch']);
+Route::get('/data', [ApiController::class, 'apisearch']);
 Route::post('/cart', [ApiController::class, 'postFoodCart']);
 Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
-Route::delete('/fooddelete/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
-Route::delete('/dietdelete/{user_id}/{cart_id}', [ApiController::class, 'dietDelete']);
+Route::delete('/food/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
+Route::delete('/diet/{user_id}/{cart_id}', [ApiController::class, 'dietDelete']);
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
