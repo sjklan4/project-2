@@ -17,12 +17,12 @@ class ApiReportController extends Controller
             $report = DB::select('SELECT * FROM report_lists
             INNER JOIN board_replies
             on board_replies.reply_id = report_lists.reply_id
-            WHERE report_lists.rep_id = ? AND report_lists.complate_flg = 0', [$id]);
+            WHERE report_lists.rep_id = ?', [$id]);
         }else{
             $report = DB::select('SELECT * FROM report_lists
             INNER JOIN boards 
             on boards.board_id = report_lists.board_id
-            WHERE report_lists.board_id = ? AND report_lists.complate_flg = 0', [$board]);
+            WHERE report_lists.board_id = ?', [$board]);
         }
 
         $user = DB::select('SELECT 
@@ -34,7 +34,7 @@ class ApiReportController extends Controller
         ON rp.suspect = ff.user_id
         LEFT JOIN user_infos AS dd
         ON rp.reporter = dd.user_id
-        WHERE rp.rep_id = ? AND rp.complate_flg = 0', [$id]);
+        WHERE rp.rep_id = ?', [$id]);
 
         if(!$report){
             $arr['errcode'] = '1';
