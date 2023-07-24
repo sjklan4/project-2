@@ -31,7 +31,7 @@ class ReportController extends Controller
         return view('report')
         ->with('report_info', $reportinfo);
     }
-    
+
     // 신고 상세내용에서 확인 및 철회 버튼 클릭 시 complate_flg 변경 처리
     public function confirmOreport(Request $req) {
         
@@ -58,8 +58,6 @@ class ReportController extends Controller
             if($replyId != null){
                 BoardReply::destroy($replyId);
             }else{
-                var_dump($boardId);
-                exit;
                 Board::destroy($boardId);
             }
         }else{ // 신고 철회 버튼을 눌렀을 경우
