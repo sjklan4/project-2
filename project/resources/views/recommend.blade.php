@@ -29,10 +29,10 @@
                     </div>
                     @endforeach
                     <hr>
-                    <h3>총 영양성분</h3>
+                    <h3 class="recomFoodTitle">총 영양성분</h3>
                     @foreach ($totalnut as $nut)
                     <div class="nutcontent">
-                        <span>{{$nut}}</span>
+                        <span class="nutspan">{{$nut}}</span>
                     </div>
                     @endforeach
                     <br>

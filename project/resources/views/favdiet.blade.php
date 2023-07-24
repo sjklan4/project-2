@@ -125,8 +125,8 @@
                             <button type="submit" id="greenBtn">수  정</button>
                         </div>
                     @endif
-            </div>
-        </div>    
+                    </div>
+                </div>    
                     
                 </form>
                 {{-- form문 끝부분! --}}
