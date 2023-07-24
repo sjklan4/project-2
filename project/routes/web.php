@@ -54,6 +54,7 @@ Route::get('/quest', [QuestController::class,'index'])->name('quest.index');
 Route::post('/quest', [QuestController::class, 'store'])->name('quest.store');
 Route::get('/quest/log', [QuestController::class,'show'])->name('quest.show');
 Route::put('/quest/log/{id}', [QuestController::class,'update'])->name('quest.update');
+Route::put('/quest/alaram/{id}', [QuestController::class,'alarmUpdate'])->name('quest.alarmUpdate');
 Route::delete('/quest/log/{id}', [QuestController::class,'destroy'])->name('quest.destroy');
 Route::get('/quest/achieve', [QuestController::class,'questAchieve'])->name('quest.questAchieve');
 Route::get('/quest/achieve/{id}', [QuestController::class,'repFlgUpdate'])->name('quest.repFlgUpdate');

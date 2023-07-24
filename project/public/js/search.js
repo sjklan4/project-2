@@ -129,7 +129,7 @@ function getFoodValue(event, userId)  {
 
 // 선택 음식 삭제 함수
 function deletefood(userId, foodId, cartId) {
-    fetch(`/api/fooddelete/${userId}/${foodId}/${cartId}`, {
+    fetch(`/api/food/${userId}/${foodId}/${cartId}`, {
         method: "delete"
     })
     .then(res => res.json())
@@ -197,7 +197,7 @@ function getDietValue(event, userId, favId)  {
 
 // 선택 식단 삭제 함수
 function deletediet(userId, cartId, favId) {
-    fetch(`/api/dietdelete/${userId}/${cartId}`, {
+    fetch(`/api/diet/${userId}/${cartId}`, {
         method: "DELETE"
     })
     .then(res => res.json())

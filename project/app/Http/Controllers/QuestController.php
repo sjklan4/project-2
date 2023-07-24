@@ -221,6 +221,17 @@ class QuestController extends Controller
         ->get()
         ->unique('quest_cate_id');
 
+        // 현재 대표 칭호 획득
+        $style = DB::table('quest_statuses')
+            ->join('quest_cates', 'quest_cates.quest_cate_id', 'quest_statuses.quest_cate_id')
+            ->where('quest_statuses.user_id', Auth::user()->user_id)
+            ->where('quest_statuses.rep_flg', '1')
+            ->first();
+
+        if(!empty($style)) {
+            return view('questAchieve')->with('data', $list)->with('rep', $style);
+        }
+
         return view('questAchieve')->with('data', $list);
     }
 
@@ -252,5 +263,10 @@ class QuestController extends Controller
             ]);
 
         return redirect()->route('quest.questAchieve');
+    }
+
+    public function alarmUpdate(Request $req, $id) {
+        QuestStatus::find($id)->update(['alarm_time' => $req->time]);
+        return redirect()->route('quest.show');
     }
 }

@@ -20,6 +20,7 @@ class ReportController extends Controller
         }
 
         // 신고 리스트 id / 게시물 id, 댓글 id / 신고인 user_id, name, 피신고인 user_id, name 및 피신고인의 신고받은 횟수 정보 / 신고사유 / 신고일, 신고 현황
+        // ! innerjoin을 사용하여 데이터를 가져오게 되면 신고인과 피신고인의 정보를 둘 다 불러올 수 없어 leftjoin을 사용함
         $reportinfo = DB::table('report_lists as rp')
         ->select('rp.rep_id', 'rp.board_id', 'rp.reply_id', 'rp.reporter', 'rp.suspect', 'ui2.report_num', 'rr.rep_flg', 'rr.rep_r_content', 'rp.complate_flg', 'rp.created_at')
         ->leftJoin('user_infos as ui1', 'rp.reporter', '=', 'ui1.user_id')
@@ -32,10 +33,10 @@ class ReportController extends Controller
         ->with('report_info', $reportinfo);
     }
 
-    // ! --------------------------------------------------------------------------
-    // 신고 상세내용에서 확인 및 철회 버튼 클릭 시 complate_flg 변경 처리
+    // 신고 상세내용에서 확인 및 철회 버튼 클릭 시 complate_flg 변경 및 신고 내용 destory & restore
     public function confirmOreport(Request $req) {
         
+        // request 값을 변수에 담고 int형 변환
         $reportID = (int)$req->reportId;
         $userId = (int)$req->userId;
         $complate = $req->complate;
@@ -53,14 +54,12 @@ class ReportController extends Controller
 
             DB::table('user_infos')
             ->where('user_id', $userId)
-            ->increment('report_num');
+            ->increment('report_num'); // 피신고인의 신고 받은 횟수 increment(증가)
 
             // 신고받은 회원의 게시물, 댓글 삭제
             if($replyId != null){
                 BoardReply::destroy($replyId);
             }else{
-                var_dump($boardId);
-                exit;
                 Board::destroy($boardId);
             }
         }else{ // 신고 철회 버튼을 눌렀을 경우
@@ -76,7 +75,7 @@ class ReportController extends Controller
 
             DB::table('user_infos')
             ->where('user_id', $userId)
-            ->decrement('report_num');
+            ->decrement('report_num'); // 피신고인의 신고 받은 횟수 decrement(감소)
 
             // 신고받은 회원의 게시물, 댓글 삭제 철회
             // * restore() : destroy() 으로 설정한 deleted_at 되돌리기

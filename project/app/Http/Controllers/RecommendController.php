@@ -13,20 +13,15 @@ class RecommendController extends Controller
 {
     public function rview() {
         $recomFood = [];
-        return view('recommend')->with('recomFood', $recomFood);
+        $id = Auth::user()->user_id;
+        $kcalInfo = KcalInfo::find($id);
+        return view('recommend')->with('recomFood', $recomFood)
+        ->with('goalKcal', $kcalInfo->goal_kcal);
     }
-    
-    // ! php artisan storage:link > 사진 업로드
-    // todo : 저장된 식단이 없을 경우 식단 추천을 유도하는 멘트..?도 생각해보기
     
     public function recommned(Request $req) {
         $id = Auth::user()->user_id;
         $kcalInfo = KcalInfo::find($id);
-        
-        // todo 목표칼로리가 1000이 넘지 않을 때 목표 칼로리 설정 페이지로 리턴 > js 함수로 변경
-        if($kcalInfo->goal_kcal < 1000){
-            return redirect()->route('user.prevateinfo');
-        }
 
         // 목표칼로리 구간에 따른 식단 분류용 if
         if($kcalInfo->goal_kcal > 1000 && $kcalInfo->goal_kcal < 1800){ // 총합 칼로리 제일 낮은 식단 추천
@@ -83,7 +78,6 @@ class RecommendController extends Controller
             $nutfat += $food->fat * $food->recom_intake;
         }
         
-        // todo : 영양성분이 0인 데이터 수정하기
         $totalnutri = [
             'kcal' => '칼로리 : '.round($nutkcal), 
             'carbs' => '탄수화물 : '.round($nutcarbs), 
@@ -91,7 +85,8 @@ class RecommendController extends Controller
             'fat' => '지방 : '.round($nutfat)
         ];
         return view('recommend')->with('recomFood', $recomFood)
-        ->with('totalnut', $totalnutri);
+        ->with('totalnut', $totalnutri)
+        ->with('goalKcal', $kcalInfo->goal_kcal);
     }
 
     public function setdiet(Request $req) {

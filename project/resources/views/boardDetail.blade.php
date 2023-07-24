@@ -8,7 +8,11 @@
             <div class="boardDetailTitle">
                 <div>{{$data['title']}}</div>
                 <div>{{$data['cate']}}</div>
-                <div>{{$data['nkname']}}</div>
+                <div>
+                    @if (isset($data['style']))
+                        {{$data['style']}}
+                    @endif
+                    {{$data['nkname']}}</div>
                 <div>{{substr($data['created_at'], 0, 16)}}</div>
                 <div><i class="bi bi-bar-chart-fill"></i> {{number_format($data['hits'])}}</div>
                 {{-- 신고 --}}
