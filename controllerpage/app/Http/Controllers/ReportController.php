@@ -59,6 +59,8 @@ class ReportController extends Controller
             if($replyId != null){
                 BoardReply::destroy($replyId);
             }else{
+                var_dump($boardId);
+                exit;
                 Board::destroy($boardId);
             }
         }else{ // 신고 철회 버튼을 눌렀을 경우
@@ -82,6 +84,8 @@ class ReportController extends Controller
                 BoardReply::where('reply_id', $replyId)
                 ->restore();
             }else{
+                var_dump($boardId);
+                exit;
                 Board::where('board_id', $boardId)
                 ->restore();
             }

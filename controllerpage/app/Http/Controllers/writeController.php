@@ -11,29 +11,7 @@ class WriteController extends Controller
 {
     // 모든 댓글들의 정보와 신고 횟수를 불러오는 부분
     public function commentlist(){
-        $comt_list = DB::select('SELECT 
-                                board_replies.reply_id,
-                                board_replies.user_id,
-                                board_replies.board_id,
-                                board_replies.rcontent,
-                                board_replies.created_at,
-                                COALESCE(COUNT(re.reply_id), 0) AS count,
-                                board_replies.deleted_at
-                            FROM 
-                                board_replies
-                            LEFT JOIN 
-                                report_lists AS re
-                            ON 
-                                board_replies.reply_id = re.reply_id
-                            GROUP BY 
-                                board_replies.reply_id, 
-                                board_replies.user_id,
-                                board_replies.board_id,
-                                board_replies.rcontent,
-                                board_replies.created_at,
-                                board_replies.deleted_at');
-    // dump($comt_list);
-    // exit;
+        $comt_list = DB::table('board_replies')->select('reply_id','user_id','board_id','rcontent','created_at','deleted_at')->orderBy('reply_id','desc')->paginate(10);
 
     return view('commenttem')->with('data', $comt_list);
 
@@ -48,25 +26,26 @@ class WriteController extends Controller
 
 
     public function boardlist(){
-        $board_list = DB::select('SELECT 
-                                    ba.board_id,
-                                    ba.user_id,
-                                    ba.btitle,
-                                    COALESCE(COUNT(re.board_id), 0) AS Count,
-                                    ba.created_at,
-                                    ba.deleted_at
-                                FROM 
-                                    boards AS ba
-                                LEFT JOIN 
-                                    report_lists AS re
-                                ON 
-                                    ba.board_id = re.board_id
-                                GROUP BY 
-                                    ba.board_id,
-                                    ba.user_id,
-                                    ba.btitle,
-                                    ba.created_at,
-                                    ba.deleted_at');
+        $board_list = DB::table('boards')->select('board_id','user_id','btitle','created_at','deleted_at')->orderBy('board_id','desc')->paginate(10);
+        // $board_list = DB::select('SELECT 
+        //                             ba.board_id,
+        //                             ba.user_id,
+        //                             ba.btitle,
+        //                             COALESCE(COUNT(re.board_id), 0) AS Count,
+        //                             ba.created_at,
+        //                             ba.deleted_at
+        //                         FROM 
+        //                             boards AS ba
+        //                         LEFT JOIN 
+        //                             report_lists AS re
+        //                         ON 
+        //                             ba.board_id = re.board_id
+        //                         GROUP BY 
+        //                             ba.board_id,
+        //                             ba.user_id,
+        //                             ba.btitle,
+        //                             ba.created_at,
+        //                             ba.deleted_at');
 
         return view('boardtem')->with('data', $board_list);
     }

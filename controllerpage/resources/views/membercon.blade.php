@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-      {{-- 아래는 api테스트 용 csrf임 --}}
-      <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- 아래는 api테스트 용 csrf임 --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +19,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/temple/assets/images/favicon.png">
     <!-- Custom CSS -->
     <link href="/temple/css/style.min.css" rel="stylesheet">
+    <link href="{{asset('css/food.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -251,40 +252,64 @@
                                                 </tr>
                                             </form>   
                                         @endforeach
-                                            
-                                            {{-- <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>Gaylord</td>
-                                                <td>@Ritesh</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sanghani</td>
-                                                <td>Gusikowski</td>
-                                                <td>@Govinda</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Roshan</td>
-                                                <td>Rogahn</td>
-                                                <td>@Hritik</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Joshi</td>
-                                                <td>Hickle</td>
-                                                <td>@Maruti</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Nigam</td>
-                                                <td>Eichmann</td>
-                                                <td>@Sonu</td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
+                                {{-- 페이지네이션 --}}
+                                @if ($data->hasPages())
+                                <ul class="pagination pagination">
+                                @php
+                                    $block = 5;
+                                    $startPage = max(1, $data->currentPage() - floor($block / 2));
+                                    $endPage = min($startPage + $block - 1, $data->lastPage());
+                                @endphp
+                                {{-- 첫 페이지 버튼 --}}
+                                @if ($data->onFirstPage())
+                                    <li><<</li>
+                                @else
+                                    <li class="active">
+                                        <a href="{{ $data->url(1) }}" rel="prev"><<</a>
+                                    </li>
+                                @endif
+                                {{-- 이전 페이지 버튼 --}}
+                                @if ($data->onFirstPage())
+                                    <li><</li>
+                                @else
+                                    <li class="active">
+                                        <a href="{{ $data->previousPageUrl() }}" rel="prev"><</a>
+                                    </li>
+                                @endif
+                                {{-- 페이징 --}}
+                                {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                                @foreach(range($startPage, $endPage) as $i)
+                                    @if ($i == $data->currentPage())
+                                        <li class="active"><span>{{ $i }}</span></li>
+                                    @else
+                                        <li class="active">
+                                            <a href="{{$data->url($i)}}">{{$i}}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+            
+                                {{-- 다음 페이지 버튼 --}}
+                                @if ($data->hasMorePages())
+                                    <li class="active">
+                                        <a href="{{$data->nextPageUrl()}}">></a>
+                                    </li>
+                                @else
+                                    <li>></li> 
+                                @endif
+            
+                                {{-- 마지막 페이지 --}}
+                                @if ($data->hasMorePages())
+                                    <li class="active">
+                                        <a href="{{ $data->url($data->lastPage()) }}" rel="next">>></a>
+                                    </li>
+                                @else
+                                    <li>>></li> 
+                                @endif
+                            </ul>
+                        @endif
                             </div>
                         </div>
                     </div>

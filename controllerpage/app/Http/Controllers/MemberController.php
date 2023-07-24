@@ -10,15 +10,14 @@ use Illuminate\Support\Facades\Mail;
 
 class MemberController extends Controller
 {
+    //회원정보 불러오기
     public function memberinfo(){
-        $memberinfo = UserInfo::all();
-
-        // dump($memberinfo);
-        // exit;
-
+        $memberinfo = DB::table('user_infos')->select('*')->paginate(10);       
+        
         return view('membercon')->with('data',$memberinfo);
     }
 
+    //회원 정지 처리
     public function memberstop(Request $req){
 
         $user = UserInfo::where('user_id', $req->id)->first();
@@ -31,18 +30,19 @@ class MemberController extends Controller
         return redirect()->route('member.memberlist');
     }
 
-    public function memberreturn(Request $req){
-        UserInfo::where('user_id', $req->id)
-        ->update(['user_status' => '1']);
 
-        return redirect()->route('member.memberlist');
-    }
+    // public function memberreturn(Request $req){
+    //     UserInfo::where('user_id', $req->id)
+    //     ->update(['user_status' => '1']);
+
+    //     return redirect()->route('member.memberlist');
+    // }
 
 
 
-    public function memberrestore(Request $req){
-        UserInfo::where('user_id',$req->user_id)
-            ->restore();
-            return redirect()->route('member.memberlist');
-    }
+    // public function memberrestore(Request $req){
+    //     UserInfo::where('user_id',$req->user_id)
+    //         ->restore();
+    //         return redirect()->route('member.memberlist');
+    // }
 }
