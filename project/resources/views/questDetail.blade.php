@@ -104,10 +104,10 @@
         {{-- 플래그가 1일때 --}}
         @else
             <div class="fail">
-                <span>
+                <div>
                 진행중인 퀘스트가 없습니다.
                 <i class="fa-solid fa-face-sad-tear"></i>
-                </span>
+                </div>
                 <button id="greenBtn" onclick="location.href='{{route('quest.index')}}'">시작하기</button>
             </div>
         @endif

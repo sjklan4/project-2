@@ -143,6 +143,22 @@ button:hover {
     padding: 20px 0 40px;
 }
 
+.questAchieveCon {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 0 5vw;
+}
+
+.questAchieveCon > div:nth-child(1) {
+    text-align: center;
+    margin-top: 6rem;
+    font-weight: 900;
+}
+
+.questAchieveCon > div:nth-child(1) h4{
+    font-weight: 900;
+}
+
 
 /* 프로그레스 */
 .progress {
@@ -223,7 +239,7 @@ article {
 }
 
 #colorCard {
-    background-color: #6799E4;
+    background-color: #b6cdf0;
 }
 
 /* basic article elements styling */
@@ -267,7 +283,6 @@ article:has(:hover, :focus) {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
-
 /************************ 
 Generic layout (demo looks)
 **************************/
@@ -280,7 +295,7 @@ Generic layout (demo looks)
 
 .articles {
     display: grid;
-    max-width: 1200px;
+    max-width: 90%;
     margin-inline: auto;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
@@ -303,6 +318,20 @@ Generic layout (demo looks)
         width: 5rem;
         font-size: 0.8rem;
         margin-left: 10px;
+    }
+
+    .questAchieveCon{
+        display: block;
+    }
+
+    .questAchieveCon > div:nth-child(1) {
+        padding-bottom: 20px;
+        margin-top: 0;
+    }
+
+    .fail {
+        height: 450px;
+        margin: 1px;
     }
 }
 

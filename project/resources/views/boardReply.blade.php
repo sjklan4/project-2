@@ -4,7 +4,7 @@
             <div class="replyDiv">
                 <div>{{$item->rcontent}}</div>
                 <div>
-                    <span>{{$item->nkname}}</span>
+                    <span>{{$item->quest_style}} {{$item->nkname}}</span>
                     <span>{{substr($item->created_at, 0, 10)}}</span>
                     {{-- v002 댓글 신고 버튼 --}}
                     <button type="button" id="reportBtn" data-bs-toggle="modal" data-bs-target="#reportreply">

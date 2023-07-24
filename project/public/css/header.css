@@ -193,6 +193,11 @@ nav ul li ul li a {
     .brand {
         line-height: 70px;
     }
+
+    .alramImg, #logoutBtn img {
+        width: 26px;
+        height: 26px;
+    }
 }
 
 @media screen and (min-width:888px) {
