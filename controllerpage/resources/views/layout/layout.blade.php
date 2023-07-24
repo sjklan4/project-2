@@ -109,8 +109,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/e3754443e1.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/temple/assets/plugins/jquery/dist/jquery.min.js"></script>
     <script src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/javascript/scripts.js?ver=1670173476"></script>
-    <script src="{{asset('temple/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
+    {{-- <script src="{{asset('temple/assets/plugins/jquery/dist/jquery.min.js')}}"></script> --}}
     <script src="{{asset('temple/assets/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('temple/js/app-style-switcher.js')}}"></script>
     <script src="{{asset('temple/js/waves.js')}}"></script>
