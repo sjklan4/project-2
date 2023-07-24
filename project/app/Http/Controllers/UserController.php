@@ -140,7 +140,7 @@ class UserController extends Controller
         // dump($req->accessnum);
         // exit;
         // $email_id = $useraccess->email_id;
- 
+
 
         if(!$useraccess){
             $error = '인증번호를 확인해주세요';
@@ -192,10 +192,10 @@ class UserController extends Controller
     // 회원가입 화면 이동
     public function regist(){
         // ------------- v002 add -------------
-        if(session()->has('userInfo')) {
+        if(session()->has('userInfo')) { // 소셜 인증 후 회원가입
             return view('regist')->with('userInfo', session('userInfo'));
         }
-        else{
+        else{   // 이메일 인증 후 회원가입
             return redirect()->intended(route('user.login'));
         }
         // ------------- v002 add -------------
@@ -212,30 +212,30 @@ class UserController extends Controller
             ,'password' => 'required|same:passwordchk|regex:/^(?=.*[a-zA-Z])(?=.*[!@#$%^*-])(?=.*[0-9]).{8,30}$/'
 
             // email형식에 맞춰서 작성하도록 라라벨 자체 정규식 사용
-            ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:50'
-            ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
-            ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
-            ,'user_id'    => 'required|regex:/^[0-9]+$'
-            ,'user_gen'   => 'required|regex:/^[01]{0,1}$'
+            ,'user_email'       => 'required|unique:user_infos,user_email|email|min:2|max:50'
+            ,'nkname'           => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7'
+            ,'user_phone_num'   => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
+            ,'user_id'          => 'required|regex:/^[0-9]+$'
+            ,'user_gen'         => 'required|regex:/^[01]{0,1}$'
             ];
 
         $messages = [
-            'user_name.required'    => '이름은 필수 입력 사항입니다.',
-            'user_name.regex'       => '한글과 영문만 허용합니다.',
-            'user_name.max'         => ':max자까지 입력 가능합니다.',
-            'user_name.min'         => ':min자 이상 입력 가능합니다.',
-            'password.same'         => '비밀번호 확인과 일치하지 않습니다.',
-            'password.required'     => '비밀번호는 필수 입력 사항입니다.',
-            'password.regex'        => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
-            'user_email'            => 'email형식에 맞춰주세요.',
-            'user_email.unique'     => '이미 사용중인 email 입니다.',
-            'nkname.required'       => '닉네임은 필수 입력 사항입니다.',
-            'nkname.unique'         => '이미 사용중인 닉네임 입니다.',
-            'nkname.regex'          => '영문 대소문자, 한글, 숫자로 구성하여 입력해주세요.',
-            'nkname.max'            => ':max자까지 입력 가능합니다.',
-            'user_phone_num.required'=> '전화번호는 필수입력사항 입니다.',
-            'user_phone_num.unique'  => '입력하신 연락처로 가입한 이메일이 존재합니다.',
-            'user_phone_num.regex'  => '전화번호 형식에 맞추어 입력해주세요.'
+            'user_name.required'        => '이름은 필수 입력 사항입니다.',
+            'user_name.regex'           => '한글과 영문만 허용합니다.',
+            'user_name.max'             => ':max자까지 입력 가능합니다.',
+            'user_name.min'             => ':min자 이상 입력 가능합니다.',
+            'password.same'             => '비밀번호 확인과 일치하지 않습니다.',
+            'password.required'         => '비밀번호는 필수 입력 사항입니다.',
+            'password.regex'            => '영문 대소문자,특수문자,숫자를 포함한 8~30자리로 입력해주세요.',
+            'user_email'                => 'email형식에 맞춰주세요.',
+            'user_email.unique'         => '이미 사용중인 email 입니다.',
+            'nkname.required'           => '닉네임은 필수 입력 사항입니다.',
+            'nkname.unique'             => '이미 사용중인 닉네임 입니다.',
+            'nkname.regex'              => '영문 대소문자, 한글, 숫자로 구성하여 입력해주세요.',
+            'nkname.max'                => ':max자까지 입력 가능합니다.',
+            'user_phone_num.required'   => '전화번호는 필수입력사항 입니다.',
+            'user_phone_num.unique'     => '입력하신 연락처로 가입한 이메일이 존재합니다.',
+            'user_phone_num.regex'      => '전화번호 형식에 맞추어 입력해주세요.'
         ];
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'), $rules, $messages);
@@ -319,7 +319,7 @@ class UserController extends Controller
     public function userinfoeditPost(Request $req){
 
         // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
-        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7' //영문대소문자, 한글, 숫자로 최소1자 최대20자
         // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
 
         // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
@@ -353,7 +353,7 @@ class UserController extends Controller
         $rules = [
             'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
             // ,'user_email'    => 'required|unique:user_infos,user_email|email|min:2|max:20'
-            ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:20'
+            ,'nkname'   => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7'
             ,'user_phone_num'  => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
             // ,'user_tall'    => 'regex:/^[0-9]+$|max:5'
             // ,'user_weight'   => 'regex:/^[0-9]+$|max:5'
