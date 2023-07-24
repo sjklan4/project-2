@@ -10,7 +10,7 @@ function detailReport(id, board) {
     if (!board) {
         board = 'a';
     }
-    fetch(`/api/reportdetail/${id}/${board}`, {
+    fetch(`/api/report/${id}/${board}`, {
         method: "get"
     })
     .then(res => res.json())

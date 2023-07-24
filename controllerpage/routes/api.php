@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 생성일       : 2023-07-21
 // ---------------------------------------------
 use App\Http\Controllers\ApiReportController;
-Route::get('/reportdetail/{id}/{board}', [ApiReportController::class, 'reportDetail']);
+Route::get('/report/{id}/{board}', [ApiReportController::class, 'reportDetail']);
 
 // ---------------------------------------------
 // 섹션명       : 음식 관리 페이지 
