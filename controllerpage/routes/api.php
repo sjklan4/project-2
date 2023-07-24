@@ -38,3 +38,15 @@ use App\Http\Controllers\ApiFoodController;
 Route::delete('/userfood/del/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood.del');
 Route::post('/food/insert',[ApiFoodController::class, 'foodinsert'])->name('food.insert');
 Route::put('/food/edit/{food_id}',[ApiFoodController::class, 'foodedit'])->name('food.edit');
+
+
+// ---------------------------------------------
+// 섹션명       : 유저 정지 복구 버튼
+// 기능         : 게시글, 댓글 상세 내용 관련 라우트 설정
+// 관리자       : 박상준
+// 생성일       : 2023-07-21
+// ---------------------------------------------
+
+use App\Http\Controllers\ApiMemberController;
+// 해당 유저 정지 복구 라우트
+Route::post('/member/memberreturn',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');

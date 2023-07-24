@@ -43,8 +43,7 @@ class BoardController extends Controller
         $result = Board::join('board_cates','boards.bcate_id','=', 'board_cates.bcate_id')
             ->select('boards.board_id', 'boards.btitle', 'boards.likes', 'boards.hits', 'boards.replies', 'board_cates.bcate_name', 'boards.created_at')
             ->orderBy('boards.created_at', 'desc')
-            ->paginate(10)
-            ;
+            ->paginate(10);
 
         return view('boardList')->with('data', $result);
     }
@@ -224,15 +223,14 @@ class BoardController extends Controller
             ->paginate(5);
                 
         // 식단 관련 정보 획득
-        $diet = DB::select('SELECT fi.food_name, fdf.fav_f_intake
-            FROM fav_diet_food AS fdf
-            INNER JOIN fav_diets AS fd
-            ON fd.fav_id = fdf.fav_id
-            INNER JOIN food_infos AS fi
-            ON fi.food_id = fdf.food_id
-                    WHERE fdf.fav_id = ?', [$board->fav_id]);
+        $diet = DB::select('SELECT fd.fav_name, fi.food_name, fdf.fav_f_intake
+                            FROM fav_diet_food AS fdf
+                            INNER JOIN fav_diets AS fd
+                            ON fd.fav_id = fdf.fav_id
+                            INNER JOIN food_infos AS fi
+                            ON fi.food_id = fdf.food_id
+                            WHERE fdf.fav_id = ?', [$board->fav_id]);
         // ------------- v002 add -------------
-
         $arr = [
             'cate'        => $bcate->bcate_name
             ,'nkname'     => $user->nkname

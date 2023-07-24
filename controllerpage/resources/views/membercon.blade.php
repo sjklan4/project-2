@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="utf-8">
+    {{-- 아래는 api테스트 용 csrf임 --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +19,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/temple/assets/images/favicon.png">
     <!-- Custom CSS -->
     <link href="/temple/css/style.min.css" rel="stylesheet">
+    <link href="{{asset('css/food.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -126,13 +129,13 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="index.html" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
-                                    aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="{{ route('member.memberlist')}}" aria-expanded="false">
-                                <i class="me-3 fa fa-user" aria-hidden="true"></i><span
-                                    class="hide-menu">회원관리</span></a>
-                        </li>
+                            href="{{route('user.food')}}" aria-expanded="false"><i class="me-3 far fa-clock fa-fw"
+                                aria-hidden="true"></i><span class="hide-menu">회원음식관리</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            href="{{ route('member.memberlist')}}" aria-expanded="false">
+                            <i class="me-3 fa fa-user" aria-hidden="true"></i><span
+                                class="hide-menu">회원관리</span></a>
+                    </li>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('board.boardlist')}}" aria-expanded="false"><i class="me-3 fa fa-table"
@@ -141,8 +144,8 @@
                                 href="{{ route('comment.commentlist') }}" aria-expanded="false"><i class="me-3 fa fa-font"
                                     aria-hidden="true"></i><span class="hide-menu">댓글 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="map-google.html" aria-expanded="false"><i class="me-3 fa fa-globe"
-                                    aria-hidden="true"></i><span class="hide-menu">Google Map</span></a></li>
+                            href="{{route('manager.food')}}" aria-expanded="false"><i class="me-3 fa fa-globe"
+                            aria-hidden="true"></i><span class="hide-menu">관리자 음식 관리</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="pages-blank.html" aria-expanded="false"><i class="me-3 fa fa-columns"
                                     aria-hidden="true"></i><span class="hide-menu">Blank</span></a></li>
@@ -225,64 +228,88 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                @foreach ($data as $item)
-                                                    <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
-                                                        @csrf
+                                            @foreach ($data as $item)
+                                            <form action="{{ route('member.memberstop', ['id' => $item->user_id])}}" method="post">
+                                                @csrf
 
-                                                        <tr>
-                                                            <td>{{ $item->user_id }}</td>
-                                                            <td>{{ $item->user_email }}</td>
-                                                            <td>{{ $item->user_name }}</td>
-                                                            <td>{{ $item->user_phone_num }}</td>
-                                                            <td>{{ $item->created_at }}</td>
-                                                            <td>{{$item->user_status}}</td>
-                                                            <td>
-                                                                @if($item->user_status === '3')
-                                                                    정지된 회원입니다.
-                                                                        <button>
-                                                                            복구
-                                                                        </button>
-                                                                    @elseif($item->user_status !== '3')
-                                                                <button type="submit">정지</button>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    </form>   
-                                                @endforeach
-                                            
-                                            {{-- <tr>
-                                                <td>2</td>
-                                                <td>Deshmukh</td>
-                                                <td>Gaylord</td>
-                                                <td>@Ritesh</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sanghani</td>
-                                                <td>Gusikowski</td>
-                                                <td>@Govinda</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Roshan</td>
-                                                <td>Rogahn</td>
-                                                <td>@Hritik</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Joshi</td>
-                                                <td>Hickle</td>
-                                                <td>@Maruti</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Nigam</td>
-                                                <td>Eichmann</td>
-                                                <td>@Sonu</td>
-                                            </tr> --}}
+                                                <tr>
+                                                    <td class="user_id">{{ $item->user_id }}</td>
+                                                    <td>{{ $item->user_email }}</td>
+                                                    <td>{{ $item->user_name }}</td>
+                                                    <td>{{ $item->user_phone_num }}</td>
+                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>{{$item->user_status}}</td>
+                                                    <td>
+                                                        @if($item->user_status === '3')
+                                                            정지된 회원입니다.
+                                                                <button type="button" class="releasebtn" onclick="release({{ $item->user_id }})">
+                                                                    복구
+                                                                </button>
+                                                            @elseif($item->user_status !== '3')
+                                                        <button type="submit">정지</button>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            </form>   
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+                                {{-- 페이지네이션 --}}
+                                @if ($data->hasPages())
+                                <ul class="pagination pagination">
+                                @php
+                                    $block = 5;
+                                    $startPage = max(1, $data->currentPage() - floor($block / 2));
+                                    $endPage = min($startPage + $block - 1, $data->lastPage());
+                                @endphp
+                                {{-- 첫 페이지 버튼 --}}
+                                @if ($data->onFirstPage())
+                                    <li><<</li>
+                                @else
+                                    <li class="active">
+                                        <a href="{{ $data->url(1) }}" rel="prev"><<</a>
+                                    </li>
+                                @endif
+                                {{-- 이전 페이지 버튼 --}}
+                                @if ($data->onFirstPage())
+                                    <li><</li>
+                                @else
+                                    <li class="active">
+                                        <a href="{{ $data->previousPageUrl() }}" rel="prev"><</a>
+                                    </li>
+                                @endif
+                                {{-- 페이징 --}}
+                                {{-- range() : 지정된 범위의 숫자를 생성하여 배열로 반환 --}}
+                                @foreach(range($startPage, $endPage) as $i)
+                                    @if ($i == $data->currentPage())
+                                        <li class="active"><span>{{ $i }}</span></li>
+                                    @else
+                                        <li class="active">
+                                            <a href="{{$data->url($i)}}">{{$i}}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+            
+                                {{-- 다음 페이지 버튼 --}}
+                                @if ($data->hasMorePages())
+                                    <li class="active">
+                                        <a href="{{$data->nextPageUrl()}}">></a>
+                                    </li>
+                                @else
+                                    <li>></li> 
+                                @endif
+            
+                                {{-- 마지막 페이지 --}}
+                                @if ($data->hasMorePages())
+                                    <li class="active">
+                                        <a href="{{ $data->url($data->lastPage()) }}" rel="next">>></a>
+                                    </li>
+                                @else
+                                    <li>>></li> 
+                                @endif
+                            </ul>
+                        @endif
                             </div>
                         </div>
                     </div>
@@ -331,6 +358,7 @@
     <script src="/temple/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="/temple/js/custom.js"></script>
+    <script src="/js/member.js"></script>
 </body>
 
 </html>

@@ -60,37 +60,39 @@
                 </div>
                 @endif
                 <span>{!! $data['content']!!}</span>
-                <div> {{-- 게시글에 입력한 식단 출력 div --}}
-                    @foreach ($diet as $foods)
-                        <span>{{$foods->food_name}}</span>
-                        <span>{{$foods->fav_f_intake}}</span>
-                        <br>
-                    @endforeach
-                    {{-- todo : 식단 내려받기 함수 구현 --}}
-                    @if ($data['fav_id'] != 0)
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 내려받기</button>
-                        {{-- 식단 명 입력 alert --}}
-                        <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                @if ($diet)
+                    <div class="dietshere"> {{-- 게시글에 입력한 식단 출력 div --}}
+                        @foreach ($diet as $foods)
+                            <span>{{$foods->food_name}}</span>
+                            <span> | </span>
+                            <span>{{$foods->fav_f_intake}} 인분</span>
+                            <br>
+                        @endforeach
+                        @if ($data['fav_id'] != 0)
+                            <button type="button" class="shereBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 내려받기</button>
+                            {{-- 식단 명 입력 alert --}}
+                            <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">식단 즐겨찾기에 추가하기</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="fw-bold">식단명을 입력해주세요</p>                                     
+                                            <form action="{{route('board.dietdownload', ['favid' => $data['fav_id']])}}" method="post">
+                                                @csrf
+                                                <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
+                                                <button type="submit" class="greenBtn">등록하기</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <p class="fw-bold">식단명을 입력해주세요</p>                                     
-                                        <form action="{{route('board.dietdownload', ['favid' => $data['fav_id']])}}" method="post">
-                                            @csrf
-                                            <input type="text" name="fav_name" required placeholder="식단명을 입력해주세요." autocomplete="off" maxlength="10">
-                                            <button type="submit" class="greenBtn">등록하기</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>         
-                    @endif
-                </div>
+                                </div> 
+                            </div>         
+                        @endif
+                    </div>
+                @endif
                 <div class="likeDiv">
                     <input type="hidden" id="value1" value="{{session('user_id')}}">
                     <input type="hidden" id="value2" value="{{$data['id']}}">

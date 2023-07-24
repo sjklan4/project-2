@@ -17,6 +17,7 @@ function detailReport(id, board) {
     .then(data => { 
         console.log(data); console.log(data.errcode); console.log(data.msg)
         data['reportdata'].forEach(rep => {
+            
             if(rep.reply_id !== null){
                 // 신고당한 댓글 정보
                 report_con.innerHTML = '댓글 ID : ' + rep.reply_id
@@ -28,27 +29,13 @@ function detailReport(id, board) {
                 + '<br> 게시판 제목 : ' 
                 + rep.btitle + ' <br> 게시판 내용 : ' + rep.bcontent
             }
-            const hinputreport = document.createElement('input')
-            const hinputboard = document.createElement('input')
-            const hinputreply = document.createElement('input')
 
-            // 신고 번호
-            hinputreport.setAttribute('type', 'hidden')
-            hinputreport.setAttribute('name', 'reportId')
-            hinputreport.setAttribute('value', rep.rep_id)
-
-            // 신고한 게시판 번호
-            hinputboard.setAttribute('type', 'hidden')
-            hinputboard.setAttribute('name', 'boardId')
-            hinputboard.setAttribute('value', rep.board_id)
-
-            // 신고한 댓글 번호
-            hinputreply.setAttribute('type', 'hidden')
-            hinputreply.setAttribute('name', 'replyId')
-            hinputreply.setAttribute('value', rep.reply_id)
-            reportBtn.appendChild(hinputboard);
-            reportBtn.appendChild(hinputreport);
-            reportBtn.appendChild(hinputreply);
+            document.getElementById('report').value = rep.rep_id;
+            if (rep.reply_id != null) {
+                document.getElementById('reply').value = rep.reply_id;
+            } else {
+                document.getElementById('board').value = rep.board_id;
+            }
         });
         data['userdata'].forEach(user => {
             reporter.innerHTML = user.reporter + user.reporterid;
@@ -61,11 +48,7 @@ function detailReport(id, board) {
             report_com.innerHTML = user.complate_flg;
             report_date.innerHTML = user.created_at;
 
-            const hinputuser = document.createElement('input')
-            hinputuser.setAttribute('type', 'hidden')
-            hinputuser.setAttribute('name', 'userId')
-            hinputuser.setAttribute('value', user.suspect)
-            reportBtn.appendChild(hinputuser);
+            document.getElementById('suspectId').value = user.suspect;
         });
     });
 }
