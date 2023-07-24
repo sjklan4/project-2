@@ -20,14 +20,14 @@ class PwController extends Controller
         // 유효성 검사
         $rules = [
             'user_email'        => 'required|email|min:2|max:50'
-            // ,'user_name'        => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
-            // ,'user_phone_num'   => 'required|regex:/^01[0-9]{9,10}$/'
+            ,'user_name'        => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30'
+            ,'user_phone_num'   => 'required|regex:/^01[0-9]{9,10}$/'
         ];
 
-        $validate = Validator::make($req->only('user_email'),$rules,[
+        $validate = Validator::make($req->only('user_email','user_name','user_phone_num'),$rules,[
             'user_email'        => '이메일 형식에 맞춰서 입력해주세요.'
-            // ,'user_name'        => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-            // 'user_phone_num'    => '전화번호 형식에 맞춰서 숫자 0~9까지 숫자만 입력해주세요'
+            ,'user_name'        => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.'
+            ,'user_phone_num'    => '전화번호 형식에 맞춰서 숫자 0~9까지 숫자만 입력해주세요'
         ]);
 
         if ($validate->fails()) {

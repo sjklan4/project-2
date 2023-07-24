@@ -12,7 +12,7 @@
                     <div class="write-input">
                         <label for="user_email">이메일</label>
                         <br>
-                        <input type="email" name="user_email" id="user_email">
+                        <input type="email" name="user_email" id="user_email" autocomplete="off" value="{{ $errors->has('user_email') ? '' : old('user_email')}}">
                         @error('user_email') 
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -20,7 +20,7 @@
                     <div class="write-input">
                         <label for="user_name">회원이름</label>
                         <br>
-                        <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name', isset($data) ? $data->user_email : '') }}">
+                        <input type="text" name="user_name" id="user_name" value="{{ $errors->has('user_name') ? '' : old('user_name')}}" autocomplete="off">
                         @error('user_name') 
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -28,7 +28,7 @@
                     <div class="write-input">
                         <label for="user_phone_num">전화번호</label>
                         <br>
-                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        <input type="text" name="user_phone_num" id="user_phone_num" value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num')}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off">
                         @error('user_phone_num')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
