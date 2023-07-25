@@ -45,8 +45,8 @@ use App\Http\Controllers\ApiUserController;
 // Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'chdeckphone']);
 // Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
 Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'checkEmail']);
-Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'checkNkname']);
-Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'checkPhone']);
+// Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'checkNkname']);
+// Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'checkPhone']);
 Route::post('/user/userpsedt', [ApiUserController::class, 'checkPassword']);
 Route::delete('/user/userdraw', [ApiUserController::class, 'userdrawing']);
 
@@ -56,11 +56,11 @@ Route::delete('/user/userdraw', [ApiUserController::class, 'userdrawing']);
 // 관리자       : 채수지
 // 생성일       : 2023-06-22
 // ---------------------------------------------
-Route::get('/data', [ApiController::class, 'apisearch']);
-Route::post('/cart', [ApiController::class, 'postFoodCart']);
-Route::post('/cart2/{user_id}/{fav_id}', [ApiController::class, 'postFoodCart2']);
-Route::delete('/food/{user_id}/{food_id}/{cart_id}', [ApiController::class, 'foodDelete']);
-Route::delete('/diet/{user_id}/{cart_id}', [ApiController::class, 'dietDelete']);
+// Route::get('/data', [ApiController::class, 'apisearch']);
+Route::post('/carts/foods', [ApiController::class, 'postFoodCart']);
+Route::post('/carts/diets', [ApiController::class, 'postFoodCart2']);
+Route::delete('/carts/foods', [ApiController::class, 'foodDelete']);
+Route::delete('/carts/diets', [ApiController::class, 'dietDelete']);
 
 // ---------------------------------------------
 // 섹션명       : 홈(Home)
@@ -70,5 +70,5 @@ Route::delete('/diet/{user_id}/{cart_id}', [ApiController::class, 'dietDelete'])
 // ---------------------------------------------
 use App\Http\Controllers\ApiHomeController;
 
-Route::post('/home/intakeupdate/{df_id}',[ApiHomeController::class, 'intakeupdate'])->name('home.intakeupdate');
-Route::delete('/home/intakedel',[ApiHomeController::class, 'intakedel'])->name('home.intakedel');
+Route::put('/intakes/{df_id}',[ApiHomeController::class, 'intakeupdate'])->name('home.intakeupdate');
+Route::delete('/foods',[ApiHomeController::class, 'intakedel'])->name('home.intakedel');
