@@ -91,7 +91,7 @@
                                                             <input type="hidden" id="suspectId" name="userId">
                                                         </div>
                                                         <button type="submit" name="complate" value="0">철회</button>
-                                                        <button type="submit" name="complate" value="1">확인</button>
+                                                        <button type="submit" id="greenBtn" name="complate" value="1">확인</button>
                                                     </form>
                                                 </div>
                                             </div>

@@ -18,6 +18,7 @@
     <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     <link href="/temple/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/common.css')}}">
     @section('css')
     @show
 </head>

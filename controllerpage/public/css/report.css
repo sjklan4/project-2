@@ -32,7 +32,29 @@ tbody tr:hover{
     color: rgb(1,129,192);
 }
 
-
 a {
     color:#000;
+}
+
+button {
+    background-color: #c1c1c1;
+    border: none;
+    transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    color: white;
+    height: 2.2rem;
+    width: 6rem;
+    padding: 1.5em auto;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #9D9D9D;
+}
+
+#greenBtn {
+    background-color: #6799E4;
+}
+
+#greenBtn:hover {
+    background-color: #5781c0;
 }
