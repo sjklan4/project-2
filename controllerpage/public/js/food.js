@@ -12,7 +12,7 @@ function chkDel() {
     const arrChkVal = getCheckedValues();
     if (confirmDelete) {
         arrChkVal.forEach(ele => {
-            const url = "/api/userfood/del/" + ele;
+            const url = "/api/userfoods/" + ele;
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const request = new Request(url, {
                 headers: {
@@ -47,7 +47,7 @@ function foodDel(food_id) {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
     if (confirmDelete) {
-        const url = "/api/userfood/del/" + food_id;
+        const url = "/api/userfoods/" + food_id;
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const request = new Request(url, {
             headers: {
@@ -102,7 +102,7 @@ function inputReset(){
 
 // 관리자 음식 등록
 function foodinsert() {
-    const url = "/api/food/insert";
+    const url = "/api/foods";
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     const user_id = document.getElementById('user_id');
@@ -186,7 +186,7 @@ insertModal._element.addEventListener('hidden.bs.modal', function () {
 
 // 관리자 음식 수정
 function foodedit(food_id) {
-    const url = "/api/food/edit/" + food_id;
+    const url = "/api/foods/" + food_id;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     // const user_id = document.querySelector('#editModal' + food_id + ' #user_id');
@@ -253,6 +253,7 @@ function foodedit(food_id) {
         else{
             console.log(apiData);
             alert('음식이 수정되었습니다.');
+            location.reload();
         }
     });
 }
