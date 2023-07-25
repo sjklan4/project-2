@@ -67,20 +67,16 @@ const checkboxes
     })
 }
 
-
-function bulkdel(){
-
-    const checkboxes = document.querySelectorAll('input[name="delchk[]"]:checked');
-
-    if (!checkboxes.length) {
-        alert('삭제하려는 댓글을 선태해주세요.');
-    } else {
-        let values = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-        console.log(values); // 이 부분은 reply_id 값의 배열을 콘솔에 기록합니다.
-        let frmDel = document.getElementById('selectdel');
-        frmDel.append('chkdel', values);
-        frmDel.submit();
-    }
+//선택 삭제 일반삭제 구분 기능
+window.onload = function(){
+    let bulkbtn = document.getElementById('').onsubmit();
 }
 
+
+
+
+{/* <input type="button" 
+					onclick="document.getElementById('frm').submit();"
+					value="전송">
+			<a href="#" onclick="document.getElementById('frm').submit();">
+			전송 </a> */}

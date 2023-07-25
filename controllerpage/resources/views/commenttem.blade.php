@@ -227,12 +227,12 @@
                                                     <input type="checkbox" name='delchk' value='selectall' onclick='selectAll(this)'>
                                                 </th>
                                                 <th class="border-top-0">
-                                                    <a href="#" id="delete-selected-link" onclick="bulkdel()">선택삭제</a></th>
+                                                    <button type="submit" form = "Dellbtn">선택삭제</button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 @foreach ($data as $item)
-                                                    <form action="{{ route('comment.commentdel', ['id' => $item->reply_id])}}" method="post">
+                                                    <form action="member.js" id="Dellbtn" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <tr>
@@ -243,12 +243,12 @@
                                                             <td>{{ $item->created_at }}</td>
                                                             <td>{{$item->deleted_at}}</td>
                                                             @if($item->deleted_at === null)
-                                                            <td><button type="submit" class="delBtn">삭제</button></td>
+                                                            <td><button type="submit" class="delBtn"  data-id="{{ $item->reply_id }}">삭제</button></td>
                                                                 @elseif($item->deleted_at !== null)
                                                                     <td>삭제된 댓글입니다.</td>
                                                                 @endif
                                                             <td>
-                                                                    <span hidden>{{ $item->reply_id }}</span>
+                                                                    {{-- <span hidden>{{ $item->reply_id }}</span> --}}
                                                                     {{-- <td>{{ $item->count }}</td> --}}
                                                                     @if($item->deleted_at === null)
                                                                         <input type="checkbox" name="delchk[]" value="{{ $item->reply_id }}">
