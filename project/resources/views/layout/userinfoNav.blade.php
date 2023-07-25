@@ -15,6 +15,9 @@
                 <div class="text-center pt-5">
                     {{-- <div class="d-table position-relative mx-auto mt-2 mt-lg-4 pt-5 mb-3">
                     </div> --}}
+                    @if(isset($medal))
+                        <p>{{ $medal }}</p>
+                    @endif
                     <h2 class="h5 mb-1">{{Auth::user()->user_name}}</h2>
                     <p class="mb-3 pb-3">{{Auth::user()->user_email}}</p>
                     <button type="button" class="btn btn-success w-100 d-md-none mt-n2 mb-3 collapsed" data-bs-toggle="collapse" data-bs-target="#account-menu" aria-expanded="false">
@@ -39,7 +42,7 @@
                         <i class="bx bx-user-minus fs-xl opacity-60 me-2"></i>
                         회원탈퇴
                     </a>
-                    <a href="" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <a href="{{route('user.logout')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="bx bx-log-out fs-xl opacity-60 me-2"></i>
                         Sign Out
                     </a>
