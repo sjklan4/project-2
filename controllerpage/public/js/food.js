@@ -1,7 +1,8 @@
-// 음식 삭제
+// 음식 선택삭제
 function chkDel() {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
+    // 체크박스 체크된 값 배열로 반환
     function getCheckedValues() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
         const checkedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
@@ -33,11 +34,45 @@ function chkDel() {
             })
             .then(apiData => {
                 console.log(apiData);
-                chk = true;
+                console.log(arrChkVal);
             })
             .catch(error => console.error('Error:', error));
         })
         location.reload();
+    }
+}
+
+// 음식개별삭제
+function foodDel(food_id) {
+    let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
+
+    if (confirmDelete) {
+        const url = "/api/userfood/del/" + food_id;
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const request = new Request(url, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+            },
+            method: 'DELETE',
+            credentials: "same-origin",
+            // body: JSON.stringify({
+            //     food_id: food_id;
+            // })  
+        });
+        fetch(request)
+        .then(data => {
+            if (!data.status) {
+                throw new Error(data.status + ' : API 응답 오류');
+            }
+            return data.json();
+        })
+        .then(apiData => {
+            console.log(apiData);
+            alert('삭제되었습니다');
+            location.reload();
+        })
+        .catch(error => console.error('Error:', error));
     }
 }
 
@@ -78,7 +113,6 @@ function foodinsert() {
     const fat = document.getElementById('fat');
     const sugar = document.getElementById('sugar');
     const sodium = document.getElementById('sodium');
-    // const ser_unit = document.getElementById('unit0');
     const serving = document.getElementById('serving');
 
 
@@ -222,3 +256,18 @@ function foodedit(food_id) {
         }
     });
 }
+
+const hover = document.getElementById('hover');
+const chkDelBtn = document.getElementById('chkDelBtn');
+
+chkDelBtn.addEventListener('mouseenter',function(){
+    hover.style.position = "absolute";
+    hover.style.right = "30px";
+    hover.innerHTML = "체크후 선택삭제버튼을 눌러주세요.";
+});
+
+chkDelBtn.addEventListener('mouseleave',function(){
+    hover.innerHTML = "";
+});
+
+const test = document.getElementById("test");

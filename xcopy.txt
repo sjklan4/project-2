@@ -5,6 +5,10 @@ xcopy C:\workspace\project-2 C:\Apache24\htdocs /F /H /Y /E /exclude:C:\workspac
 
 
 xcopy D:\Students\workspace\project-2\controllerpage C:\Apache24\htdocs\project-2\controllerpage /F /H /Y /E /exclude:D:\Students\workspace\project-2\exclude.txt
+
 xcopy D:\Students\workspace\project-2\project C:\Apache24\htdocs\project-2\project /F /H /Y /E /exclude:D:\Students\workspace\project-2\exclude.txt
 
 xcopy C:\workspace\project-2\controllerpage C:\Apache24\htdocs\controllerpage /F /H /Y /E /exclude:C:\workspace\project-2\exclude.txt
+
+xcopy C:\workspace\project-2\project C:\Apache24\htdocs\project /F /H /Y /E /exclude:C:\workspace\project-2\exclude.txt
+
