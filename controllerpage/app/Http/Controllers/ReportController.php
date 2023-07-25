@@ -83,8 +83,6 @@ class ReportController extends Controller
                 BoardReply::where('reply_id', $replyId)
                 ->restore();
             }else{
-                var_dump($boardId);
-                exit;
                 Board::where('board_id', $boardId)
                 ->restore();
             }

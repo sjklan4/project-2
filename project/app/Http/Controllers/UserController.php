@@ -61,8 +61,7 @@ class UserController extends Controller
 
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
-        // dump($user);
-        // exit;
+
         if($user->user_status === '2'){
             $error = '탈퇴한 사용자 입니다. 다른 Email로 로그인 해주세요';
             return back()->withErrors(['idpw' => $error])
@@ -127,7 +126,7 @@ class UserController extends Controller
         //         ->route('user.emailverify');
         // }
         $verification_code = Str::random(10); // 인증 코드 생성
-        $validity_period = now()->addMinutes(1); // 유효기간 설정
+        $validity_period = now()->addMinutes(5); // 유효기간 설정
 
         $user->verification_code = $verification_code;
         $user->validity_period = $validity_period;
@@ -167,14 +166,14 @@ class UserController extends Controller
         $currentTime = now();
         $validity_period = $useraccess->validity_period;
 
-        // todo 만료시 메일 다시 보내는 기능 추가 
+    
         if($currentTime > $validity_period){
 
             // 신규 인증코드 전송
             $new_verification_code = Str::random(10); // 인증 코드 생성
             $new_validity_period = now()->addMinutes(1); // 유효기간 설정
 
-            //다시 보내는 인증 코드 업데이트
+            //다시 보내는 인증 코드 업데이트 - 만료시 다시 보내기
             $useraccess->verification_code = $new_verification_code;
             $useraccess->validity_period = $new_validity_period;
             $useraccess->save();

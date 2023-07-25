@@ -56,6 +56,7 @@
                                             <td>완료</td>
                                         @endif
                                     </tr>
+                                    {{-- 신고 상세 내용 모달창 --}}
                                     <div class="modal fade" id="detailreport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -71,6 +72,10 @@
                                                     <span id="suspect"></span>
                                                     <h5>신고 내용</h5>
                                                     <span id="report_con"></span>
+                                                    <h5>신고 사유</h5>
+                                                    <span id="rcate"></span>
+                                                    <h5>신고 상세 내용</h5>
+                                                    <span id="reason"></span>
                                                     <h5>신고 현황</h5>
                                                     <span id="report_com"></span>
                                                     <h5>신고일</h5>
@@ -86,7 +91,7 @@
                                                             <input type="hidden" id="suspectId" name="userId">
                                                         </div>
                                                         <button type="submit" name="complate" value="0">철회</button>
-                                                        <button type="submit" name="complate" value="1">확인</button>
+                                                        <button type="submit" id="greenBtn" name="complate" value="1">확인</button>
                                                     </form>
                                                 </div>
                                             </div>

@@ -26,7 +26,7 @@ const insertMSG = document.getElementById('insertmsg');
 function duplicationEmail(){
    
     const userEmail = document.getElementById('mailAddress');
-    const url = "/api/user/useremailedt/" + userEmail.value;
+    const url = "/api/users/emails/" + userEmail.value;
 
     // email 값이 비어있을 경우
     if(userEmail.value.trim()===""){

@@ -110,7 +110,7 @@ function delintake(df_id) {
     let confirmDelete = confirm("음식 정보를 삭제 하시겠습니까?");
 
     if (confirmDelete) {
-        const url = "/api/home/intakedel";
+        const url = "/api/foods";
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const request = new Request(url, {
             headers: {
@@ -125,14 +125,15 @@ function delintake(df_id) {
         });
 
         fetch(request)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status + ' : API 응답 오류');
+        .then(apiData => {
+            if (apiData["errorcode"]=== "0") {
+                throw new Error('API 응답 오류');
             }
-            return response.json();
+            alert('삭제 되었습니다.');
+            return;
         })
-        .then(data => {
-            console.log(data);
+        .then(apiData => {
+            console.log(apiData);
             document.getElementById('foodlist'+ df_id).style.display ="none"
         })
         .catch(error => console.error('Error:', error));
@@ -150,13 +151,13 @@ function updateIntake(df_id) {
             if (confirmation) {
                 
                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                const url = "api/home/intakeupdate/"+ df_id;
+                const url = "api/intakes/"+ df_id;
                 const request = new Request(url, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': token
                     },
-                    method: 'POST',
+                    method: 'PUT',
                     credentials: "same-origin",
                     body: JSON.stringify({
                         df_id: df_id,
@@ -165,13 +166,14 @@ function updateIntake(df_id) {
                 });
 
                 fetch(request)
-                .then(response => {
-                    if (!response.status) {
-                        throw new Error(response.status + ' : API 응답 오류');
+                .then(apiData => {
+                    if (apiData["errorcode"]=== "0") {
+                        throw new Error('API 응답 오류');
                     }
-                    return response.json();
+                    alert('변경 되었습니다.');
+                    return;
                 })
-                .then(data => console.log(data));
+                .then(apiData => console.log(apiData));
             }
     }
 

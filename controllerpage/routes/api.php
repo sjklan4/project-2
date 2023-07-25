@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 생성일       : 2023-07-21
 // ---------------------------------------------
 use App\Http\Controllers\ApiReportController;
-Route::get('/report/{id}/{board}', [ApiReportController::class, 'reportDetail']);
+Route::get('/reports/{id}/{board}', [ApiReportController::class, 'reportDetail']);
 
 // ---------------------------------------------
 // 섹션명       : 음식 관리 페이지 
@@ -49,4 +49,4 @@ Route::put('/foods/{food_id}',[ApiFoodController::class, 'foodedit'])->name('foo
 
 use App\Http\Controllers\ApiMemberController;
 // 해당 유저 정지 복구 라우트
-Route::post('/member/memberreturn',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');
+Route::post('/remembers',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');

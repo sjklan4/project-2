@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ReportReason;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,6 +11,7 @@ class ReportController extends Controller
     // v002 add 게시글 및 댓글 신고
     public function report(Request $req) {
         $rep_r_id = DB::table('report_reasons')->insertGetId([
+            'rep_id' => 0,
             'rep_r_content' => $req->reporttext,
             'rep_flg' => $req->reportselect
         ]);
@@ -22,6 +24,12 @@ class ReportController extends Controller
             'rep_r_id' => $rep_r_id,
             'complate_flg' => 0,
             'created_at' => now()
+        ]);
+
+        $repseasoninsert = DB::table('report_reasons')
+        ->where('rep_r_id', $rep_r_id)
+        ->update([
+            'rep_id' => $insert
         ]);
 
         $getSuspectId = DB::table('report_lists')
