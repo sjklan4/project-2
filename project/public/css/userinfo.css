@@ -160,11 +160,13 @@ li.info-list{
 
 .hover-btn{
     position: relative;
+    
 }
 
 #suggest {
     position: relative;
     /* other styles as needed */
+
 }
 
 #suggest .arrow_box {
@@ -225,7 +227,7 @@ input#acctivaty2{
 }
 input#goal_kcal{
     width: 10vw;
-    min-width: 8vw;
+    min-width: 70px;
     text-align: end;
 }
 /* input#user_birth{
@@ -245,6 +247,7 @@ input#calcul-kcal{
     width: 1em;
     height: 1em;
     transition: border 0.3s ease-in-out;
+
 }
 
 [type="radio"]:checked{
