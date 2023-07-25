@@ -35,7 +35,7 @@ Route::get('/report/{id}/{board}', [ApiReportController::class, 'reportDetail'])
 // ---------------------------------------------
 use App\Http\Controllers\ApiFoodController;
 
-Route::delete('/userfoods/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood.del');
+Route::delete('/foods/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood.del');
 Route::post('/foods',[ApiFoodController::class, 'foodinsert'])->name('food.insert');
 Route::put('/foods/{food_id}',[ApiFoodController::class, 'foodedit'])->name('food.edit');
 
