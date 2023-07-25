@@ -2,7 +2,7 @@ function release(user_id){
 
         let confirmdraw = confirm("복구 시키시겠습니까?");
         if(confirmdraw){
-            const url = "/api/member/memberreturn"
+            const url = "/api/remembers"
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const request = new Request(url,{
                 headers: {

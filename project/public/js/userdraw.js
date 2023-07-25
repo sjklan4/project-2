@@ -1,7 +1,7 @@
 
 function chkpass(){
     const drawbtn = document.getElementById('drawbutton');
-    const url = "/api/user/userpsedt";
+    const url = "/api/users/passwords";
     // const pwForm = document.getElementById('pwForm');
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const request = new Request(url, {
@@ -43,7 +43,7 @@ function userdraw(){
         let confirmdraw = confirm("정말 탈퇴하시겠습니까?");
         
         if(confirmdraw){
-            const url = "/api/user/userdraw"
+            const url = "/api/users/userdraws"
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             const request = new Request(url,{
                 headers: {

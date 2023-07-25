@@ -23,6 +23,13 @@ class ApiHomeController extends Controller
     // }
 
     public function intakeupdate(Request $req, $df_id){
+        
+        $arr = [
+            'errorcode' => '0'
+            ,'msg'      => ''
+        ];
+
+
         $requestBody = json_decode($req->getContent());
 
         $dietfood = DietFood::find($df_id);
@@ -30,17 +37,28 @@ class ApiHomeController extends Controller
 
         $dietfood->save();
 
-        // todo 리턴값 수정
-        return response()->json(['staus' => '섭취량변경']);
+        $arr['errocode'] = '1';
+        $arr['msg'] = '섭취량 변경';
+
+        
+        return $arr;
     }
     
     
     public function intakedel(Request $req){
+
+        $arr = [
+            'errorcode' => '0'
+            ,'msg'      => ''
+        ];
+
         
         DietFood::destroy($req->df_id);
         
-        // todo 리턴값 수정
-        return response()->json(['status' => 'success']);
+        $arr['errocode'] = '1';
+        $arr['msg'] = '음식 삭제';
+
+        return $arr;
     }
     
 }

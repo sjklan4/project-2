@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', '댓글관리')
+@section('title', '회원관리')
 @section('css')
     <link href="{{asset('css/food.css')}}" rel="stylesheet">
 @endsection
