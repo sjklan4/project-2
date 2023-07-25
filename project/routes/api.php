@@ -44,11 +44,11 @@ use App\Http\Controllers\ApiUserController;
 // Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'chdecknkname']);
 // Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'chdeckphone']);
 // Route::post('/user/userpsedt', [ApiUserController::class, 'chdeckpassword']);
-Route::get('/user/useremailedt/{user_email}',[ApiUserController::class, 'checkEmail']);
+Route::get('/users/emails/{user_email}',[ApiUserController::class, 'checkEmail']);
 // Route::get('/user/usernkchk/{nkname}',[ApiUserController::class, 'checkNkname']);
 // Route::get('/user/userphchk/{user_phone_num}',[ApiUserController::class, 'checkPhone']);
-Route::post('/user/userpsedt', [ApiUserController::class, 'checkPassword']);
-Route::delete('/user/userdraw', [ApiUserController::class, 'userdrawing']);
+Route::post('/users/passwords', [ApiUserController::class, 'checkPassword']);
+Route::delete('/users/userdraws', [ApiUserController::class, 'userdrawing']);
 
 // ---------------------------------------------
 // 섹션명       : 카트(Cart)

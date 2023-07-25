@@ -61,8 +61,7 @@ class UserController extends Controller
 
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
-        // dump($user);
-        // exit;
+
         if($user->user_status === '2'){
             $error = '탈퇴한 사용자 입니다. 다른 Email로 로그인 해주세요';
             return back()->withErrors(['idpw' => $error])

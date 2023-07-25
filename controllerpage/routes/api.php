@@ -49,4 +49,4 @@ Route::put('/food/edit/{food_id}',[ApiFoodController::class, 'foodedit'])->name(
 
 use App\Http\Controllers\ApiMemberController;
 // 해당 유저 정지 복구 라우트
-Route::post('/member/memberreturn',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');
+Route::post('/remembers',[ApiMemberController::class, 'memberreturn'])->name('member.memberreturn');
