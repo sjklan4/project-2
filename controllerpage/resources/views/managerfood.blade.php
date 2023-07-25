@@ -285,5 +285,5 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('js/food.js')}}"></script>
+    <script src="/js/member.js"></script>
 @endsection
