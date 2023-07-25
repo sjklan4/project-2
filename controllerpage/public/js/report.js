@@ -10,7 +10,7 @@ function detailReport(id, board) {
     if (!board) {
         board = 'a';
     }
-    fetch(`/api/report/${id}/${board}`, {
+    fetch(`/api/reports/${id}/${board}`, {
         method: "get"
     })
     .then(res => res.json())
@@ -49,6 +49,23 @@ function detailReport(id, board) {
             report_date.innerHTML = user.created_at;
 
             document.getElementById('suspectId').value = user.suspect;
+        });
+        data['reason'].forEach(rea => {
+            if (rea.rep_flg == 0) {
+                document.getElementById('rcate').value = "불법광고";
+            } else if(rea.rep_flg == 1){
+                document.getElementById('rcate').value = "비방 및 욕설";
+            } else if(rea.rep_flg == 2){
+                document.getElementById('rcate').value = "허위 사실 유포";
+            } else {
+                document.getElementById('rcate').value = "불법 도배";
+            }
+
+            if(rea.rep_r_content){
+                document.getElementById('reason').value = rea.rep_r_content;
+            }else{
+                document.getElementById('reason').value = "X";
+            }
         });
     });
 }
