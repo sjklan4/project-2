@@ -49,7 +49,7 @@ function getFoodValue(event, userId)  {
         foodAmout = 1.0;
     }
 
-    const url = "/api/cart";
+    const url = "/api/carts/foods";
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const request = new Request(url, {
         headers: {
@@ -129,9 +129,24 @@ function getFoodValue(event, userId)  {
 
 // 선택 음식 삭제 함수
 function deletefood(userId, foodId, cartId) {
-    fetch(`/api/food/${userId}/${foodId}/${cartId}`, {
-        method: "delete"
-    })
+    const url = "/api/carts/foods";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
+            },
+        method: 'DELETE',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            user_id: userId,
+            cart_id: cartId,
+            food_id: foodId
+        })
+    });
+    fetch(request)
     .then(res => res.json())
     .then( data => {
         fav_food.replaceChildren()
@@ -160,9 +175,23 @@ function deletefood(userId, foodId, cartId) {
 
 // 즐겨찾는 식단 -> 장바구니
 function getDietValue(event, userId, favId)  {
-        fetch(`/api/cart2/${userId}/${favId}`, {
-            method: "post"
+    const url = "/api/carts/diets";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
+            },
+        method: 'POST',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            user_id: userId,
+            fav_id: favId
         })
+    });
+    fetch(request)
         .then(res => res.json())
         .then(data => { 
             if (data['errorcode'] === '0') {
@@ -197,9 +226,23 @@ function getDietValue(event, userId, favId)  {
 
 // 선택 식단 삭제 함수
 function deletediet(userId, cartId, favId) {
-    fetch(`/api/diet/${userId}/${cartId}`, {
-        method: "DELETE"
-    })
+    const url = "/api/carts/diets";
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const request = new Request(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": token
+            },
+        method: 'DELETE',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            user_id: userId,
+            cart_id: cartId
+        })
+    });
+    fetch(request)
     .then(res => res.json())
     .then( data => {
         console.log(data);

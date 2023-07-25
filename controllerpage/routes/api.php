@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 생성일       : 2023-07-21
 // ---------------------------------------------
 use App\Http\Controllers\ApiReportController;
-Route::get('/report/{id}/{board}', [ApiReportController::class, 'reportDetail']);
+Route::get('/reports/{id}/{board}', [ApiReportController::class, 'reportDetail']);
 
 // ---------------------------------------------
 // 섹션명       : 음식 관리 페이지 
@@ -35,9 +35,9 @@ Route::get('/report/{id}/{board}', [ApiReportController::class, 'reportDetail'])
 // ---------------------------------------------
 use App\Http\Controllers\ApiFoodController;
 
-Route::delete('/userfood/del/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood.del');
-Route::post('/food/insert',[ApiFoodController::class, 'foodinsert'])->name('food.insert');
-Route::put('/food/edit/{food_id}',[ApiFoodController::class, 'foodedit'])->name('food.edit');
+Route::delete('/userfoods/{food_id}',[ApiFoodController::class, 'userfoodDel'])->name('userfood.del');
+Route::post('/foods',[ApiFoodController::class, 'foodinsert'])->name('food.insert');
+Route::put('/foods/{food_id}',[ApiFoodController::class, 'foodedit'])->name('food.edit');
 
 
 // ---------------------------------------------
