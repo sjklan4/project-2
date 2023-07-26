@@ -11,23 +11,23 @@
 @endif
 <div class="col-md-8 offset-lg-1 pb-5 mt-n3 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0">
     <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
-        <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
+        <h1 class="h2 pt-xl-1 pb-3">나의 정보</h1>
         <form class="needs-validation border-bottom pb-3 pb-lg-4" action="{{ route('user.userinfoeditPost') }}" method="post">
             @csrf
             <div class="row pb-2">
                 <div class="col-sm-12 mb-4">
-                    <label for="user_email" class="form-label fs-base">Email</label>
+                    <label for="user_email" class="form-label fs-base">이메일</label>
                     <input type="email" id="user_email" class="form-control form-control-lg" value="{{ $data->user_email }}" required readonly>
                 </div>
                 <div class="col-sm-6 mb-4">
-                    <label for="user_name" class="form-label fs-base">Name</label>
+                    <label for="user_name" class="form-label fs-base">이름</label>
                     <input type="text" id="user_name" name="user_name" class="form-control form-control-lg" value="{{old('user_name') !== null ? old('user_name') : $data->user_name}}" required>
                     @error('user_name')
                     <div class="fc-red">{{ $message }}</div>
                 @enderror
                 </div>
                 <div class="col-sm-6 mb-4">
-                    <label for="nkname" class="form-label fs-base">Nick Name</label>
+                    <label for="nkname" class="form-label fs-base">닉네임</label>
                     <input type="text" id="nkname" name="nkname" class="form-control form-control-lg" value="{{old('nkname') !== null ? old('nkname') : $data->nkname}}" required >
                     @error('nkname')
                         <div class="fc-red">{{ $message }}</div>
@@ -38,7 +38,7 @@
                     <input type="date" id="user_birth" name="nkname" class="form-control form-control-lg" required value="{{$userKcal->user_birth}}" readonly max="{{ now()->toDateString() }}">
                 </div> --}}
                 <div class="col-sm-6 mb-4">
-                    <label for="user_phone_num" class="form-label fs-base">Phone</label>
+                    <label for="user_phone_num" class="form-label fs-base">휴대전화</label>
                     <input type="tel" id="user_phone_num" name="user_phone_num" class="form-control form-control-lg" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value= "{{old('user_phone_num') !== null ? old('user_phone_num') : $data->user_phone_num}}" >
                     @error('user_phone_num')
                         <div class="fc-red">{{ $message }}</div>
@@ -59,7 +59,10 @@
                     @enderror
                 </div> --}}
             </div>
-            <button type = "submit" id="greenBtn">정보수정</button>
+            <div class="d-flex mb-4">
+                <button type="button" class="btn btn-secondary me-3" id="backBtn" onclick="redirectBack();">취소</button>
+                <button type= "submit" class="btn greenBtn">정보수정</button>
+            </div>
         </form>
         @if(session('changemsg'))
             {{session('changemsg')}}

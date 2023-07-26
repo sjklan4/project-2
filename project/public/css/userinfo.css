@@ -1,6 +1,9 @@
 .fc-red{
     color: #ff0000;
 }
+.fc-green{
+    color: #195F1C;
+}
 .off{
     display: none;
 }
@@ -72,14 +75,19 @@ button {
     padding: 1.5em auto;
     border-radius: 3px;
 }
-button:hover {
+/* button:hover {
     background-color: #17794b;
-}
-#greenBtn {
-    background-color: #538E04;
-}
-#greenBtn:hover {
+} */
+
+.greenBtn{
+    color: #fff;
     background-color: #195F1C;
+    border-color: #195F1C;
+}
+.greenBtn:hover{
+    color: #fff;
+    background-color: #195F1C;
+    border-color: #195F1C;
 }
 
 #passwordchk {
@@ -103,6 +111,11 @@ button:hover {
 
 input:focus {
     outline: none;
+}
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #195F1C;
 }
 
 .diechk-td{
@@ -303,8 +316,8 @@ td.info-table{
 }
 
 .greenBtn{
-    background-color: #198754;
-    border-color: #198754;
+    background-color: #195F1C;
+    border-color: #195F1C;
     color: #fff;
 }
 table {
@@ -374,6 +387,10 @@ caption{
     cursor: pointer;
 }
 
+#replyBtn, #boardBtn:hover{
+    cursor: pointer;
+}
+
 span.maxdate{
     color: #dc3545;
 }
@@ -389,9 +406,9 @@ span.passworderror{
 
 .list-group-item.active {
     z-index: 2;
-    color: #fff;
+    color: #ffffff;
     background-color: #195F1C;
-    border-color: #195F1C;
+    border-color:#195F1C;
 }
 
 .invalid-feedback{
@@ -406,4 +423,31 @@ span.passworderror{
 }
 .memo{
     padding: 10px;
+}
+
+/* 페이징 */
+.pagination {
+    justify-content: center;
+    font: 2rem;
+}
+.pagination li {
+    width: 30px;
+    height: 30px;
+    margin: 0 3px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.pagination li a:hover {
+    font-weight: 700;
+    color: rgb(1,129,192);
+}
+
+.pagination .active span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #195F1C;
+    color: #FFFFFF;
+    font-weight: 700;
 }

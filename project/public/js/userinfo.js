@@ -1,3 +1,36 @@
+// 칭호 변경페이지로 이동
+const medal = document.getElementById('medal');
+const medalChange = document.getElementById('medalChange');
+
+medal.addEventListener('mouseenter',function(){
+    medalChange.innerHTML = "칭호변경하러가기";
+    medal.style.cursor = "pointer";
+    medalChange.style.color = "green";
+    medal.style.color = "black";
+});
+
+medal.addEventListener('mouseleave',function(){
+    medalChange.innerHTML = "";
+});
+
+// nav 하이라이트
+const navItems = document.querySelectorAll('.list-group-item');
+
+let currentURL = window.location.href; // 현재 URL
+
+    navItems.forEach(function(item) {
+        let itemUrl = item.href;
+        if (currentURL.includes(itemUrl)) {
+            item.classList.add('active');
+        }
+    });
+
+// 이전 페이지로 가는 버튼
+const backBtn = document.getElementById('backBtn');
+
+function redirectBack(){
+    window.history.back();
+};
 
 // const test = document.getElementsByClassName('list-group-item');
 

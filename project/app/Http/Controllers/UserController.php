@@ -12,6 +12,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MyMail;
+use App\Models\Board;
+use App\Models\BoardReply;
 use App\Models\KcalInfo;
 use App\Models\UserInfo;
 use Exception;
@@ -530,8 +532,27 @@ public function userwithdraw(){
     return view('Userdraw');
 }   
 
+// ------------- v003 add -------------
+public function myboard(){
+
+    if(!Auth::user()) {
+        return redirect()->route('user.login');
+    }
+
+    $user = Auth::user()->user_id;
+
+    $board = Board::where('user_id', $user)->get();
+    $board_list = Board::where('user_id', $user)->orderBy('board_id','desc')->paginate(10);
+    $board_cnt = count($board);
+
+    $reply = BoardReply::where('user_id', $user)->get();
+    $reply_list = BoardReply::where('user_id', $user)->orderBy('reply_id','desc')->paginate(10);
+    $reply_cnt = count($reply);
 
 
+    return view('myboard')->with('data',$board_list)->with('boardCnt',$board_cnt)->with('reply',$reply_list)->with('replyCnt', $reply_cnt);
+}
+// ------------- v003 add -------------
 
 
 

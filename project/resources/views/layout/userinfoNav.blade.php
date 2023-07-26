@@ -16,19 +16,19 @@
                     {{-- <div class="d-table position-relative mx-auto mt-2 mt-lg-4 pt-5 mb-3">
                     </div> --}}
                     @if(isset($medal))
-                        <p>{{ $medal }}</p>
+                        <a href="{{route('quest.questAchieve')}}" id="medal">{{ $medal }} <p id="medalChange"></p></a>
                     @endif
                     <h2 class="h5 mb-1">{{Auth::user()->user_name}}</h2>
                     <p class="mb-3 pb-3">{{Auth::user()->user_email}}</p>
-                    <button type="button" class="btn btn-success w-100 d-md-none mt-n2 mb-3 collapsed" data-bs-toggle="collapse" data-bs-target="#account-menu" aria-expanded="false">
+                    <button type="button" class="btn w-100 d-md-none mt-n2 mb-3 collapsed" data-bs-toggle="collapse" data-bs-target="#account-menu" aria-expanded="false">
                     <i class="bx bxs-user-detail fs-xl me-2"></i>
-                    Account menu
+                    My Page
                     <i class="bx bx-chevron-down fs-lg ms-1"></i>
                     </button>
                     <div id="account-menu" class="list-group list-group-flush d-md-block collapse">
                     <a href="{{route('user.userinfoedit')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="bx bx-user fs-xl opacity-60 me-2"></i>
-                        회원정보
+                        나의 정보
                     </a>
                     <a href="{{route('user.userpsedit')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="bx bx-lock-alt fs-xl opacity-60 me-2"></i>
@@ -38,13 +38,17 @@
                         <i class="bx bx-bowl-rice fs-xl opacity-60 me-2"></i>
                         식단설정
                     </a>
+                    <a href="{{route('user.board')}}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="bx bx-clipboard fs-xl opacity-60 me-2"></i>
+                        글 & 댓글 목록
+                    </a>
                     <a href="{{route('user.userwithdraw')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="bx bx-user-minus fs-xl opacity-60 me-2"></i>
                         회원탈퇴
                     </a>
                     <a href="{{route('user.logout')}}" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="bx bx-log-out fs-xl opacity-60 me-2"></i>
-                        Sign Out
+                        로그아웃
                     </a>
                     </div>
                 </div>
@@ -55,6 +59,7 @@
             @yield('prevateinfocontents')
             @yield('passwordcontents')
             @yield('userdrawcontents')
+            @yield('myboard')
         </div>
     </section>
 
@@ -85,4 +90,5 @@
 
 @section('js')
     <script src="{{ asset('js/userinfo.js') }}"></script>
+    @yield('subjs')
 @endsection

@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         App\Providers\HeaderViewComposerServiceProvider::class,
+        App\Providers\MedalViewProvider::class,
 
         /*
          * Application Service Providers...

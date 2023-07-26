@@ -129,6 +129,9 @@ Route::get('/resend-email', [UserController::class, 'resend_email'])->name('rese
 //인증 번호 입력확인
 Route::post('/users/accessnum', [UserController::class, 'accessok'])->name('users.accessok');
 
+// 사용자의 작성글, 댓글
+Route::get('/user/userBoard', [UserController::class, 'myBoard'])->name('user.board');
+
 //----------------테스트용--------------------------------------
 // use App\Http\Controllers\ButtonController;
 // Route::post('/button-click', [ButtonController::class, 'handleButtonClick']);

@@ -38,13 +38,13 @@
                             </div>
                         </div>
             <div class="d-flex mb-3">
-                <button type="button" id="passwordchg" class="btn btn-success me-3" onclick="chkpass();">비밀번호확인</button>
-                <button type="button" id="drawbutton" class="btn btn-success" onclick="userdraw();" disabled>회원탈퇴하기</button>
+                <button type="button" id="passwordchg" class="btn greenBtn me-3" onclick="chkpass();">비밀번호확인</button>
+                <button type="button" id="drawbutton" class="btn greenBtn" onclick="userdraw();" disabled>회원탈퇴하기</button>
             </div>
         </div>
     </div>
 @endsection
-@section('js')
+@section('subjs')
     <script src="{{ asset('js/userdraw.js') }}"></script>
 @endsection
 

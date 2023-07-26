@@ -36,10 +36,10 @@
             </div>
         </div>
     <div class="d-flex mb-3">
-            <button type="button" id="suggest"  class="btn btn-success me-3">추천받기
+            <button type="button" id="suggest"  class="btn greenBtn me-3">추천받기
             <span class="arrow_box">칼로리 추천이 필요 하시면 아래 정보를 입력해주세요</span>
             </button>
-            <button type ="submit" id="modal" class="btn btn-success">설정완료</button>
+            <button type ="submit" id="modal" class="btn greenBtn">설정완료</button>
     </div> 
 
     <div class="modal_wrap">
@@ -82,7 +82,6 @@
                     <td><input type="text" name="calcul-kcal" id="calcul-kcal" placeholder="추천 칼로리" min="0" step="1">Kcal</td>
                 </tr>
                 <tr> 
-                   
                     {{-- <td><div><button type="button" id="suggest-cal" class="greenBtn">계산</button></div></td>
                     <td><div><button type="button" id="suggest-insert" class="greenBtn">적용</button></div></td> --}}
                 </tr>    
@@ -91,15 +90,15 @@
             </div>
         </form>
         <div class="d-flex mb-3">
-            <button type="button" id="suggest-cal" class="btn btn-success me-3">계 산</button>
-            <button type="button" id="suggest-insert" class="btn btn-success">적 용</button>
+            <button type="button" id="suggest-cal" class="btn greenBtn me-3">계 산</button>
+            <button type="button" id="suggest-insert" class="btn greenBtn">적 용</button>
         </div>  
     </div>
 </div>
 
 @endsection
 
-@section('js')
+@section('subjs')
     <script src="{{ asset('js/suggestkcal.js') }}"></script>
 @endsection
 
