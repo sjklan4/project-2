@@ -106,25 +106,11 @@ class UserController extends Controller
 
     //이메일 인증 절차 부분
     public function emailverifypost(Request $req){
-        // $rules = [ 'email'    => 'required|email|max:100'];
 
-        // $validate = Validator::make($req->only('email'), $rules, [
-        //     'email.required' => '이메일을 입력해주세요',
-        //     'email' => 'email형식에 맞춰주세요',
-        // ]);
-
-        // if ($validate->fails()) {
-        //     $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($errors)->withInput();
-        // }
 
         $user= new ModelsEmailverify;
         $user->email = $req->mailAddress;
 
-        // if(!$user){
-        //     return redirect()
-        //         ->route('user.emailverify');
-        // }
         $verification_code = Str::random(10); // 인증 코드 생성
         $validity_period = now()->addMinutes(5); // 유효기간 설정
 
@@ -150,9 +136,6 @@ class UserController extends Controller
         }
         
         $useraccess = ModelsEmailverify::where('verification_code',$req->accessnum)->first();
-        // dump($req->accessnum);
-        // exit;
-        // $email_id = $useraccess->email_id;
 
 
         if(!$useraccess){
@@ -185,14 +168,12 @@ class UserController extends Controller
             ->with('data', '0')
             ->withErrors(['numerror' => $error]);
         }
-        // dump($useraccess);
-        // exit;
+
         else{
 
             $useraccess->verification_code = null;
             $useraccess->validity_period = null;
             $useraccess->email_verified_at = now();
-            // $useraccess->id = $email_id;
             $useraccess->save();
 
             session(['userInfo' => ['email' => $useraccess->email
@@ -289,7 +270,7 @@ class UserController extends Controller
             ,'user_id'   => $user_id
         ];
         
-        // insert
+
         $kcalInfo = KcalInfo::create($data1);
         
         // $kcalInfo = false; // 에러 확인용
@@ -411,34 +392,6 @@ class UserController extends Controller
         return redirect()->route('user.userinfoedit')->with('changemsg',$changemsg);
         // ------------- v003 add -------------
     }
-
-    // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
-    //     $arrKey = [];
-    //     $baseUser = KcalInfo::find(Auth::User()->user_id);
-
-    //     if($req->user_birth !== $baseUser->user_birth){
-    //         $arrKey[] = 'user_birth';
-    //     }
-    //     //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
-    //     if($req->user_tall !== $baseUser->user_tall){
-    //         $arrKey[] = 'user_tall';
-    //     }
-
-    //     if($req->user_weight !== $baseUser->user_weight){
-    //         $arrKey[] = 'user_weight';
-    //     }
-    //       // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
-    //     if($req->user_weight !== $baseUser->user_weight){
-    //         $arrKey[] = 'user_activity';
-    //     }
-    //     foreach($arrKey as $val) {
-        
-    //         $baseUser->$val = $req->$val;
-    //     }
-    //     $baseUser->save(); // update
-    //     return redirect()->route('user.userinfoedit');
-
-    // }
 
 
     //유저 Email찾기 구문

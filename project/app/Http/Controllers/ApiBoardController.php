@@ -5,7 +5,7 @@
  * 디렉토리     : Controllers
  * 파일명       : ApiBoardController.php
  * 이력         : v001 0526 AR.Choe new
- *               v002 0717 Sj.Chae add
+ *                v002 0717 Sj.Chae add
  *****************************************************/
 
 namespace App\Http\Controllers;

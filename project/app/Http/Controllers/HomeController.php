@@ -4,7 +4,7 @@
  * 디렉토리     : Controllers
  * 파일명       : HomeController.php
  * 이력         : v001 0615 BJ.Kwon new
- *                v002 
+ *                v002 0717 0526 SJ.Park add
  **********************************************/
 namespace App\Http\Controllers;
 

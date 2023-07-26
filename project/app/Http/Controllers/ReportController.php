@@ -1,10 +1,10 @@
 <?php
-/****************************
+/*****************************************************
  * 컨트롤러명   : ReportController
  * 디렉토리     : Contrllers
  * 파일명       : ReportController.php
- * 이력         : v001 0724 채수지 new
-*****************************/
+ * 이력         : v001 0724 Sj.Chae new
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use App\Models\ReportReason;

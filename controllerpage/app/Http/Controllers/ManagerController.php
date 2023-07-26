@@ -4,7 +4,9 @@
  * 디렉토리     : Controllers
  * 파일명       : Managercontroller.php
  * 이력         : v001 0717 BJ.Kwon new
+ *                v002 0727 SJ.Park new 
  *****************************************************/
+
 
 namespace App\Http\Controllers;
 
