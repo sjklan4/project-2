@@ -80,7 +80,7 @@ li::marker{
 }
 button.delBtn:hover{
     color: #ffffff;
-    background: red;
+    background: rgb(1,129,192);
 }
 
 .releasebtn{
