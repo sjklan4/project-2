@@ -4,13 +4,7 @@
  * 디렉토리     : Controllers
  * 파일명       : Managercontroller.php
  * 이력         : v001 0717 BJ.Kwon new
- *****************************************************/
-
-/*****************************************************
- * 프로젝트명   : project-2 controllerpage
- * 디렉토리     : Controllers
- * 파일명       : ManagerController.php
- * 이력         :  v002 0727 SJ.Park new
+ *                v002 0727 SJ.Park new 
  *****************************************************/
 
 
