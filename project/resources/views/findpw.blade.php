@@ -40,8 +40,11 @@
                 </div>
             </form>
         </div>
+        @if(session('errmsg'))
+            <div class="text-danger">{{session('errmsg')}}</div>
+        @endif
         @if(session('message'))
-            {{session('message')}}
+            <div class="text-primary">{{session('message')}}</div>
         @endif
     </div>
 
