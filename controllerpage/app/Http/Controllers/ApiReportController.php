@@ -1,5 +1,10 @@
 <?php
-
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiReportController.php
+ * 이력         : v001 0724 SJ.Chae new
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

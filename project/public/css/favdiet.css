@@ -1,7 +1,6 @@
-/* v002 */
+/* v002 add css */
 * {
     margin: 0 auto;
-    /* padding: 0px; */
     font-size:16px;
 }
 @media screen and (max-width:500px){
@@ -158,14 +157,15 @@
 .fav_title{
     display: inline;
 }
-/* ! v001 */
-/* .fav-dietlist{
+
+/* v001 delete css
+.fav-dietlist{
     padding-top: 100px;
     display: grid;
     grid-template-columns: 1fr 1200px 1fr;
-} */
+}
 
-/* .favbox {
+.favbox {
     background: #FFFFF0;
     box-shadow: 0px 12px 30px #ECECEC;
     display: block;
@@ -173,14 +173,14 @@
     padding: 30px;
     margin-bottom: 30px;
     margin: 0 auto;
-} */
-/* .box1{
+}
+.box1{
     border-radius: 10px;
     background-color: transparent;
     padding: 20px;
     width: 70vw;
-} */
-/* .dietname{
+}
+.dietname{
     background-color: white;
     overflow:auto;
     width: 66vw;
@@ -209,13 +209,15 @@ a{
     margin-top: 20px;
     background-color: #FFFFF0;
     border-radius: 10px;
-    /* padding: 15px; */
+    /* v001 delete css : padding: 15px; */
 }
-/* span{
+/* v001 delete css
+span{
     margin-left: 10px;
     word-spacing: 5px;
     font-size: 16px;
-} */
+} 
+*/
 
 .submitbtn{
     text-align: end;
@@ -228,7 +230,7 @@ input{
     border-bottom: 1px solid #195F1C;
     background-color: transparent;
     outline: none;
-    /* font-size: 16px; */
+    /* v001 delete css : font-size: 16px; */
 }
 h1{
     font-size: xx-large;
@@ -296,14 +298,16 @@ input#intake{
 }
 
 h2 {
-    /* margin-left: 20px; */
+    /* v001 delete css : margin-left: 20px; */
     font-weight: 900;
 }
 
-/* th{
+/* v001 delete css
+th{
     width: 10vw;
     vertical-align: top;
-} */
+} 
+*/
 
 .del-diet{
     margin-right: 5px;

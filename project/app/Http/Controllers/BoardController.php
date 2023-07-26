@@ -4,7 +4,8 @@
  * 디렉토리     : Controllers
  * 파일명       : BoardController.php
  * 이력         : v001 0526 AR.Choe new
- *                v002 0724 AR.Choe add
+ *                v002 0717 Sj.Chae add
+ *                v003 0724 AR.Choe add
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -77,13 +78,15 @@ class BoardController extends Controller
         if(auth()->guest()) {
             return redirect()->route('user.login');
         }
-        // v002 add
+        // v002 add start
         $id = Auth::user()->user_id;
         $favDiet = DB::table('fav_diets')
                 ->where('user_id', $id)
                 ->whereNull('deleted_at')
                 ->get();
-        return view('boardCreate')->with('favDiet', $favDiet);
+        // v002 add end
+        return view('boardCreate')
+        ->with('favDiet', $favDiet); // v002 add
     }
 
     /**
@@ -198,7 +201,7 @@ class BoardController extends Controller
         ->first();
 
         // 댓글 관련 정보 획득
-        // ------------- v002 add -------------
+        // ------------- v003 add -------------
         $subQuery = DB::table('quest_statuses')
         ->select('quest_statuses.user_id', 'quest_cates.quest_style', 'quest_statuses.rep_flg')
         ->join('quest_cates', 'quest_cates.quest_cate_id', '=', 'quest_statuses.quest_cate_id')
@@ -222,7 +225,7 @@ class BoardController extends Controller
             ->where('user_infos.user_status', '1')
             ->paginate(5);
             
-        // 식단 관련 정보 획득
+        // v002 add start 식단 관련 정보 획득
         $diet = DB::select('SELECT fd.fav_name, fi.food_name, fdf.fav_f_intake
                             FROM fav_diet_food AS fdf
                             INNER JOIN fav_diets AS fd
@@ -230,7 +233,7 @@ class BoardController extends Controller
                             INNER JOIN food_infos AS fi
                             ON fi.food_id = fdf.food_id
                             WHERE fdf.fav_id = ?', [$board->fav_id]);
-        // ------------- v002 add -------------
+        // v002 add end
         $arr = [
             'cate'        => $bcate->bcate_name
             ,'nkname'     => $user->nkname
@@ -239,7 +242,7 @@ class BoardController extends Controller
             ,'hits'       => $board->hits
             ,'id'         => $board->board_id
             ,'like'       => $board->likes
-            ,'fav_id'     => $board->fav_id
+            ,'fav_id'     => $board->fav_id // v002 add
             ,'user_id'    => $board->user_id
             ,'created_at' => $board->created_at
             ,'like_flg'   => $like_flg
@@ -253,7 +256,10 @@ class BoardController extends Controller
             $arr['style'] = $style->quest_style;
         }
 
-        return view('boardDetail')->with('data', $arr)->with('reply', $reply)->with('diet', $diet);
+        return view('boardDetail')
+        ->with('data', $arr)
+        ->with('reply', $reply)
+        ->with('diet', $diet); // v002 add
     }
 
     /**
@@ -278,6 +284,7 @@ class BoardController extends Controller
             return redirect()->back();
         }
 
+        // v002 add start
         // 식단 명 정보 획득
         $user_id = Auth::user()->user_id;
         $favDiet = DB::table('fav_diets')
@@ -293,8 +300,13 @@ class BoardController extends Controller
                             INNER JOIN food_infos AS fi
                             ON fi.food_id = fdf.food_id
                             WHERE fdf.fav_id = ?', [$board->fav_id]);
+        // v002 add end
 
-        return view('boardEdit')->with('data', $board)->with('cate', $bcate)->with('favDiet', $favDiet)->with('beforeDiet', $beforeDiet);
+        return view('boardEdit')
+        ->with('data', $board)
+        ->with('cate', $bcate)
+        ->with('favDiet', $favDiet)
+        ->with('beforeDiet', $beforeDiet); // v002 add
     }
 
     /**
@@ -339,7 +351,7 @@ class BoardController extends Controller
         $board->bcate_id = $req->cate;
         $board->btitle = $req->title;
         $board->bcontent = $req->content;
-        $board->fav_id = $req->favdiet;
+        $board->fav_id = $req->favdiet; // v002 add
         $board->save();
 
         // 이미지 테이블 정보 수정
@@ -425,7 +437,7 @@ class BoardController extends Controller
                 ->where('board_id', $req->board_id)
                 ->increment('replies');
     
-            // ------------- v002 add -------------
+            // ------------- v003 add -------------
             // 본인이 작성한 댓글은 알림 인서트가 되지 않게 처리
             if($req->user_id != $user_id) {
                 // 댓글 알림 테이블 인서트
@@ -436,7 +448,7 @@ class BoardController extends Controller
                 $alarm->alarm_type = '1';  // 댓글 알림 타입
                 $alarm->save();
             }
-            // ------------- v002 add -------------
+            // ------------- v003 add -------------
         });
 
         // 게시글 상세 페이지 이동
@@ -458,12 +470,12 @@ class BoardController extends Controller
                 ->where('board_id', $board)
                 ->decrement('replies');
 
-            // ------------- v002 add -------------
+            // ------------- v003 add -------------
             // 댓글 알림 테이블 플래그 변경
             DB::table('alarms')
                 ->where('reply_id', $id)
                 ->update(['alarm_flg' => '1']);
-            // ------------- v002 add -------------
+            // ------------- v003 add -------------
         });
 
         return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
