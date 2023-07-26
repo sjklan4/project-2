@@ -285,7 +285,7 @@ Generic layout (demo looks)
 
 .articles {
     display: grid;
-    max-width: 74%;
+    max-width: 68%;
     margin-inline: auto;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
