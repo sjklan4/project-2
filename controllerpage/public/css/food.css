@@ -116,3 +116,16 @@ input.serving{
 .card-body{
     margin-bottom: 0 !important;
 }
+
+#selectdel{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(1,129,192);
+    width: 85px;
+    color: white;
+    outline: none;
+}
+
+td.masschk{
+    text-align: center;
+}

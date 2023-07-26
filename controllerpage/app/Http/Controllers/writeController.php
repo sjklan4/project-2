@@ -44,17 +44,26 @@ public function commentdel($id){
     }
     
 //체크된 댓글 삭제 하기
-// public function bulkDelete(Request $req)
-// {
-//     // Log::debug('--------- bulkDelete Start ---------');
-//     // Log::debug('Array delchk', $req->all());
-//     if($req->has('delchk')) {
-//         BoardReply::destroy($req->delchk[]);
-//     }
+public function massDelete(Request $request)
+{
+    $ids = $request->get('delchk'); // 'delchk' is the name of your checkbox input
 
-//     Log::debug('--------- bulkDelete End ---------');
-//     return redirect()->route('comment.commentlist');
-// }
+    if ($ids) {
+        BoardReply::destroy($ids);
+
+        // Use decrement and update with whereIn for selected IDs
+        DB::table('boards')
+            ->join('board_replies', 'boards.board_id', '=', 'board_replies.board_id')
+            ->whereIn('board_replies.reply_id', $ids)
+            ->decrement('replies');
+
+        DB::table('alarms')
+            ->whereIn('reply_id', $ids)
+            ->update(['alarm_flg' => '1']);
+    }
+
+    return redirect()->route('comment.commentlist');
+}
 
 
 // 게시글 리스트 받아오는 구문

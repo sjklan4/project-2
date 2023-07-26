@@ -145,10 +145,7 @@ class SearchController extends Controller
         ->where('d_date', $date)
         ->first();
 
-        // todo 날짜 지난 음식 장바구니 정보 삭제
         DB::table('food_carts')->where('created_at', '>', 'now()')->delete();
-
-        // todo 같은 음식이 입력되었을 때 처리
 
         
         if (!isset($selectDiet)) {  // 입력된 식단 정보가 없을 때
