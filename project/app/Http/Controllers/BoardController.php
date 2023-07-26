@@ -4,7 +4,7 @@
  * 디렉토리     : Controllers
  * 파일명       : BoardController.php
  * 이력         : v001 0526 AR.Choe new
- *                v002 0717 Sj.Chae add
+ *                v002 0717 Sj.Chae, AR.Choe add
  *                v003 0724 AR.Choe add
  *****************************************************/
 

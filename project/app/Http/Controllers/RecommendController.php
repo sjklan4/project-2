@@ -1,10 +1,10 @@
 <?php
-/****************************
+/*****************************************************
  * 컨트롤러명   : RecommendController
  * 디렉토리     : Contrllers
  * 파일명       : RecommendController.php
- * 이력         : v001 0717 채수지 new
-*****************************/
+ * 이력         : v001 0717 Sj.Chae new
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use App\Models\FavDiet;
