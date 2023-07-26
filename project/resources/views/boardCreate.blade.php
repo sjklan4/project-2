@@ -18,6 +18,7 @@
                         <option value="5" {{ old('cate') == 5 ? 'selected' : '' }}>30대</option>
                     </select>
                 </div>
+                {{-- v002 add start --}}
                 <div>
                     <label for="favdiet">저장된 식단</label>
                     <select name="favdiet" id="favdiet" onchange="DietShare()">
@@ -27,6 +28,7 @@
                         @endforeach
                     </select>
                 </div>
+                {{-- v002 add end --}}
                 <div>
                     <div class="errorMsg"></div>
                     <label for="title">제목</label>
@@ -37,6 +39,7 @@
                         value="{{count($errors) > 0 ? old('title') : ''}}"
                     >
                 </div>
+                {{-- v002 add start --}}
                 @if ($favDiet)
                     <div>
                         <div class="errorMsg"></div>
@@ -68,6 +71,7 @@
                         </div>
                     </div>
                 @endif
+                {{-- v002 add end --}}
                 <div>
                     <label for="picture">사진</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('picture', ':message') : ''}}</span>

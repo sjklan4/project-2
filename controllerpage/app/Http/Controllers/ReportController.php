@@ -1,5 +1,10 @@
 <?php
-
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ReportController.php
+ * 이력         : v001 0724 0724 Sj.Chae new
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use App\Models\Board;

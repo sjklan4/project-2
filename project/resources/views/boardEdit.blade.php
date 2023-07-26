@@ -23,7 +23,7 @@
                         @endforeach
                     </select>
                 </div>
-                {{-- v002 add --}}
+                {{-- v002 add start --}}
                 <div>
                     <label for="favdiet">저장된 식단</label>
                     <select name="favdiet" id="favdiet" onchange="DietShare()">
@@ -37,6 +37,7 @@
                         @endforeach
                     </select>
                 </div>
+                {{-- v002 add end --}}
                 <div>
                     <div class="errorMsg">{{count($errors) > 0 ? $errors->first('title', ':message') : ''}}</div>
                     <label for="title">제목</label>
@@ -47,6 +48,7 @@
                     <label for="content">내용</label>
                     <textarea name="content" id="content" cols="40" rows="8">{{count($errors) > 0 ? old('content') : $data->bcontent}}</textarea>
                 </div>
+                {{-- v002 add start --}}
                 <div> {{-- 저장된 식단 출력 부분 --}}
                     <br>
                     <label for="Diet">식단</label>
@@ -58,6 +60,7 @@
                         @endforeach
                     </div>
                 </div>
+                {{-- v002 add end --}}
                 <div>
                     <label for="picture">사진</label>
                     <span class="errorMsg">{{count($errors) > 0 ? $errors->first('picture', ':message') : ''}}</span>

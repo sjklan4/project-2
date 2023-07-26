@@ -1,4 +1,4 @@
-{{-- @extends('layout.userdietinfo') --}}
+{{-- v001 delete code @extends('layout.userdietinfo') --}}
 @extends('layout.layout')
 
 @section('title','favdiet')
@@ -11,7 +11,7 @@
 
 <div class="fav-dietlist">
 
-    {{-- <div></div> --}}
+    {{-- v001 delete code <div></div> --}}
     <div class="favbox">
         <h2 class="fav_title">식단음식 상세정보</h2>
         <div class="favmaintitle">
@@ -19,8 +19,9 @@
         </div>
         <div class="box1">
             <div class="dietname">
-            {{-- <table> --}}
-                {{-- <tr> --}}
+            {{-- v001 delete code : table → ul > li 
+                <table> --}}
+                {{-- v001 delete code <tr> --}}
                 {{-- 아래 구문은 for문을 가지고 컨트롤러의 favname에서 받은 select결과 값의 수만큼을 
                     반복해서 출력하도록 한다. : 지금은 favdiet테이블의 해당 user의 fav_name,fav_id를 user_id컬럼에 있는 유저id 수만큼 가져와서 반복해서 
                     출력 하도록 함(0부터 시작 favname수만큼 하려면 '<'로 표시)--}}
@@ -67,7 +68,7 @@
                                     <br>
                                     <div class="nutdiv">
                                     <span>
-                                        {{-- <i class="bi bi-asterisk"></i> --}}
+                                        {{-- v001 delete code : <i class="bi bi-asterisk"></i> --}}
                                         칼로리 : {{$item->kcal}}
                                     </span>
                                 {{-- </td>  

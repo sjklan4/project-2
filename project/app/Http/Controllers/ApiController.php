@@ -1,5 +1,13 @@
 <?php
 
+/*****************************************************
+ * 컨트롤러명   : SearchController
+ * 디렉토리     : Contrllers
+ * 파일명       : ApiController.php
+ * 이력         : v001 0615 채수지 new
+ *                v002 0713 최아란 add, delete
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use App\Models\DietFood;
