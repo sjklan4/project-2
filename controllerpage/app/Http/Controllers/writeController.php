@@ -70,6 +70,7 @@ public function commentdel($id){
         return view('boardtem')->with('data', $board_list);
     }
 
+// 게시글 삭제 컨트롤러 부분
     public function boarddel($id){
 
         if(!Auth::user()) {
