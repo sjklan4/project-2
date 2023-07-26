@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 // 생성일       : 2023-07-20
 // 라우트수      : 총 
 // ---------------------------------------------
-use App\Http\Controllers\writeController;
+use App\Http\Controllers\WriteController;
 
 
 //전체 댓글 가져오는 라우트
