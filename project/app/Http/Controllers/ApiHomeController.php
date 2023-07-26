@@ -1,4 +1,10 @@
 <?php
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiHomeController.php
+ * 이력         : v001 0726 Park Sang joon
+ *****************************************************/
 
 namespace App\Http\Controllers;
 
