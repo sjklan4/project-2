@@ -1,4 +1,11 @@
 <?php
+/*****************************************************
+ * 프로젝트명   : project-2 controllerpage
+ * 디렉토리     : Controllers
+ * 파일명       : MemberController.php
+ * 이력         :  v002 0727 SJ.Park new
+ *****************************************************/
+
 
 namespace App\Http\Controllers;
 

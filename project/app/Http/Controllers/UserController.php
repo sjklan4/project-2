@@ -105,25 +105,11 @@ class UserController extends Controller
 
     //이메일 인증 절차 부분
     public function emailverifypost(Request $req){
-        // $rules = [ 'email'    => 'required|email|max:100'];
 
-        // $validate = Validator::make($req->only('email'), $rules, [
-        //     'email.required' => '이메일을 입력해주세요',
-        //     'email' => 'email형식에 맞춰주세요',
-        // ]);
-
-        // if ($validate->fails()) {
-        //     $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($errors)->withInput();
-        // }
 
         $user= new ModelsEmailverify;
         $user->email = $req->mailAddress;
 
-        // if(!$user){
-        //     return redirect()
-        //         ->route('user.emailverify');
-        // }
         $verification_code = Str::random(10); // 인증 코드 생성
         $validity_period = now()->addMinutes(5); // 유효기간 설정
 
@@ -149,9 +135,6 @@ class UserController extends Controller
         }
         
         $useraccess = ModelsEmailverify::where('verification_code',$req->accessnum)->first();
-        // dump($req->accessnum);
-        // exit;
-        // $email_id = $useraccess->email_id;
 
 
         if(!$useraccess){
@@ -184,14 +167,12 @@ class UserController extends Controller
             ->with('data', '0')
             ->withErrors(['numerror' => $error]);
         }
-        // dump($useraccess);
-        // exit;
+
         else{
 
             $useraccess->verification_code = null;
             $useraccess->validity_period = null;
             $useraccess->email_verified_at = now();
-            // $useraccess->id = $email_id;
             $useraccess->save();
 
             session(['userInfo' => ['email' => $useraccess->email
@@ -252,17 +233,10 @@ class UserController extends Controller
 
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'), $rules, $messages);
 
-        // $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'),$rules,[
-        //         'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-        //         'password' => '영문(대소문자)와 숫자, 특수문자로 최소 8자 이상 10자 이내로 해주세요',
-        //         'user_email' => 'email형식에 맞춰주세요',
-        //         'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-        //         'user_phone_num' => '입력하신 연락처로 가입한 이메일이 존재합니다.',
-        //     ]);
 
         // todo 유효성 검사 부분 확인
         if ($validate->fails()) {
-            // $errors = $validate->errors();
+
             return redirect()->back()->withErrors($validate)->withInput();
         }
 
@@ -282,11 +256,7 @@ class UserController extends Controller
         // todo 트랜잭션
         $user_id = DB::table('user_infos')
             ->insertGetId($data,'user_id');
-        
-        // if($user_id < 0 || $user_id > 1){
-        //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
-        //     return redirect()->route('user.regist')->with('error', $error);
-        // }
+
         
         $data1 = [
             'user_birth' => $req->user_birth
@@ -294,10 +264,10 @@ class UserController extends Controller
             ,'user_id'   => $user_id
         ];
         
-        // insert
+
         $kcalInfo = KcalInfo::create($data1);
         
-        // $kcalInfo = false; // 에러 확인용
+
         
         if(!$kcalInfo){
             $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
@@ -329,20 +299,6 @@ class UserController extends Controller
     
     // 회원 정보 변경 post
     public function userinfoeditPost(Request $req){
-
-        // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
-        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7' //영문대소문자, 한글, 숫자로 최소1자 최대20자
-        // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
-
-        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
-        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
-        //     'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
-        //     'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
-        // ]);
-        // if ($validate->fails()) {
-        //     $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($errors)->withInput();
-        // }
 
         // 수정할 항목을 배열에 담는 변수
         $arrKey = [];
@@ -409,34 +365,6 @@ class UserController extends Controller
 
         return redirect()->route('user.userinfoedit')->with('changemsg',$changemsg);
     }
-
-    // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
-    //     $arrKey = [];
-    //     $baseUser = KcalInfo::find(Auth::User()->user_id);
-
-    //     if($req->user_birth !== $baseUser->user_birth){
-    //         $arrKey[] = 'user_birth';
-    //     }
-    //     //나이가 필요한 칼로리 계산 구문은 js로 별도 수행
-    //     if($req->user_tall !== $baseUser->user_tall){
-    //         $arrKey[] = 'user_tall';
-    //     }
-
-    //     if($req->user_weight !== $baseUser->user_weight){
-    //         $arrKey[] = 'user_weight';
-    //     }
-    //       // 0 : 1.2 / 1 : 1.55 / 2 : 1.9 으로 계산한다.
-    //     if($req->user_weight !== $baseUser->user_weight){
-    //         $arrKey[] = 'user_activity';
-    //     }
-    //     foreach($arrKey as $val) {
-        
-    //         $baseUser->$val = $req->$val;
-    //     }
-    //     $baseUser->save(); // update
-    //     return redirect()->route('user.userinfoedit');
-
-    // }
 
 
     //유저 Email찾기 구문
