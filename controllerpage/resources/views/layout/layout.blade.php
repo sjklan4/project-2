@@ -37,7 +37,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{asset('temple/assets/images/users/2.jpg')}}" alt="user" class="profile-pic me-2">{{Auth::user()->mng_name}}
+                                {{Auth::user()->mng_name}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{route('manager.logout')}}">로그아웃</a></li>
@@ -101,7 +101,7 @@
         <div class="page-wrapper">
             @yield('contents')
             <footer class="footer text-center">
-                © 2021 Monster Admin by <a href="https://www.wrappixel.com/">wrappixel.com</a>
+                © 2023 RE:BORN Admin by <a href="https://netacademy.or.kr/?gclid=EAIaIQobChMI8cCdh66rgAMVPsFMAh2vmQK4EAAYAiAAEgIRbvD_BwE">green.com</a>
             </footer>
         </div>
     </div>

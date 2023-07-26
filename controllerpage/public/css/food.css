@@ -78,6 +78,10 @@ li::marker{
     color: white;
     outline: none;
 }
+button.delBtn:hover{
+    color: #ffffff;
+    background: rgb(1,129,192);
+}
 
 .releasebtn{
     border: none;

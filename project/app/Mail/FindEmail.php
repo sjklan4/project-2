@@ -14,15 +14,17 @@ class FindEmail extends Mailable
     use Queueable, SerializesModels;
 
     protected $user;
+    protected $temporaryPw;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user,$temporaryPw)
     {
         $this->user = $user;
+        $this->temporaryPw = $temporaryPw;
     }
 
     /**
@@ -67,7 +69,7 @@ class FindEmail extends Mailable
         ->with([
                 'email'     => $this->user->user_email
                 ,'name'     => $this->user->user_name
-                ,'onepw'    => $this->user->temporary_pw
+                ,'onepw'    => $this->temporaryPw
         ]);
     }
 }

@@ -189,7 +189,7 @@ function foodedit(food_id) {
     const url = "/api/foods/" + food_id;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
-    // const user_id = document.querySelector('#editModal' + food_id + ' #user_id');
+    const user_id = document.querySelector('#editModal' + food_id + ' #user_id');
     const food_name = document.querySelector('#editModal' + food_id + ' #food_name');
     const kcal = document.querySelector('#editModal' + food_id + ' #kcal');
     const carbs = document.querySelector('#editModal' + food_id + ' #carbs');
@@ -257,18 +257,3 @@ function foodedit(food_id) {
         }
     });
 }
-
-const hover = document.getElementById('hover');
-const chkDelBtn = document.getElementById('chkDelBtn');
-
-chkDelBtn.addEventListener('mouseenter',function(){
-    hover.style.position = "absolute";
-    hover.style.right = "30px";
-    hover.innerHTML = "체크후 선택삭제버튼을 눌러주세요.";
-});
-
-chkDelBtn.addEventListener('mouseleave',function(){
-    hover.innerHTML = "";
-});
-
-const test = document.getElementById("test");
