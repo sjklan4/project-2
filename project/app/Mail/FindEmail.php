@@ -63,9 +63,10 @@ class FindEmail extends Mailable
     {
         return $this
         ->view('email.findemail')
-        ->subject('이메일로 발송되었습니다.')
+        ->subject('비밀번호 찾기')
         ->with([
-                'email'     => $this->user->user_email  
+                'email'     => $this->user->user_email
+                ,'name'     => $this->user->user_name
                 ,'onepw'    => $this->user->temporary_pw
         ]);
     }

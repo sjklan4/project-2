@@ -262,10 +262,10 @@ class UserController extends Controller
         //     ]);
 
         // todo 유효성 검사 부분 확인
-        // if ($validate->fails()) {
-        //     // $errors = $validate->errors();
-        //     return redirect()->back()->withErrors($validate)->withInput();
-        // }
+        if ($validate->fails()) {
+            // $errors = $validate->errors();
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
 
         Log::debug('유효성 검사 완료');
         
