@@ -1,5 +1,10 @@
 <?php
-
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : ApiFoodcontroller.php
+ * 이력         : v001 0717 BJ.Kwon new
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use App\Models\FoodInfo;

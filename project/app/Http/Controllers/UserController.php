@@ -6,6 +6,7 @@
  * 파일명       : Usercontroller.php
  * 이력         : v001 0526 SJ.Park new
  *                v002 0717 AR.Choe add, delete
+ *                v003 0717 BJ.Kwon add, delete
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -216,6 +217,7 @@ class UserController extends Controller
     // 회원 가입 부분
     public function registpost(Request $req){
         Log::debug('시작');
+        // ------------- v003 add -------------
         // 유효성 검사
         $rules = [
             // 영문대소, 한글만 허용, 최소 2자 최대 30자 까지
@@ -261,6 +263,8 @@ class UserController extends Controller
         }
 
         Log::debug('유효성 검사 완료');
+
+        // ------------- v003 add -------------
         
         $data = [
             'user_email'        => $req->user_email
@@ -276,11 +280,13 @@ class UserController extends Controller
         $user_id = DB::table('user_infos')
             ->insertGetId($data,'user_id');
             Log::debug('인서트완료후 user_id획득');
+
+        // ------------- v003 delete -------------
         // if($user_id < 0 || $user_id > 1){
         //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
         //     return redirect()->route('user.regist')->with('error', $error);
         // }
-        
+        // ------------- v003 delete -------------
         $data1 = [
             'user_birth' => $req->user_birth
             ,'user_gen'  => $req->gender
@@ -302,7 +308,9 @@ class UserController extends Controller
         // userinfo session 파기
         session()->forget('userInfo');
 
+        // ------------- v003 delete -------------
         // return view('login');
+        // ------------- v003 delete -------------
         return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
     }
 
@@ -324,6 +332,8 @@ class UserController extends Controller
     // 회원 정보 변경 post
     public function userinfoeditPost(Request $req){
 
+        // ------------- v003 delete -------------
+
         // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
         // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7' //영문대소문자, 한글, 숫자로 최소1자 최대20자
         // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
@@ -337,7 +347,10 @@ class UserController extends Controller
         //     $errors = $validate->errors();
         //     return redirect()->back()->withErrors($errors)->withInput();
         // }
+        // ------------- v003 delete -------------
 
+
+        // ------------- v003 add -------------
         // 수정할 항목을 배열에 담는 변수
         $arrKey = [];
 
@@ -402,6 +415,7 @@ class UserController extends Controller
         $changemsg = "변경 완료되었습니다.";
 
         return redirect()->route('user.userinfoedit')->with('changemsg',$changemsg);
+        // ------------- v003 add -------------
     }
 
     // public function userKcalup(Request $req){ //유저정보 변경중 칼로정보 입력을 위한 기본자료 수정 버튼 동작 구문
