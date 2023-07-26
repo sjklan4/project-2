@@ -16,12 +16,15 @@
                 <div>{{substr($data['created_at'], 0, 16)}}</div>
                 <div><i class="bi bi-bar-chart-fill"></i> {{number_format($data['hits'])}}</div>
                 {{-- 신고 --}}
+                {{-- v002 add start --}}
                 <div>
                     <button type="button" id="reportBtn" data-bs-toggle="modal" data-bs-target="#reportpost">
                         <i class="fa-solid fa-triangle-exclamation"></i> 신고
                     </button>
                 </div>
+                {{-- v002 add end --}}
             </div>
+            {{-- v002 add start --}}
             <div class="modal fade" id="reportpost" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -52,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            {{-- v002 add end --}}
             <div class="boardDetailContet">
                 @if (isset($data['img']))
                 <div class="imgDiv">
@@ -59,6 +63,7 @@
                 </div>
                 @endif
                 <span>{!! $data['content']!!}</span>
+                {{-- v002 add start --}}
                 @if ($diet)
                     <div class="dietshere"> {{-- 게시글에 입력한 식단 출력 div --}}
                         @foreach ($diet as $foods)
@@ -69,7 +74,7 @@
                         @endforeach
                         @if ($data['fav_id'] != 0)
                             <button type="button" class="shereBtn" data-bs-toggle="modal" data-bs-target="#exampleModal0">식단 내려받기</button>
-                            {{-- 식단 명 입력 alert --}}
+                            {{-- 식단 명 입력 모달 --}}
                             <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -92,6 +97,7 @@
                         @endif
                     </div>
                 @endif
+                {{-- v002 add end --}}
                 <div class="likeDiv">
                     <input type="hidden" id="value1" value="{{session('user_id')}}">
                     <input type="hidden" id="value2" value="{{$data['id']}}">

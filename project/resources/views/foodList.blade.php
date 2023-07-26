@@ -22,7 +22,7 @@
         <div class="searchtab">
             <div class="tab1">
                 <i class="fa-solid fa-utensils" style="color: #ee6666;"></i>
-                저장된 식단
+                자주먹는 식단
             </div>
             <div class="tab2">
                 <i class="fa-solid fa-cart-shopping" style="color: #538e04;"></i>

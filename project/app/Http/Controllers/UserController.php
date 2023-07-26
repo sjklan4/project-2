@@ -6,6 +6,7 @@
  * 파일명       : Usercontroller.php
  * 이력         : v001 0526 SJ.Park new
  *                v002 0717 AR.Choe add, delete
+ *                v003 0717 BJ.Kwon add, delete
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -196,6 +197,8 @@ class UserController extends Controller
 
     // 회원 가입 부분
     public function registpost(Request $req){
+        Log::debug('시작');
+        // ------------- v003 add -------------
         // 유효성 검사
         $rules = [
             // 영문대소, 한글만 허용, 최소 2자 최대 30자 까지
@@ -208,8 +211,7 @@ class UserController extends Controller
             ,'user_email'       => 'required|unique:user_infos,user_email|email|min:2|max:50'
             ,'nkname'           => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7'
             ,'user_phone_num'   => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
-            ,'user_id'          => 'required|regex:/^[0-9]+$'
-            ,'user_gen'         => 'required|regex:/^[01]{0,1}$'
+            ,'gender'         => 'required|regex:/^[01]{0,1}$'
             ];
 
         $messages = [
@@ -228,19 +230,22 @@ class UserController extends Controller
             'nkname.max'                => ':max자까지 입력 가능합니다.',
             'user_phone_num.required'   => '전화번호는 필수입력사항 입니다.',
             'user_phone_num.unique'     => '입력하신 연락처로 가입한 이메일이 존재합니다.',
-            'user_phone_num.regex'      => '전화번호 형식에 맞추어 입력해주세요.'
+            'user_phone_num.regex'      => '전화번호 형식에 맞추어 입력해주세요.',
+            'gender'                    => '올바른 값을 입력해주세요.'
         ];
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','passwordchk'), $rules, $messages);
+        Log::debug('유효성 중간');
 
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','gender','passwordchk'), $rules, $messages);
 
-        // todo 유효성 검사 부분 확인
         if ($validate->fails()) {
-
-            return redirect()->back()->withErrors($validate)->withInput();
+            // $errors = $validate->errors();
+            return back()->withErrors($validate)->withInput();
         }
 
         Log::debug('유효성 검사 완료');
+
+        // ------------- v003 add -------------
         
         $data = [
             'user_email'        => $req->user_email
@@ -253,11 +258,16 @@ class UserController extends Controller
         ];
         
         // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
-        // todo 트랜잭션
         $user_id = DB::table('user_infos')
             ->insertGetId($data,'user_id');
+            Log::debug('인서트완료후 user_id획득');
 
-        
+        // ------------- v003 delete -------------
+        // if($user_id < 0 || $user_id > 1){
+        //     $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
+        //     return redirect()->route('user.regist')->with('error', $error);
+        // }
+        // ------------- v003 delete -------------
         $data1 = [
             'user_birth' => $req->user_birth
             ,'user_gen'  => $req->gender
@@ -267,7 +277,8 @@ class UserController extends Controller
 
         $kcalInfo = KcalInfo::create($data1);
         
-
+        Log::debug('칼로리테이블인서트');
+        // $kcalInfo = false; // 에러 확인용
         
         if(!$kcalInfo){
             $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
@@ -278,7 +289,9 @@ class UserController extends Controller
         // userinfo session 파기
         session()->forget('userInfo');
 
+        // ------------- v003 delete -------------
         // return view('login');
+        // ------------- v003 delete -------------
         return redirect()->route('user.login')->with('success','회원가입을 완료했습니다.');
     }
 
@@ -300,6 +313,25 @@ class UserController extends Controller
     // 회원 정보 변경 post
     public function userinfoeditPost(Request $req){
 
+        // ------------- v003 delete -------------
+
+        // $rules = [  'user_name'  => 'required|regex:/^[a-zA-Z가-힣]+$/|min:2|max:30' //영문대소, 한글만 허용, 최소 2자 최대 30자 까지 
+        // ,'nkname'   => 'required|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7' //영문대소문자, 한글, 숫자로 최소1자 최대20자
+        // ,'user_phone_num'  => 'required|regex:/^01[0-9]{9,10}$/'];
+
+        // $validate = Validator::make($req->only('user_name','nkname','user_phone_num'),$rules,[
+        //     'user_name' => '한영(대소문자)로 2자 이상 20자 이내만 가능합니다.',
+        //     'nkname' => '공백 없이 한영(대소문자)로 2자이상 20자 이내만 가능합니다.',
+        //     'user_phone_num' => '01포함 9~10자리의 숫자만 입력',
+        // ]);
+        // if ($validate->fails()) {
+        //     $errors = $validate->errors();
+        //     return redirect()->back()->withErrors($errors)->withInput();
+        // }
+        // ------------- v003 delete -------------
+
+
+        // ------------- v003 add -------------
         // 수정할 항목을 배열에 담는 변수
         $arrKey = [];
 
@@ -364,6 +396,7 @@ class UserController extends Controller
         $changemsg = "변경 완료되었습니다.";
 
         return redirect()->route('user.userinfoedit')->with('changemsg',$changemsg);
+        // ------------- v003 add -------------
     }
 
 

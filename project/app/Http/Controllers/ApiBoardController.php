@@ -5,6 +5,7 @@
  * 디렉토리     : Controllers
  * 파일명       : ApiBoardController.php
  * 이력         : v001 0526 AR.Choe new
+ *               v002 0717 Sj.Chae add
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -73,7 +74,7 @@ class ApiBoardController extends Controller
         return $arr;
     }
 
-    // v002 add
+    // v002 add : 선택한 식단에 포함된 음식 조회 후 출력
     public function selectDiets($favId) {
         $arr = [
             'errorcode' => '0'

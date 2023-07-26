@@ -1,5 +1,10 @@
 <?php
-
+/****************************
+ * 컨트롤러명   : ReportController
+ * 디렉토리     : Contrllers
+ * 파일명       : ReportController.php
+ * 이력         : v001 0724 채수지 new
+*****************************/
 namespace App\Http\Controllers;
 
 use App\Models\ReportReason;
@@ -8,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    // v002 add 게시글 및 댓글 신고
+    // 게시글 및 댓글 신고
     public function report(Request $req) {
         $rep_r_id = DB::table('report_reasons')->insertGetId([
             'rep_id' => 0,

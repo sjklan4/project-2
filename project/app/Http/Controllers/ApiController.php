@@ -1,5 +1,13 @@
 <?php
 
+/*****************************************************
+ * 컨트롤러명   : SearchController
+ * 디렉토리     : Contrllers
+ * 파일명       : ApiController.php
+ * 이력         : v001 0615 채수지 new
+ *                v002 0713 최아란 add, delete
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use App\Models\DietFood;
@@ -161,7 +169,6 @@ class ApiController extends Controller
             $cart->save();
 
             // 현재 음식 장바구니 정보 획득
-            // todo join 필요성 다시 보기
             $seleted = DB::table('food_carts')
             ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
             ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
