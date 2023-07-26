@@ -68,15 +68,56 @@ const checkboxes
 }
 
 //선택 삭제 일반삭제 구분 기능
-window.onload = function(){
-    let bulkbtn = document.getElementById('').onsubmit();
+// function deleteSingle(id, route) {
+//     let form = document.getElementById('Dellbtn');
+//     form.action = route; 
+//     form.submit();
+// }
+
+// 선택 삭제 구문 준비
+function massDelete(route) {
+
+    let form = document.createElement('form');
+    form.action = route;
+    form.method = 'POST';
+
+    // Add _method field
+    let method = document.createElement('input');
+    method.type = 'hidden';
+    method.name = '_method';
+    method.value = 'DELETE';
+    form.appendChild(method);
+
+    // Add CSRF field
+    let csrf = document.createElement('input');
+    csrf.type = 'hidden';
+    csrf.name = '_token';
+    csrf.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    form.appendChild(csrf);
+
+    // Get all checkboxes
+    let checkboxes = document.getElementsByClassName('delchk');
+
+    // Loop through checkboxes and add selected ones to the form
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'delchk[]';
+            input.value = checkboxes[i].value;
+            form.appendChild(input);
+        }
+    }
+
+    // Append form to body and submit
+    document.body.appendChild(form);
+    form.submit();
 }
 
 
+// function massDelete(route) {
+//     let form = document.getElementById('massDeleteForm');
+//     form.action = route; 
+//     form.submit();
+// }
 
-
-{/* <input type="button" 
-					onclick="document.getElementById('frm').submit();"
-					value="전송">
-			<a href="#" onclick="document.getElementById('frm').submit();">
-			전송 </a> */}

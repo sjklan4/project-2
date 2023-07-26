@@ -35,7 +35,7 @@ Route::get('/comment/commentlist', [WriteController::class, 'commentlist'])->nam
 // 댓글 삭제 라우트
 Route::delete('/comment/commentdel/{id}',[WriteController::class, 'commentdel'])->name('comment.commentdel');
 // 댓글 선택 삭제 라우트
-// Route::delete('/comment/bulk-delete', [WriteController::class, 'bulkDelete'])->name('comment.bulkDelete');
+Route::delete('/comment/massDelete', [WriteController::class, 'massDelete'])->name('comment.massDelete');
 
 //전체 게시글 가져오는 라우트
 Route::get('/board/boardlist', [WriteController::class, 'boardlist'])->name('board.boardlist');
