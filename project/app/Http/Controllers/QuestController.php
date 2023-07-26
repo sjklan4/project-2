@@ -105,8 +105,6 @@ class QuestController extends Controller
             ->where('quest_status_id', $questStatus->quest_status_id)
             ->get();
 
-        // todo 로그 마지막 날 이후 접속 시 실패
-
         // 첫날 제외 어제 수행 여부 확인, 안되어있으면 실패
         if ($questLog[0]->effective_date !== Carbon::now()->format("Y-m-d")) {
             $yesterdayLog = DB::table('quest_logs')
@@ -151,8 +149,6 @@ class QuestController extends Controller
     }
 
     public function update(Request $req, $id) {
-        // todo 유효성, 트랜잭션
-
         DB::table('quest_logs')
             ->where('quest_log_id', $id)
             ->update([

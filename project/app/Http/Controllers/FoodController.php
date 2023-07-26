@@ -201,8 +201,6 @@ class FoodController extends Controller
         // 유저 id 획득
         $user_id = Auth::user()->user_id;
 
-        // todo 수정 된 정보만 수정
-
         // 음식 테이블 정보 수정
         DB::table('food_infos')
             ->where('food_id', $id)
@@ -223,12 +221,9 @@ class FoodController extends Controller
     }
 
     public function destroy($id) {
-        // todo 유효성 검사
-
         // 게시글 삭제 처리
         FoodInfo::destroy($id);
 
-        // todo 에러처리, 트랜잭션 처리
         return redirect()->route('food.index');
     }
 }

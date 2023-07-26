@@ -1,5 +1,12 @@
 <?php
 
+/*****************************************************
+ * 프로젝트명   : project-2
+ * 디렉토리     : Controllers
+ * 파일명       : AlarmController.php
+ * 이력         : v001 0720 AR.Choe new
+ *****************************************************/
+
 namespace App\Http\Controllers;
 
 use App\Models\Alarm;
@@ -8,8 +15,6 @@ use Illuminate\Http\Request;
 class AlarmController extends Controller
 {
     public function flgUpdate(Request $req, $alarm_id){
-        // todo 유효성
-
         // 알람 플래그 업데이트
         Alarm::where('alarm_id', $alarm_id)
             ->update(['alarm_flg' => '1']);

@@ -1,11 +1,11 @@
 <?php
-/****************************
+/*****************************************************
  * 컨트롤러명   : SearchController
  * 디렉토리     : Contrllers
  * 파일명       : SearchController.php
  * 이력         : v001 0615 채수지 new
  *                v002 0713 최아란 add, delete
-*****************************/
+ *****************************************************/
 namespace App\Http\Controllers;
 
 use App\Models\Diet;
@@ -145,10 +145,7 @@ class SearchController extends Controller
         ->where('d_date', $date)
         ->first();
 
-        // todo 날짜 지난 음식 장바구니 정보 삭제
         DB::table('food_carts')->where('created_at', '>', 'now()')->delete();
-
-        // todo 같은 음식이 입력되었을 때 처리
 
         
         if (!isset($selectDiet)) {  // 입력된 식단 정보가 없을 때

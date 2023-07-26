@@ -13,7 +13,7 @@
                     <h4 class="card-title">회원 등록 음식 관리</h4>
                     <h6 class="card-subtitle">음식정보 <code>.관리자용</code></h6>
                     <div class="text-end upgrade-btn">
-                        <button type="button" onclick="chkDel()" class="btn delBtn" id="test">선택삭제</button>
+                        <button type="button" onclick="chkDel()" class="btn delBtn">선택삭제</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table user-table no-wrap">
@@ -24,7 +24,7 @@
                                     <th class="border-top-0">음식 이름</th>
                                     <th class="border-top-0">음식 등록일</th>
                                     <th class="border-top-0">음식 삭제일</th>
-                                    <th id="hover2"></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

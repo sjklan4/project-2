@@ -127,7 +127,6 @@ class BoardController extends Controller
                         ->withInput();
         }
 
-        // todo 트랜잭션
         // 게시글 테이블에 인서트 후 pk 값 획득
         $board_id = DB::table('boards')->insertGetId([
                 'user_id'     => Auth::user()->user_id
