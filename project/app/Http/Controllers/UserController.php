@@ -260,7 +260,6 @@ class UserController extends Controller
         //         'user_phone_num' => '입력하신 연락처로 가입한 이메일이 존재합니다.',
         //     ]);
 
-        // todo 유효성 검사 부분 확인
         if ($validate->fails()) {
             // $errors = $validate->errors();
             return redirect()->back()->withErrors($validate)->withInput();
@@ -279,7 +278,6 @@ class UserController extends Controller
         ];
         
         // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
-        // todo 트랜잭션
         $user_id = DB::table('user_infos')
             ->insertGetId($data,'user_id');
         
