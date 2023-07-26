@@ -63,23 +63,23 @@ class PwController extends Controller
         if($user){
             if($user->user_name !== $req->user_name || $user->user_phone_num!== $req->user_phone_num){
                 $error = '이메일과 회원정보가 일치하지않습니다.';
-                return redirect()->back()->with('message',$error);
+                return redirect()->back()->with('errmsg',$error);
             }
             else{
                 // 임시비밀번호로 변경
-                $user->temporary_pw = $temporaryPw;
+                // $user->temporary_pw = Hash::make($temporaryPw);
                 $user->password = Hash::make($temporaryPw);
 
                 $user->save();
 
-                Mail::to($user->user_email)->send(new FindEmail($user));
+                Mail::to($user->user_email)->send(new FindEmail($user,$temporaryPw));
                 $message = '이메일을 확인해주세요';
                 return redirect()->route('findpw.get')->with('message',$message);
             }
         }
         else{
             $error = '가입되지않은 이메일입니다.';
-            return redirect()->back()->with('message',$error);
+            return redirect()->back()->with('errmsg',$error);
         }
 
     }
