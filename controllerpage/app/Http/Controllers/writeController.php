@@ -36,24 +36,28 @@ public function commentdel($id){
         ->where('board_replies.reply_id', $id)
         ->decrement('replies');
 
+        DB::table('alarms')
+        ->where('reply_id', $id)
+        ->update(['alarm_flg' => '1']);
+
         return redirect()->route('comment.commentlist');
     }
     
 //체크된 댓글 삭제 하기
-public function bulkDelete(Request $req)
-{
-    // Log::debug('--------- bulkDelete Start ---------');
-    // Log::debug('Array delchk', $req->all());
-    if($req->has('delchk')) {
-        BoardReply::destroy($req->delchk[]);
-    }
+// public function bulkDelete(Request $req)
+// {
+//     // Log::debug('--------- bulkDelete Start ---------');
+//     // Log::debug('Array delchk', $req->all());
+//     if($req->has('delchk')) {
+//         BoardReply::destroy($req->delchk[]);
+//     }
 
-    Log::debug('--------- bulkDelete End ---------');
-    return redirect()->route('comment.commentlist');
-}
+//     Log::debug('--------- bulkDelete End ---------');
+//     return redirect()->route('comment.commentlist');
+// }
 
 
-
+// 게시글 리스트 받아오는 구문
     public function boardlist(){
 
         if(!Auth::user()) {
@@ -61,29 +65,12 @@ public function bulkDelete(Request $req)
         }
 
         $board_list = DB::table('boards')->select('board_id','user_id','btitle','created_at','deleted_at')->orderBy('board_id','desc')->paginate(10);
-        // $board_list = DB::select('SELECT 
-        //                             ba.board_id,
-        //                             ba.user_id,
-        //                             ba.btitle,
-        //                             COALESCE(COUNT(re.board_id), 0) AS Count,
-        //                             ba.created_at,
-        //                             ba.deleted_at
-        //                         FROM 
-        //                             boards AS ba
-        //                         LEFT JOIN 
-        //                             report_lists AS re
-        //                         ON 
-        //                             ba.board_id = re.board_id
-        //                         GROUP BY 
-        //                             ba.board_id,
-        //                             ba.user_id,
-        //                             ba.btitle,
-        //                             ba.created_at,
-        //                             ba.deleted_at');
+
 
         return view('boardtem')->with('data', $board_list);
     }
 
+// 게시글 삭제 컨트롤러 부분
     public function boarddel($id){
 
         if(!Auth::user()) {

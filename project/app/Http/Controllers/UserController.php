@@ -62,29 +62,28 @@ class UserController extends Controller
         //유저 정보 습득
         $user = UserInfo::where('user_email',$req->email)->first();
 
-        if($user->user_status === '2'){
-            $error = '탈퇴한 사용자 입니다. 다른 Email로 로그인 해주세요';
-            return back()->withErrors(['idpw' => $error])
-            ->withInput();
-        }
-
-        if($user->user_status === '3'){
-            $error = '정지된 사용자 입니다. 고객센터에 문의해주세요';
-            return back()->withErrors(['idpw' => $error])
-            ->withInput();
-        }
-
         if (!$user) {
             $error = '등록된 유저가 없습니다. 고객센터에 문의해주세요';
             return back()->withErrors(['idpw' => $error])
             ->withInput();
         }
-        
-        if(!$user || !(Hash::check($req->password,$user->password))){
+
+        elseif($user->user_status === '2'){
+            $error = '탈퇴한 사용자 입니다. 다른 Email로 로그인 해주세요';
+            return back()->withErrors(['idpw' => $error])
+            ->withInput();
+        }
+
+        elseif($user->user_status === '3'){
+            $error = '정지된 사용자 입니다. 고객센터에 문의해주세요';
+            return back()->withErrors(['idpw' => $error])
+            ->withInput();
+        }
+
+        elseif(!$user || !(Hash::check($req->password,$user->password))){
             $error = '아이디와 비밀번호를 확인해 주세요.';
             return back()->withErrors(['idpw' => $error])
                 ->withInput();;
-
         }
 
         // 유저 인증작업
