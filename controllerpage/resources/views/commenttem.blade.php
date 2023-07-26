@@ -24,15 +24,14 @@
                                                 <th class="border-top-0">댓글 삭제일자</th>
                                                 <th class="border-top-0">삭제여부</th>
                                                 <th class="border-top-0">
-                                                    {{-- <input type="checkbox" name='delchk' value='selectall' onclick='selectAll(this)'>
-                                                </th> --}}
-                                                {{-- <th class="border-top-0">
-                                                    <button type="submit" form = "Dellbtn">선택삭제</button></th>
-                                            </tr> --}}
+                                                    <input type="checkbox" name='delchk' value='selectall' onclick='selectAll(this)'>
+                                                    <button id="selectdel" onclick="event.preventDefault(); massDelete('{{ route('comment.massDelete') }}')">선택삭제</button>
+                                                </th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                                 @foreach ($data as $item)
-                                                    <form action="{{ route('comment.commentdel', ['id' => $item->reply_id])}}" id="Dellbtn" method="post">
+                                                    <form action="{{ route('comment.commentdel', $item->reply_id) }}" id="deleteForm{{ $item->reply_id }}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <tr>
@@ -43,23 +42,27 @@
                                                             <td>{{ $item->created_at }}</td>
                                                             <td>{{$item->deleted_at}}</td>
                                                             @if($item->deleted_at === null)
-                                                            <td><button type="submit" class="delBtn"  id="{{ $item->reply_id }}">삭제</button></td>
+                                                            <td>
+                                                                <button type="submit" class="delBtn">삭제</button>
+                                                            </td>
+                                                            <td class="masschk">    
+                                                                <input type="checkbox" class="delchk" name="delchk[]" value="{{ $item->reply_id }}">
+                                                            </td>
                                                                 @elseif($item->deleted_at !== null)
                                                                     <td>삭제된 댓글입니다.</td>
                                                                 @endif
-                                                            {{-- <td> --}}
-                                                                    {{-- <span hidden>{{ $item->reply_id }}</span> --}}
-                                                                    {{-- <td>{{ $item->count }}</td> --}}
-                                                                    {{-- @if($item->deleted_at === null)
-                                                                        <input type="checkbox" name="delchk[]" value="{{ $item->reply_id }}">
-                                                                        @elseif($item->deleted_at !== null)
-                                                                        @endif --}}
-                                                            {{-- </td> --}}
+                                                            <td>
+                                                                @if($item->deleted_at === null)
+
+                                                                    @elseif($item->deleted_at !== null)
+                                                                    @endif
+                                                            </td>
                                                         </tr>
                                                     </form> 
                                                 @endforeach
                                         </tbody>
                                     </table>
+                                     
                                 </div>
                                 {{-- 페이지네이션 --}}
                                 @if ($data->hasPages())
