@@ -216,7 +216,6 @@ class UserController extends Controller
 
     // 회원 가입 부분
     public function registpost(Request $req){
-        Log::debug('시작');
         // ------------- v003 add -------------
         // 유효성 검사
         $rules = [
@@ -230,7 +229,7 @@ class UserController extends Controller
             ,'user_email'       => 'required|unique:user_infos,user_email|email|min:2|max:50'
             ,'nkname'           => 'required|unique:user_infos,nkname|regex:/^[a-zA-Z가-힣0-9]+$/|min:2|max:7'
             ,'user_phone_num'   => 'required|unique:user_infos,user_phone_num|regex:/^01[0-9]{9,10}$/'
-            ,'gender'         => 'required|regex:/^[01]{0,1}$'
+            ,'gender'           => 'required|regex:/^[01]{0,1}$/'
             ];
 
         $messages = [
@@ -253,16 +252,14 @@ class UserController extends Controller
             'gender'                    => '올바른 값을 입력해주세요.'
         ];
 
-        Log::debug('유효성 중간');
 
-        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','gender','passwordchk'), $rules, $messages);
+        $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','gender','passwordchk'),
+        $rules, $messages);
 
         if ($validate->fails()) {
-            // $errors = $validate->errors();
-            return back()->withErrors($validate)->withInput();
+            $errors = $validate->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
         }
-
-        Log::debug('유효성 검사 완료');
 
         // ------------- v003 add -------------
         
@@ -279,7 +276,6 @@ class UserController extends Controller
         // user_infos 테이블에 data값들을 넣고 그 데이터들의 id값을 가져와서 아래 데이터들이 들어가야 되는 ID값을 줄 수 있다.
         $user_id = DB::table('user_infos')
             ->insertGetId($data,'user_id');
-            Log::debug('인서트완료후 user_id획득');
 
         // ------------- v003 delete -------------
         // if($user_id < 0 || $user_id > 1){
@@ -296,14 +292,12 @@ class UserController extends Controller
         // insert
         $kcalInfo = KcalInfo::create($data1);
         
-        Log::debug('칼로리테이블인서트');
         // $kcalInfo = false; // 에러 확인용
         
         if(!$kcalInfo){
             $error = '시스템 에러가 발생하여, 회원가입에 실패했습니다.잠시 후에 다시 시도해주세요.';
             return redirect()->route('user.regist')->with('error', $error);
         }
-        Log::debug('유저 칼로리 테이블 인서트 완료');
         
         // userinfo session 파기
         session()->forget('userInfo');

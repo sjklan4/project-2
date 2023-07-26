@@ -26,7 +26,7 @@ class MemberController extends Controller
     public function memberstop(Request $req){
 
         $user = UserInfo::where('user_id', $req->id)->first();
-   
+
         $user->update(['user_status' => '3']);
 
     

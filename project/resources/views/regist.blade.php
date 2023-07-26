@@ -86,6 +86,9 @@
                     <label for="gender">성별</label>
                     <input type="radio" name="gender" id="gender0" value="0" checked> 남자
                     <input type="radio" name="gender" id="gender1" value="1"> 여자
+                    @error('gender')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="regisBtn">
                     <button type="button" onclick="location.href='{{route('user.login')}}'" id="exit">취소</button>
