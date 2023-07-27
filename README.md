@@ -21,4 +21,4 @@
    
    지라 : https://dkfks0832.atlassian.net/jira/software/projects/RV3/boards/3/timeline
    
-   PPT : https://www.canva.com/design/DAFpma63MDA/mWbtWaXj8nY0sdbfFCI2WA/edit?utm_source=shareButton&utm_medium=email&utm_campaign=designshare
+   PPT : https://www.canva.com/design/DAFpma63MDA/jFHxAMayXLwd1fSh8gIA1A/view?utm_content=DAFpma63MDA&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink
