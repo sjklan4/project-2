@@ -239,10 +239,18 @@ class UserController extends Controller
         $validate = Validator::make($req->only('user_name','password','user_email','nkname','user_phone_num','gender','passwordchk'),
         $rules, $messages);
 
+        // Log::debug('ifstart');
         if ($validate->fails()) {
+            if(isset($req['social'])){
+                $userInfo = ['social' => $req->social];
+                // $userInfo['social'] = $req->social;
+                session()->flash('userInfo', $userInfo);
+            }
             $errors = $validate->errors();
+            // Log::debug('if');
             return redirect()->back()->withErrors($errors)->withInput();
         }
+        // Log::debug('ifend');
 
         // ------------- v003 add -------------
         

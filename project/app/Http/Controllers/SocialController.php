@@ -48,14 +48,13 @@ class SocialController extends Controller
 
         // ------- v002 add -------
         // 네이버 로그인용 데이터 
-        $userphone = $user->user['response']['mobile'];
-        $strToArr = explode('-', $userphone);
-        $arrToPhone = implode('',$strToArr);
-
         if($social == 'naver') {
+            $userphone = $user->user['response']['mobile'];
+            $strToArr = explode('-', $userphone);
+            $arrToPhone = implode('',$strToArr);
+
             $userInfo['name'] = $user->name;
             $userInfo['phonenum'] = $arrToPhone;
-            $userInfo['social'] = '1';
         }
         // ------- v002 add -------
 
