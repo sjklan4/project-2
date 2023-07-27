@@ -22,15 +22,38 @@ class SocialController extends Controller
 
     public function back($social) {
         $user = Socialite::driver($social)->user();
+        
+        // 가입 안된 유저인 경우 회원가입 페이지로 이동
+        $social_flg = '';
+        switch ($social) {
+            case 'kakao':
+                $social_flg = '0';
+                break;
+                
+                case 'naver':
+                $social_flg = '1';
+                break;
+                
+                case 'google':
+                $social_flg = '2';
+                break;
+        }
 
         // 카카오 이메일과 일치하는 유저정보 획득
         $userBase = UserInfo::where('user_email', $user->getEmail())->first();
         
-        // 가입된 유저인 경우 로그인 진행
+        // 일치하는 이메일이 있는 경우
         if(isset($userBase)) {
+            // 기존 회원이 소셜 회원인지 확인
+            if($userBase->social === null) {
+                $userBase->social = $social_flg;
+                $userBase->save();
+            }
+
+            // 로그인 처리
             Auth::login($userBase);
             if(Auth::check()){
-                session($userBase->only('user_id')); // 세션에 인증된 회원 pk등록
+                session($userBase->only('user_id'));
                 return redirect()->intended(route('home'));
             } else{
                 $error = '인증작업 에러.';
@@ -38,11 +61,11 @@ class SocialController extends Controller
             }
         }
         
-        // 가입 안된 유저인 경우 회원가입 페이지로 이동
+
         $userInfo = [
             'email'   => $user->getEmail(),
             'name'    => $user->getNickname(),
-            'social'  => '0',
+            'social'  => $social_flg,
         ];
 
         // 세션에 유저 정보 저장
