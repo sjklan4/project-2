@@ -22,7 +22,7 @@
                                 <tbody>
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td>{{ $item->board_id }}</td>
+                                                <td style="max-width: 20px;">{{ $item->board_id }}</td>
                                                 <td class="btitle">
                                                     <a href="{{route('board.show', ['board' => $item->board_id])}}">
                                                         {{ $item->btitle }}
