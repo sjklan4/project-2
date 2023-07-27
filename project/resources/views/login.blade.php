@@ -51,8 +51,6 @@
         <a href="{{route('social.redirect', ['social' => 'naver'])}}">
             <img id="kakao" src="{{ asset('img/naver.png') }}">
         </a>
-    </div>
-    <div class="social">
         <a href="{{route('social.redirect', ['social' => 'google'])}}">
             <img id="kakao" src="{{ asset('img/google.png') }}">
         </a>
