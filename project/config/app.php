@@ -193,11 +193,11 @@ return [
     |
     */
 
-    // 'aliases' => Facade::defaultAliases()->merge([
-    //     // ...
-    // ])->toArray(),
-    'aliases' => [
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-    ],
+    'aliases' => Facade::defaultAliases()->merge([
+        // ...
+    ])->toArray(),
+    // 'aliases' => [
+    //     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    // ],
 
 ];

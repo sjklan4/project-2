@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use Laravel\Socialite\Facades\Socialite;
 use SocialiteProviders\Kakao\KakaoExtendSocialite;
+use SocialiteProviders\Naver\NaverExtendSocialite;
+use SocialiteProviders\Google\GoogleExtendSocialite;
 use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
@@ -32,8 +34,8 @@ class EventServiceProvider extends ServiceProvider
         // ]
         SocialiteWasCalled::class => [
             KakaoExtendSocialite::class,
-            GoogleExtendSocialite::class,
             NaverExtendSocialite::class,
+            GoogleExtendSocialite::class,
         ],
     ];
 
