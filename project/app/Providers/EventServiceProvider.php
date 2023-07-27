@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use Laravel\Socialite\Facades\Socialite;
 use SocialiteProviders\Kakao\KakaoExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,15 +21,20 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            \SocialiteProviders\Kakao\KakaoExtendSocialite::class.'@handle',
+        // \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        //     \SocialiteProviders\Kakao\KakaoExtendSocialite::class.'@handle',
+        // ],
+        // \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        //     'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
+        // ],
+        // \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+        //     'SocialiteProviders\\Naver\\NaverExtendSocialite@handle'
+        // ]
+        SocialiteWasCalled::class => [
+            KakaoExtendSocialite::class,
+            GoogleExtendSocialite::class,
+            NaverExtendSocialite::class,
         ],
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
-        ],
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\\Naver\\NaverExtendSocialite@handle'
-        ]
     ];
 
     /**
