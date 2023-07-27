@@ -399,6 +399,18 @@ class BoardController extends Controller
         // 게시글 삭제 처리
         Board::destroy($id);
 
+        // ------------- v003 add -------------
+        // 게시글에 속한 댓글 삭제 처리
+        BoardReply::where('board_id', $id)
+            ->delete();
+
+        // 게시글 알림 확인
+        Alarm::where('board_id', $id)
+            ->update([
+                'alarm_flg' => '1'
+            ]);
+        // ------------- v003 add -------------
+
         return redirect()->route('board.index');
     }
 
