@@ -51,8 +51,8 @@
                         @if($data['userKcal']->goal_kcal === 0)
                             <p class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">목표칼로리를 설정해주세요</p>
                         @else
-                            <h5 class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold">영양비율</h5>
-                            <p class="ps-md-3 ps-xl-4 ps-xxl-5">
+                            <h5 class="text-center pt-md-4 pt-xl-5 pb-md-2 pb-xl-4 fw-bold mt-3">영양비율</h5>
+                            <p class="ps-md-3 ps-xl-4 ps-xxl-5 mt-4">
                                 <span class="fc-green">●</span>
                                 칼로리 0 %
                             </p>
