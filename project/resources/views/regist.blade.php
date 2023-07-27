@@ -73,10 +73,18 @@
                 <div>
                     <label for="user_phone_num">전화번호</label>
                     <br>
-                    <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    @error('user_phone_num')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                    @if (isset($userInfo))
+                        <input type="text" name="user_name" id="user_name" value="{{ $userInfo['phonenum'] }}" required
+                        @if ($userInfo['phonenum'] !== '')
+                            readonly
+                        @endif
+                        >
+                    @else
+                        <input type="text" name="user_phone_num" id="user_phone_num"  value="{{ $errors->has('user_phone_num') ? '' : old('user_phone_num', isset($data) ? $data->user_phone_num : '') }}" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        @error('user_phone_num')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    @endif
                 </div>
                 <div>
                     <label for="user_birth">생년월일</label>
