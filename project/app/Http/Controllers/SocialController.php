@@ -34,7 +34,7 @@ class SocialController extends Controller
                 return redirect()->intended(route('home'));
             } else{
                 $error = '인증작업 에러.';
-                return redirect()->back()->with('error',$error);
+                return redirect()->route('user.login')->with('error',$error);
             }
         }
         
