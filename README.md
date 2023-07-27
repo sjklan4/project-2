@@ -1,7 +1,8 @@
-![image](https://github.com/PHP-506-wdye/project-2/assets/126547805/1497c0d8-5154-4adf-9e62-fd86c9e5c126)
+![image](https://github.com/PHP-506-wdye/project-2/assets/126547857/9f9e3d9c-5fe7-41af-99ae-856327d59aa5)
+
 
 1. 프로젝트명
-   - REBORN : 식단 관리 페이지
+   - REBORN : 식단 관리 서비스
 2. 프로젝트 설명
    - 고객의 균형 잡힌 식단을 갖도록 유도
    - 섭취한 음식들의 영양분에 집중
