@@ -5,6 +5,7 @@
  * 디렉토리     : Controllers
  * 파일명       : SocialController.php
  * 이력         : v001 0718 AR.Choe new
+ *                v002 0727 SJ.Chae add
  *****************************************************/
 
 namespace App\Http\Controllers;
@@ -44,6 +45,19 @@ class SocialController extends Controller
             'name'    => $user->getNickname(),
             'social'  => '0',
         ];
+
+        // ------- v002 add -------
+        // 네이버 로그인용 데이터 
+        $userphone = $user->user['response']['mobile'];
+        $strToArr = explode('-', $userphone);
+        $arrToPhone = implode('',$strToArr);
+
+        if($social == 'naver') {
+            $userInfo['name'] = $user->name;
+            $userInfo['phonenum'] = $arrToPhone;
+            $userInfo['social'] = '1';
+        }
+        // ------- v002 add -------
 
         // 세션에 유저 정보 저장
         session()->flash('userInfo', $userInfo);
