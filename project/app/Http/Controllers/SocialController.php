@@ -16,12 +16,12 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
-    public function redirect() {
-        return Socialite::driver('kakao')->redirect();
+    public function redirect($social) {
+        return Socialite::driver($social)->redirect();
     }
 
-    public function back() {
-        $user = Socialite::driver('kakao')->user();
+    public function back($social) {
+        $user = Socialite::driver($social)->user();
 
         // 카카오 이메일과 일치하는 유저정보 획득
         $userBase = UserInfo::where('user_email', $user->getEmail())->first();

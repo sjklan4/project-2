@@ -45,7 +45,7 @@
         <a href="{{route('user.emailverifypage')}}">회원가입</a>
     </div>
     <div class="social">
-        <a href="{{route('kakao.redirect')}}">
+        <a href="{{route('social.redirect', ['social' => 'kakao'])}}">
             <img id="kakao" src="{{ asset('img/kakao.png') }}">
         </a>
     </div>

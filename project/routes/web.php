@@ -209,8 +209,8 @@ Route::post('/setdiet', [RecommendController::class, 'setdiet'])->name('recom.se
 // 생성일       : 2023-07-18
 // ---------------------------------------------
 use App\Http\Controllers\SocialController;
-Route::get('/kakao', [SocialController::class, 'redirect'])->name('kakao.redirect');
-Route::get('/kakao/back', [SocialController::class, 'back']);
+Route::get('social/{social}', [SocialController::class, 'redirect'])->name('social.redirect');
+Route::get('social/{social}/back', [SocialController::class, 'back']);
 
 // ---------------------------------------------
 // 섹션명       : 비밀번호 찾기
