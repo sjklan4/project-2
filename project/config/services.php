@@ -39,12 +39,12 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URI')
+        'redirect' => env('GOOGLE_URL')
     ],
 
     'naver' => [
         'client_id' => env('NAVER_CLIENT_ID'),
         'client_secret' => env('NAVER_CLIENT_SECRET'),
-        'redirect' => env('NAVER_REDIRECT')
+        'redirect' => env('NAVER_URL')
     ]
 ];
