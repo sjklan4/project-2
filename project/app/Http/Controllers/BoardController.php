@@ -449,13 +449,13 @@ class BoardController extends Controller
                 ->increment('replies');
     
             // ------------- v003 add -------------
-            $alarmExist =  Alarm::where('user_id', $req->user_id)
+            $alarmExist = Alarm::where('user_id', $req->user_id)
                 ->where('board_id', $req->board_id)
-                ->get();
-
+                ->where('alarm_flg', '0')
+                ->first();
 
             // 본인이 작성한 댓글은 알림 인서트가 되지 않게 처리
-            if($req->user_id != $user_id || $alarmExist->count() < 1) {
+            if($req->user_id != $user_id && !isset($alarmExist)) {
                 // 댓글 알림 테이블 인서트
                 $alarm= new Alarm;
                 $alarm->user_id = $req->user_id;
