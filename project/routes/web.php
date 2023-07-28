@@ -163,7 +163,7 @@ use App\Http\Controllers\SearchController;
 Route::get('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list');
 Route::post('/search/list/{id}', [SearchController::class, 'searchselect'])->name('search.list.get');
 Route::get('/search/list/{date}/{time}', [SearchController::class, 'searchinsert'])->name('search.insert');
-Route::get('/search/list', [SearchController::class, 'searchdelete'])->name('search.delete');
+Route::delete('/search/list/{date}/{time}', [SearchController::class, 'searchdelete'])->name('search.delete');
 Route::post('/search/{f_id}/{c_id}', [SearchController::class, 'fooddelete'])->name('food.delete');
 Route::post('/search/{d_id}/{c_id}', [SearchController::class, 'dietdelete'])->name('diet.delete');
 

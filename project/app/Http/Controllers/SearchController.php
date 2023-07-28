@@ -51,8 +51,10 @@ class SearchController extends Controller
         // * 선택된 음식
         $seleted = DB::table('food_carts')
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.amount', 'food_infos.food_name', 'food_carts.food_id')
-        ->join('food_infos', 'food_carts.food_id', '=', 'food_infos.food_id')
+        ->join('food_infos', 'food_carts.food_id', 'food_infos.food_id')
         ->where('food_carts.user_id', $id)
+        ->where('food_carts.d_flg', $req->time)
+        ->whereDate('food_carts.created_at', $req->date)
         ->get();
 
         // * 선택된 식단
@@ -60,6 +62,8 @@ class SearchController extends Controller
         ->select('food_carts.cart_id', 'food_carts.user_id', 'food_carts.fav_id', 'fav_diets.fav_name')
         ->join('fav_diets', 'fav_diets.fav_id', '=', 'food_carts.fav_id')
         ->where('food_carts.user_id', $id)
+        ->where('food_carts.d_flg', $req->time)
+        ->whereDate('food_carts.created_at', $req->date)
         ->get();
 
         $data = [
@@ -77,8 +81,11 @@ class SearchController extends Controller
 
             $foods = DB::table('food_infos')
             ->select('food_infos.food_id', 'food_infos.user_id', 'food_infos.food_name', 'food_infos.kcal', 'food_infos.carbs', 'food_infos.protein', 'food_infos.fat', 'food_infos.sugar', 'food_infos.sodium')
-            ->leftJoin('food_carts', function($join) {
-                $join->on('food_infos.food_id', 'food_carts.food_id');
+            ->leftJoin('food_carts', function($join) use($req, $id){
+                $join->on('food_infos.food_id', 'food_carts.food_id')
+                ->where('food_carts.d_flg', $req->time)
+                ->whereDate('food_carts.created_at', $req->date)
+                ->where('food_carts.user_id', $id);
             })
             ->whereNull('food_carts.food_id')
             ->when(isset($diet), function($query) use($diet){
@@ -95,7 +102,6 @@ class SearchController extends Controller
             })
             ->whereNull('food_infos.deleted_at')
             ->get();
-
 
             return view('FoodList')
             ->with('foods', $foods)
@@ -201,7 +207,7 @@ class SearchController extends Controller
 
         return redirect()->route('home');
 
-        // ! ----------------------- 수지 부분 -----------------------
+        // * v002 delete : 더이상 쓰지 않는 부분 삭제
 
         // // 같은 식단에 속한 음식을 배열로 전환
         // $arraydiet = [];
@@ -356,10 +362,14 @@ class SearchController extends Controller
     // * -------------------- v002 delete --------------------
 
     // ! 취소 버튼 누를 시 임시 저장 데이터베이스 내용 삭제
-    public function searchdelete() {
+    public function searchdelete($date, $time) {
         $id = Auth::user()->user_id;
 
-        DB::table('food_carts')->where('user_id', $id)->delete();
+        DB::table('food_carts')
+            ->where('user_id', $id)
+            ->where('food_carts.d_flg', $time)
+            ->whereDate('food_carts.created_at', $date)
+            ->delete();
         return redirect()->route('home');
     }
 }
