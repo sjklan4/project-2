@@ -29,7 +29,7 @@ Route::resource('/board', BoardController::class);
 
 Route::get('/board/{board}/detail', [BoardController::class, 'showDetail'])->name('board.showDetail');
 Route::get('/board/{board}/list', [BoardController::class, 'indexNum'])->name('board.indexNum');
-Route::get('/board/{board}/{flg}', [BoardController::class, 'show'])->name('board.shows');
+// Route::get('/board/{board}?page={pages}', [BoardController::class, 'show'])->name('board.shows');
 Route::post('/board/reply', [BoardController::class, 'replyPost'])->name('board.replyPost');
 Route::delete('/board/reply/{board}/{id}', [BoardController::class, 'replyDelete'])->name('board.replyDelete');
 
