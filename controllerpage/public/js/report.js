@@ -57,10 +57,8 @@ function detailReport(id, board) {
                 document.getElementById('rcate').innerHTML = "비방 및 욕설";
             } else if(rea.rep_flg == 2){
                 document.getElementById('rcate').innerHTML = "허위 사실 유포";
-            } else if(rea.rep_flg == 3){
-                document.getElementById('rcate').innerHTML = "불법 도배";
             } else {
-                document.getElementById('rcate').innerHTML = "기타";
+                document.getElementById('rcate').innerHTML = "불법 도배";
             }
 
             if(rea.rep_r_content != null){

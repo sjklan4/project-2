@@ -41,6 +41,9 @@ Route::delete('/comment/massDelete', [WriteController::class, 'massDelete'])->na
 Route::get('/board/boardlist', [WriteController::class, 'boardlist'])->name('board.boardlist');
 //게시글 삭제 라우트
 Route::delete('/board/boarddel/{id}',[WriteController::class, 'boarddel'])->name('board.boarddel');
+//게시글 선택 삭제 라우트
+Route::delete('/comment/bordmassDelete', [WriteController::class, 'bordmassDelete'])->name('comment.bordmassDelete');
+
 
 // ---------------------------------------------
 // 섹션명       : 회원관리
