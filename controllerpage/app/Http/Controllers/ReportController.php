@@ -64,6 +64,16 @@ class ReportController extends Controller
             // 신고받은 회원의 게시물, 댓글 삭제
             if($replyId != null){
                 BoardReply::destroy($replyId);
+                // 게시글 테이블 댓글 수 업데이트
+                DB::table('boards')
+                ->where('board_id', $boardId)
+                ->decrement('replies');
+
+                // ------------- v003 add -------------
+                // 댓글 알림 테이블 플래그 변경
+                DB::table('alarms')
+                ->where('reply_id', $replyId)
+            ->update(['alarm_flg' => '1']);
             }else{
                 Board::destroy($boardId);
             }
