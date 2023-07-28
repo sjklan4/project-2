@@ -122,7 +122,7 @@
                         {{-- </div>  --}}
                         @endforeach
                         <div class="submitbtn">
-                            <button type="button" onclick="location.href='{{route('fav.delete', $id)}}'" id="greenBtn">삭  제</button>
+                            <button type="button" onclick="location.href='{{route('fav.delete', $id)}}'">삭  제</button>
                             <button type="submit" id="greenBtn">수  정</button>
                         </div>
                     @endif
