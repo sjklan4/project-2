@@ -501,7 +501,7 @@ class BoardController extends Controller
             // ------------- v003 add -------------
         });
 
-        return redirect()->route('board.shows', ['board' => $board, 'flg' => '1']);
+        return redirect()->route('board.show', ['board' => $board, 'page' => '1']);
     }
 
     // v002 add 식단 내려받기 
