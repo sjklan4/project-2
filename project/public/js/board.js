@@ -42,6 +42,26 @@ function likeUpDown() {
     });
 }
 
+// function reReplyFormInsert(event) {
+//     const replyBtn = event.target;
+//     const replyDiv = replyBtn.parentNode;
+    
+//     const reReplyDiv = document.createElement('div');
+//     const reReplyForm = document.createElement('form');
+//     const reReplyInput = document.createElement('input');
+//     reReplyInput.setAttribute('type', 'text');
+//     reReplyInput.setAttribute('name', 'reReply');
+//     const reReplyButton = document.createElement('button');
+//     reReplyButton.innerHTML = '작성';
+//     reReplyButton.setAttribute('id', 'greenBtn');
+    
+//     replyDiv.appendChild(reReplyDiv);
+//     reReplyDiv.appendChild(reReplyForm);
+//     reReplyForm.appendChild(reReplyInput);
+//     reReplyForm.appendChild(reReplyButton);
+//     replyBtn.disabled = true;
+// }
+
 function boardFormChk() {
     const boardTitle = document.getElementById('title');
     const boardContent = document.getElementById('content');
