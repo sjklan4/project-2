@@ -554,19 +554,31 @@ public function myboard(){
     $board_cnt = count($board);
 
     $reply = BoardReply::where('user_id', $user)->get();
-    $reply_list = BoardReply::where('user_id', $user)->orderBy('reply_id','desc')->paginate(10);
+    // $reply_list = BoardReply::where('user_id', $user)->orderBy('reply_id','desc')->paginate(10);
     $reply_cnt = count($reply);
 
 
-    return view('myboard')->with('data',$board_list)->with('boardCnt',$board_cnt)->with('reply',$reply_list)->with('replyCnt', $reply_cnt);
+    return view('myboard')->with('data',$board_list)->with('boardCnt',$board_cnt)->with('replyCnt', $reply_cnt);
+}
+
+public function myreply(){
+
+    if(!Auth::user()) {
+        return redirect()->route('user.login');
+    }
+
+    $user = Auth::user()->user_id;
+
+    $board = Board::where('user_id', $user)->get();
+    $board_cnt = count($board);
+
+    $reply = BoardReply::where('user_id', $user)->get();
+    $reply_list = BoardReply::where('user_id', $user)->orderBy('reply_id','desc')->paginate(10);
+    $reply_cnt = count($reply);
+
+    return view('myboard')->with('boardCnt',$board_cnt)->with('data',$reply_list)->with('replyCnt', $reply_cnt);
 }
 // ------------- v003 add -------------
-
-
-
-
-
-
 
 }
 

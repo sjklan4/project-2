@@ -3,7 +3,8 @@ const replyTab = document.getElementById('tab2');
 const boardBtn = document.getElementById('boardBtn');
 const replyBtn = document.getElementById('replyBtn');
 
-function tabChange1(){    
+function tabChange1(){ 
+
     replyTab.classList.add('off');
     boardTab.classList.remove('off');
     boardBtn.style.color = "#195F1C";
