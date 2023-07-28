@@ -125,9 +125,10 @@ function DietShare() {
         data['data'].forEach(fav => {
             let foodName = document.createElement('input');
             let intake = document.createElement('input');
-            // let br = document.createElement('br');
             foodName.value = fav.food_name;
             intake.value = fav.fav_f_intake;
+            foodName.readOnly = true;
+            intake.readOnly = true;
 
             Diet.appendChild(foodName);
             Diet.appendChild(intake);

@@ -2,17 +2,18 @@
 const medal = document.getElementById('medal');
 const medalChange = document.getElementById('medalChange');
 
-medal.addEventListener('mouseenter',function(){
-    medalChange.innerHTML = "칭호변경하러가기";
-    medal.style.cursor = "pointer";
-    medalChange.style.color = "green";
-    medal.style.color = "black";
-});
-
-medal.addEventListener('mouseleave',function(){
-    medalChange.innerHTML = "";
-});
-
+if(medal){
+    medal.addEventListener('mouseenter',function(){
+        medalChange.innerHTML = "칭호변경하러가기";
+        medal.style.cursor = "pointer";
+        medalChange.style.color = "green";
+        medal.style.color = "black";
+    });
+    
+    medal.addEventListener('mouseleave',function(){
+        medalChange.innerHTML = "";
+    });
+}
 // nav 하이라이트
 const navItems = document.querySelectorAll('.list-group-item');
 
